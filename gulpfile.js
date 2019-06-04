@@ -1,7 +1,7 @@
 const gulp = require('gulp');
-const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
+const cleanCSS = require('gulp-clean-css');
 
 //compile sass main file
 gulp.task('sass', function() {
@@ -12,7 +12,6 @@ gulp.task('sass', function() {
         cascade: false
     }))
     .pipe(gulp.dest('build/style'))
-    .pipe(browserSync.stream());
 });
 
 //minify css
@@ -22,15 +21,11 @@ gulp.task('minify-css', () => {
       .pipe(gulp.dest('src/style'));
 });
 
-//watching and serving sass file
-gulp.task('serve', ['sass'], function(){
-    browserSync.init({
-        server: './src'
-    });
+//default command
+gulp.task('default', ['sass', 'minify-css']);
 
-    gulp.watch(['build/style/style.sass'], ['sass']);
-    gulp.watch(['src/*.php']).on('change', browserSync.reload);
+gulp.task('sass:watch', function(){
+    gulp.watch('build/style/style.sass', ['sass']);
 });
 
-//default command
-gulp.task('default', ['serve']);
+gulp.task('mini', ['minify-css']);

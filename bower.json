@@ -1,0 +1,22 @@
+{
+  "name": "emseportal",
+  "description": "portal to hold couses together",
+  "main": "gulpfile.js",
+  "authors": [
+    "Daniel Papp"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/chef-danny-d/emsePortal",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1"
+  }
+}

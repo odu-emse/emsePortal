@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat:400,500,700|Open+Sans:400,600|Roboto:400,700&display=swap");
+body {
+  background-color: rgba(158, 162, 169, 0.25);
+  font-family: 'Roboto', sans-serif; }
+
+.row {
+  margin-left: 0;
+  margin-right: 0; }
+
+.metaDuration {
+  height: 100%;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  text-align: right; }
+
+.metaTitle {
+  padding: 0; }

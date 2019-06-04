@@ -1,0 +1,32 @@
+{
+  "name": "emseportal",
+  "version": "0.0.1",
+  "description": "portal to hold couses together",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chef-danny-d/emsePortal.git"
+  },
+  "author": "Daniel Papp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chef-danny-d/emsePortal/issues"
+  },
+  "homepage": "https://github.com/chef-danny-d/emsePortal#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "browser-sync": "^2.26.5",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-connect-php": "^1.0.3",
+    "gulp-sass": "^4.0.2"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
+}
