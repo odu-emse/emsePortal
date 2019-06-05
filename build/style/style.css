@@ -15,3 +15,6 @@ body {
 
 .metaTitle {
   padding: 0; }
+  .metaTitle .btn {
+    padding-left: 0;
+    text-align: left; }

@@ -8,7 +8,7 @@ gulp.task('sass', function() {
     return gulp.src(['build/style/style.sass'])
     .pipe(sass())
     .pipe(autoprefixer({
-        browsers: ['last 2 versions'],
+        overrideBrowserslist: ['last 5 versions', 'ie >= 7'],
         cascade: false
     }))
     .pipe(gulp.dest('build/style'))

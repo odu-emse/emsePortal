@@ -2,89 +2,112 @@
 session_start();
 
 require_once 'components/header.php';
+require_once 'components/globals.php';
 
+//importing data from XML file provided by content team
+//we could possibly make a page that takes all the parameters from the directory that was exported and INSERT INTO the modules table 
 $metaImport = simplexml_load_file("output/meta.xml") or die("Error: Cannot create object");
+
+//fetching data
+$sql = "SELECT * FROM module";
+$result = $conn->query($sql);
 ?>
-<div class="container">
+
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <form class="form-inline mr-0 ml-auto">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container-fluid">
     <h1>Overview - ENMA 600</h1>
+    <div class="row">
+        <div class="container col">
+            <div class="row">
+                <h3>Modules</h3>
+                <div id="accordion">
 
-    <div class="container">
-        <div class="row">
-            <h3>Modules</h3>
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header row" id="headingOne">
-                        <h5 class="mb-0 col metaTitle">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                <?php echo $metaImport->project['title'];?>
-                            </button>
-                        </h5>
-                        <p class="col float-right metaDuration"><?php echo $metaImport->project['duration']?></p>
-                    </div>
+<?php
+if ($result->num_rows > 0) {
+    // output data of each row
+    //opening fetch
+    while($row = $result->fetch_assoc()) {
+    //running the amount of times the while loop is gonna run which equals to the amount of rows we have in the db
+    $x++;
 
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            This is where a description of the module would be housed. All this could be stored in a database and fetched as needed. Currently this is static text. The link to access the module content is <a href="src/output/story_html5.html" target="_blank">here</a>.
+?>
+                    <div class="card">
+                        <div class="card-header row" id="heading<?php echo $x; ?>">
+                            <h5 class="mb-0 col metaTitle">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $x; ?>"
+                                    aria-expanded="true" aria-controls="collapse<?php echo $x; ?>">
+                                    <?php echo $row['name'] . " - module " . $row['number'];?>
+                                </button>
+                            </h5>
+                            <p class="col float-right metaDuration"><?php echo "Approximately " .  $row['duration'] . " minutes";?></p>
+                        </div>
+
+                        <div id="collapse<?php echo $x; ?>" class="collapse" aria-labelledby="heading<?php echo $x; ?>" data-parent="#accordion">
+                            <div class="card-body">
+                                <?php echo $row['descr'] . "<br>"; ?>
+                                <a href="<?php echo $row['link']; ?>" target="_blank">Link to the module</a>.
+                                <p>Related modules</p>
+                                <?php 
+                                    echo $row['relation0'] . " " . $row['relation1'] . " " . $row['relation2'] . " " . $row['relation3'] . " " . $row['relation4'];
+                                ?>
+                            </div>
                         </div>
                     </div>
+<?php
+    }
+} 
+else {
+    echo "0 results";
+}
+//closing of fetch
+?>
                 </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                                aria-expanded="false" aria-controls="collapseTwo">
-                                Module 2
-                            </button>
-                        </h5>
+            </div>
+        </div>
+
+        <div class="container col">
+            <div class="row">
+                <h3>Assignments</h3>
+            </div>
+        </div>
+        <div class="container col">
+            <div class="row">
+                <h3>Homework</h3>
+                <div class="row">
+                    <div class="col">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum
+                        facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere ipsam quidem, exercitationem, voluptatem tempora eum voluptatibus delectus minima nesciunt enim eaque sapiente maxime! Neque, eius asperiores nisi expedita voluptates laudantium.
-                        </div>
+                    <div class="col">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste
+                        repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                                aria-expanded="false" aria-controls="collapseThree">
-                                Module 3
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, odio fugiat minus deleniti fuga perferendis labore voluptate tempore reiciendis aut praesentium modi maiores dolores soluta beatae quis nobis ut maxime.
-                        </div>
+                    <div class="col">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem
+                        similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae
+                        quidem.
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 
-
-    <h3>Assignments</h3>
-    <h3>Homework</h3>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum
-                facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?
-            </div>
-            <div class="col">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste
-                repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.
-            </div>
-            <div class="col">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem
-                similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae
-                quidem.
-            </div>
-        </div>
-    </div>
 
 </div>
 <?php
 require_once 'components/footer.php';
+mysql_free_result($result);
+// Closing connection
+mysql_close($link);
 ?>
