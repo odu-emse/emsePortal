@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
+const minify = require('gulp-minify');
 
 //compile sass main file
 gulp.task('sass', function() {
@@ -19,6 +20,15 @@ gulp.task('minify-css', () => {
     return gulp.src('build/style/*.css')
       .pipe(cleanCSS({compatibility: 'ie8'}))
       .pipe(gulp.dest('src/style'));
+});
+
+//minify js
+gulp.task('compress', function() {
+    gulp.src('build/script/*.js')
+      .pipe(minify({
+            noSource : true
+      }))
+      .pipe(gulp.dest('src/script'))
 });
 
 //default command

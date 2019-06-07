@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once 'components/header.php';
-require_once 'components/globals.php';
+require_once '../build/components/header.php';
+require_once '../build/components/globals.php';
 
 //importing data from XML file provided by content team
 //we could possibly make a page that takes all the parameters from the directory that was exported and INSERT INTO the modules table 
@@ -40,7 +40,6 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
     //running the amount of times the while loop is gonna run which equals to the amount of rows we have in the db
     $x++;
-
 ?>
                     <div class="card">
                         <div class="card-header row" id="heading<?php echo $x; ?>">
@@ -59,7 +58,12 @@ if ($result->num_rows > 0) {
                                 <a href="<?php echo $row['link']; ?>" target="_blank">Link to the module</a>.
                                 <p>Related modules</p>
                                 <?php 
-                                    echo $row['relation0'] . " " . $row['relation1'] . " " . $row['relation2'] . " " . $row['relation3'] . " " . $row['relation4'];
+                                    $y = $x - 1;
+                                    $relation1 = $row['relation' . $y--];
+                                    echo $relation1;
+                                    //dynamically shows the relation number corresponding to variable x minus 1 cloned into variable y
+
+                                    echo $row['relation0'];
                                 ?>
                             </div>
                         </div>
@@ -106,7 +110,7 @@ else {
 
 </div>
 <?php
-require_once 'components/footer.php';
+require_once '../build/components/footer.php';
 mysql_free_result($result);
 // Closing connection
 mysql_close($link);
