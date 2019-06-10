@@ -19,7 +19,7 @@ $result = $conn->query($sql);
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <form class="form-inline mr-0 ml-auto">
+        <form class="form-inline mr-3 ml-auto">
             <input class="form-control" type="text" placeholder="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
@@ -56,14 +56,12 @@ if ($result->num_rows > 0) {
                             <div class="card-body">
                                 <?php echo $row['descr'] . "<br>"; ?>
                                 <a href="<?php echo $row['link']; ?>" target="_blank">Link to the module</a>.
-                                <p>Related modules</p>
+                                <!-- <p>Related modules</p> -->
                                 <?php 
                                     $y = $x - 1;
                                     $relation1 = $row['relation' . $y--];
-                                    echo $relation1;
+                                    //echo $relation1;
                                     //dynamically shows the relation number corresponding to variable x minus 1 cloned into variable y
-
-                                    echo $row['relation0'];
                                 ?>
                             </div>
                         </div>

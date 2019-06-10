@@ -17,7 +17,7 @@ gulp.task('sass', function() {
 
 //minify css
 gulp.task('minify-css', () => {
-    return gulp.src('build/style/*.css')
+    return gulp.src('build/style/style.css')
       .pipe(cleanCSS({compatibility: 'ie8'}))
       .pipe(gulp.dest('src/style'));
 });
@@ -38,4 +38,4 @@ gulp.task('sass:watch', function(){
     gulp.watch('build/style/style.sass', ['sass']);
 });
 
-gulp.task('mini', ['minify-css']);
+gulp.task('deploy', ['sass', 'minify-css', 'compress']);
