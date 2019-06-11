@@ -3,6 +3,7 @@ session_start();
 
 require_once '../build/components/header.php';
 require_once '../build/components/globals.php';
+require_once '../build/components/fn.php';
 
 //importing data from XML file provided by content team
 //we could possibly make a page that takes all the parameters from the directory that was exported and INSERT INTO the modules table 
@@ -11,6 +12,7 @@ $metaImport = simplexml_load_file("output/meta.xml") or die("Error: Cannot creat
 //fetching data
 $sql = "SELECT * FROM module";
 $result = $conn->query($sql);
+loginCheck();
 ?>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -19,10 +21,16 @@ $result = $conn->query($sql);
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <div class="ml-0 mr-auto">
+            <span><?php echo $_SESSION['fname']; ?></span>
+            <span><?php echo $_SESSION['lname']; ?></span>
+            <span><?php echo $_SESSION['username']; ?></span>
+        </div>
         <form class="form-inline mr-3 ml-auto">
             <input class="form-control" type="text" placeholder="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        <a class="btn btn-outline-danger" href="../build/components/logout.php">Logout</a>
     </div>
 </nav>
 <div class="container-fluid">

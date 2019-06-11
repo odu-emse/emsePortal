@@ -4,8 +4,8 @@
 
 session_start();
 
-require_once '../build/components/header.php';
-require_once '../build/components/globals.php';
+require_once 'header.php';
+require_once 'globals.php';
 
 $number = $_POST['number'];
 $name = $_POST['title'];
@@ -31,5 +31,5 @@ else {//error handling
 }
 
 header('Location: index.php');
-require_once '../build/components/footer.php'
+require_once 'footer.php'
 ?>
