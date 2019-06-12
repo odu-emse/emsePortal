@@ -27,7 +27,7 @@ loginCheck();
             <span><?php echo $_SESSION['username']; ?></span>
         </div>
         <form class="form-inline mr-3 ml-auto">
-            <input class="form-control" type="text" placeholder="Search">
+            <input class="form-control" type="text" placeholder="Search for modules">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <a class="btn btn-outline-danger" href="../build/components/logout.php">Logout</a>
