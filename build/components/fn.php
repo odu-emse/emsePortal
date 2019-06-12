@@ -6,7 +6,8 @@ function loginCheck(){
         
     }
     else{
-        header('Location: ../../src/userReg.php');
+        //header('Location: ../../src/userReg.php');
+        echo "Session failure. Check function loginCheck()";
     }
 }
 

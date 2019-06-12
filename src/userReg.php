@@ -18,11 +18,11 @@ require_once '../build/components/globals.php';
                 <input class="form-control pb-2" type="text" placeholder="Last name" name="lname" required>
 
                 <label class="pt-2 sr-only" for="">MIDAS ID</label>
-                <input class="form-control pb-2" type="number" value="" maxlength="8" placeholder="MIDAS ID (ex: 01010101)" name="midasID" required>
+                <input class="form-control pb-2" type="text" pattern="\d*" maxlength="8" placeholder="MIDAS ID (ex: 01010101)" name="midasID" required>
 
                 <label class="pt-2 sr-only" for="">MIDAS username</label>
                 <div class="input-group">
-                    <input class="form-control pb-2" type="text" maxlength="7" placeholder="example001" value="" name="username" required>
+                    <input class="form-control pb-2" type="text" maxlength="8" placeholder="example001" value="" name="username" required>
                     <div class="input-group-prepend">
                         <div class="input-group-text">@odu.edu</div>
                     </div>
