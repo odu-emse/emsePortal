@@ -14,5 +14,5 @@
 $ cd /var/www/html
 $ git clone 
 $ cd emsePortal
-$ gulp sass:watch
+$ gulp deploy
 ```

@@ -19,7 +19,7 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
                 <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $link . "/story_html5.html";?>" name="link" required>
 
                 <label class="pt-2" for="">Module number</label>
-                <input class="form-control pb-2" maxlength="50" type="number" placeholder="Enter a module number" name="number" required>
+                <input class="form-control pb-2" max="9999" min="1" type="number" placeholder="Enter a module number" name="number" required>
 
                 <label class="pt-2" for="">Module title</label>
                 <input class="form-control pb-2" maxlength="50" type="text" value="<?php echo $metaImport->project['title'];?>" name="title" required>

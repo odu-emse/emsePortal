@@ -3,6 +3,7 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const minify = require('gulp-minify');
+const rename = require('gulp-rename');
 
 //compile sass main file
 gulp.task('sass', function() {
@@ -18,7 +19,12 @@ gulp.task('sass', function() {
 //minify css
 gulp.task('minify-css', () => {
     return gulp.src('build/style/style.css')
-      .pipe(cleanCSS({compatibility: 'ie8'}))
+      .pipe(cleanCSS({
+          compatibility: 'ie8'
+        }))
+      .pipe(rename({
+          suffix: '.min'
+        }))
       .pipe(gulp.dest('src/style'));
 });
 
