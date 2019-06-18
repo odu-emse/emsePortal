@@ -18,3 +18,11 @@ body {
   .metaTitle .btn {
     padding-left: 0;
     text-align: left; }
+
+#resp ul {
+  list-style: none;
+  padding-left: 0; }
+  #resp ul li {
+    cursor: pointer; }
+    #resp ul li:hover {
+      background-color: lightblue; }
