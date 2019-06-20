@@ -19,10 +19,21 @@ body {
     padding-left: 0;
     text-align: left; }
 
-#resp ul {
-  list-style: none;
-  padding-left: 0; }
-  #resp ul li {
-    cursor: pointer; }
-    #resp ul li:hover {
-      background-color: lightblue; }
+#resp {
+  position: absolute;
+  top: 3em;
+  background-color: #fefefe;
+  border: #ced4da solid 0.5px;
+  border-top: 0;
+  z-index: 9;
+  display: none;
+  min-width: 20vw; }
+  #resp ul {
+    list-style: none;
+    padding-left: 0; }
+    #resp ul li {
+      padding: 0.25em 0.5em;
+      cursor: pointer;
+      color: black; }
+      #resp ul li:hover {
+        background-color: #00ecf5; }

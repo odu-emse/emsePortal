@@ -13,26 +13,11 @@ $metaImport = simplexml_load_file("output/meta.xml") or die("Error: Cannot creat
 $sql = "SELECT * FROM module";
 $result = $conn->query($sql);
 loginCheck();
+search($conn);
+
+include_once '../build/components/nav.php';
 ?>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <div class="ml-0 mr-auto">
-            <span><?php echo $_SESSION['fname']; ?></span>
-            <span><?php echo $_SESSION['lname']; ?></span>
-            <span><?php echo $_SESSION['username']; ?></span>
-        </div>
-        <form class="form-inline mr-3 ml-auto">
-            <input class="form-control" type="text" placeholder="Search for modules">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        <a class="btn btn-outline-danger" href="../build/components/logout.php">Logout</a>
-    </div>
-</nav>
 <div class="container-fluid">
     <h1>Overview - ENMA 600</h1>
     <div class="row">
@@ -42,6 +27,7 @@ loginCheck();
                 <div id="accordion">
 
 <?php
+$x = 0;
 if ($result->num_rows > 0) {
     // output data of each row
     //opening fetch
@@ -75,16 +61,16 @@ if ($result->num_rows > 0) {
                         </div>
                     </div>
 <?php
-    }
-} 
+    }//closing of fetch
+}//closing of if
 else {
+    //if can't show modules, error handling
     echo "0 results";
 }
-//closing of fetch
 ?>
-                </div>
-            </div>
-        </div>
+                </div><!--closing of accordion-->
+            </div><!--closing of row-->
+        </div><!--closing of container-->
 
         <div class="container col">
             <div class="row">
@@ -117,7 +103,7 @@ else {
 </div>
 <?php
 require_once '../build/components/footer.php';
-mysql_free_result($result);
+mysqli_free_result($result);
 // Closing connection
-mysql_close($link);
+mysqli_close($link);
 ?>
