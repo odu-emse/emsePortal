@@ -1,0 +1,14 @@
+{
+  "files": [
+    "build/script/app.ts"
+  ],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

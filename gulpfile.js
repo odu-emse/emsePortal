@@ -4,6 +4,11 @@ const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const minify = require('gulp-minify');
 const rename = require('gulp-rename');
+const ts = require("gulp-typescript");
+const tsProject = ts.createProject("tsconfig.json");
+
+//TODO: watch TSC file to compile into app.min.js on save
+//TODO: change min version from -min to .min
 
 //compile sass main file
 gulp.task('sass', function() {
@@ -28,6 +33,12 @@ gulp.task('minify-css', () => {
       .pipe(gulp.dest('src/style'));
 });
 
+gulp.task("tsc", function () {
+    return tsProject.src()
+        .pipe(tsProject())
+        .js.pipe(gulp.dest("dist"));
+});
+
 //minify js
 gulp.task('compress', function() {
     gulp.src('build/script/*.js')
@@ -44,4 +55,4 @@ gulp.task('sass:watch', function(){
     gulp.watch('build/style/style.sass', ['sass']);
 });
 
-gulp.task('deploy', ['sass', 'minify-css', 'compress']);
+gulp.task('deploy', ['sass', 'minify-css', 'tsc', 'compress']);

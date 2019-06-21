@@ -43,7 +43,17 @@ if ($result->num_rows > 0) {
                                     <?php echo $row['name'] . " - module " . $row['number'];?>
                                 </button>
                             </h5>
-                            <p class="col float-right metaDuration"><?php echo "Approximately " .  $row['duration'] . " minutes";?></p>
+                            <p class="col float-right metaDuration">
+                                <?php
+                                if($row['duration'] >= 60){
+                                    $row['duration'] = $row['duration'] / 60;
+                                    echo "Approximately " .  round($row['duration'], 1, PHP_ROUND_HALF_UP) . " hours";
+                                }
+                                else {
+                                    echo "Approximately " . $row['duration'] . " minutes";
+                                }
+                                ?>
+                            </p>
                         </div>
 
                         <div id="collapse<?php echo $x; ?>" class="collapse" aria-labelledby="heading<?php echo $x; ?>" data-parent="#accordion">
@@ -69,17 +79,20 @@ else {
 }
 ?>
                 </div><!--closing of accordion-->
+                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="load">Load Additional Modules</a>
             </div><!--closing of row-->
         </div><!--closing of container-->
 
         <div class="container col">
             <div class="row">
                 <h3>Assignments</h3>
+                <!--TODO: add some content here so it's not so empty-->
             </div>
         </div>
         <div class="container col">
             <div class="row">
                 <h3>Homework</h3>
+                <!--TODO: meet with chair to get feedback and add content here and what it should look like-->
                 <div class="row">
                     <div class="col">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum

@@ -1,7 +1,6 @@
 <?php
 
 function loginCheck(){
-    session_start();
     if($_SESSION['logged_in'] == true AND isset($_SESSION['username']) AND !empty($_SESSION['username'])){
         echo '<script>console.log("Session load successful.");</script>';
     }
