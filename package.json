@@ -29,6 +29,7 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-typescript": "^5.0.1",
+    "gulp-uglify": "^3.0.2",
     "typescript": "^3.5.2"
   },
   "dependencies": {

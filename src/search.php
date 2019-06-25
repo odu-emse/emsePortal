@@ -1,11 +1,11 @@
 <?php
 session_start();
-loginCheck();
 
 require_once '../build/components/header.php';
 require_once '../build/components/globals.php';
 require_once '../build/components/fn.php';
 
+loginCheck();
 include_once '../build/components/nav.php';
 
 $searchTerm = $_GET['term'];

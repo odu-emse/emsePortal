@@ -1,5 +1,6 @@
 import $ = require("jquery");
 
+//TODO: the on click <li> fill doesn't work
 $(document).ready(function(){
     $("#collapse1").addClass("show"); //accordion for loop fix
 
