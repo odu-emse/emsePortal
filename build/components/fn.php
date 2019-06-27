@@ -32,4 +32,31 @@ function search($conn){
     }
 }
 
-?>
+function completion($x, $conn){
+    $module = $_GET['module' . $x];
+
+    if($module == true){
+        $sql = $conn -> query('UPDATE module SET done = 1 WHERE uid = ' . $x);
+        echo "<script> console.log('module submission successful')</script>";
+        if(mysqli_query($conn, $sql)){
+            echo "<script> console.log('Record updated successfully')</script>";
+        }
+        else {
+            echo "<script> console.log('Error updating record: " . $conn->error . "');</script>";
+        }
+    }
+    else{
+        echo "<script> console.log('module submission not successful')</script>";
+    }
+    return $module;
+}
+
+function timeConversion($time){
+    if($time >= 60){
+        $time = $time / 60;
+        echo "Approximately " .  round($time, 1, PHP_ROUND_HALF_UP) . " hours";
+    }
+    else {
+        echo "Approximately " . $time . " minutes";
+    }
+}

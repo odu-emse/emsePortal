@@ -27,7 +27,7 @@ body {
   top: 3em;
   background-color: #fefefe;
   border: #ced4da solid 0.5px;
-  border-top: 0;
+    border-top: 0;
   z-index: 9;
   display: none;
   min-width: 20vw; }
@@ -40,3 +40,33 @@ body {
       color: black; }
       #resp ul li:hover {
         background-color: #00ecf5; }
+
+.module-check {
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5); }
+
+.assg {
+  width: 100%; }
+  .assg-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #f8f9fa;
+    padding: 0.3em 0.7em;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.25em;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+  .assg-text.small:last-child {
+    text-align: right; }
+  .assg-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row; }

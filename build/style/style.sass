@@ -31,7 +31,7 @@ body
     top: 3em
     background-color: #fefefe
     border: #ced4da solid 0.5px
-    border-top: 0
+        top: 0
     z-index: 9
     display: none
     min-width: 20vw
@@ -44,3 +44,21 @@ body
             color: black
             &:hover
                 background-color: #00ecf5
+.module-check
+    transform: scale(1.5)
+.assg
+    width: 100%
+    &-container
+        display: flex
+        background-color: #f8f9fa
+        padding: 0.3em 0.7em
+        border: 1px solid rgba(0,0,0,.125)
+            radius: 0.25em
+        flex-direction: column
+    &-text
+        &.small
+            &:last-child
+                text-align: right
+    &-wrap
+        display: flex
+        flex-direction: row
