@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var $ = require("jquery");
+//TODO: the on click <li> fill doesn't work
 $(document).ready(function () {
     $("#collapse1").addClass("show"); //accordion for loop fix
     $("#search_input").keyup(function () {

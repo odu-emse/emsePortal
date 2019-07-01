@@ -60,3 +60,15 @@ function timeConversion($time){
         echo "Approximately " . $time . " minutes";
     }
 }
+
+//TODO: turn sql fetches into functions and return the fetched array and get it to display
+function fetchModule($conn){
+    $sql = "SELECT * FROM module";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
+        while ($row = mysqli_fetch_assoc($result)) {            //loop will run until we reach the end of db rows
+            $moduleData[] = $row;
+        }
+    }
+    return $moduleData;
+}

@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="extract.php">Extraction</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="testReg.php">Assignment Addition</a>
+                </li>
             </ul>
         </div>
         <form class="form-inline mr-3 ml-auto" action="search.php" method="get">
@@ -27,6 +30,6 @@
 
             </div>
         </form>
-        <a class="btn btn-outline-danger" href="../build/components/logout.php">Logout</a>
+        <a class="btn btn-danger" href="../build/components/logout.php">Logout</a>
     </div>
 </nav>
