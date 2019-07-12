@@ -47,4 +47,4 @@ if(isset($_POST['related'])){
     }
 }
 
-header('Location: ../../src/index.php');
+header('Location: ../index.php');

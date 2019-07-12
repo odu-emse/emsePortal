@@ -30,6 +30,6 @@ else {//error handling
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-header('Location: ../../src/index.php');
+header('Location: ../index.php');
 require_once 'footer.php'
 ?>

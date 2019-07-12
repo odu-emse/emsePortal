@@ -1,14 +1,13 @@
-@import '_import'
-@import '_variable'
-
-//TODO: add bootstrap variables so we can use them on colors and such
+@import 'import/import'
+@import 'import/variable'
+@import '../../node_modules/bootstrap/scss/bootstrap'
 
 body
     background-color: $third
-    font-family: 'Roboto', sans-serif
-    //font-family: 'Open Sans', sans-serif
-    //font-family: 'Lato', sans-serif
-    //font-family: 'Montserrat', sans-serif
+    font-family: 'Roboto', 'Open Sans', 'Lato', 'Montserrat', sans-serif
+    position: relative
+    min-height: 100vh
+    padding-bottom: 5em
 .row
     margin:
         left: 0
@@ -55,6 +54,7 @@ body
         border: 1px solid rgba(0,0,0,.125)
             radius: 0.25em
         flex-direction: column
+        display: none
     &-text
         &.small
             &:last-child
@@ -90,3 +90,10 @@ body
         &:checked ~ .related-label
             background-color: #28a745
             color: #fff
+.footer
+    width: 100%
+    border-top: 1px solid $black
+    position: absolute
+    bottom: 0
+    left: 0
+    margin-top: 3em

@@ -20,7 +20,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
-    "@types/jquery": "^3.3.29",
+    "@types/jquery": "^3.3.30",
     "browser-sync": "^2.26.5",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.2.0",
@@ -33,7 +33,9 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "gulp": "^3.9.1"
+    "bootstrap": "^4.3.1",
+    "gulp": "^3.9.1",
+    "jquery": "^3.4.1"
   },
   "browserslist": [
     "last 1 version",

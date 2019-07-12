@@ -1,4 +1,4 @@
-//TODO: TSC -> import $ = require("jquery");
+//TODO: the on click <li> fill doesn't work
 
 $(document).ready(function(){
     $("#collapse1").addClass("show"); //accordion for loop fix
@@ -7,7 +7,6 @@ $(document).ready(function(){
         $("#resp").show();
 
         let query = $("#search_input").val(); //storing the inputted value in var query
-        //TODO: TSC -> let query: any = $("#search_input").val();
         query.toString();
 
         if(query.length > 2){ //send ajax request once user typed more than 2 characters
@@ -28,15 +27,24 @@ $(document).ready(function(){
             $('#resp').hide();
         }
         $('#search_input').focusout( function() { //if the user clicks outside of the input, hide results
-                $('#resp').hide();
+            $('#resp').hide();
         });
     });
-    $('.card').slice(0, 4).show(); //hide card class past 4 occurrences
-    $('#load').on('click', function (e) {
+    $('.card').slice(0, 3).show(); //hide card class past 4 occurrences
+    $('#loadModules').on('click', function (e) {
         e.preventDefault(); //won't reload page due to # as href
-        $('.card:hidden').slice(0, 4).slideDown(); //slide down 4 hidden elements
+        $('.card:hidden').slice(0, 3).slideDown(); //slide down 4 hidden elements
         if($('.card:hidden').length == 0){ //if there is no more to show, hide button
-            $('#load').fadeOut('slow');
+            $('#loadModules').fadeOut('slow');
+        }
+    });
+
+    $('.assg-container').slice(0, 1).show(); //hide card class past 4 occurrences
+    $('#loadAssg').on('click', function (e) {
+        e.preventDefault(); //won't reload page due to # as href
+        $('.assg-container:hidden').slice(0, 1).slideDown(); //slide down 4 hidden elements
+        if($('.assg-container:hidden').length == 0){ //if there is no more to show, hide button
+            $('#loadAssg').fadeOut('slow');
         }
     });
 });

@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-require_once '../build/components/header.php';
-require_once '../build/components/globals.php';
-require_once '../build/components/fn.php';
+require_once 'components/header.php';
+require_once 'components/globals.php';
+require_once 'components/fn.php';
 
 loginCheck();
-include_once '../build/components/nav.php';
+include_once 'components/nav.php';
 
 $searchTerm = $_GET['term'];
 

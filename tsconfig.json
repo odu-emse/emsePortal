@@ -1,12 +1,17 @@
 {
   "files": [
-    "build/script/app.ts"
+    "src/script/app.ts"
   ],
+  //"compileOnSave": true,
   "compilerOptions": {
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "outDir": "../src/script",
     "module": "commonjs",
     "target": "es5",
-    "sourceMap": true
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules"

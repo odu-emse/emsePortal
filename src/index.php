@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require_once '../build/components/header.php';
-require_once '../build/components/globals.php';
-require_once '../build/components/fn.php';
+require_once 'components/header.php';
+require_once 'components/globals.php';
+require_once 'components/fn.php';
 
 //importing data from XML file provided by content team
 //we could possibly make a page that takes all the parameters from the directory that was exported and INSERT INTO the modules table 
@@ -16,7 +16,7 @@ $y = 0;
 loginCheck();
 search($conn);
 
-include_once '../build/components/nav.php';
+include_once 'components/nav.php';
 ?>
 
 <div class="container-fluid">
@@ -67,7 +67,7 @@ if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
 }//end of if
 ?>
         </div><!--closing of accordion-->
-                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="load">Load Additional Modules</a>
+                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadModules">Load Additional Modules</a>
             </div><!--closing of row-->
         </div><!--closing of container-->
     <div class="container col">
@@ -85,7 +85,7 @@ if ($result->num_rows > 0) {
         //running the amount of times the while loop is gonna run which equals to the amount of rows we have in the db
         $y++;
 ?>
-            <div class="assg-container">
+            <div class="assg-container mb-1 pb-2 pt-2">
                     <h3 class="assg assg-title"><?php echo $row['name'] ?></h3>
                     <p class="assg assg-text">Description: <?php echo $row['descr'] ?></p>
                     <p class="assg assg-text">Number of questions: <?php echo $row['num_q'] ?></p>
@@ -109,7 +109,7 @@ else {
     echo "0 results";
 }
 ?>
-
+            <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
         </div><!--end of row-->
     </div><!--end of container col-->
         <div class="container col">
@@ -138,7 +138,7 @@ else {
 </div><!--end of main row-->
 </div><!--end of container-fluid-->
 <?php
-require_once '../build/components/footer.php';
+require_once 'components/footer.php';
 mysqli_free_result($result);
 // Closing connection
 mysqli_close($link);

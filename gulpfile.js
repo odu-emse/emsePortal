@@ -13,18 +13,18 @@ const tsProject = ts.createProject("tsconfig.json");
 
 //compile sass main file
 gulp.task('sass', () => {
-    return gulp.src(['build/style/style.sass'])
+    return gulp.src(['src/style/style.sass'])
     .pipe(sass())
     .pipe(autoprefixer({
         overrideBrowserslist: ['last 5 versions', 'ie >= 7'],
         cascade: false
     }))
-    .pipe(gulp.dest('build/style'))
+    .pipe(gulp.dest('src/style'))
 });
 
 //minify css
 gulp.task('minify-css', () => {
-    return gulp.src('build/style/style.css')
+    return gulp.src('src/style/style.css')
       .pipe(cleanCSS({
           compatibility: 'ie8'
         }))
@@ -39,12 +39,12 @@ gulp.task("tsc",  () => {
     //TODO: figure out this whole mess of compressing TSC and adding .min suffix to it
         .pipe(tsProject())
         .js.pipe(gulp.dest("src/script"))
-        .pipe(uglify())
+        //.pipe(uglify())
 });
 
 //minify js
 gulp.task('compress', () => {
-    gulp.src('build/script/*.js')
+    gulp.src('src/script/*.js')
       .pipe(minify({
             noSource : true
       }))
@@ -55,11 +55,11 @@ gulp.task('compress', () => {
 gulp.task('default', ['sass', 'minify-css']);
 
 gulp.task('sass:watch', () => {
-    gulp.watch('build/style/style.sass', ['sass']);
+    gulp.watch('src/style/style.sass', ['sass']);
 });
 
 gulp.task('tsc:watch', ['tsc'], () => {
-    gulp.watch('build/script/app.ts', ['tsc']);
+    gulp.watch('src/script/app.ts', ['tsc']);
 });
 
 gulp.task('deploy', ['sass', 'minify-css', 'tsc', 'compress']);

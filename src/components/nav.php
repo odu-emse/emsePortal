@@ -30,6 +30,6 @@
 
             </div>
         </form>
-        <a class="btn btn-danger" href="../build/components/logout.php">Logout</a>
+        <a class="btn btn-danger" href="components/logout.php">Logout</a>
     </div>
 </nav>

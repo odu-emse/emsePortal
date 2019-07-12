@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-require_once '../build/components/header.php';
-require_once '../build/components/globals.php';
+require_once 'components/header.php';
+require_once 'components/globals.php';
 
+require_once 'components/nav.php'
 ?>
 
 <div class="container">
@@ -24,5 +25,5 @@ require_once '../build/components/globals.php';
 
 <?php
 
-require_once '../build/components/footer.php'
+require_once 'components/footer.php'
 ?>

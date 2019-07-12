@@ -63,7 +63,7 @@ else { // Email doesn't already exist in a database, proceed...
         mail( $to, $subject, $message_body );
         */
 
-        header("Location: ../../src/index.php"); 
+        header("Location: ../index.php");
 
     }
 
