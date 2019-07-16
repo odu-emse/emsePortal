@@ -29,6 +29,12 @@ $(document).ready(function(){
         $('#search_input').focusout( function() { //if the user clicks outside of the input, hide results
             $('#resp').hide();
         });
+        $('#resp ul li').click(() => { //take <li> data and put it into the input
+            let name = $(this).text();
+            $("#search_input").val(name);
+            $("#resp").html("");
+            console.log('this')
+        });
     });
     $('.card').slice(0, 3).show(); //hide card class past 4 occurrences
     $('#loadModules').on('click', function (e) {
@@ -47,9 +53,4 @@ $(document).ready(function(){
             $('#loadAssg').fadeOut('slow');
         }
     });
-});
-$(document).on('click', 'li', function(){ //on the click of a result <li>, put that value into the input
-    let name = $(this).text();
-    $("#search_input").val(name);
-    $("#resp").html("");
 });

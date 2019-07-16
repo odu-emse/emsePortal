@@ -11,19 +11,16 @@ function loginCheck(){
 
 function search($conn){
     if(isset($_POST['search'])){
-        $response = "<ul><li>No data found</li></ul>";
+        $response = "<ul class='search--list'><li class='search--list--item'>No data found</li></ul>";
 
         $q = $conn->real_escape_string($_POST['q']);
 
         $sql = $conn->query("SELECT * FROM module WHERE name LIKE '%$q%'");
 
         if($sql->num_rows > 0){
-            $response = "<ul>";
+            $response = "<ul class='search--list'>";
             while($data  = $sql->fetch_array()){
-                $response .= "<li>". $data['name'];
-                // if($data['author'] != NULL){
-                //     $response .=" by " . $data['author'] . "</li>";
-                // }
+                $response .= "<li class='search--list--item'>". $data['name'];
             }
             $response .= "</ul>";
         }

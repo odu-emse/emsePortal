@@ -1,3 +1,5 @@
+//TODO: watch TSC file to compile into app.min.js on save
+//TODO: change min version from -min to .min
 {
   "files": [
     "src/script/app.ts"

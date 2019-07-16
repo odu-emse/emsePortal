@@ -27,7 +27,6 @@
             <input autocomplete="off" id="search_input" name="term" class="form-control" type="text" placeholder="Search for modules">
             <button class="btn btn-outline-success" type="submit">Search</button>
             <div id="resp">
-
             </div>
         </form>
         <a class="btn btn-danger" href="components/logout.php">Logout</a>
