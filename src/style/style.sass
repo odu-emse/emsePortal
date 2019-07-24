@@ -1,5 +1,5 @@
-@import 'import/import'
-@import 'import/variable'
+@import './import/import'
+@import './import/variable'
 @import '../../node_modules/bootstrap/scss/bootstrap'
 
 body
@@ -25,6 +25,12 @@ body
             text-align: left
 .card
     display: none //this is in order to make the load more fn work
+    &-header
+        display: flex
+    &-body
+        &__form
+            display: flex
+            justify-content: space-evenly
 #resp
     position: absolute
     top: 3em
@@ -48,10 +54,13 @@ body
 .assg
     width: 100%
     &-container
-        display: flex
+        &:first-child
+            display: flex
         background-color: #f8f9fa
         padding: 0.3em 0.7em
         border: 1px solid rgba(0,0,0,.125)
+            radius: 0.25em
+            radius: 0.25em
             radius: 0.25em
         flex-direction: column
         display: none
@@ -97,3 +106,5 @@ body
     bottom: 0
     left: 0
     margin-top: 3em
+
+@import './import/mobile'

@@ -21,10 +21,10 @@ include_once 'components/nav.php';
 
 <div class="container-fluid">
     <h1>Overview - ENMA 600</h1>
-    <div class="row">
-        <div class="container col">
+    <div class="row main">
+        <div class="container col main--panel">
             <div class="row flex-column">
-                <h3>Modules</h3>
+                <h3 class="main--panel__header">Modules</h3>
                 <div id="accordion">
 <?php
 
@@ -50,13 +50,16 @@ if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
                  data-parent="#accordion">
                 <div class="card-body">
                     <?php echo $row['descr'] . "<br>"; ?>
-                    <a href="<?php echo $row['link']; ?>" target="_blank">Access the module here.</a>
-                    <!--TODO: if module complete == true echo checked and disabled checkbox-->
-                    <form action="" class="float-right" method="get">
-                        <button class="btn btn-primary" type="submit" name="<?php echo "module" . $x; ?>" value="true">
-                            Mark module complete
-                        </button>
-                    </form>
+                    <div class="card-body__form">
+                        <a href="<?php echo $row['link']; ?>" target="_blank" class="btn btn-primary card-body__form--access">Access the module here.</a>
+                        <!--TODO: if module complete == true echo checked and disabled checkbox-->
+                        <form class="card-body__form--form" method="get">
+                            <button class="btn btn-outline-secondary card-body__form--comp" type="submit" name="<?php echo "module" . $x; ?>" value="true">
+                                Mark module complete
+                            </button>
+                        </form>
+                    </div>
+
                     <?php completion($x, $conn);?>
                 </div><!--end of card-body-->
             </div><!--end of collapse-->
@@ -70,9 +73,9 @@ if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
                 <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadModules">Load Additional Modules</a>
             </div><!--closing of row-->
         </div><!--closing of container-->
-    <div class="container col">
+    <div class="container col main--panel">
         <div class="row flex-column">
-        <h3>Available Assignments</h3>
+        <h3 class="main--panel__header">Available Assignments</h3>
 
 
 <?php
@@ -112,9 +115,9 @@ else {
             <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
         </div><!--end of row-->
     </div><!--end of container col-->
-        <div class="container col">
+        <div class="container col main--panel">
             <div class="row">
-                <h3>Homework</h3>
+                <h3 class="main--panel__header">Homework</h3>
                 <!--TODO: meet with chair to get feedback and add content here and what it should look like-->
                 <div class="row">
                     <div class="col">

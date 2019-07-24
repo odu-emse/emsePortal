@@ -14,10 +14,10 @@ gulp.task('php', () => {
 //live reload php server
 gulp.task('connect-sync', () => {
     php.server({}, () => {
-        browserSync.init(['**/*.php', 'src/style/*.sass'],{
+        browserSync.init(['**/*.php', 'src/style/*.sass', 'src/style/import/*.sass'],{
             baseDir: "src",
             notify:true,
-            open: true,
+            open: false,
             port: '8010',
             proxy: 'localhost/projects/emsePortal/src'
         });
@@ -52,5 +52,5 @@ gulp.task('sass', () => {
 gulp.task('default', ['connect-sync', 'sass:watch']);
 
 gulp.task('sass:watch', () => {
-    gulp.watch('src/style/style.sass', ['sass']);
+    gulp.watch(['src/style/style.sass', "src/style/import/*.sass"], ['sass']);
 });

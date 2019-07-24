@@ -36,7 +36,7 @@ $(document).ready(function(){
             console.log('this')
         });
     });
-    $('.card').slice(0, 3).show(); //hide card class past 4 occurrences
+    $('.card').slice(0, 3).css('display', 'flex'); //hide card class past 4 occurrences
     $('#loadModules').on('click', function (e) {
         e.preventDefault(); //won't reload page due to # as href
         $('.card:hidden').slice(0, 3).slideDown(); //slide down 4 hidden elements
@@ -45,7 +45,7 @@ $(document).ready(function(){
         }
     });
 
-    $('.assg-container').slice(0, 1).show(); //hide card class past 4 occurrences
+    $('.assg-container').slice(0, 1).css('display', 'flex'); //hide card class past 4 occurrences
     $('#loadAssg').on('click', function (e) {
         e.preventDefault(); //won't reload page due to # as href
         $('.assg-container:hidden').slice(0, 1).slideDown(); //slide down 4 hidden elements

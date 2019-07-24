@@ -1,0 +1,42 @@
+@import 'mixin'
+$space-1: map-get($spacers, 1)
+$space-2: map-get($spacers, 2)
+$space-3: map-get($spacers, 3)
+$space-4: map-get($spacers, 4)
+$space-5: map-get($spacers, 5)
+
+@include respond-below(md)
+    .card
+        &-header
+            display: flex
+            flex-direction: column
+            flex-wrap: wrap
+            text-align: center
+        &-body
+            &__form
+                flex-direction: column
+                &--comp
+                    margin-top: $space-1
+                    width: 100%
+    .main
+        display: flex
+        flex-direction: column
+        &--panel
+            margin-bottom: $space-3
+            &__header
+                text-align: center
+                display: inline-block
+    .search
+        display: flex
+        &--button
+            flex: 1
+        &--input
+            flex: 3
+        &--logout
+            display: block
+            width: 100%
+            margin-top: $space-2
+    .metaDuration
+        text-align: center
+
+@include respond-below(xs)
