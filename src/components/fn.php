@@ -34,7 +34,6 @@ function completion($x, $conn){
 
     if($module == true){
         $sql = $conn -> query('UPDATE module SET done = 1 WHERE uid = ' . $x);
-        echo "<script> console.log('module submission successful')</script>";
         if(mysqli_query($conn, $sql)){
             echo "<script> console.log('Record updated successfully')</script>";
         }
@@ -42,10 +41,22 @@ function completion($x, $conn){
             echo "<script> console.log('Error updating record: " . $conn->error . "');</script>";
         }
     }
-    else{
-        echo "<script> console.log('module submission not successful')</script>";
-    }
     return $module;
+}
+
+function access($x, $conn){
+    $mod = $_GET['access' . $x];
+    if($mod == true){
+        echo "<script> console.log('test')</script>";
+        $sql = $conn -> query('SELECT link FROM module WHERE uid = ' . $x);
+        if(mysqli_query($conn, $sql)){
+            echo "<script> console.log('yes')</script>";
+        }
+        else {
+            echo "<script> console.log('error: " . $conn->error . "');</script>";
+        }
+    }
+    return $mod;
 }
 
 function timeConversion($time){

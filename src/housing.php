@@ -4,19 +4,22 @@ session_start();
 require_once 'components/header.php';
 require_once 'components/globals.php';
 require_once 'components/fn.php';
-
-//fetching data
-$sql = "SELECT * FROM module";
-$result = $conn->query($sql);
 loginCheck();
 search($conn);
+require_once 'components/nav.php';
 
-include_once 'components/nav.php';
+$access = $_GET['access'];
 
-if ($result->num_rows > 0) {//output data of each row & opening fetch
-    while ($row = $result->fetch_assoc()) {//running the amount of times the while loop is gonna run which equals to the amount of rows we have in the db
-        print_r($row['link']);
-        //TODO: include the file from DB fetch
+//fetching data
+$sql  = 'SELECT * FROM `module` WHERE `uid` = ' . $access;
+$result = $conn->query($sql);
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+        <iframe class="access" src='<?=$row['link']?>'></iframe>
+<?php
     }
-
 }
+
+require_once 'components/footer.php';
+?>

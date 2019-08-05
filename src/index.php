@@ -51,16 +51,20 @@ if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
                 <div class="card-body">
                     <?php echo $row['descr'] . "<br>"; ?>
                     <div class="card-body__form">
-                        <a href="<?php echo $row['link']; ?>" target="_blank" class="btn btn-primary card-body__form--access">Access the module here.</a>
+<!--                        <a href="--><?php //echo $row['link']; ?><!--" target="_blank" class="">Access the module here.</a>-->
                         <!--TODO: if module complete == true echo checked and disabled checkbox-->
+                        <form class="card-body__form--form" action="housing.php" method="get">
+                            <button class="btn btn-primary card-body__form--access" type="submit" name="access" value="<?php echo $row['uid'];?>">
+                                Access the module
+                            </button>
+                        </form>
                         <form class="card-body__form--form" method="get">
                             <button class="btn btn-outline-secondary card-body__form--comp" type="submit" name="<?php echo "module" . $x; ?>" value="true">
                                 Mark module complete
                             </button>
+                            <?php completion($x, $conn);?>
                         </form>
                     </div>
-
-                    <?php completion($x, $conn);?>
                 </div><!--end of card-body-->
             </div><!--end of collapse-->
         </div><!--end of card-->

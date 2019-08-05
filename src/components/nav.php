@@ -26,8 +26,7 @@
         <form class="form-inline mr-3 ml-auto search" action="search.php" method="get">
             <input autocomplete="off" required id="search_input" name="term" class="form-control search--input" type="text" placeholder="Search for modules">
             <button class="btn btn-outline-success search--button" type="submit">Search</button>
-            <div id="resp">
-            </div>
+            <div id="resp"></div>
             <a class="btn btn-danger search--logout" href="components/logout.php">Logout</a>
         </form>
     </div>
