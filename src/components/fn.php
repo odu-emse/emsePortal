@@ -1,5 +1,4 @@
 <?php
-
 function loginCheck(){
     if($_SESSION['logged_in'] == true AND isset($_SESSION['username']) AND !empty($_SESSION['username'])){
         //echo '<script>console.log("Session load successful.");</script>';
@@ -24,7 +23,6 @@ function search($conn){
             }
             $response .= "</ul>";
         }
-
         exit($response);
     }
 }
@@ -44,10 +42,6 @@ function completion($x, $conn){
     return $module;
 }
 
-function access($x, $conn){
-
-}
-
 function disable($z){
     if($z == 1){
         echo 'disabled';
@@ -64,7 +58,35 @@ function timeConversion($time){
     }
 }
 
-//TODO: turn sql fetches into functions and return the fetched array and get it to display
-function fetchModule($conn){
+function getRelated($conn, $y){
+    $sql = 'SELECT * FROM ' . $y;
+    $result = $conn -> query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '<li>' . $row['name'] . '</li>';
+        }
+    }
+    else{
+        echo 'error';
+    }
+}
 
+function fetch($conn, $table, $file){
+    $sql = 'SELECT * FROM ' . $table;
+    $result = $conn -> query($sql);
+    if ($conn->connect_error) {
+        echo 'check connection';
+    }
+    else {
+        if ($result->num_rows > 0) {
+            $actualFile = 'components/' . $file . '.php';
+            if (file_exists($actualFile)) {
+                require_once $actualFile;
+            } else {
+                echo 'check file name';
+            }
+        } else {
+            echo 'check table name';
+        }
+    }
 }
