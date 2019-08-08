@@ -1,7 +1,7 @@
 {
   "name": "emseportal",
-  "version": "0.0.1",
-  "description": "portal to hold couses together",
+  "version": "0.0.2",
+  "description": "portal to hold courses together",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,16 +20,22 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
-    "browser-sync": "^2.26.5",
+    "@types/jquery": "^3.3.30",
+    "browser-sync": "^2.26.7",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-connect-php": "^1.0.3",
     "gulp-minify": "^3.1.0",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2"
+    "gulp-sass": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
+    "gulp-uglify": "^3.0.2",
+    "typescript": "^3.5.2"
   },
   "dependencies": {
-    "gulp": "^3.9.1"
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1"
   },
   "browserslist": [
     "last 1 version",

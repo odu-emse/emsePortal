@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once '../build/components/header.php';
-require_once '../build/components/globals.php';
+require_once 'components/header.php';
+require_once 'components/globals.php';
 
 $link = $_POST['link'];
 
@@ -14,7 +14,7 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
     <div class="row">
         <div class="col mr-auto ml-auto">
             <h3  class="text-center">Review the data extracted</h3>
-            <form class="form-group d-flex justify-content-center flex-column text-center" action="../build/components/process.php" method="post">
+            <form class="form-group d-flex justify-content-center flex-column text-center" action="components/process.php" method="post">
                 <label class="pt-2" for="">Module link</label>
                 <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $link . "/story_html5.html";?>" name="link" required>
 
@@ -51,5 +51,5 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
 
 
 <?php
-require_once '../build/components/footer.php'
+require_once 'components/footer.php'
 ?>

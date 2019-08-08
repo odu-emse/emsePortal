@@ -1,123 +1,151 @@
 <?php
 session_start();
 
-require_once '../build/components/header.php';
-require_once '../build/components/globals.php';
-require_once '../build/components/fn.php';
+require_once 'components/header.php';
+require_once 'components/globals.php';
+require_once 'components/fn.php';
 
 //importing data from XML file provided by content team
 //we could possibly make a page that takes all the parameters from the directory that was exported and INSERT INTO the modules table 
 $metaImport = simplexml_load_file("output/meta.xml") or die("Error: Cannot create object");
 
-//fetching data
-$sql = "SELECT * FROM module";
-$result = $conn->query($sql);
+//declaring counter
+$x = 0;
+$y = 0;
+
 loginCheck();
+search($conn);
+
+include_once 'components/nav.php';
 ?>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <div class="ml-0 mr-auto">
-            <span><?php echo $_SESSION['fname']; ?></span>
-            <span><?php echo $_SESSION['lname']; ?></span>
-            <span><?php echo $_SESSION['username']; ?></span>
-        </div>
-        <form class="form-inline mr-3 ml-auto">
-            <input class="form-control" type="text" placeholder="Search for modules">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        <a class="btn btn-outline-danger" href="../build/components/logout.php">Logout</a>
-    </div>
-</nav>
 <div class="container-fluid">
     <h1>Overview - ENMA 600</h1>
-    <div class="row">
-        <div class="container col">
-            <div class="row">
-                <h3>Modules</h3>
+    <div class="row main">
+        <div class="container col main--panel">
+            <div class="row flex-column">
+                <h3 class="main--panel__header">Modules</h3>
                 <div id="accordion">
+<?php
+
+$sql = "SELECT * FROM module";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
+    while ($row = mysqli_fetch_assoc($result)) {            //loop will run until we reach the end of db rows
+    $x++;
+?>
+
+        <div class="card">
+            <div class="card-header row" id="heading<?php echo $x; ?>">
+                <h5 class="mb-0 col metaTitle">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $x; ?>"
+                            aria-expanded="true" aria-controls="collapse<?php echo $x; ?>">
+                        <?php echo $row['name'] . " - module " . $row['number']; ?>
+                    </button>
+                </h5>
+                <p class="col float-right metaDuration"><?php timeConversion($row['duration']); ?></p>
+            </div>
+
+            <div id="collapse<?php echo $x; ?>" class="collapse" aria-labelledby="heading<?php echo $x; ?>"
+                 data-parent="#accordion">
+                <div class="card-body">
+                    <?php echo $row['descr'] . "<br>"; ?>
+                    <div class="card-body__form">
+<!--                        <a href="--><?php //echo $row['link']; ?><!--" target="_blank" class="">Access the module here.</a>-->
+                        <form class="card-body__form--form" action="housing.php" method="get">
+                            <button class="btn btn-primary card-body__form--access" type="submit" name="access" value="<?php echo $row['uid'];?>">
+                                Access the module
+                            </button>
+                        </form>
+                        <form class="card-body__form--form" method="get">
+                            <button class="btn btn-outline-secondary card-body__form--comp" type="submit" name="<?php echo "module" . $x; ?>" value="true" <?php disable($row['done'])  ?>>
+                                Mark module complete
+                            </button>
+                            <?php completion($x, $conn);?>
+                        </form>
+                    </div>
+                </div><!--end of card-body-->
+            </div><!--end of collapse-->
+        </div><!--end of card-->
+
+        <?php
+    }//end of while
+}//end of if
+?>
+        </div><!--closing of accordion-->
+                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadModules">Load Additional Modules</a>
+            </div><!--closing of row-->
+        </div><!--closing of container-->
+    <div class="container col main--panel">
+        <div class="row flex-column">
+        <h3 class="main--panel__header">Available Assignments</h3>
+
 
 <?php
+$sql = "SELECT * FROM assg";
+$result = $conn -> query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     //opening fetch
     while($row = $result->fetch_assoc()) {
-    //running the amount of times the while loop is gonna run which equals to the amount of rows we have in the db
-    $x++;
+        //running the amount of times the while loop is gonna run which equals to the amount of rows we have in the db
+        $y++;
 ?>
-                    <div class="card">
-                        <div class="card-header row" id="heading<?php echo $x; ?>">
-                            <h5 class="mb-0 col metaTitle">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $x; ?>"
-                                    aria-expanded="true" aria-controls="collapse<?php echo $x; ?>">
-                                    <?php echo $row['name'] . " - module " . $row['number'];?>
-                                </button>
-                            </h5>
-                            <p class="col float-right metaDuration"><?php echo "Approximately " .  $row['duration'] . " minutes";?></p>
-                        </div>
-
-                        <div id="collapse<?php echo $x; ?>" class="collapse" aria-labelledby="heading<?php echo $x; ?>" data-parent="#accordion">
-                            <div class="card-body">
-                                <?php echo $row['descr'] . "<br>"; ?>
-                                <a href="<?php echo $row['link']; ?>" target="_blank">Link to the module</a>.
-                                <!-- <p>Related modules</p> -->
-                                <?php 
-                                    $y = $x - 1;
-                                    $relation1 = $row['relation' . $y--];
-                                    //echo $relation1;
-                                    //dynamically shows the relation number corresponding to variable x minus 1 cloned into variable y
-                                ?>
-                            </div>
-                        </div>
+            <div class="assg-container mb-1 pb-2 pt-2">
+                    <h3 class="assg assg-title"><?php echo $row['name'] ?></h3>
+                    <p class="assg assg-text">Description: <?php echo $row['descr'] ?></p>
+                    <p class="assg assg-text">Number of questions: <?php echo $row['num_q'] ?></p>
+                    <p class="assg assg-text">Estimated time: <?php timeConversion($row['est_time']); ?> </p>
+                    <div class="assg assg-wrap">
+                        <p class="assg assg-text assg-text__help small">Related module(s): <?php echo $row['related_module'] ?></p>
+                        <p class="assg assg-text assg-text__help small">Assigned by: <?php echo $row['author'] ?></p>
                     </div>
+                    <form action="assg.php" method="get">
+                        <!--TODO: get the info passed from this form and display the appropriate data-->
+                        <!--TODO: add related modules list here!!!-->
+                        <button class="assg btn btn-primary float-right" type="submit" name="<?php echo $row['name']. "?uid=" . $row['uid'];?>">Start post test assignment</button>
+                    </form>
+            </div> <!--end of assg container-->
+
 <?php
-    }
-} 
+    }//closing of fetch of assg
+}//closing of if of assg
 else {
+    //if can't show assgs, error handling
     echo "0 results";
 }
-//closing of fetch
 ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="container col">
-            <div class="row">
-                <h3>Assignments</h3>
-            </div>
-        </div>
-        <div class="container col">
-            <div class="row">
-                <h3>Homework</h3>
-                <div class="row">
-                    <div class="col">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum
-                        facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?
-                    </div>
-                    <div class="col">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste
-                        repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.
-                    </div>
-                    <div class="col">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem
-                        similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae
-                        quidem.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>    
+            <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
+        </div><!--end of row-->
+    </div><!--end of container col-->
+<!--        <div class="container col main--panel">-->
+<!--            <div class="row">-->
+<!--                <h3 class="main--panel__header">Homework</h3>-->
+                    <!--TODO: meet with chair to get feedback and add content here and what it should look like-->
+<!--                <div class="row">-->
+<!--                    <div class="col">-->
+<!--                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum-->
+<!--                        facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste-->
+<!--                        repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem-->
+<!--                        similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae-->
+<!--                        quidem.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
 
-</div>
+</div><!--end of main row-->
+</div><!--end of container-fluid-->
 <?php
-require_once '../build/components/footer.php';
-mysql_free_result($result);
+require_once 'components/footer.php';
+mysqli_free_result($result);
 // Closing connection
-mysql_close($link);
+mysqli_close($link);
 ?>
