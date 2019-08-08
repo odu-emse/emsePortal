@@ -8,11 +8,11 @@
 * PHP >= v7.0
 * apache2
 
-*start up your mySQL server before completing the steps below*
+*start up your MySQL server before completing the steps below*
 
 ```shell
 $ cd /var/www/html
 $ git clone 
 $ cd emsePortal
-$ gulp deploy
+$ gulp default
 ```
