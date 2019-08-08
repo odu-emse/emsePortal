@@ -52,14 +52,13 @@ if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
                     <?php echo $row['descr'] . "<br>"; ?>
                     <div class="card-body__form">
 <!--                        <a href="--><?php //echo $row['link']; ?><!--" target="_blank" class="">Access the module here.</a>-->
-                        <!--TODO: if module complete == true echo checked and disabled checkbox-->
                         <form class="card-body__form--form" action="housing.php" method="get">
                             <button class="btn btn-primary card-body__form--access" type="submit" name="access" value="<?php echo $row['uid'];?>">
                                 Access the module
                             </button>
                         </form>
                         <form class="card-body__form--form" method="get">
-                            <button class="btn btn-outline-secondary card-body__form--comp" type="submit" name="<?php echo "module" . $x; ?>" value="true">
+                            <button class="btn btn-outline-secondary card-body__form--comp" type="submit" name="<?php echo "module" . $x; ?>" value="true" <?php disable($row['done'])  ?>>
                                 Mark module complete
                             </button>
                             <?php completion($x, $conn);?>
@@ -104,7 +103,7 @@ if ($result->num_rows > 0) {
                     <form action="assg.php" method="get">
                         <!--TODO: get the info passed from this form and display the appropriate data-->
                         <!--TODO: add related modules list here!!!-->
-                        <button class="assg btn btn-primary float-right" type="submit" name="<?php echo urlencode($row['name']. "?uid=" . $row['uid']);?>">Start post test assignment</button>
+                        <button class="assg btn btn-primary float-right" type="submit" name="<?php echo $row['name']. "?uid=" . $row['uid'];?>">Start post test assignment</button>
                     </form>
             </div> <!--end of assg container-->
 
@@ -119,27 +118,27 @@ else {
             <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
         </div><!--end of row-->
     </div><!--end of container col-->
-        <div class="container col main--panel">
-            <div class="row">
-                <h3 class="main--panel__header">Homework</h3>
-                <!--TODO: meet with chair to get feedback and add content here and what it should look like-->
-                <div class="row">
-                    <div class="col">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum
-                        facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?
-                    </div>
-                    <div class="col">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste
-                        repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.
-                    </div>
-                    <div class="col">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem
-                        similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae
-                        quidem.
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="container col main--panel">-->
+<!--            <div class="row">-->
+<!--                <h3 class="main--panel__header">Homework</h3>-->
+                    <!--TODO: meet with chair to get feedback and add content here and what it should look like-->
+<!--                <div class="row">-->
+<!--                    <div class="col">-->
+<!--                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum-->
+<!--                        facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste-->
+<!--                        repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.-->
+<!--                    </div>-->
+<!--                    <div class="col">-->
+<!--                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem-->
+<!--                        similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae-->
+<!--                        quidem.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
 
 </div><!--end of main row-->

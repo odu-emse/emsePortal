@@ -53,4 +53,8 @@ $(document).ready(function(){
             $('#loadAssg').fadeOut('slow');
         }
     });
+
+    if($('.card-body__form--comp').prop('disabled')){ //checks if the module completion button is disabled due to completion stored in the db
+        $('.card-body__form--comp').addClass('disabled'); //adds class for visual purposes
+    }
 });

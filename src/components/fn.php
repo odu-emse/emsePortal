@@ -2,10 +2,10 @@
 
 function loginCheck(){
     if($_SESSION['logged_in'] == true AND isset($_SESSION['username']) AND !empty($_SESSION['username'])){
-        echo '<script>console.log("Session load successful.");</script>';
+        //echo '<script>console.log("Session load successful.");</script>';
     }
     else{
-        echo '<script>console.log("Session failure. Check function loginCheck()");</script>';
+        //echo '<script>console.log("Session failure. Check function loginCheck()");</script>';
     }
 }
 
@@ -45,18 +45,13 @@ function completion($x, $conn){
 }
 
 function access($x, $conn){
-    $mod = $_GET['access' . $x];
-    if($mod == true){
-        echo "<script> console.log('test')</script>";
-        $sql = $conn -> query('SELECT link FROM module WHERE uid = ' . $x);
-        if(mysqli_query($conn, $sql)){
-            echo "<script> console.log('yes')</script>";
-        }
-        else {
-            echo "<script> console.log('error: " . $conn->error . "');</script>";
-        }
+
+}
+
+function disable($z){
+    if($z == 1){
+        echo 'disabled';
     }
-    return $mod;
 }
 
 function timeConversion($time){
@@ -71,12 +66,5 @@ function timeConversion($time){
 
 //TODO: turn sql fetches into functions and return the fetched array and get it to display
 function fetchModule($conn){
-    $sql = "SELECT * FROM module";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0) {        //fetch data if there are any rows
-        while ($row = mysqli_fetch_assoc($result)) {            //loop will run until we reach the end of db rows
-            $moduleData[] = $row;
-        }
-    }
-    return $moduleData;
+
 }
