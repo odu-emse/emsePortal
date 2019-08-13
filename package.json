@@ -20,6 +20,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
+    "@fortawesome/fontawesome-free": "^5.10.1",
     "@types/jquery": "^3.3.30",
     "browser-sync": "^2.26.7",
     "gulp": "^3.9.1",

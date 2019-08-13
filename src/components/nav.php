@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="index.php">
+<nav class="navbar navbar-expand-md navbar-light container ml-auto mr-auto">
+    <a class="navbar-brand ml-3" href="index.php">
         <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png" height="30" class="d-inline-block" alt="">
     </a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
@@ -33,11 +33,5 @@
                 </li>
             </ul>
         </div>
-        <form class="form-inline ml-0 search" action="search.php" method="get">
-            <input autocomplete="off" required id="search_input" name="term" class="form-control search--input" type="text" placeholder="Search for modules">
-            <button class="btn btn-outline-success search--button" type="submit">Search</button>
-            <div id="resp"></div>
-            <a class="btn btn-danger search--logout" href="components/logout.php">Logout</a>
-        </form>
     </div>
 </nav>

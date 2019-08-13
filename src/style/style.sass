@@ -8,6 +8,8 @@ body
     position: relative
     min-height: 100vh
     padding-bottom: 5em
+.navbar
+    background-color: transparent
 .row
     margin:
         left: 0
@@ -37,7 +39,7 @@ body
                     text-decoration: line-through
 #resp
     position: absolute
-    top: 3em
+    top: 100%
     background-color: $gray-100
     border: $gray-300 solid 0.5px
         top: 0
@@ -63,8 +65,6 @@ body
         background-color: #f8f9fa
         padding: 0.3em 0.7em
         border: 1px solid rgba(0,0,0,.125)
-            radius: 0.25em
-            radius: 0.25em
             radius: 0.25em
         flex-direction: column
         display: none
@@ -116,5 +116,69 @@ body
     width: 100%
     min-height: 80vh
     max-height: stretch
+.jumb
+    padding-top: 1em
+    display: flex
+    align-items: center
+    &--text
+        &--title
+            &:after
+                display: block
+                margin:
+                    bottom: 0.25em
+                    top: 0.25em
+                content: ''
+                width: 10%
+                height: 0.15em
+                background-color: $success
+    &--img
+        display: flex
+        justify-content: center
+        padding-left: 0
+        padding-right: 0
+        &__ill
+            width: 100%
+.sort
+    border-top: 1px solid $gray-400
+    border-bottom: 1px solid $gray-400
+    padding: 0.75em 0.25em
+    margin-top: 2em
+    display: flex
+    justify-items: center
+    align-items: center
+    &--wrapper
+        position: relative
+    &--select
+        background: transparent
+        border: 0
+        width: 100%
+        font-size: 1.1em
+        appearance: none
+        &:after
+            display: block
+            content: ''
+            width: 1em
+            height: 1em
+            background-color: aqua
+    &--options
+        &__lvl, &__module, &__topic
+            display: flex
+            align-items: center
+        &--wrapper
+            border: 0
+                right: 1.5px solid $gray-500
+            position: relative
+            width: 100%
+            &:after
+                display: block
+                content: "\f078"
+                font: normal normal normal 14px/1 FontAwesome
+                height: 1em
+                width: 1em
+                position: absolute
+                right: 0
+                top: calc(50% - 0.5em)
+                margin-right: 1em
+                z-index: -1
 
 @import './import/mobile'

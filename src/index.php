@@ -5,10 +5,6 @@ require_once 'components/header.php';
 require_once 'components/globals.php';
 require_once 'components/fn.php';
 
-//importing data from XML file provided by content team
-//we could possibly make a page that takes all the parameters from the directory that was exported and INSERT INTO the modules table 
-$metaImport = simplexml_load_file("output/meta.xml") or die("Error: Cannot create object");
-
 //declaring counter
 $x = 0;
 $y = 0;
@@ -18,19 +14,64 @@ search($conn);
 
 include_once 'components/nav.php';
 ?>
-    <div class="jumb">
-        <div class="jumb--text">
-            <h3 class="jumb--text--title">This Title</h3>
-            <p class="jumb--text--paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto incidunt possimus quis, quo rem repudiandae sint tempore temporibus totam. Ea enim eveniet ipsam, iusto laborum numquam porro praesentium reprehenderit?</p>
-            <p class="jumb--text--cta">Call to action</p>
+    <div class="jumb row container ml-auto mr-auto">
+        <div class="jumb--text col">
+            <h3 class="jumb--text--title">Carry on learning</h3>
+            <p class="jumb--text--paragraph">Theoretically the image on the right would be a module that the user haven't completed but started already. The button is a call to action that would link them to the actual housing page. The problem with this is that we still can't access the progress cookies that Articulate stores in the browser.</p>
+            <a class="btn btn-success jumb--text--cta" href="#">Continue module</a>
         </div>
-        <div class="jumb--img">
-            <img src="https://via.placeholder.com/728x90.png?text=Illustration+Comes+Here" alt="">
+        <div class="jumb--img col">
+            <img class="jumb--img__ill" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="">
         </div>
     </div>
+<div class="sort row">
+    <div class="sort--wrapper container d-flex">
+        <div class="sort--options col row pl-0 pr-0">
+            <div class="sort--options__lvl col">
+                <div class="sort--options--wrapper">
+                    <label class="sort--label sr-only" for="">Level of difficulty</label>
+                    <select class="sort--select" name="diff" id="">
+                        <option value="false">Level of difficulty</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="extreme">Extreme</option>
+                    </select>
+                </div>
+            </div>
+            <div class="sort--options__module col">
+                <div class="sort--options--wrapper">
+                    <label class="sort--label sr-only" for="">Module duration</label>
+                    <select class="sort--select" name="dur" id="">
+                        <option value="false">Module duration</option>
+                        <option value="below10">< 10</option>
+                        <option value="btw2030">20 - 30</option>
+                        <option value="over30">> 30</option>
+                    </select>
+                </div>
+            </div>
+            <div class="sort--options__topic col">
+                <div class="sort--options--wrapper">
+                    <label class="sort--label sr-only" for="">Topic</label>
+                    <select class="sort--select" name="topic" id="">
+                        <option value="false">Topic</option>
+                        <option value="acct">Accounting</option>
+                        <option value="pmt">Project Management</option>
+                        <option value="prog">Programming</option>
+                        <option value="math">Mathematics</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <form class="form-inline ml-0 search sort--search" action="search.php" method="get">
+            <input autocomplete="off" required id="search_input" name="term" class="form-control search--input" type="text" placeholder="Search for modules">
+            <button class="btn btn-success search--button" type="submit">Search</button>
+            <div id="resp"></div>
+        </form>
+    </div>
+</div>
 
-<div class="container-fluid">
-    <h1>Overview - ENMA 600</h1>
+<div class="container">
+    <h1 class="ml-3">Overview - ENMA 600</h1>
     <div class="row main">
         <div class="container col main--panel">
             <div class="row flex-column">
@@ -48,34 +89,9 @@ include_once 'components/nav.php';
             <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
         </div><!--end of row-->
     </div><!--end of container col-->
-<!--        <div class="container col main--panel">-->
-<!--            <div class="row">-->
-<!--                <h3 class="main--panel__header">Homework</h3>-->
-                    <!--TODO: meet with chair to get feedback and add content here and what it should look like-->
-<!--                <div class="row">-->
-<!--                    <div class="col">-->
-<!--                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique in perspiciatis ut ipsa neque ea eum-->
-<!--                        facere veniam voluptatem ipsam nesciunt eligendi sequi illo sed porro tempore quia, aspernatur minima?-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui quis ducimus eveniet tempora pariatur iste-->
-<!--                        repellat aut nesciunt possimus error. Atque optio soluta quo cum eos? Error quae esse architecto.-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium omnis, fugit nemo in alias autem-->
-<!--                        similique ratione enim modi magnam, ab dicta doloribus vero nesciunt aliquam suscipit dignissimos quae-->
-<!--                        quidem.-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
 </div><!--end of main row-->
 </div><!--end of container-fluid-->
 <?php
-require_once 'components/footer.php';
 mysqli_free_result($result);
-// Closing connection
-mysqli_close($link);
+require_once 'components/footer.php';
 ?>
