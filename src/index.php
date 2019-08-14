@@ -73,7 +73,95 @@ include_once 'components/nav.php';
 <div class="container">
     <h1 class="ml-3">Overview - ENMA 600</h1>
     <div class="row main">
-        <div class="container col main--panel">
+        <div class="main--roller">
+            <div class="card-deck">
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Module Title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-battery-1 info--item__icon"></i>
+                            Difficulty
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-user info--item__icon"></i>
+                            Duration
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-graduation-cap info--item__icon"></i>
+                            Topic
+                        </small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Module Title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-battery-1 info--item__icon"></i>
+                            Difficulty
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-user info--item__icon"></i>
+                            Duration
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-graduation-cap info--item__icon"></i>
+                            Topic
+                        </small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Module Title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-battery-1 info--item__icon"></i>
+                            Difficulty
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-user info--item__icon"></i>
+                            Duration
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-graduation-cap info--item__icon"></i>
+                            Topic
+                        </small>
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Module Title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-battery-1 info--item__icon"></i>
+                            Difficulty
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-user info--item__icon"></i>
+                            Duration
+                        </small>
+                        <small class="text-muted card-footer-info">
+                            <i class="fa fa-graduation-cap info--item__icon"></i>
+                            Topic
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container main--panel">
             <div class="row flex-column">
                 <h3 class="main--panel__header">Modules</h3>
                 <div id="accordion">
@@ -82,14 +170,14 @@ include_once 'components/nav.php';
                 <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadModules">Load Additional Modules</a>
             </div><!--closing of row-->
         </div><!--closing of container-->
-    <div class="container col main--panel">
-        <div class="row flex-column">
-            <h3 class="main--panel__header">Available Assignments</h3>
-            <?php fetch($conn, 'assg', 'assg'); ?>
-            <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
-        </div><!--end of row-->
-    </div><!--end of container col-->
-</div><!--end of main row-->
+        <div class="container main--panel">
+            <div class="row flex-column">
+                <h3 class="main--panel__header">Available Assignments</h3>
+                <?php fetch($conn, 'assg', 'assg'); ?>
+                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
+            </div><!--end of row-->
+        </div><!--end of container col-->
+    </div><!--end of main row-->
 </div><!--end of container-fluid-->
 <?php
 mysqli_free_result($result);
