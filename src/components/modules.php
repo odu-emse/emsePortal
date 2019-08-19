@@ -3,36 +3,27 @@ while($row = mysqli_fetch_assoc($result)){
     $x++;
 ?>
     <div class="card">
-                <div class="card-header row" id="heading<?php echo $x; ?>">
-                    <h5 class="mb-0 col metaTitle">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $x; ?>"
-                                aria-expanded="true" aria-controls="collapse<?php echo $x; ?>">
-                            <?php echo $row['name'] . " - module " . $row['number']; ?>
-                        </button>
-                    </h5>
-                    <p class="col float-right metaDuration"><?php timeConversion($row['duration']); ?></p>
-                </div>
-
-                <div id="collapse<?php echo $x; ?>" class="collapse" aria-labelledby="heading<?php echo $x; ?>"
-                     data-parent="#accordion">
-                    <div class="card-body">
-                        <?php echo $row['descr'] . "<br>"; ?>
-                        <div class="card-body__form">
-                            <form class="card-body__form--form" action="housing.php" method="get">
-                                <button class="btn btn-primary card-body__form--access" type="submit" name="access" value="<?php echo $row['uid'];?>">
-                                    Access the module
-                                </button>
-                            </form>
-                            <form class="card-body__form--form" method="get">
-                                <button class="btn btn-outline-secondary card-body__form--comp" type="submit" name="<?php echo "module" . $x; ?>" value="true" <?php disable($row['done'])  ?>>
-                                    Mark module complete
-                                </button>
-                                <?php completion($x, $conn);?>
-                            </form>
-                        </div>
-                    </div><!--end of card-body-->
-                </div><!--end of collapse-->
-            </div><!--end of card-->
+        <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title"><?php echo $row['name'] ?></h5>
+            <small class="text-muted card-author"><?php echo $row['author'] ?></small>
+            <p class="card-text"><?php echo $row['descr'] ?></p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted card-footer-info">
+                <i class="fa fa-battery-1 info--item__icon"></i>
+                Difficulty
+            </small>
+            <small class="text-muted card-footer-info" title="Duration">
+                <i class="fa fa-clock-o info--item__icon"></i>
+                <?php timeConversion($row['duration']);?>
+            </small>
+            <small class="text-muted card-footer-info">
+                <i class="fa fa-graduation-cap info--item__icon"></i>
+                Topic
+            </small>
+        </div>
+    </div>
 <?php
 }
 ?>

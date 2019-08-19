@@ -36,14 +36,6 @@ $(document).ready(function(){
             console.log('this')
         });
     });
-    $('.card').slice(0, 3).css('display', 'flex'); //hide card class past 4 occurrences
-    $('#loadModules').on('click', function (e) {
-        e.preventDefault(); //won't reload page due to # as href
-        $('.card:hidden').slice(0, 3).slideDown(); //slide down 4 hidden elements
-        if($('.card:hidden').length == 0){ //if there is no more to show, hide button
-            $('#loadModules').fadeOut('slow');
-        }
-    });
 
     $('.assg-container').slice(0, 1).css('display', 'flex'); //hide card class past 4 occurrences
     $('#loadAssg').on('click', function (e) {

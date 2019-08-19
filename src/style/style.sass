@@ -206,10 +206,25 @@ body
         display: flex
         align-content: center
 
+.main
+    &--roller
+        width: 100%
 .card
+    flex: 0 0 auto !important
+    width: 25%
+    &-title
+        margin:
+            bottom: 0
+    &-text
+        margin:
+            top: .75rem
     &-footer
         display: flex
         justify-content: space-between
+    &-deck
+        flex-wrap: nowrap
+        overflow-x: auto
+        scrollbar-width: none
 
 
 @import './import/mobile'

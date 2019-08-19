@@ -27,7 +27,7 @@ include_once 'components/nav.php';
 <div class="sort row">
     <div class="sort--wrapper container d-flex">
         <div class="sort--options col row pl-0 pr-0">
-            <div class="sort--options__lvl col">
+            <div class="sort--options__lvl col-md-4">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Level of difficulty</label>
                     <select class="sort--select" name="diff" id="">
@@ -38,7 +38,7 @@ include_once 'components/nav.php';
                     </select>
                 </div>
             </div>
-            <div class="sort--options__module col">
+            <div class="sort--options__module col-md-4">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Module duration</label>
                     <select class="sort--select" name="dur" id="">
@@ -49,7 +49,7 @@ include_once 'components/nav.php';
                     </select>
                 </div>
             </div>
-            <div class="sort--options__topic col">
+            <div class="sort--options__topic col-md-4">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Topic</label>
                     <select class="sort--select" name="topic" id="">
@@ -75,101 +75,9 @@ include_once 'components/nav.php';
     <div class="row main">
         <div class="main--roller">
             <div class="card-deck">
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Module Title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-battery-1 info--item__icon"></i>
-                            Difficulty
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-user info--item__icon"></i>
-                            Duration
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-graduation-cap info--item__icon"></i>
-                            Topic
-                        </small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Module Title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-battery-1 info--item__icon"></i>
-                            Difficulty
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-user info--item__icon"></i>
-                            Duration
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-graduation-cap info--item__icon"></i>
-                            Topic
-                        </small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Module Title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-battery-1 info--item__icon"></i>
-                            Difficulty
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-user info--item__icon"></i>
-                            Duration
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-graduation-cap info--item__icon"></i>
-                            Topic
-                        </small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Module Title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-battery-1 info--item__icon"></i>
-                            Difficulty
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-user info--item__icon"></i>
-                            Duration
-                        </small>
-                        <small class="text-muted card-footer-info">
-                            <i class="fa fa-graduation-cap info--item__icon"></i>
-                            Topic
-                        </small>
-                    </div>
-                </div>
+                <?php fetch($conn, 'module', 'modules'); ?>
             </div>
         </div>
-        <div class="container main--panel">
-            <div class="row flex-column">
-                <h3 class="main--panel__header">Modules</h3>
-                <div id="accordion">
-                    <?php fetch($conn, 'module', 'modules'); ?>
-                </div><!--closing of accordion-->
-                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadModules">Load Additional Modules</a>
-            </div><!--closing of row-->
-        </div><!--closing of container-->
         <div class="container main--panel">
             <div class="row flex-column">
                 <h3 class="main--panel__header">Available Assignments</h3>

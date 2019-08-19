@@ -51,10 +51,10 @@ function disable($z){
 function timeConversion($time){
     if($time >= 60){
         $time = $time / 60;
-        echo "Approximately " .  round($time, 1, PHP_ROUND_HALF_UP) . " hours";
+        echo round($time, 1, PHP_ROUND_HALF_UP) . " hours";
     }
     else {
-        echo "Approximately " . $time . " minutes";
+        echo $time . " minutes";
     }
 }
 

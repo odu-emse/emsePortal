@@ -39,5 +39,11 @@ $space-5: map-get($spacers, 5)
             margin-top: $space-2
     .metaDuration
         text-align: center
+    .sort
+        &--options
+            flex-direction: column
+            &__lvl, &__module, &__topic
+                display: flex
+                max-width: 100%
 
 @include respond-below(xs)
