@@ -14,7 +14,7 @@ gulp.task('php', () => {
 //live reload php server
 gulp.task('connect-sync', () => {
     php.server({}, () => {
-        browserSync.init(['**/*.php', 'src/style/*.sass', 'src/style/import/*.sass'],{
+        browserSync.init(['**/*.php', 'src/style/*.sass', 'src/style/import/*.sass', 'src/script/*.js'],{
             baseDir: "src",
             notify:true,
             open: false,
