@@ -63,7 +63,7 @@ include_once 'components/nav.php';
             </div>
         </div>
         <form class="form-inline ml-0 search sort--search" action="search.php" method="get">
-            <input autocomplete="off" required id="search_input" name="term" class="form-control search--input" type="text" placeholder="Search for modules">
+            <input value="" autocomplete="off" required id="search_input" name="term" class="form-control search--input" type="text" placeholder="Search for modules">
             <button class="btn btn-success search--button" type="submit">Search</button>
             <div id="resp"></div>
         </form>
@@ -72,6 +72,9 @@ include_once 'components/nav.php';
 
 <div class="container">
     <h1 class="ml-3">Overview - ENMA 600</h1>
+    <div id="api">
+
+    </div>
     <div class="row main">
         <div class="main--roller">
             <div class="card-deck">
