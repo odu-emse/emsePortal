@@ -58,6 +58,37 @@ function timeConversion($time){
     }
 }
 
+function cnt($conn){
+    $sql = $conn -> query('SELECT * FROM module WHERE cnt = 1');
+    if ($sql->num_rows > 0) {
+        if($row = $sql->fetch_assoc()) {
+            if($row['cnt'] !== 0){
+                echo
+                '
+                <div class="jumb--text col">
+                    <h3 class="jumb--text--title">Carry on learning</h3>
+                    <p class="jumb--text--paragraph">Continue your progress in the '.$row['name'].' module. Don\'t forget to mark the module complete if it\'s done.</p>
+                    <form action="housing.php" method="get">
+                        <button class="btn btn-success jumb--text--cta" type="submit" name="access" value="'.$row['uid'].'">Continue module</button>
+                    </form>
+                </div>
+                <div class="jumb--img col">
+                    <form class="jumb--img__form" action="housing.php" method="get">
+                        <button class="jumb--img__play" type="submit" name="access" value="'.$row['uid'].'">
+                            <i class="fa fa-play" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                    <img class="jumb--img__ill" alt="">
+                </div>
+                ';
+            }
+        }
+    }
+    else{
+        echo 'error';
+    }
+}
+
 function getRelated($conn, $y){
     $sql = 'SELECT * FROM ' . $y;
     $result = $conn -> query($sql);

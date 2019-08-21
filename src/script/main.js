@@ -56,13 +56,15 @@ $(document).ready(function(){
 
     for (y = 1; y <= count; y++){
         //apiQuery = $(`#card${y} .card-title`).text().replace(/ /g, '')
-        apiQuery = 'accounting'
+        apiQuery = 'finance,accounting'
         const apiURL = `https://api.unsplash.com/search/photos/?client_id=${apiKey}&query=${apiQuery},business&orientation=landscape`
         fetch(apiURL)
             .then(resp => {
                 return resp.json()
             })
             .then(data => {
+                console.log(data)
+                $('.jumb--img__ill').attr('src', data.results[1].urls.small)
                 for (z = 1; z <= count; z++){
                     $(`#moduleThumb${z}`).attr('src', data.results[z].urls.small)
                 }

@@ -2,7 +2,7 @@
 while($row = mysqli_fetch_assoc($result)){
     $x++;
 ?>
-    <div class="card" id="<?php echo 'card' . $x ?>">
+    <div class="card" id="<?php echo 'card' . $x ?>" index="<?php echo $x ?>">
         <img class="card-img-top" id="<?php echo 'moduleThumb' . $x ?>" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title"><?php echo $row['name'] ?></h5>

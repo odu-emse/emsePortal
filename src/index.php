@@ -15,14 +15,7 @@ search($conn);
 include_once 'components/nav.php';
 ?>
     <div class="jumb row container ml-auto mr-auto">
-        <div class="jumb--text col">
-            <h3 class="jumb--text--title">Carry on learning</h3>
-            <p class="jumb--text--paragraph">Theoretically the image on the right would be a module that the user haven't completed but started already. The button is a call to action that would link them to the actual housing page. The problem with this is that we still can't access the progress cookies that Articulate stores in the browser.</p>
-            <a class="btn btn-success jumb--text--cta" href="#">Continue module</a>
-        </div>
-        <div class="jumb--img col">
-            <img class="jumb--img__ill" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="">
-        </div>
+        <?php cnt($conn); ?>
     </div>
 <div class="sort row">
     <div class="sort--wrapper container d-flex">
