@@ -64,23 +64,8 @@ include_once 'components/nav.php';
 </div>
 
 <div class="container">
-    <h1 class="ml-3">Overview - ENMA 600</h1>
-    <div id="api">
-
-    </div>
     <div class="row main">
-        <div class="main--roller">
-            <div class="card-deck">
-                <?php fetch($conn, 'module', 'modules'); ?>
-            </div>
-        </div>
-        <div class="container main--panel">
-            <div class="row flex-column">
-                <h3 class="main--panel__header">Available Assignments</h3>
-                <?php fetch($conn, 'assg', 'assg'); ?>
-                <a href="#" class="btn btn-primary mr-auto ml-auto mt-2 pl-5 pr-5" id="loadAssg">Load Additional Assignments</a>
-            </div><!--end of row-->
-        </div><!--end of container col-->
+        <?php fetch($conn, 'module', 'modules'); ?>
     </div><!--end of main row-->
 </div><!--end of container-fluid-->
 <?php

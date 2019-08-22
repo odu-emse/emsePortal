@@ -32,11 +32,11 @@ function completion($x, $conn){
 
     if($module == true){
         $sql = $conn -> query('UPDATE module SET done = 1 WHERE uid = ' . $x);
+        echo '<script type="text/javascript">window.location.reload();</script>';
         if(mysqli_query($conn, $sql)){
-            echo "<script> console.log('Record updated successfully')</script>";
         }
         else {
-            echo "<script> console.log('Error updating record: " . $conn->error . "');</script>";
+            echo 'Error updating record:' . $conn->error;
         }
     }
     return $module;
