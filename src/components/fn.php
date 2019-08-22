@@ -103,7 +103,19 @@ function getRelated($conn, $y){
 }
 
 function fetch($conn, $table, $file){
-    $sql = 'SELECT * FROM ' . $table;
+    $showAll = $_GET['showAll'];
+    if($table == 'module'){
+        if($showAll == true){
+            $sql = 'SELECT * FROM ' . $table . ' ORDER BY done ASC';
+        }
+        else{
+            $sql = 'SELECT * FROM ' . $table .' WHERE done <> 1';
+        }
+    }
+    else{
+        $sql = 'SELECT * FROM ' . $table;
+    }
+
     $result = $conn -> query($sql);
     if ($conn->connect_error) {
         echo 'check connection';
@@ -120,4 +132,8 @@ function fetch($conn, $table, $file){
             echo 'check table name';
         }
     }
+}
+
+function title($y){
+    //TODO: checks if the search/filter query is present and show appropriate h1 tag for the course
 }
