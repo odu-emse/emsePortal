@@ -20,14 +20,22 @@ include_once 'components/nav.php';
 <div class="sort row">
     <div class="sort--wrapper container d-flex">
         <div class="sort--options col row pl-0 pr-0">
+
+        </div>
+        <form class="form-inline ml-0 search sort--search" action="search.php" method="get">
+
+
+
+
             <div class="sort--options__lvl col-md-4">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Level of difficulty</label>
                     <select class="sort--select" name="diff" id="">
                         <option value="false">Level of difficulty</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="extreme">Extreme</option>
+                        <option value="true">All</option>
+                        <option value="beginner">0 - 2</option>
+                        <option value="intermediate">2 - 3</option>
+                        <option value="extreme">3 - 5</option>
                     </select>
                 </div>
             </div>
@@ -36,8 +44,9 @@ include_once 'components/nav.php';
                     <label class="sort--label sr-only" for="">Module duration</label>
                     <select class="sort--select" name="dur" id="">
                         <option value="false">Module duration</option>
+                        <option value="true">All</option>
                         <option value="below10">< 10</option>
-                        <option value="btw2030">20 - 30</option>
+                        <option value="btw1030">10 - 30</option>
                         <option value="over30">> 30</option>
                     </select>
                 </div>
@@ -47,17 +56,19 @@ include_once 'components/nav.php';
                     <label class="sort--label sr-only" for="">Topic</label>
                     <select class="sort--select" name="topic" id="">
                         <option value="false">Topic</option>
+                        <option value="true">All</option>
                         <option value="acct">Accounting</option>
                         <option value="pmt">Project Management</option>
                         <option value="prog">Programming</option>
                         <option value="math">Mathematics</option>
+                        <option value="modelling">Modelling</option>
                     </select>
                 </div>
             </div>
-        </div>
-        <form class="form-inline ml-0 search sort--search" action="search.php" method="get">
-            <input value="" autocomplete="off" required id="search_input" name="term" class="form-control search--input" type="text" placeholder="Search for modules">
-            <button class="btn btn-success search--button" type="submit">Search</button>
+
+
+            <input value="" autocomplete="off" required id="search_input" name="searchQuery" class="form-control search--input" type="text" placeholder="Search for modules">
+            <button class="btn btn-success search--button" type="submit" value="true" name="submitSearch">Search</button>
             <div id="resp"></div>
         </form>
     </div>

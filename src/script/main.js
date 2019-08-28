@@ -4,7 +4,7 @@ $(() =>{
 
         let query = $("#search_input").val(); //storing the inputted value in var query
         query.toString();
-
+        /*
         if(query.length > 2){ //send ajax request once user typed more than 2 characters
             $.ajax({
                 url:'index.php',
@@ -21,7 +21,7 @@ $(() =>{
         }
         else{ //if the user deletes characters below the minimum 3, hide results
             $('#resp').hide();
-        }
+        }*/
     });
 
     $('.search--list--item').click(() => { //take <li> data and put it into the input
