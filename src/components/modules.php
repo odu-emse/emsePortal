@@ -1,7 +1,7 @@
 <div class="title--wrapper">
     <h1 class="title-text">Incomplete Modules - ENMA 600</h1>
-    <form method="get" class="title--wrapper--form">
-        <button class="button btn btn-secondary title--wrapper--form__btn__true" type="submit" name="showAll" value="true">Show all modules</button>
+    <form class="title--wrapper--form">
+        <button class="button btn btn-secondary title--wrapper--form__btn__true" name="showAll" value="true">Show all modules</button>
     </form>
 </div>
 <div class="main--roller">
@@ -20,7 +20,7 @@
                 <div class="card-footer">
                     <small class="text-muted card-footer-info" title="Difficulty">
                         <i class="fa fa-battery-1 info--item__icon"></i>
-                        <?php echo $row['difficulty'] . '/5'; ?>
+                        <?php echo $row['difficulty'] . '/5.0'; ?>
                     </small>
                     <small class="text-muted card-footer-info" title="Duration">
                         <i class="fa fa-clock-o info--item__icon"></i>

@@ -103,19 +103,8 @@ function getRelated($conn, $y){
 }
 
 function fetch($conn, $table, $file){
-    $showAll = $_GET['showAll'];
-    if($table == 'module'){
-        if($showAll == true){
-            $sql = 'SELECT * FROM ' . $table . ' ORDER BY done ASC';
-        }
-        else{
-            $sql = 'SELECT * FROM ' . $table .' WHERE done <> 1';
-        }
-    }
-    else{
-        $sql = 'SELECT * FROM ' . $table;
-    }
 
+    $sql = 'SELECT * FROM ' . $table;
     $result = $conn -> query($sql);
     if ($conn->connect_error) {
         echo 'check connection';
