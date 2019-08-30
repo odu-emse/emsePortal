@@ -42,8 +42,7 @@ $(() =>{
 
         if($(`#card${y} .card-form .card-form-comp .card-form-comp-btn`).prop('disabled')){
             $(`#card${y} .card-form .card-form-access .card-form-access-btn`).addClass('btn-success').removeClass('btn-primary').html('Module Completed')
-            //$(`#card${y}`).addClass('completed')
-
+            $(`#card${y}`).addClass('completed')
         }
 
         fetch(apiURL)
@@ -64,15 +63,16 @@ $(() =>{
     $('.title--wrapper--form__btn__true').click((e)=>{
         e.preventDefault()
         x++
+        $('.card').toggleClass('completed')
         if(x % 2 == 0){
             console.log(x + ' is even')
-            $('.title-text').html('All Modules - ENMA 600')
+            $('.title-text').html('Completed Modules - ENMA 600')
             $('.title--wrapper--form__btn__true').html('Show incomplete modules')
         }
         else{
             console.log(x + ' is odd')
             $('.title-text').html('Incomplete Modules - ENMA 600')
-            $('.title--wrapper--form__btn__true').html('Show all modules')
+            $('.title--wrapper--form__btn__true').html('Show completed modules')
         }
     })
 
