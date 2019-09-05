@@ -125,71 +125,73 @@ function fetch($conn, $table, $file){
 
 function difficulty($x){
     //get inputted data from argument
-    if($x !== true){ //check if the user wants to see all data without filter
-        if($x !== false){ //check if user selected an option that's not 'All'
-            if($x == 'beginner'){
-                $difficultyString = 'AND difficulty BETWEEN 0 AND 2';
-            }
-            if ($x == 'intermediate'){
-                $difficultyString = 'AND difficulty BETWEEN 2 AND 4';
-            }
-            if ($x == 'extreme'){
-                $difficultyString = 'AND difficulty BETWEEN 4 AND 5';
-            }
+    $difficultyString = NULL;
+    if($x == true){ //check if the user wants to see all data without filter
+        if($x == 'beginner'){
+            $difficultyString = ' AND difficulty BETWEEN 0 AND 2';
         }
-    }
-    else{
-        $difficultyString = ' ';
+        if ($x == 'intermediate'){
+            $difficultyString = ' AND difficulty BETWEEN 2 AND 4';
+        }
+        if ($x == 'extreme'){
+            $difficultyString = ' AND difficulty BETWEEN 4 AND 5';
+        }
+        if ($x == "all"){
+            $difficultyString = ' ';
+        }
     }
     return $difficultyString;
 }
 
 function topic($x){
     //get inputted data from argument
-    if($x !== true){ //check if the user wants to see all data without filter
-        if($x !== false){ //check if user selected an option that's not 'All'
-            if($x == 'acct'){
-                $topicString = "AND topic='accounting'";
-            }
-            if ($x == 'pmt'){
-                $topicString = "AND topic='project management'";
-            }
-            if ($x == 'prog'){
-                $topicString = "AND topic='programming'";
-            }
-            if ($x == 'math'){
-                $topicString = "AND topic='mathematics'";
-            }
-            if ($x == 'modeling'){
-                $topicString = "AND topic='modelling'";
-            }
+    $topicString = NULL;
+    if($x == true){ //check if user selected an option that's not 'All'
+        if($x == 'acct'){
+            $topicString = " AND topic='accounting'";
         }
-    }
-    else{
-        $topicString = ' ';
+        if ($x == 'pmt'){
+            $topicString = " AND topic='project management'";
+        }
+        if ($x == 'prog'){
+            $topicString = " AND topic='programming'";
+        }
+        if ($x == 'math'){
+            $topicString = " AND topic='mathematics'";
+        }
+        if ($x == 'modeling'){
+            $topicString = " AND topic='modelling'";
+        }
+        if ($x == "all"){
+            $topicString = ' ';
+        }
     }
     return $topicString;
 }
 
 function duration($x){
     //get inputted data from argument
-    if($x !== true){ //check if the user wants to see all data without filter
-        if($x !== false){ //check if user selected an option that's not 'All'
-            if($x == 'below10'){
-                $durationString = 'AND duration BETWEEN 0 AND 10';
-            }
-            if($x == 'btw1030'){
-                $durationString = 'AND duration BETWEEN 10 AND 30';
-            }
-            if($x == 'over30'){
-                $durationString = 'AND duration > 30';
-            }
+    $durationString = NULL;
+    if($x == true){ //check if the user wants to see all data without filter
+        if($x == 'below10'){
+            $durationString = ' AND duration BETWEEN 0 AND 10';
+        }
+        if($x == 'btw1030'){
+            $durationString = ' AND duration BETWEEN 10 AND 30';
+        }
+        if($x == 'over30'){
+            $durationString = ' AND duration > 30';
+        }
+        if ($x == "all"){
+            $durationString = ' ';
         }
     }
-    else{
-        $durationString = ' ';
-    }
     return $durationString;
+}
+
+function strRepFirst($from, $to, $content){
+    $from = '/'.preg_quote($from, '/').'/';
+    return preg_replace($from, $to, $content, 1);
 }
 
 function title($y){

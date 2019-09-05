@@ -1,4 +1,7 @@
 <?php
+
+use http\Header;
+
 session_start();
 
 require_once 'components/header.php';
@@ -10,9 +13,10 @@ include_once 'components/nav.php';
 
 if(isset($_GET['submitSearch'])){
     $search = mysqli_real_escape_string($conn, $_GET['searchQuery']);
+    $searchQuery = $_GET['searchQuery'];
     $searchString = "LIKE '%$search%' OR descr LIKE '%$search%' OR author LIKE '%$search%'";
 
-    $difficulty = $_GET['diff']; //gets data from form
+    $difficulty = $_GET["diff"]; //gets data from form
     $difficultyString = difficulty($difficulty);
 
     $duration = $_GET['dur']; //gets data from form
@@ -21,74 +25,155 @@ if(isset($_GET['submitSearch'])){
     $topic = $_GET['topic']; //gets data from form
     $topicString = topic($topic);
 
+    //0 0 0 0
+    if($difficultyString == "" && $topicString == "" && $durationString == "" && empty($searchQuery)){ //if all filters are empty
+        $code = '0 0 0 0';
+        echo ' please specify a search query to narrow the results </br>';
+        $searchSql = "SELECT * FROM module";
+    }
+
+    //1 1 1 1
+    else if($difficultyString !== NULL && $topicString !== NULL && $durationString !== NULL && !empty($searchQuery)){ //if all filters are filled
+        $code = '1 1 1 1';
+        $searchSql = "SELECT * FROM module WHERE name ".$searchString."".$difficultyString."".$topicString."".$durationString." ";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //0 0 0 1
+    else if($difficultyString == "" && $topicString == "" && $durationString == "" && !empty($searchQuery)){ //only search is set
+        $code = '0 0 0 1';
+        $searchSql = "SELECT * FROM module WHERE name ".$searchString." ";
+    }
+
+    //0 0 1 0
+    else if($difficultyString == NULL && $topicString == NULL && $durationString !== NULL && empty($searchQuery)){
+        $code = '0 0 1 0';
+        $durationString = strRepFirst('AND', ' ', $durationString);
+        $searchSql = "SELECT * FROM module WHERE ".$durationString." ";
+    }
+
+    //0 1 0 0
+    else if($difficultyString == NULL && $topicString !== NULL && $durationString == NULL && empty($searchQuery)){
+        $code = '0 1 0 0';
+        $topicString = strRepFirst('AND', ' ', $topicString);
+        $searchSql = "SELECT * FROM module WHERE ".$topicString." ";
+    }
+
+    //1 0 0 0
+    else if($difficultyString !== NULL && $topicString == ' ' && $durationString == NULL && empty($searchQuery)){
+        $code = '1 0 0 0';
+        $difficultyString = strRepFirst('AND', ' ', $difficultyString);
+        $searchSql = "SELECT * FROM module WHERE ".$difficultyString." ";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //1 1 0 0
+    else if($difficultyString !== NULL && $topicString !== NULL && $durationString == NULL && empty($searchQuery)){
+        $code = '1 1 0 0';
+        $difficultyString = strRepFirst('AND', ' ', $difficultyString);
+        $searchSql = "SELECT * FROM module WHERE ".$difficultyString."".$topicString."";
+    }
+
+    //0 1 1 0
+    else if($difficultyString == NULL && $topicString !== NULL && $durationString !== NULL && empty($searchQuery)){
+        $code = '0 1 1 0';
+        $topicString = strRepFirst('AND', ' ', $topicString);
+        $searchSql = "SELECT * FROM module WHERE ".$topicString."".$durationString."";
+    }
+
+    //0 0 1 1
+    else if($difficultyString == NULL && $topicString == NULL && $durationString !== NULL && !empty($searchQuery)){
+        $code = '0 0 1 1';
+        $searchSql = "SELECT * FROM module WHERE name".$searchString."".$durationString."";
+    }
+
+    //1 0 0 1
+    else if($difficultyString !== NULL && $topicString == NULL && $durationString == NULL && !empty($searchQuery)){
+        $code = '1 0 0 1';
+        $searchSql = "SELECT * FROM module WHERE name".$searchString."".$difficultyString."";
+    }
+
+    //0 1 0 1
+    else if($difficultyString == NULL && $topicString !== NULL && $durationString == NULL && !empty($searchQuery)){
+        $code = '0 1 0 1';
+        $searchSql = "SELECT * FROM module WHERE name".$searchString."".$topicString."";
+    }
+
+    //1 0 1 0
+    else if($difficultyString !== NULL && $topicString == NULL && $durationString !== NULL && empty($searchQuery)){
+        $code = '1 0 1 0';
+        $difficultyString = strRepFirst('AND', ' ', $difficultyString);
+        $searchSql = "SELECT * FROM module WHERE".$difficultyString."".$durationString."";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //1 1 1 0
+    else if($difficultyString !== NULL && $topicString !== NULL && $durationString !== NULL && empty($searchQuery)){
+        $code = '1 1 1 0';
+        $difficultyString = strRepFirst('AND', ' ', $difficultyString);
+        $searchSql = "SELECT * FROM module WHERE".$difficultyString."".$topicString."".$durationString."";
+    }
+
+    //0 1 1 1
+    else if($difficultyString == NULL && $topicString !== NULL && $durationString !== NULL && !empty($searchQuery)){
+        $code = '0 1 1 1';
+        $searchSql = "SELECT * FROM module WHERE name".$searchString."".$topicString."".$durationString."";
+    }
+
+    //1 0 1 1
+    else if($difficultyString !== NULL && $topicString == NULL && $durationString !== NULL && !empty($searchQuery)){
+        $code = '1 0 1 1';
+        $searchSql = "SELECT * FROM module WHERE name".$searchString."".$difficultyString."".$durationString."";
+    }
+
+    //1 1 0 1
+    else if($difficultyString == NULL && $topicString !== NULL && $durationString == NULL && !empty($searchQuery)){
+        $code = '1 1 0 1';
+        $searchSql = "SELECT * FROM module WHERE name".$searchString."".$topicString."".$difficultyString."";
+    }
+
     //wildcard
-    if ($search == '!all'){
-        $sql = "SELECT * FROM module";
+    else if ($searchQuery == '!all'){
+        $searchSql = "SELECT * FROM module";
     }
 
+    echo var_dump($difficultyString) . '<br>';
+    echo var_dump($topicString) . '<br>';
+    echo var_dump($durationString) . '<br>';
+    echo var_dump($searchQuery) . '<br>';
 
-    //difficulty set
-    if($difficultyString !== ' ' && $topicString == ' ' && $durationString == ' '){ //difficulty is set but nothing else
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$difficultyString." ";
-    }
-    if ($difficultyString !== ' ' && $topicString == ' ' && $durationString !== ' '){ //difficulty is set and duration but not topic
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$difficultyString." ".$durationString." ";
-    }
-    if ($difficultyString !== ' ' && $topicString !== ' ' && $durationString == ' '){ //difficulty is set and topic but not duration
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$difficultyString." ".$topicString." ";
-    }
-
-    //duration set
-    if ($difficultyString == ' ' && $topicString == ' ' && $durationString !== ' '){ //duration is set but nothing else
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$durationString." ";
-    }
-    if ($difficultyString !== ' ' && $topicString == ' ' && $durationString !== ' '){ //duration is set and difficulty but not topic
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$durationString." ".$difficultyString." ";
-    }
-    if ($difficultyString == ' ' && $topicString !== ' ' && $durationString !== ' '){ //duration is set and topic but not difficulty
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$durationString." ".$topicString." ";
-    }
-
-    //topic set
-    if ($difficultyString == ' ' && $topicString !== ' ' && $durationString == ' '){ //topic is set but nothing else
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$topicString." ";
-    }
-    if ($difficultyString !== ' ' && $topicString !== ' ' && $durationString == ' '){ //topic is set and difficulty but not duration
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$topicString." ".$difficultyString." ";
-    }
-    if ($difficultyString == ' ' && $topicString !== ' ' && $durationString !== ' '){ //topic is set and duration but not difficulty
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$topicString." ".$durationString." ";
-    }
+    echo '<br>'.$code.'<br>'.$searchSql;
 
 
-    if($difficultyString == ' ' && $topicString == ' ' && $durationString == ' '){ //if all filters are empty
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ";
+    if (!mysqli_query($conn, $searchSql)){
+        echo $searchSql . '<br>';
+        echo "Error description: " . mysqli_error($conn);
     }
-    if($difficultyString !== ' ' && $topicString !== ' ' && $durationString !== ' '){ //if all filters are filled
-        $sql = "SELECT * FROM module WHERE name ".$searchString." ".$difficultyString." ".$topicString." ".$durationString." ";
-    }
+    $rst = mysqli_query($conn, $searchSql);
+    $queryResult = mysqli_num_rows($rst);
 
-    $result = mysqli_query($conn, $sql);
-    $queryResult = mysqli_num_rows($result);
-
+    echo
+    "
+    <table class='table table-dark'>
+        <thead>
+            <tr>
+                <th scope='col'>uid</th>
+                <th scope='col'>Module Number</th>
+                <th scope='col'>Module Name</th>
+                <th scope='col'>Duration</th>
+                <th scope='col'>Difficulty</th>
+                <th scope='col'>Topic</th>
+                <th scope='col'>Author</th>
+                <th scope='col'>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+    ";
     if($queryResult > 0){
-        echo "
-            <table class='table table-dark'>
-              <thead>
-                <tr>
-                  <th scope='col'>uid</th>
-                  <th scope='col'>Module Number</th>
-                  <th scope='col'>Module Name</th>
-                  <th scope='col'>Duration</th>
-                  <th scope='col'>Difficulty</th>
-                  <th scope='col'>Topic</th>
-                  <th scope='col'>Author</th>
-                  <th scope='col'>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-        ";
-        while($row = mysqli_fetch_assoc($result)){
+        while($row = mysqli_fetch_assoc($rst)){
             echo "
                 <tr>
                   <th scope='row'>".$row['uid']."</th>
@@ -102,48 +187,17 @@ if(isset($_GET['submitSearch'])){
                 </tr>
             ";
         }
-        echo "</tbody>
-            </table>
-            ";
     }
     else{
-        echo 'No results for the search';
+        echo '<br>No results for the search';
     }
+    echo
+    "
+        </tbody>
+    </table>
+    ";
 }
-
-/*
-$searchTerm = $_GET['term'];
-
-//select all columns from table where the name column matches the searched term
-$sql  = "SELECT * FROM module WHERE name LIKE '%$searchTerm%'";
-
-//connect or die
-$query = $conn->query($sql) or die("MySQL error, query error");
-
-if($query->num_rows > 0){
-    while($row = $query->fetch_assoc()){
-
-        //if link is present in the row add link to module
-        if($row['link'] != NULL){
-            echo "<a href=".$row['link']." target='_blank'>";
-        }
-
-        //display module ID and name of the module
-        echo $row['uid'] . " " . $row['name'];
-
-        //if author is present in the row display it
-        if($row['author'] != NULL){
-            echo " by " . $row['author'];
-        }
-
-        //if link is available close tag
-        if($row['link'] != NULL) {
-            echo "</a>";
-        }
-
-        //add break
-        echo "<br>";
-    }
+else{ //redirect back if went there w URL
+    header('Location: ./index.php');
 }
-*/
 ?>

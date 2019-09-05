@@ -32,7 +32,7 @@ include_once 'components/nav.php';
                     <label class="sort--label sr-only" for="">Level of difficulty</label>
                     <select class="sort--select" name="diff" id="">
                         <option value="false">Level of difficulty</option>
-                        <option value="true">All</option>
+                        <option value="all">All</option>
                         <option value="beginner">0 - 2</option>
                         <option value="intermediate">2 - 3</option>
                         <option value="extreme">3 - 5</option>
@@ -44,7 +44,7 @@ include_once 'components/nav.php';
                     <label class="sort--label sr-only" for="">Module duration</label>
                     <select class="sort--select" name="dur" id="">
                         <option value="false">Module duration</option>
-                        <option value="true">All</option>
+                        <option value="all">All</option>
                         <option value="below10">< 10</option>
                         <option value="btw1030">10 - 30</option>
                         <option value="over30">> 30</option>
@@ -56,7 +56,7 @@ include_once 'components/nav.php';
                     <label class="sort--label sr-only" for="">Topic</label>
                     <select class="sort--select" name="topic" id="">
                         <option value="false">Topic</option>
-                        <option value="true">All</option>
+                        <option value="all">All</option>
                         <option value="acct">Accounting</option>
                         <option value="pmt">Project Management</option>
                         <option value="prog">Programming</option>
@@ -67,7 +67,7 @@ include_once 'components/nav.php';
             </div>
 
 
-            <input value="" autocomplete="off" required id="search_input" name="searchQuery" class="form-control search--input" type="text" placeholder="Search for modules">
+            <input value="" autocomplete="off" id="search_input" name="searchQuery" class="form-control search--input" type="text" placeholder="Search for modules">
             <button class="btn btn-success search--button" type="submit" value="true" name="submitSearch">Search</button>
             <div id="resp"></div>
         </form>
