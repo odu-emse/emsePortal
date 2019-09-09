@@ -28,7 +28,6 @@ if(isset($_GET['submitSearch'])){
     //0 0 0 0
     if($difficultyString == "" && $topicString == "" && $durationString == "" && empty($searchQuery)){ //if all filters are empty
         $code = '0 0 0 0';
-        echo ' please specify a search query to narrow the results </br>';
         $searchSql = "SELECT * FROM module";
     }
 
@@ -140,7 +139,6 @@ if(isset($_GET['submitSearch'])){
         $searchSql = "SELECT * FROM module";
     }
 
-
     if (!mysqli_query($conn, $searchSql)){
         echo $searchSql . '<br>';
         echo "Error description: " . mysqli_error($conn);
@@ -161,6 +159,7 @@ if(isset($_GET['submitSearch'])){
                 <th scope='col'>Topic</th>
                 <th scope='col'>Author</th>
                 <th scope='col'>Description</th>
+                <th scope='col'>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -169,14 +168,19 @@ if(isset($_GET['submitSearch'])){
         while($row = mysqli_fetch_assoc($rst)){
             echo "
                 <tr>
-                  <th scope='row'>".$row['uid']."</th>
-                  <td>".$row['number']."</td>
-                  <td>".$row['name']."</td>
-                  <td>".$row['duration']."</td>
-                  <td>".$row['difficulty']."</td>
-                  <td>".$row['topic']."</td>
-                  <td>".$row['author']."</td>
-                  <td>".$row['descr']."</td>
+                    <th scope='row'>".$row['uid']."</th>
+                    <td>".$row['number']."</td>
+                    <td>".$row['name']."</td>
+                    <td>".$row['duration']."</td>
+                    <td>".$row['difficulty']."</td>
+                    <td>".$row['topic']."</td>
+                    <td>".$row['author']."</td>
+                    <td>".$row['descr']."</td>
+                    <td>
+                    <form action='housing.php' method='get'>
+                        <button name='access' type='submit' class='btn btn-secondary' value='".$row['uid']."'>Access module</button>
+                    </form>
+                    </td>
                 </tr>
             ";
         }
