@@ -61,7 +61,7 @@ if(isset($_GET['submitSearch'])){
     }
 
     //1 0 0 0
-    else if($difficultyString !== NULL && $topicString == ' ' && $durationString == NULL && empty($searchQuery)){
+    else if($difficultyString !== NULL && $topicString == NULL && $durationString == NULL && empty($searchQuery)){
         $code = '1 0 0 0';
         $difficultyString = strRepFirst('AND', ' ', $difficultyString);
         $searchSql = "SELECT * FROM module WHERE ".$difficultyString." ";
@@ -140,13 +140,6 @@ if(isset($_GET['submitSearch'])){
         $searchSql = "SELECT * FROM module";
     }
 
-    echo var_dump($difficultyString) . '<br>';
-    echo var_dump($topicString) . '<br>';
-    echo var_dump($durationString) . '<br>';
-    echo var_dump($searchQuery) . '<br>';
-
-    echo '<br>'.$code.'<br>'.$searchSql;
-
 
     if (!mysqli_query($conn, $searchSql)){
         echo $searchSql . '<br>';
@@ -189,7 +182,11 @@ if(isset($_GET['submitSearch'])){
         }
     }
     else{
-        echo '<br>No results for the search';
+        echo "
+            <tr>
+              <th scope='row'>No results for the search</th>
+            </tr>
+        ";
     }
     echo
     "

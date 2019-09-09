@@ -136,9 +136,6 @@ function difficulty($x){
         if ($x == 'extreme'){
             $difficultyString = ' AND difficulty BETWEEN 4 AND 5';
         }
-        if ($x == "all"){
-            $difficultyString = ' ';
-        }
     }
     return $difficultyString;
 }
@@ -162,9 +159,6 @@ function topic($x){
         if ($x == 'modeling'){
             $topicString = " AND topic='modelling'";
         }
-        if ($x == "all"){
-            $topicString = ' ';
-        }
     }
     return $topicString;
 }
@@ -181,9 +175,6 @@ function duration($x){
         }
         if($x == 'over30'){
             $durationString = ' AND duration > 30';
-        }
-        if ($x == "all"){
-            $durationString = ' ';
         }
     }
     return $durationString;
