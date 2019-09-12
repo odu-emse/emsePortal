@@ -170,6 +170,8 @@ body
     display: flex
     justify-items: center
     align-items: center
+    &--search
+        width: 100%
     &--wrapper
         position: relative
     &--select
@@ -185,7 +187,7 @@ body
             height: 1em
             background-color: aqua
     &--options
-        &__lvl, &__module, &__topic
+        &__lvl, &__module, &__topic, &__search
             display: flex
             align-items: center
         &--wrapper
@@ -204,6 +206,17 @@ body
                 top: calc(50% - 0.5em)
                 margin-right: 1em
                 z-index: -1
+        &__search
+            .sort--options--wrapper
+                display: flex
+                &:after
+                    display: none
+                border: 0
+                .search
+                    &--input
+                        flex: 2
+                    &--button
+                        flex: 1
 
 .tile
     border: 1px solid black

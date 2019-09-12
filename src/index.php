@@ -19,15 +19,8 @@ include_once 'components/nav.php';
     </div>
 <div class="sort row">
     <div class="sort--wrapper container d-flex">
-        <div class="sort--options col row pl-0 pr-0">
-
-        </div>
         <form class="form-inline ml-0 search sort--search" action="search.php" method="get">
-
-
-
-
-            <div class="sort--options__lvl col-md-4">
+            <div class="sort--options__lvl col-lg-3 col-md-12">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Level of difficulty</label>
                     <select class="sort--select" name="diff" id="">
@@ -38,7 +31,7 @@ include_once 'components/nav.php';
                     </select>
                 </div>
             </div>
-            <div class="sort--options__module col-md-4">
+            <div class="sort--options__module col-lg-3 col-md-12">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Module duration</label>
                     <select class="sort--select" name="dur" id="">
@@ -49,7 +42,7 @@ include_once 'components/nav.php';
                     </select>
                 </div>
             </div>
-            <div class="sort--options__topic col-md-4">
+            <div class="sort--options__topic col-lg-2 col-md-12">
                 <div class="sort--options--wrapper">
                     <label class="sort--label sr-only" for="">Topic</label>
                     <select class="sort--select" name="topic" id="">
@@ -62,10 +55,12 @@ include_once 'components/nav.php';
                     </select>
                 </div>
             </div>
-
-
-            <input value="" autocomplete="off" id="search_input" name="searchQuery" class="form-control search--input" type="text" placeholder="Search for modules">
-            <button class="btn btn-success search--button" type="submit" value="true" name="submitSearch">Search</button>
+            <div class="sort--options__search col-lg-4 col-md-12 pr-0">
+                <div class="sort--options--wrapper">
+                    <input value="" autocomplete="off" id="search_input" name="searchQuery" class="form-control search--input" type="text" placeholder="Search for modules">
+                    <button class="btn btn-success search--button" type="submit" value="true" name="submitSearch">Search</button>
+                </div>
+            </div>
             <div id="resp"></div>
         </form>
     </div>
