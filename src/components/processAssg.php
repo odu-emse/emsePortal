@@ -1,12 +1,6 @@
 <?php
-//session_start();
-
-require_once 'globals.php';
-require_once 'fn.php';
-
-//loginCheck();
-//search($conn);
-
+session_start();
+require_once 'header.php';
 
 //handing the inputs here
 $name = mysqli_real_escape_string($conn, $_POST['name']);

@@ -1,18 +1,11 @@
 <?php
 session_start();
-
 require_once 'components/header.php';
-require_once 'components/globals.php';
-require_once 'components/fn.php';
-
+search($conn);
+include_once 'components/nav.php';
 //declaring counter
 $x = 0;
 $y = 0;
-
-loginCheck();
-search($conn);
-
-include_once 'components/nav.php';
 ?>
     <div class="jumb row container ml-auto mr-auto">
         <?php cnt($conn); ?>

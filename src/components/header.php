@@ -1,3 +1,8 @@
+<?php
+require_once 'components/globals.php';
+require_once 'components/fn.php';
+loginCheck();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>

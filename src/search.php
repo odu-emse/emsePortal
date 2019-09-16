@@ -1,14 +1,6 @@
 <?php
-
-use http\Header;
-
 session_start();
-
 require_once 'components/header.php';
-require_once 'components/globals.php';
-require_once 'components/fn.php';
-
-loginCheck();
 include_once 'components/nav.php';
 
 if(isset($_GET['submitSearch'])){

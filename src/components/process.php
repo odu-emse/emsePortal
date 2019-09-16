@@ -1,11 +1,7 @@
 <?php
 //sends data to the database
-
-
 session_start();
-
 require_once 'header.php';
-require_once 'globals.php';
 
 $number = $_POST['number'];
 $name = $_POST['title'];
