@@ -1,5 +1,7 @@
 # emsePortal
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 ### pre requisites
 * nodejs >= v10.0
 * npm
