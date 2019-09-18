@@ -1,76 +1,72 @@
 <?php
-session_start();
-// Registration process, inserts user info into the database 
-// and sends account confirmation email message
-
 include 'globals.php';
 
-// Escape all $_POST variables to protect against SQL injections
-$fname = $_POST['fname'];
-$_SESSION['fname'] = $fname;
+if(isset($_POST['register'])){ //blocks URL exploration
+    //setting posts from signup.php into variables
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $pswd = $_POST['pswd'];
+    $pswdConf = $_POST['conf-pswd'];
 
-$lname = $_POST['lname'];
-$_SESSION['lname'] = $lname;
-
-$email = $_POST['username'] . "@odu.edu";
-$_SESSION['username'] = $email;
-
-$midasID = $_POST['midasID'];
-$_SESSION['midasID'] = $midasID;
-
-$pswd = password_hash($_POST['pswd'], PASSWORD_BCRYPT);
-$hash = md5( rand(0,1000) );
-
-
-echo $fname . " " . $lname  . " " . $email  . " " . $midasID  . " " . $pswd  . " " . $hash . " ";
-
-// Check if user with that email already exists
-$sql = "SELECT * FROM user WHERE email='$email'" or die(mysqli_error($conn));
-
-$result = mysqli_query($conn, $sql);
-
-// We know user email exists if the rows returned are more than 0
-$queryResult = mysqli_num_rows($result);
-if ( $queryResult > 0 ) {
-    $_SESSION['message'] = 'User already exists!';
-    header("location: error.php");
+    //error handlers
+    if(empty($username) || empty($email) || empty($pswd) || empty($pswdConf)){
+        header("Location: ../signup.php?error=emptyFields&username=".$username."&email=".$email."");
+        exit();
+    }
+    elseif(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)){ //probably only good for OG browsers
+        header("Location: ../signup.php?error=invalidEmailUsername");
+        exit();
+    }
+    elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){ //probably only good for OG browsers
+        header("Location: ../signup.php?error=invalidEmail&username=".$username."");
+        exit();
+    }
+    elseif(!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+        header("Location: ../signup.php?error=invalidUsername&email=".$email."");
+        exit();
+    }
+    elseif ($pswd !== $pswdConf){
+        header("Location: ../signup.php?error=pswdNotMatching&username=".$username."&email=".$email."");
+        exit();
+    }
+    else{
+        $sql = "SELECT username FROM users WHERE username=?";
+        $stmt = mysqli_stmt_init($conn); //using prep statements
+        if(!mysqli_stmt_prepare($stmt, $sql)){ //error handling
+            header("Location: ../signup.php?error=sqlError");
+            exit();
+        }
+        else{
+            mysqli_stmt_bind_param($stmt, "s", $username);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            $resultCheck = mysqli_stmt_num_rows($stmt);
+            if ($resultCheck > 0){
+                header("Location: ../signup.php?error=userTaken&email=".$email);
+                exit();
+            }
+            else{
+                $sql = "INSERT INTO users (username, email, pwd) VALUES (?, ?, ?)";
+                $stmt = mysqli_stmt_init($conn); //using prep statements
+                if(!mysqli_stmt_prepare($stmt, $sql)){ //error handling
+                    header("Location: ../signup.php?error=sqlError");
+                    exit();
+                }
+                else{
+                    $hashPwd = password_hash($pswd, PASSWORD_DEFAULT);
+                    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashPwd);
+                    mysqli_stmt_execute($stmt);
+                    header("Location: ../signup.php?success=signup");
+                    exit();
+                }
+            }
+        }
+    }
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 }
-else { // Email doesn't already exist in a database, proceed...
-    // active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO user (id, fname, lname, email, pswd, hash) VALUES ('$midasID','$fname','$lname','$email','$pswd', '$hash')";
-
-    // Add user to the database
-    if (mysqli_query($conn, $sql)){
-
-        
-        $_SESSION['active'] = 0; //0 until user activates their account with verify.php
-        $_SESSION['logged_in'] = true; // So we know the user has logged in
-        $_SESSION['message'] =
-                
-                 "Confirmation link has been sent to ".$email.", please verify
-                 your account by clicking on the link in the message!";
-        /*
-        // Send registration confirmation link (verify.php)
-        $to      = $email;
-        $subject = 'Account Verification';
-        $message_body = '
-        Hello '.$first_name.',
-
-        Thank you for signing up!
-
-        Please click this link to activate your account:'.$url.'verify.php?email='.$email.'&hash='.$hash;
-
-        mail( $to, $subject, $message_body );
-        */
-
-        header("Location: ../index.php");
-
-    }
-
-    else {
-        $_SESSION['message'] = 'Registration failed!';
-        $_SESSION['error'] = "Error: " . $sql . "<br>" . mysqli_error($conn);
-        header("location: error.php");
-    }
+else{
+    header("Location: ../signup.php?error=urlExploration");
+    exit();
 }
 ?>

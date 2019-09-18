@@ -1,6 +1,7 @@
 <?php
-require_once 'components/globals.php';
-require_once 'components/fn.php';
+session_start();
+require_once 'globals.php';
+require_once 'fn.php';
 loginCheck();
 ?>
 <!DOCTYPE HTML>
@@ -18,3 +19,7 @@ loginCheck();
 <script src="script/main.js"></script>
 </head>
 <body>
+<?php
+    include_once "nav.php";
+    include_once "error.php";
+?>

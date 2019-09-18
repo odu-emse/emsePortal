@@ -1,8 +1,5 @@
 <?php
-session_start();
 require_once 'components/header.php';
-include_once 'components/nav.php';
-
 if(isset($_GET['submitSearch'])){
     $search = mysqli_real_escape_string($conn, $_GET['searchQuery']);
     $searchQuery = $_GET['searchQuery'];

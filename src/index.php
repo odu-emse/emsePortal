@@ -1,12 +1,18 @@
 <?php
-session_start();
 require_once 'components/header.php';
 search($conn);
-include_once 'components/nav.php';
 //declaring counter
 $x = 0;
 $y = 0;
+if (isset($_SESSION['uid'])){
+    echo "<p>You are logged in</p>";
+}
+else{
+    echo "<p>You are logged out</p>";
+}
 ?>
+
+
     <div class="jumb row container ml-auto mr-auto">
         <?php cnt($conn); ?>
     </div>

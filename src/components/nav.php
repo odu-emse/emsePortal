@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light container ml-auto mr-auto">
+<nav class="navbar navbar-expand-md navbar-light ml-auto mr-auto">
     <a class="navbar-brand ml-3" href="index.php">
         <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png" height="30" class="d-inline-block" alt="">
     </a>
@@ -8,9 +8,6 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <div class="ml-auto mr-auto">
-            <span><?php echo $_SESSION['fname']; ?></span>
-            <span><?php echo $_SESSION['lname']; ?></span>
-            <span><?php echo $_SESSION['username']; ?></span>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Overview</a>
@@ -31,6 +28,7 @@
                         <a class="dropdown-item" href="testReg.php">Assignment Addition</a>
                     </div>
                 </li>
+                <?php include "loginForm.php"; ?>
             </ul>
         </div>
     </div>

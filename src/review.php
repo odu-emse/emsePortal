@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once 'components/header.php';
 
 $link = $_POST['link'];
