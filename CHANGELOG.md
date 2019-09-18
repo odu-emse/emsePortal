@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/chef-danny-d/emsePortal/compare/v0.0.3...v1.0.0) (2019-09-18)
+
+
+### Bug Fixes
+
+* **directory:** deleted not used files ([66f27ec](https://github.com/chef-danny-d/emsePortal/commit/66f27ec))
+
+
+### Features
+
+* **userbase:** added login/registration system ([3e6a423](https://github.com/chef-danny-d/emsePortal/commit/3e6a423))
+
 ### [0.0.3](https://github.com/chef-danny-d/emsePortal/compare/v0.0.2...v0.0.3) (2019-09-16)
 
 ### 0.0.2 (2019-09-12)
