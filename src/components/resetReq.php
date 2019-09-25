@@ -12,6 +12,7 @@ if(isset($_POST['reset'])){
     $expires = date("U") + 1800;
 
     require "header.php";
+    require '../../vendor/autoload.php'; // If you're using Composer (recommended)
 
     $userEmail = $_POST['email'];
 
@@ -48,12 +49,7 @@ if(isset($_POST['reset'])){
     $message .= '<p>If you did not request a reset, feel free to ignore this message.</p><br/>';
     $message .= '<a href="'.$url.'">'.$url.'</a>';
 
-    $headers = "From: EMSE Portal <dpapp@odu.edu>\r\n";
-    $headers .= "Reply-To: dpapp@odu.edu\r\n";
-    $headers .= "Content-type: text/html\r\n";
-
-    mail($to, $subject, $message, $headers);
-    header("Location: ../index.php?success=resetEmail");
+    sendgridMail($to, $subject, $message, 'EMSE User');
 }
 else{
     header("Location: ../index.php");

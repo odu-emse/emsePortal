@@ -113,7 +113,7 @@ function fetch($conn, $table, $file){
         if ($result->num_rows > 0) {
             $actualFile = 'components/' . $file . '.php';
             if (file_exists($actualFile)) {
-                require_once $actualFile;
+                require $actualFile;
             } else {
                 echo 'check file name';
             }
@@ -183,6 +183,22 @@ function duration($x){
 function strRepFirst($from, $to, $content){
     $from = '/'.preg_quote($from, '/').'/';
     return preg_replace($from, $to, $content, 1);
+}
+
+function sendgridMail($to, $subject, $message, $optionalToName = null){
+    $api = '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';
+    $email = new \SendGrid\Mail\Mail();
+    $email->setFrom("dpapp@odu.edu", "EMSE Portal");
+    $email->setSubject($subject);
+    $email->addTo($to, $optionalToName);
+    $email->addContent(
+        "text/html", $message
+    );
+    $sendgrid = new \SendGrid($api);
+
+    if ($sendgrid-> send($email)){
+        header("Location: ../index.php?success=resetEmail");
+    }
 }
 
 function title($y){
