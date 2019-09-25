@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/chef-danny-d/emsePortal/compare/v1.0.0...v2.0.0) (2019-09-25)
+
+
+### Features
+
+* **userbase:** reset password feature ([c57360f](https://github.com/chef-danny-d/emsePortal/commit/c57360f))
+
 ## [1.0.0](https://github.com/chef-danny-d/emsePortal/compare/v0.0.3...v1.0.0) (2019-09-18)
 
 
