@@ -4,12 +4,6 @@ search($conn);
 //declaring counter
 $x = 0;
 $y = 0;
-if (isset($_SESSION['uid'])){
-    echo "<p>You are logged in</p>";
-}
-else{
-    echo "<p>You are logged out</p>";
-}
 ?>
 
 

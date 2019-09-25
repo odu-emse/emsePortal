@@ -100,11 +100,21 @@ if (isset($_GET['error'])){
         </div>
         ';
     }
+    elseif ($_GET['error'] == "resetConn"){
+        echo '
+        <div class="error alert alert-danger alert-dismissible fade show" role="alert">
+            There was an error while processing your request. Please try again later.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        ';
+    }
 }
 elseif (isset($_GET['success'])){
     if ($_GET['success'] == "login"){
         echo '
-        <div class="error alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="error alert alert-success alert-dismissible fade show" role="alert">
             Login successful.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -116,6 +126,26 @@ elseif (isset($_GET['success'])){
         echo '
         <div class="error alert alert-success alert-dismissible fade show" role="alert">
             Sign up successful.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        ';
+    }
+    elseif ($_GET['success'] == "resetEmail"){
+        echo '
+        <div class="error alert alert-success alert-dismissible fade show" role="alert">
+            Password reset email successfully sent. Please check your inbox.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        ';
+    }
+    elseif ($_GET['success'] == "reset"){
+        echo '
+        <div class="error alert alert-success alert-dismissible fade show" role="alert">
+            Password reset successful.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

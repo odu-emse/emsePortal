@@ -1,7 +1,6 @@
 <?php
 require_once "components/header.php";
 ?>
-    <a href="./index.php">Home</a>
 <h1>Register</h1>
 <form action="components/register.php" method="post">
     <label for="username">Username
@@ -18,6 +17,8 @@ require_once "components/header.php";
     </label>
     <button class="btn btn-primary" type="submit" name="register">Register</button>
 </form>
+
+<a href="resetPass.php">Forgot your password?</a>
 
 <?php
 require_once "components/footer.php";
