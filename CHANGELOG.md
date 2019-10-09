@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/chef-danny-d/emsePortal/compare/v2.2.1...v2.3.0) (2019-10-09)
+
+
+### Bug Fixes
+
+* **login:** added fixer page ([6f7c1ac](https://github.com/chef-danny-d/emsePortal/commit/6f7c1ac))
+
+
+### Features
+
+* **session:** redirect users if they aren't logged in ([2d524b1](https://github.com/chef-danny-d/emsePortal/commit/2d524b1))
+
 ### [2.2.1](https://github.com/chef-danny-d/emsePortal/compare/v2.2.0...v2.2.1) (2019-10-09)
 
 ## [2.2.0](https://github.com/chef-danny-d/emsePortal/compare/v2.1.0...v2.2.0) (2019-10-09)
