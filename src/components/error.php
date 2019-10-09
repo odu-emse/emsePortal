@@ -110,6 +110,16 @@ if (isset($_GET['error'])){
         </div>
         ';
     }
+    elseif ($_GET['error'] == "notLoggedIn"){
+        echo '
+        <div class="error alert alert-danger alert-dismissible fade show" role="alert">
+            Please log in before accessing that page.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        ';
+    }
 }
 elseif (isset($_GET['success'])){
     if ($_GET['success'] == "login"){

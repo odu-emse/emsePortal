@@ -1,5 +1,6 @@
 <?php
 require_once 'components/header.php';
+loginCheck();
 ?>
 
 <div class="container">

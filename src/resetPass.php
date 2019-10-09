@@ -1,5 +1,6 @@
 <?php
 require_once "components/header.php";
+loginCheck();
 ?>
     <h1>Reset password</h1>
     <p>Enter your email to receive a reset link where you can reset your password.</p>
