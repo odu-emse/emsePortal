@@ -9,22 +9,21 @@ $duration = $_POST['duration'];
 $link = $_POST['link'];
 $numSlides = $_POST['numSlides'];
 $author = $_POST['author'];
+$hash = hash('md5', $name);
+$str = "_topics";
 
-$mysqli = @new mysqli($host, $user, $password, $db);
-
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
-
-$sql = "INSERT INTO module (number, name, descr, duration, link, numSlides, author) VALUES ('$number', '$name', '$descr','$duration', '$link', '$numSlides', '$author')";
+$sql = "INSERT INTO module (number, name, descr, duration, link, numSlides, author, difficulty, done, cnt, hash) VALUES ('$number','$name','$descr','$duration','$link','$numSlides','$author',0,0,0,'$hash')";
 
 if (mysqli_query($conn, $sql)) {//this happens if it's correct
-    echo "New record created successfully....";
+    $sql = "CREATE TABLE ".$hash.$str." (topics tinytext NOT NULL)";
+    if (mysqli_query($conn, $sql)) {//this happens if it's correct
+        echo "New record created successfully....";
+        header('Location: ../index.php');
+        exit();
+    }
 } 
 else {//error handling
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
-
-header('Location: ../index.php');
 require_once 'footer.php'
 ?>
