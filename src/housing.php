@@ -1,5 +1,6 @@
 <?php
 require_once 'components/header.php';
+loginCheck();
 search($conn);
 $access = $_GET['access'];
 

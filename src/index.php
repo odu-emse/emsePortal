@@ -1,5 +1,6 @@
 <?php
 require_once 'components/header.php';
+loginCheck();
 search($conn);
 //declaring counter
 $x = 0;

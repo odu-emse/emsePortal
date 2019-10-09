@@ -1,10 +1,17 @@
 <?php
 function loginCheck(){
-    if($_SESSION['logged_in'] == true AND isset($_SESSION['username']) AND !empty($_SESSION['username'])){
-        //echo '<script>console.log("Session load successful.");</script>';
+    /*
+    $_SESSION['uid'] = $row['uid'];
+    $_SESSION['username'] = $row['username'];
+    $_SESSION['email'] = $row['email'];
+    */
+    if(isset($_SESSION['uid']) AND isset($_SESSION['username']) AND isset($_SESSION['email'])){
+        echo '<script>console.log("Session load successful.");</script>';
     }
     else{
-        //echo '<script>console.log("Session failure. Check function loginCheck()");</script>';
+        echo '<script>console.log("Session failure. Check function loginCheck()");</script>';
+        header("Location: ../src/splash.php?error=notLoggedIn");
+        exit();
     }
 }
 
