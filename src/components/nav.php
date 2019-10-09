@@ -6,17 +6,11 @@
             aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <div class="ml-auto mr-auto">
+    <div class="collapse navbar-collapse mr-3" id="collapsibleNavId">
+        <div class="ml-auto">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Overview</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Modules</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Assignments</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
