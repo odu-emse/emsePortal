@@ -1,9 +1,9 @@
-@import './import/import'
-@import './import/variable'
 @import '../../node_modules/bootstrap/scss/bootstrap'
+@import 'import/import'
+@import 'import/variable'
 
 body
-    background-color: $third
+    background-color: $gray-400
     font-family: 'Roboto', 'Open Sans', 'Lato', 'Montserrat', sans-serif
     position: relative
     min-height: 100vh
@@ -279,5 +279,49 @@ body
 .table
     td, th
         vertical-align: middle
+.gutter
+    box-shadow: 0 0.25em 0.25em rgba(0,0,0,0.3)
+    padding: 0
+    margin: 0 15px
+    height: 100%
+    background-color: $gray-300
+    overflow-x: hidden
+.video
+    padding-left: 0
+    &--house
+        margin-right: -13px
+.feature
+    &--cont
+        > .gutter
+            flex-direction: column
+        &--wrapper
+            flex: 1
+        &--list
+            list-style: none
+            padding-left: 0
+            &--item
+                margin: 0.5rem 0
+                &--title
+                    .fa
+                        color: $danger
+                        padding-right: 0.5rem
+                &--value
+                    float: right
+                    text-transform: capitalize
+
+.module
+    padding: 1rem 15px
+    margin-bottom: 30px
+    background-color: $gray-300
+    &--nav
+        &--button
+            border-radius: 1.25rem
+            &--text
+                margin: 1rem
+.post
+    &--button
+        border-radius: 0
+        align-self: flex-end
+        width: 100%
 
 @import './import/mobile'
