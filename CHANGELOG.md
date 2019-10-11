@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/chef-danny-d/emsePortal/compare/v2.3.0...v2.4.0) (2019-10-11)
+
+
+### Features
+
+* **login:** added login page under name splash ([ad3fddc](https://github.com/chef-danny-d/emsePortal/commit/ad3fddc))
+
 ## [2.3.0](https://github.com/chef-danny-d/emsePortal/compare/v2.2.1...v2.3.0) (2019-10-09)
 
 

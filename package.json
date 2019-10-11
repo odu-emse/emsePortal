@@ -1,11 +1,14 @@
 {
   "name": "emseportal",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "portal to hold courses together",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "standard-version"
+    "release": "standard-version",
+    "major": "npm run release -- --release-as major",
+    "patch": "npm run release -- --release-as patch",
+    "minor": "npm run release -- --release-as minor"
   },
   "repository": {
     "type": "git",
