@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light ml-auto mr-auto">
-    <a class="navbar-brand ml-3" href="index.php">
+    <a class="navbar-brand ml-3" href="splash.php">
         <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png" height="30" class="d-inline-block" alt="">
     </a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
@@ -17,7 +17,6 @@
                         Admin Utilities
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="userReg.php">User Registration</a>
                         <a class="dropdown-item" href="extract.php">Extraction</a>
                         <a class="dropdown-item" href="testReg.php">Assignment Addition</a>
                     </div>

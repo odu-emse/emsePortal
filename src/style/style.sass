@@ -324,18 +324,22 @@ body
         align-self: flex-end
         width: 100%
 
-.nav
-    &--form
-        &--group
-            position: relative
-            &--input
-                &:focus
-                    & + .nav--form--group--label
-                        display: block
-            &--label
-                display: none !important
-                position: absolute
-                top: 3rem
+.signin
+    width: 66%
+    &--group
+        position: relative
+        &--input
+            width: 100%
+            &:focus
+                & + .nav--form--group--label
+                    display: block
+        &--label
+            display: none !important
+            position: absolute
+            top: 3rem
+        &--buttons
+            &--link
+                width: 50%
 
 
 @import './import/mobile'
