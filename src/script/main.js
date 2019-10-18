@@ -35,7 +35,7 @@ $(() =>{
     const apiKey = "c5273436606f8c4016430b6ce056669fdaff5bcc0c4644c1f579478e2ea74f14"
     let count = $(".card-deck ").children().length;
 
-    for (y = 1; y <= count; y++){
+    for (let y = 1; y <= count; y++){
         //apiQuery = $(`#card${y} .card-title`).text().replace(/ /g, '')
         apiQuery = 'finance,accounting'
         const apiURL = `https://api.unsplash.com/search/photos/?client_id=${apiKey}&query=${apiQuery},business&orientation=landscape`
@@ -75,6 +75,52 @@ $(() =>{
             $('.title--wrapper--form__btn__true').html('Show completed modules')
         }
     })
+    /*
+    const resource = $('<input name="resource" type="text">')
+    const add = $('<button name="resource" id="addmoreTopic" type="button">Add more <i class="fa fa-plus"></i></button>')
+    let counter = 0
+    const topic = $(`
+    <label class="pt-2" for="">Included topic ${counter}
+        <input class="form-control pb-2" type="text" name="author">
+    </label>
+    `)
 
+    $('#review').append(topic).append(add)
+
+    $('#addmoreTopic').click((e)=>{
+        counter++
+        console.log(counter)
+        $('#review').html(topic)
+    })
+    */
+
+    let counter = 2;
+
+    $("#addButton").click(function () {
+
+        let newTextBoxDiv = $(document.createElement('div'))
+            .attr("id", 'TopicWrapper' + counter)
+
+        newTextBoxDiv.after().html(`
+            <label>Topic #${counter}</label>
+            <input type="text" name="topic[]" id="topic${counter}">`
+        )
+
+        newTextBoxDiv.appendTo("#TextBoxesGroup")
+
+        $('#hiddenCounter').attr('value', `${counter}`)
+
+        counter++
+    })
+
+    $('#removeButton').click(function () {
+        if(counter == 2){
+            return false
+        }
+
+        counter--
+
+        $(`#TopicWrapper${counter}`).remove()
+    })
 
 });
