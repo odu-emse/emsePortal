@@ -3,5 +3,5 @@
     "twig/twig": "^2.0",
     "sendgrid/sendgrid": "~7"
   },
-  "version": "2.4.1"
+  "version": "2.4.2"
 }
