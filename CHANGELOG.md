@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/chef-danny-d/emsePortal/compare/v2.4.0...v2.4.1) (2019-10-18)
+
+
+### Features
+
+* **housing:** modules have keywords now ([6dc2f45](https://github.com/chef-danny-d/emsePortal/commit/6dc2f45))
+
 ## [2.4.0](https://github.com/chef-danny-d/emsePortal/compare/v2.3.0...v2.4.0) (2019-10-11)
 
 

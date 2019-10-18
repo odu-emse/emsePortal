@@ -33,11 +33,11 @@
                 </div>
                 <div class="card-form">
                     <form class="card-form-access" action="housing.php" method="get">
-                        <button class="btn btn-primary card-form-access-btn" type="submit" name="access" value="<?php echo $row['uid'] ?>">Access Module</button>
+                        <button class="btn btn-primary card-form-access-btn" type="submit" name="access" value="<?php echo $row['hash'] ?>">Access Module</button>
                     </form>
                     <form class="card-form-comp" method="get">
                         <button class="btn btn-outline-secondary card-form-comp-btn" type="submit" name="<?php echo 'module' . $row['uid'] ?>" value="true" <?php disable($row['done']);?>>
-                            Mark Module Complete
+                            Mark module complete
                         </button>
                         <?php completion($row['uid'], $conn); ?>
                     </form>
