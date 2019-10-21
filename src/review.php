@@ -46,17 +46,39 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
                 <input class="form-control pb-2" maxlength="50" type="text" value="<?php echo $metaImport->project[0]->author['name'];?>" name="author" required>
                 </label>
 
-                <div id='TextBoxesGroup'>
+                <div id='TextBoxesGroup' class="addGroup">
                     <input id="hiddenCounter" type="hidden" name="hiddenCounter" value="1">
-                    <div id="TopicWrapper1">
-                        <label>Topic #1 </label>
-                        <input type='text' id='topic1' name="topic[]">
-                        <button type='button' value='Add Button' id='addButton'>Add topic</button>
-                        <button type='button' value='Remove Button' id='removeButton'>Remove topic</button>
+                    <div id="TopicWrapper1" class="addGroup--wrapper">
+                        <label class="pt-2 addGroup--label">Topic #1
+                        <input class="form-control addGroup--input w-100" type='text' id='topic1' name="topic[]">
+                        </label>
+                        <div id="topic--insert">
+
+                        </div>
+                        <div class="mb-2">
+                            <button class="btn btn-primary" type='button' value='Add Button' id='addButton'>Add topic</button>
+                            <button class="btn btn-outline-danger" type='button' value='Remove Button' id='removeButton'>Remove topic</button>
+                        </div>
                     </div>
                 </div>
 
+                <div id="RecWrapper" class="addGroup">
+                    <input id="hiddenCounterRec" type="hidden" name="hiddenCounterRec" value="1">
+                    <div id="RecWrapper1" class="addGroup--wrapper">
+                        <label class="addGroup--label">Resource #1 Name & URL</label>
+                        <div class="addGroup--input--wrapper row">
+                            <input class='form-control addGroup--input col-md-6' placeholder="Name" type='text' id='rec1' name="recName[]">
+                            <input class='form-control addGroup--input col-md-6' placeholder="URL" type='text' id='rec1' name="recLink[]">
+                        </div>
+                        <div id="rec--insert">
 
+                        </div>
+                        <div class="mt-2">
+                            <button class="btn btn-primary" type='button' value='Add Button' id='addRec'>Add resource</button>
+                            <button class="btn btn-outline-danger" type='button' value='Remove Button' id='removeRec'>Remove resource</button>
+                        </div>
+                    </div>
+                </div>
 
                 <a class="w-25 mr-auto ml-auto mt-5 btn btn-danger" href="extract.php">Reset</a>
                 <button class="w-25 mr-auto ml-auto mt-1 btn btn-success" type="submit">Approve data</button>

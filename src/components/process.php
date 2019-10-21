@@ -11,43 +11,42 @@ $numSlides = $_POST['numSlides'];
 $author = $_POST['author'];
 $topicCount = $_POST['hiddenCounter'];
 $topicValue = $_POST['topic'];
+$recCount = $_POST['hiddenCounterRec'];
+$recName = $_POST['recName'];
+$recLink = $_POST['recLink'];
 $hash = hash('md5', $name);
 $str = "_topics";
-$str2 = "_resources";
-
-foreach( $topicValue as $key => $n ){
-    $test = $n;
-    echo $test . "<br>";
-}
+$str2 = "_rec";
 
 $sql = "INSERT INTO module (number, name, descr, duration, link, numSlides, author, difficulty, done, cnt, hash) VALUES ('$number','$name','$descr','$duration','$link','$numSlides','$author',0,0,0,'$hash')";
 
 if (mysqli_query($conn, $sql)) {//this happens if it's correct
     $tblNameTopic = $hash . $str;
-    $sql = "CREATE TABLE ".$tblNameTopic." (topicUid INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY, topics tinytext NOT NULL)";
-    if (mysqli_query($conn, $sql)){
-        foreach( $topicValue as $key => $n ) {
-            $sql2 = "INSERT INTO `$tblNameTopic` (topics) VALUES ('$n')";
-            echo $sql2;
-            if (mysqli_query($conn, $sql2)){
-                echo 'done??';
+    $tblNameRec = $hash . $str2;
+    $createTable = " CREATE TABLE `".$tblNameTopic."` (topicUid INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY, topics tinytext NOT NULL); ";
+    $createTable .= " CREATE TABLE `".$tblNameRec."` (recUid INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY, recName tinytext NOT NULL, recLink tinytext NOT NULL); ";
+    $conn->multi_query($createTable);
+        do{
+            if (0 !== $conn->errno) {
+                echo "Multi query failed: (" . $conn->errno . ") " . $conn->error;
+                break;
             }
+            foreach( $topicValue as $key => $n ) {
+                $insertTopicValue = $conn -> query("INSERT INTO `$tblNameTopic` (topics) VALUES ('$n')");
+            }
+            for ($dummy = 0; $dummy < $recCount; $dummy++) {
+                $insertRecValue = $conn->query("INSERT INTO `$tblNameRec` (recName, recLink) VALUES ('$recName[$dummy]', '$recLink[$dummy]')");
+            }
+            if($conn->more_results() === false){
+                header('Location: ../index.php');
+                break;
+            }
+            $conn->next_result();
         }
-    }
-
-    /*
-    if (mysqli_query($conn, $sql)) {//this happens if it's correct
-        $sql = "CREATE TABLE ".$hash.$str2." (rec_name tinytext NOT NULL, link tinytext NOT NULL)";
-        if (mysqli_query($conn, $sql)) {//this happens if it's correct
-            echo "New record created successfully....";
-            header('Location: ../index.php');
-            exit();
-        }
-    }
-    */
+        while(true);
 } 
 else {//error handling
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Error: <br>" . mysqli_error($conn);
 }
-require_once 'footer.php'
-?>
+
+require_once 'footer.php';
