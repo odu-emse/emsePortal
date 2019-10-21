@@ -75,24 +75,6 @@ $(() =>{
             $('.title--wrapper--form__btn__true').html('Show completed modules')
         }
     })
-    /*
-    const resource = $('<input name="resource" type="text">')
-    const add = $('<button name="resource" id="addmoreTopic" type="button">Add more <i class="fa fa-plus"></i></button>')
-    let counter = 0
-    const topic = $(`
-    <label class="pt-2" for="">Included topic ${counter}
-        <input class="form-control pb-2" type="text" name="author">
-    </label>
-    `)
-
-    $('#review').append(topic).append(add)
-
-    $('#addmoreTopic').click((e)=>{
-        counter++
-        console.log(counter)
-        $('#review').html(topic)
-    })
-    */
 
     let counter = 2;
 
@@ -102,11 +84,12 @@ $(() =>{
             .attr("id", 'TopicWrapper' + counter)
 
         newTextBoxDiv.after().html(`
-            <label>Topic #${counter}</label>
-            <input type="text" name="topic[]" id="topic${counter}">`
-        )
+            <label class="pt-2 addGroup--label">Topic #${counter}
+                <input class="form-control addGroup--input w-100" type='text' id='topic${counter}' name="topic[]">
+            </label>
+        `)
 
-        newTextBoxDiv.appendTo("#TextBoxesGroup")
+        newTextBoxDiv.appendTo("#topic--insert")
 
         $('#hiddenCounter').attr('value', `${counter}`)
 
@@ -121,6 +104,39 @@ $(() =>{
         counter--
 
         $(`#TopicWrapper${counter}`).remove()
+    })
+
+
+    //rec addition
+    let cnt = 2;
+
+    $("#addRec").click( () => {
+        let newDiv = $(document.createElement('div'))
+            .attr("id", 'RecWrapper' + cnt)
+
+        newDiv.after().html(`           
+            <label class="addGroup--label">Resource #${cnt} Name & URL</label>
+            <div class="addGroup--input--wrapper row">
+                <input class='form-control addGroup--input col-md-6' placeholder="Name" type='text' id='rec${cnt}' name="recName[]">
+                <input class='form-control addGroup--input col-md-6' placeholder="URL" type='text' id='rec${cnt}' name="recLink[]">
+            </div>
+        `)
+
+        newDiv.appendTo("#rec--insert")
+
+        $('#hiddenCounterRec').attr('value', `${cnt}`)
+
+        cnt++
+    })
+
+    $('#removeRec').click(() => {
+        if(cnt == 2){
+            return false
+        }
+
+        cnt--
+
+        $(`#RecWrapper${cnt}`).remove()
     })
 
 });
