@@ -11,8 +11,55 @@ $result = $conn->query($sql);
 
 <div class="row module">
     <div class="col-md-12 module--nav">
-        <a class="btn btn-outline-secondary module--nav--button" href="./"><i class="fa fa-caret-left"></i><span class="module--nav--button--text">Previous module</span></a>
-        <a class="btn btn-outline-danger module--nav--button float-right" href="./"><span class="module--nav--button--text">Next module</span><i class="fa fa-caret-right"></i></a>
+        <form action="housing.php" method="get">
+            <?php
+            $fetchedUid = $conn -> query("SELECT uid FROM module WHERE `hash` = '$accessHash'");
+            if ($fetchedUid->num_rows > 0) {
+                if ($selectUidRow = $fetchedUid->fetch_assoc()) {
+                    $currentUid = $selectUidRow['uid'];
+
+                    $prevLink = $conn -> query("SELECT hash FROM module WHERE uid < '$currentUid' ORDER BY uid DESC LIMIT 1;");
+                    if ($prevLink->num_rows > 0) {
+                        if ($selectPrevLink = $prevLink->fetch_assoc()) {
+                            $prevLinkValue = $selectPrevLink['hash'];
+                            echo "
+                            <button class='btn btn-outline-secondary module--nav--button' type='submit' name='access' value='".$prevLinkValue."'>
+                                <i class='fa fa-caret-left'></i><span class='module--nav--button--text'>Previous module</span>
+                            </button>
+                            ";
+                        }
+                    }
+                    else{
+                        echo "
+                            <a class='btn btn-outline-secondary module--nav--button disabled' href='./'>
+                                <i class='fa fa-caret-left'></i><span class='module--nav--button--text'>Previous module</span>
+                            </a>
+                            ";
+                    }
+
+                    $nextLink = $conn -> query("SELECT hash FROM module WHERE uid > '$currentUid' ORDER BY uid LIMIT 1;");
+                    if ($nextLink->num_rows > 0) {
+                        if ($selectNextLink = $nextLink->fetch_assoc()) {
+                            $nextLinkValue = $selectNextLink['hash'];
+                            echo "
+                            <button class='btn btn-outline-danger module--nav--button float-right' type='submit' name='access' value='".$nextLinkValue."'>
+                                <span class='module--nav--button--text'>Next module</span><i class='fa fa-caret-right'></i>
+                            </button>
+                            ";
+                        }
+                    }
+                    else{
+                        echo "
+                            <a class='btn btn-outline-secondary module--nav--button disabled float-right' href='./'>
+                                <span class='module--nav--button--text'>Next module</span><i class='fa fa-caret-right'></i>
+                            </a>
+                            ";
+                    }
+                }
+            }
+
+            ?>
+        </form>
     </div>
 </div>
 
