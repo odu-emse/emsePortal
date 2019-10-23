@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version",
     "major": "npm run release -- --release-as major",
-    "patch": "npm run release -- --release-as patch",
-    "minor": "npm run release -- --release-as minor"
+    "minor": "npm run release -- --release-as minor",
+    "patch": "npm run release -- --release-as patch"
   },
   "repository": {
     "type": "git",

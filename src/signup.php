@@ -1,8 +1,8 @@
 <?php
-require_once "components/header.php";
+require_once "templates/header.php";
 ?>
 <h1>Register</h1>
-<form action="components/register.php" method="post">
+<form action="../templates/register.php" method="post">
     <label for="username">Username
         <input type="text" name="username">
     </label>
@@ -21,5 +21,5 @@ require_once "components/header.php";
 <a href="resetPass.php">Forgot your password?</a>
 
 <?php
-require_once "components/footer.php";
+require_once "templates/footer.php";
 ?>

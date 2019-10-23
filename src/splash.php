@@ -1,5 +1,5 @@
 <?php
-require_once "components/header.php";
+require_once "templates/header.php";
 
 if(isset($_SESSION['uid']) AND isset($_SESSION['username']) AND isset($_SESSION['email'])){
     header("Location: ../src/index.php");
@@ -9,7 +9,7 @@ if(isset($_SESSION['uid']) AND isset($_SESSION['username']) AND isset($_SESSION[
 <div class="container">
     <h1 class="text-center">Log in</h1>
     <h3 class="text-center">EMSE Asynchronous Platform</h3>
-    <form class="form-group signin ml-auto mr-auto mt-5" action="components/login.php" method="post">
+    <form class="form-group signin ml-auto mr-auto mt-5" action="../templates/login.php" method="post">
         <div class="signin--group mb-4">
             <input class="signin--group--input" type="text" name="uid" placeholder="MIDAS/E-mail">
             <label class="signin--group--label" for="username">MIDAS/E-mail</label>

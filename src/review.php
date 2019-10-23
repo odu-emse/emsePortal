@@ -1,5 +1,5 @@
 <?php
-require_once 'components/header.php';
+require_once 'templates/header.php';
 loginCheck();
 
 $link = $_POST['link'];
@@ -12,7 +12,7 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
     <div class="row">
         <div class="col mr-auto ml-auto">
             <h3  class="text-center">Review the data extracted</h3>
-            <form id="review" class="form-group d-flex justify-content-center flex-column text-center" action="components/process.php" method="post">
+            <form id="review" class="form-group d-flex justify-content-center flex-column text-center" action="../templates/process.php" method="post">
                 <label class="pt-2" for="">Module link
                 <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $link . "/story_html5.html";?>" name="link" required>
                 </label>
@@ -90,5 +90,5 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
 
 
 <?php
-require_once 'components/footer.php'
+require_once 'templates/footer.php'
 ?>

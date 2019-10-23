@@ -1,5 +1,5 @@
 <?php
-require_once "components/header.php";
+require_once "templates/header.php";
 loginCheck();
 ?>
     <div class="container">
@@ -16,7 +16,7 @@ loginCheck();
                 else{
                     if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false){
                         ?>
-                        <form action="components/resetPassReq.php" method="post">
+                        <form action="../templates/resetPassReq.php" method="post">
                             <input type="hidden" name="selector" value="<?php echo $selector;?>">
                             <input type="hidden" name="validator" value="<?php echo $validator;?>">
                             <label for="password">New password
@@ -35,5 +35,5 @@ loginCheck();
         </div>
     </div>
 <?php
-require_once "components/footer.php";
+require_once "templates/footer.php";
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once 'components/header.php';
+require_once 'templates/header.php';
 loginCheck();
 search($conn);
 $accessHash = $_GET['access'];
@@ -164,5 +164,5 @@ if (mysqli_num_rows($result) > 0) {
     $sql = $conn -> query("UPDATE module SET cnt = 0 WHERE hash <> '$accessHash'");
 }
 
-require_once 'components/footer.php';
+require_once 'templates/footer.php';
 ?>
