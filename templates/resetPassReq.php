@@ -6,11 +6,11 @@ if (isset($_POST['reset-password'])){
     $confPassword = $_POST['conf-password'];
 
     if (empty($password) || empty($confPassword)){
-        header("Location: ../index.php?error=emptyFields");
+        header("Location: ../src/index.php?error=emptyFields");
         exit();
     }
     elseif ($password != $confPassword){
-        header("Location: ../index.php?error=pswdNotMatching");
+        header("Location: ../src/index.php?error=pswdNotMatching");
         exit();
     }
 
@@ -21,7 +21,7 @@ if (isset($_POST['reset-password'])){
     $sql = "SELECT * FROM pwdReset WHERE selector=? AND expires>=?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("Location: ../index.php?error=resetConn");
+        header("Location: ../src/index.php?error=resetConn");
         exit();
     }
     else{
@@ -30,7 +30,7 @@ if (isset($_POST['reset-password'])){
 
         $result = mysqli_stmt_get_result($stmt);
         if (!$row = mysqli_fetch_assoc($result)){
-            header("Location: ../index.php?error=resetConn");
+            header("Location: ../src/index.php?error=resetConn");
             exit();
         }
         else{
@@ -38,7 +38,7 @@ if (isset($_POST['reset-password'])){
             $tokenCheck = password_verify($tokenBin, $row['token']);
 
             if ($tokenCheck === false){
-                header("Location: ../index.php?error=resetConn");
+                header("Location: ../src/index.php?error=resetConn");
                 exit();
             }
             elseif ($tokenCheck === true){
@@ -46,7 +46,7 @@ if (isset($_POST['reset-password'])){
                 $sql = "SELECT * FROM users WHERE email=?;";
                 $stmt = mysqli_stmt_init($conn);
                 if (!mysqli_stmt_prepare($stmt, $sql)){
-                    header("Location: ../index.php?error=resetConn");
+                    header("Location: ../src/index.php?error=resetConn");
                     exit();
                 }
                 else{
@@ -54,14 +54,14 @@ if (isset($_POST['reset-password'])){
                     mysqli_stmt_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);
                     if (!$row = mysqli_fetch_assoc($result)){
-                        header("Location: ../index.php?error=resetConn");
+                        header("Location: ../src/index.php?error=resetConn");
                         exit();
                     }
                     else{
                         $sql = "UPDATE users SET pwd=? WHERE email=?";
                         $stmt = mysqli_stmt_init($conn);
                         if (!mysqli_stmt_prepare($stmt, $sql)){
-                            header("Location: ../index.php?error=resetConn");
+                            header("Location: ../src/index.php?error=resetConn");
                             exit();
                         }
                         else {
@@ -72,13 +72,13 @@ if (isset($_POST['reset-password'])){
                             $sql = "DELETE FROM pwdReset WHERE email=?";
                             $stmt = mysqli_stmt_init($conn);
                             if (!mysqli_stmt_prepare($stmt, $sql)){
-                                header("Location: ../resetPass.php?error=resetConn");
+                                header("Location: ../src/resetPass.php?error=resetConn");
                                 exit();
                             }
                             else{
                                 mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                                 mysqli_stmt_execute($stmt);
-                                header("Location: ../index.php?success=reset");
+                                header("Location: ../src/index.php?success=reset");
                             }
                         }
                     }
@@ -88,6 +88,6 @@ if (isset($_POST['reset-password'])){
     }
 }
 else{
-    header("Location: ../index.php");
+    header("Location: ../src/index.php");
     exit();
 }

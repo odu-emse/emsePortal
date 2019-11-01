@@ -1,5 +1,5 @@
 <?php
-require_once 'templates/header.php';
+require_once '../templates/header.php';
 loginCheck();
 if(isset($_GET['submitSearch'])){
     $search = mysqli_real_escape_string($conn, $_GET['searchQuery']);

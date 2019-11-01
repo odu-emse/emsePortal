@@ -40,4 +40,4 @@ if(isset($_POST['related'])){
     }
 }
 
-header('Location: ../index.php');
+header('Location: ../src/index.php');

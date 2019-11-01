@@ -1,5 +1,5 @@
 <?php
-require_once "templates/header.php";
+require_once "../templates/header.php";
 
 if(isset($_SESSION['uid']) AND isset($_SESSION['username']) AND isset($_SESSION['email'])){
     header("Location: ../src/index.php");

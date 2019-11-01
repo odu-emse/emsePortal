@@ -6,14 +6,14 @@ if (isset($_POST['login'])){
     $password = $_POST['password'];
 
     if (empty($username) || empty($password)){ //error handler
-        header("Location: ../index.php?error=emptyFields");
+        header("Location: ../src/index.php?error=emptyFields");
         exit();
     }
     else{
         $sql = "SELECT * FROM users WHERE username=? OR email=?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
-            header("Location: ../index.php?error=SQLerror");
+            header("Location: ../src/index.php?error=SQLerror");
             exit();
         }
         else{
@@ -23,7 +23,7 @@ if (isset($_POST['login'])){
             if($row = mysqli_fetch_assoc($result)){
                 $passCheck = password_verify($password, $row['pwd']);
                 if ($passCheck == false){
-                    header("Location: ../index.php?error=passwordIncorrect");
+                    header("Location: ../src/index.php?error=passwordIncorrect");
                     exit();
                 }
                 elseif ($passCheck == true){
@@ -32,22 +32,22 @@ if (isset($_POST['login'])){
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['email'] = $row['email'];
 
-                    header("Location: ../index.php?success=login");
+                    header("Location: ../src/index.php?success=login");
                     exit();
                 }
                 else{
-                    header("Location: ../index.php?error=passwordIncorrect");
+                    header("Location: ../src/index.php?error=passwordIncorrect");
                     exit();
                 }
             }
             else{
-                header("Location: ../index.php?error=userNotFound");
+                header("Location: ../src/index.php?error=userNotFound");
                 exit();
             }
         }
     }
 }
 else{ //error handler
-    header("Location: ../index.php?error=urlExploration");
+    header("Location: ../src/index.php?error=urlExploration");
     exit();
 }
