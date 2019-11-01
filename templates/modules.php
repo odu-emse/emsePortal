@@ -11,7 +11,7 @@
             $x++;
         ?>
             <div class="card" id="<?php echo 'card' . $x ?>" index="<?php echo $x ?>">
-                <img class="card-img-top" id="<?php echo 'moduleThumb' . $x ?>" src="https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here" alt="Card image cap">
+                <img class="card-img-top" id="<?php echo 'moduleThumb' . $x ?>" src="<?php echo $row['link'] . "/story_content/thumbnail.jpg" ?>" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $row['name'] ?></h5>
                     <small class="text-muted card-author"><?php echo $row['author'] ?></small>

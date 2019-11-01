@@ -1,6 +1,5 @@
 <?php
-require_once "templates/header.php";
-loginCheck();
+require_once "../templates/header.php";
 ?>
     <h1>Reset password</h1>
     <p>Enter your email to receive a reset link where you can reset your password.</p>
@@ -11,5 +10,5 @@ loginCheck();
         <button class="btn btn-primary" type="submit" name="reset">Send reset link</button>
     </form>
 <?php
-require_once "templates/footer.php";
+require_once "../templates/footer.php";
 ?>

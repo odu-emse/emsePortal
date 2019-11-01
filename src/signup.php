@@ -1,5 +1,5 @@
 <?php
-require_once "templates/header.php";
+require_once "../templates/header.php";
 ?>
 <h1>Register</h1>
 <form action="../templates/register.php" method="post">
@@ -21,5 +21,5 @@ require_once "templates/header.php";
 <a href="resetPass.php">Forgot your password?</a>
 
 <?php
-require_once "templates/footer.php";
+require_once "../templates/footer.php";
 ?>

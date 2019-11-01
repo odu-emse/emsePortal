@@ -1,5 +1,5 @@
 <?php
-require_once 'templates/header.php';
+require_once '../templates/header.php';
 loginCheck();
 ?>
 
@@ -21,5 +21,5 @@ loginCheck();
 
 <?php
 
-require_once 'templates/footer.php'
+require_once '../templates/footer.php'
 ?>

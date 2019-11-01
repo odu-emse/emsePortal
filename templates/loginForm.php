@@ -2,7 +2,7 @@
     if (isset($_SESSION['uid'])){
         echo
         '
-        <form action="components/logout.php" method="get">
+        <form action="../templates/logout.php" method="get">
             <button class="btn btn-danger" type="submit" name="logout">Logout</button>
         </form>
         ';

@@ -1,5 +1,5 @@
 <?php
-require_once 'templates/header.php';
+require_once '../templates/header.php';
 loginCheck();
 search($conn);
 //declaring counter
@@ -67,5 +67,5 @@ $y = 0;
 </div><!--end of container-fluid-->
 <?php
 mysqli_free_result($result);
-require_once 'templates/footer.php';
+require_once '../templates/footer.php';
 ?>

@@ -12,14 +12,14 @@ if(isset($_POST['reset'])){
     $expires = date("U") + 1800;
 
     require "header.php";
-    require '../../vendor/autoload.php'; // If you're using Composer (recommended)
+    require '../vendor/autoload.php'; // If you're using Composer (recommended)
 
     $userEmail = $_POST['email'];
 
     $sql = "DELETE FROM pwdReset WHERE email=?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("Location: ../resetPass.php?error=resetConn");
+        header("Location: ../src/resetPass.php?error=resetConn");
         exit();
     }
     else{
@@ -30,7 +30,7 @@ if(isset($_POST['reset'])){
     $sql = "INSERT INTO pwdReset (email, selector, token, expires) VALUES (?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("Location: ../resetPass.php?error=resetConn");
+        header("Location: ../src/resetPass.php?error=resetConn");
         exit();
     }
     else{
@@ -52,6 +52,6 @@ if(isset($_POST['reset'])){
     sendgridMail($to, $subject, $message, 'EMSE User');
 }
 else{
-    header("Location: ../index.php");
+    header("Location: ../src/index.php");
     exit();
 }

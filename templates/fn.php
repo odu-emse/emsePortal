@@ -85,7 +85,7 @@ function cnt($conn){
                             <i class="fa fa-play" aria-hidden="true"></i>
                         </button>
                     </form>
-                    <img class="jumb--img__ill" alt="">
+                    <img class="jumb--img__ill" src="'.$row['link']."story_content/thumbnail.jpg".'" alt="">
                 </div>
                 ';
             }
@@ -118,7 +118,7 @@ function fetch($conn, $table, $file){
     }
     else {
         if ($result->num_rows > 0) {
-            $actualFile = 'components/' . $file . '.php';
+            $actualFile = '../templates/' . $file . '.php';
             if (file_exists($actualFile)) {
                 require $actualFile;
             } else {
@@ -204,10 +204,14 @@ function sendgridMail($to, $subject, $message, $optionalToName = null){
     $sendgrid = new \SendGrid($api);
 
     if ($sendgrid-> send($email)){
-        header("Location: ../index.php?success=resetEmail");
+        header("Location: ../src/index.php?success=resetEmail");
     }
 }
 
 function title($y){
     //TODO: checks if the search/filter query is present and show appropriate h1 tag for the course
+}
+
+function upload(){
+
 }

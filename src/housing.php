@@ -1,5 +1,5 @@
 <?php
-require_once 'templates/header.php';
+require_once '../templates/header.php';
 loginCheck();
 search($conn);
 $accessHash = $_GET['access'];
@@ -71,7 +71,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="video col-md-9">
                 <div class="col-md-12 gutter">
                     <div class="video--house">
-                        <iframe class="access" src='<?=$row['link']?>'></iframe>
+                        <iframe class="access" src='<?=$row['link']."/story_html5.html"?>'></iframe>
                     </div>
                     <div class="video--trans container">
                         <h2 class="video--trans--title"><?=$row['name']?></h2>

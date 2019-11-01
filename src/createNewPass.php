@@ -1,5 +1,5 @@
 <?php
-require_once "templates/header.php";
+require_once "../templates/header.php";
 loginCheck();
 ?>
     <div class="container">
@@ -35,5 +35,5 @@ loginCheck();
         </div>
     </div>
 <?php
-require_once "templates/footer.php";
+require_once "../templates/footer.php";
 ?>

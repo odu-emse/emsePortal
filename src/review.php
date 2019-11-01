@@ -1,10 +1,10 @@
 <?php
-require_once 'templates/header.php';
+require_once '../templates/header.php';
 loginCheck();
 
-$link = $_POST['link'];
+$folderName = $_POST['link'];
 
-$metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot create object");
+$metaImport = simplexml_load_file("../public/assets/" . $folderName . "/meta.xml") or die("Error: Cannot create object");
 
 ?>
 
@@ -12,17 +12,25 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
     <div class="row">
         <div class="col mr-auto ml-auto">
             <h3  class="text-center">Review the data extracted</h3>
-            <form id="review" class="form-group d-flex justify-content-center flex-column text-center" action="../templates/process.php" method="post">
-                <label class="pt-2" for="">Module link
-                <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $link . "/story_html5.html";?>" name="link" required>
+            <form id="review" class="form-group d-flex justify-content-center flex-column text-center dropzone" action="../templates/process.php" method="post" enctype="multipart/form-data">
+                <label class="pt-2" for="">Course number
+                    <input class="form-control pb-2" maxlength="3" type="number" placeholder="Enter a course number" name="courseNumber" required>
+                </label>
+
+                <label class="pt-2" for="">Course name
+                    <input class="form-control pb-2" maxlength="250" type="text" placeholder="Enter a course name" name="courseName" required>
                 </label>
 
                 <label class="pt-2" for="">Module number
-                <input class="form-control pb-2" max="9999" min="1" type="number" placeholder="Enter a module number" name="number" required>
+                    <input class="form-control pb-2" max="9999" min="1" type="number" placeholder="Enter a module number" name="number" required>
                 </label>
 
                 <label class="pt-2" for="">Module title
-                <input class="form-control pb-2" maxlength="50" type="text" value="<?php echo $metaImport->project['title'];?>" name="title" required>
+                    <input class="form-control pb-2" maxlength="50" type="text" value="<?php echo $metaImport->project['title'];?>" name="title" required>
+                </label>
+
+                <label class="pt-2" for="">Module link
+                    <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $folderName;?>" name="link" required>
                 </label>
 
                 <label class="pt-2" for="">Module duration
@@ -43,7 +51,7 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
                 </label>
 
                 <label class="pt-2" for="">Module professor
-                <input class="form-control pb-2" maxlength="50" type="text" value="<?php echo $metaImport->project[0]->author['name'];?>" name="author" required>
+                    <input class="form-control pb-2" maxlength="50" type="text" value="<?php echo $metaImport->project[0]->author['name'];?>" name="author" required>
                 </label>
 
                 <div id='TextBoxesGroup' class="addGroup">
@@ -60,6 +68,11 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
                             <button class="btn btn-outline-danger" type='button' value='Remove Button' id='removeButton'>Remove topic</button>
                         </div>
                     </div>
+                </div>
+
+                <p>Drop files here to upload them or include links below to online resources below.</p>
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
                 </div>
 
                 <div id="RecWrapper" class="addGroup">
@@ -81,7 +94,7 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
                 </div>
 
                 <a class="w-25 mr-auto ml-auto mt-5 btn btn-danger" href="extract.php">Reset</a>
-                <button class="w-25 mr-auto ml-auto mt-1 btn btn-success" type="submit">Approve data</button>
+                <button class="w-25 mr-auto ml-auto mt-1 btn btn-success" name="submit" type="submit">Approve data</button>
             </form>
         </div>
     </div>
@@ -90,5 +103,5 @@ $metaImport = simplexml_load_file($link . "/meta.xml") or die("Error: Cannot cre
 
 
 <?php
-require_once 'templates/footer.php'
+require_once '../templates/footer.php'
 ?>
