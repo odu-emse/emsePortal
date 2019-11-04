@@ -16,10 +16,14 @@ require_once 'fn.php';
 <script src="script/jquery.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="script/dropzone.js"></script>
-<script src="script/main.js"></script>
+<script src="script/main.js" type="module"></script>
 </head>
 <body>
 <?php
+    include_once "sidebar.php";
     include_once "nav.php";
     include_once "error.php";
 ?>
+<div id="body-overlay">
+
+</div>
