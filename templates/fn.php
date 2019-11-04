@@ -76,12 +76,12 @@ function cnt($conn){
                     <h3 class="jumb--text--title">Carry on learning</h3>
                     <p class="jumb--text--paragraph">Continue your progress in the '.$row['name'].' module. Don\'t forget to mark the module complete if it\'s done.</p>
                     <form action="housing.php" method="get">
-                        <button class="btn btn-success jumb--text--cta" type="submit" name="access" value="'.$row['uid'].'">Continue module</button>
+                        <button class="btn btn-success jumb--text--cta" type="submit" name="access" value="'.$row['hash'].'">Continue module</button>
                     </form>
                 </div>
                 <div class="jumb--img col">
                     <form class="jumb--img__form" action="housing.php" method="get">
-                        <button class="jumb--img__play" type="submit" name="access" value="'.$row['uid'].'">
+                        <button class="jumb--img__play" type="submit" name="access" value="'.$row['hash'].'">
                             <i class="fa fa-play" aria-hidden="true"></i>
                         </button>
                     </form>
