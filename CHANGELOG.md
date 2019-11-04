@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.2](https://github.com/chef-danny-d/emsePortal/compare/v2.6.1...v2.6.2) (2019-11-04)
+
+
+### Bug Fixes
+
+* **continue:** changed access to hash from uid ([51433ba](https://github.com/chef-danny-d/emsePortal/commit/51433ba))
+
 ### [2.6.1](https://github.com/chef-danny-d/emsePortal/compare/v2.6.0...v2.6.1) (2019-11-04)
 
 
