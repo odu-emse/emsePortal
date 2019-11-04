@@ -1,6 +1,6 @@
 {
   "name": "emseportal",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "description": "portal to hold courses together",
   "main": "gulpfile.js",
   "scripts": {

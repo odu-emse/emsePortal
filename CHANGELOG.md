@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.4](https://github.com/chef-danny-d/emsePortal/compare/v2.6.3...v2.6.4) (2019-11-04)
+
+
+### Bug Fixes
+
+* **ignore:** started ignoring upload folder ([850282e](https://github.com/chef-danny-d/emsePortal/commit/850282e))
+
+
+### Features
+
+* **upload:** allowing folder upload ([e18a861](https://github.com/chef-danny-d/emsePortal/commit/e18a861))
+
 ### [2.6.3](https://github.com/chef-danny-d/emsePortal/compare/v2.6.2...v2.6.3) (2019-11-04)
 
 ### [2.6.2](https://github.com/chef-danny-d/emsePortal/compare/v2.6.1...v2.6.2) (2019-11-04)
