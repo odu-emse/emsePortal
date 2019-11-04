@@ -1,3 +1,6 @@
+import sidebar from './sidebar.js'
+sidebar();
+
 $(() =>{
     let x = 1
 

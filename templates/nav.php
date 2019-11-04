@@ -10,6 +10,9 @@
         <div class="ml-auto">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
+                    <a id="sidebar" class="nav-link" href="./">My Courses</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">Overview</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -26,3 +29,4 @@
         </div>
     </div>
 </nav>
+<a href='#' id='overlay-close'><i class='fa fa-close'></i></a>
