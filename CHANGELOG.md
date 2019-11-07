@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/chef-danny-d/emsePortal/compare/v2.6.4...v2.7.0) (2019-11-07)
+
+
+### Features
+
+* **upload:** zip file upload modules ([97a375a](https://github.com/chef-danny-d/emsePortal/commit/97a375a))
+
 ### [2.6.4](https://github.com/chef-danny-d/emsePortal/compare/v2.6.3...v2.6.4) (2019-11-04)
 
 
