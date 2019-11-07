@@ -2,10 +2,10 @@
 require_once '../templates/header.php';
 loginCheck();
 
-$folderName = $_POST['link'];
-
-$metaImport = simplexml_load_file("../public/assets/" . $folderName . "/meta.xml") or die("Error: Cannot create object");
-
+$folderName = $_SESSION['folderName'];
+//$folderName = $_POST['extpath'];
+$path = "../public/upload/".$folderName;
+$metaImport = simplexml_load_file($path . "/meta.xml") or die("Error: Cannot create object");
 ?>
 
 <div class="container">
@@ -30,7 +30,7 @@ $metaImport = simplexml_load_file("../public/assets/" . $folderName . "/meta.xml
                 </label>
 
                 <label class="pt-2" for="">Module link
-                    <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $folderName;?>" name="link" required>
+                    <input class="form-control pb-2" maxlength="250" type="text" value="<?php echo $path;?>" name="link" required>
                 </label>
 
                 <label class="pt-2" for="">Module duration

@@ -25,7 +25,7 @@ $moduleNumber = $_POST['number'];
 $moduleName = $_POST['title'];
 $descr = $_POST['descr'];
 $duration = $_POST['duration'];
-$link = "../public/assets/" . $_POST['link'];
+$link = $_POST['link'];
 $numSlides = $_POST['numSlides'];
 $author = $_POST['author'];
 $topicCount = $_POST['hiddenCounter'];
@@ -59,6 +59,7 @@ if (mysqli_query($conn, $sql)) {//this happens if it's correct
             }
             if($conn->more_results() === false){
                 header('Location: ../src/index.php');
+                unset($_SESSION['folderName']);
                 break;
             }
             $conn->next_result();
