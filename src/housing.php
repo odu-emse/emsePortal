@@ -99,8 +99,8 @@ if (mysqli_num_rows($result) > 0) {
                                 if (mysqli_num_rows($rst) > 0) {
                                     echo "
                                     <li class=\"feature--cont--list--item row pl-0 pr-0 d-flex flex-row keywords\">
-                                        <div class='feature--cont--list--item--title pl-0 pr-0 keywords--key'><i class='fa fa-tag'></i>Keywords</div>
-                                        <div class='feature--cont--list--item--value pl-0 pr-0 text-right text-muted keywords--value'>
+                                        <div class='feature--cont--list--item--title pl-0 pr-0 keywords--key flex-grow-1'><i class='fa fa-tag'></i>Keywords</div>
+                                        <div class='feature--cont--list--item--value pl-0 pr-0 text-right text-muted keywords--value flex-grow-1'>
                                     ";
                                     while ($topic = mysqli_fetch_assoc($rst)) {
                                         echo "
@@ -108,6 +108,7 @@ if (mysqli_num_rows($result) > 0) {
                                             <i class='fa fa-tag'></i>
                                             " . $topic['topics'] . "
                                         </span>
+                                        </br>
                                         ";
                                     }
                                     echo "
@@ -131,8 +132,8 @@ if (mysqli_num_rows($result) > 0) {
                             if (mysqli_num_rows($res) > 0) {
                                 echo "
                                 <li class='feature--cont--list--item row pl-0 pr-0 d-flex flex-row'>
-                                    <div class='feature--cont--list--item--title pl-0 pr-0'><i class='fa fa-clone'></i>Resources</div>
-                                    <div class='feature--cont--list--item--value pl-0 pr-0 text-right'>
+                                    <div class='feature--cont--list--item--title pl-0 pr-0 flex-grow-1'><i class='fa fa-clone'></i>Resources</div>
+                                    <div class='feature--cont--list--item--value pl-0 pr-0 text-right flex-grow-1'>
                                         <ul>
                                 ";
                                 while ($rec = mysqli_fetch_assoc($res)) {

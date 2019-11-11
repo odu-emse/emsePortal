@@ -3,7 +3,6 @@ require_once '../templates/header.php';
 loginCheck();
 
 $folderName = $_SESSION['folderName'];
-//$folderName = $_POST['extpath'];
 $path = "../public/upload/".$folderName;
 $metaImport = simplexml_load_file($path . "/meta.xml") or die("Error: Cannot create object");
 ?>

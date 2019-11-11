@@ -207,11 +207,3 @@ function sendgridMail($to, $subject, $message, $optionalToName = null){
         header("Location: ../src/index.php?success=resetEmail");
     }
 }
-
-function title($y){
-    //TODO: checks if the search/filter query is present and show appropriate h1 tag for the course
-}
-
-function upload(){
-
-}

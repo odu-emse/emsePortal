@@ -3,7 +3,10 @@
     "twig/twig": "^2.0",
     "sendgrid/sendgrid": "~7",
     "ext-mysqli": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "heroku/heroku-buildpack-php": "^164.0"
   },
-  "version": "2.7.0"
+  "version": "2.7.0",
+  "require-dev": {
+  }
 }

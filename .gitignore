@@ -34,7 +34,5 @@ bower_components/
 \vendor
 .env
 
-public/upload/*.zip
-public/upload/*.jpg
-public/upload/*.png
-public/upload/*.pdf
+public/upload/*
+!public/upload*.php

@@ -1,5 +1,5 @@
 <div class="title--wrapper">
-    <h1 class="title-text">Incomplete Modules - ENMA 600</h1>
+    <h1 class="title-text">Incomplete Modules</h1>
     <form class="title--wrapper--form">
         <button class="button btn btn-secondary title--wrapper--form__btn__true" name="showAll" value="true">Show completed modules</button>
     </form>

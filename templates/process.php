@@ -2,7 +2,7 @@
 //sends data to the database
 require_once 'header.php';
 
-$target_dir = "../public/upload/";
+$target_dir = "../public/assets/";
 $fileName = $_FILES["file"]["name"];
 $target_file = $target_dir . basename($fileName);
 $uploadOk = 1;
@@ -40,7 +40,7 @@ $str2 = "_rec";
 $sql = "insert into module (course, name, number, alias, descr, duration, link, numSlides, author, difficulty, done, cnt, hash) VALUES ('$courseNumber', '$courseName', '$moduleNumber', '$moduleName', '$descr', '$duration', '$link', '$numSlides','$author',0,0,0,'$hash');";
 
 if (mysqli_query($conn, $sql)) {//this happens if it's correct
-    $addImage = $conn->query("insert into uploadTest (link) value ('public/uploads/".$fileName."');");
+    $addImage = $conn->query("insert into uploadTest (link) value ('public/assets/".$fileName."');");
     $tblNameTopic = $hash . $str;
     $tblNameRec = $hash . $str2;
     $createTable = " CREATE TABLE `".$tblNameTopic."` (topicUid INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY, topics tinytext NOT NULL); ";

@@ -6,11 +6,11 @@ export default function titleChange() {
         x++
         $('.card').toggleClass('completed')
         if(x % 2 == 0){
-            $('.title-text').html('Completed Modules - ENMA 600')
+            $('.title-text').html('Completed Modules')
             $('.title--wrapper--form__btn__true').html('Show incomplete modules')
         }
         else{
-            $('.title-text').html('Incomplete Modules - ENMA 600')
+            $('.title-text').html('Incomplete Modules')
             $('.title--wrapper--form__btn__true').html('Show completed modules')
         }
     })

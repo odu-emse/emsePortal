@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac8559ba487a3f85d51e4212fc2f0df0",
+    "content-hash": "37a8042aac3cb946f30fb282927976ff",
     "packages": [
+        {
+            "name": "heroku/heroku-buildpack-php",
+            "version": "v164",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/heroku/heroku-buildpack-php.git",
+                "reference": "65bbee93ecc41f8a7d7f909e120c614763079167"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/65bbee93ecc41f8a7d7f909e120c614763079167",
+                "reference": "65bbee93ecc41f8a7d7f909e120c614763079167",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/heroku-hhvm-apache2",
+                "bin/heroku-hhvm-nginx",
+                "bin/heroku-php-apache2",
+                "bin/heroku-php-nginx"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zuelke",
+                    "email": "dz@heroku.com"
+                }
+            ],
+            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
+            "homepage": "https://github.com/heroku/heroku-buildpack-php",
+            "keywords": [
+                "apache",
+                "apache2",
+                "foreman",
+                "heroku",
+                "hhvm",
+                "nginx",
+                "php"
+            ],
+            "time": "2019-10-24T16:05:31+00:00"
+        },
         {
             "name": "sendgrid/php-http-client",
             "version": "3.9.6",
@@ -306,7 +350,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "version": "2.7.0"
+    "platform": {
+        "ext-mysqli": "*",
+        "ext-simplexml": "*"
+    },
+    "platform-dev": []
 }
