@@ -1,10 +1,14 @@
 {
   "name": "emseportal",
-  "version": "0.0.2",
+  "version": "2.7.0",
   "description": "portal to hold courses together",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "standard-version",
+    "major": "npm run release -- --release-as major",
+    "minor": "npm run release -- --release-as minor",
+    "patch": "npm run release -- --release-as patch"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
+    "@fortawesome/fontawesome-free": "^5.10.1",
     "@types/jquery": "^3.3.30",
     "browser-sync": "^2.26.7",
     "gulp": "^3.9.1",
@@ -31,6 +36,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-typescript": "^5.0.1",
     "gulp-uglify": "^3.0.2",
+    "standard-version": "^7.0.0",
     "typescript": "^3.5.2"
   },
   "dependencies": {

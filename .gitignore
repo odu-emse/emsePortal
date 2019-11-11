@@ -31,3 +31,10 @@ bower_components/
 
 \.DS_Store
 \.idea
+\vendor
+.env
+
+public/upload/*.zip
+public/upload/*.jpg
+public/upload/*.png
+public/upload/*.pdf

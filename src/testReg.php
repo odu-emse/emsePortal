@@ -1,14 +1,7 @@
 <?php
-session_start();
-
-require_once 'components/header.php';
-require_once 'components/globals.php';
-require_once 'components/fn.php';
-
+require_once '../templates/header.php';
 loginCheck();
 search($conn);
-
-include_once 'components/nav.php';
 
 //fetching modules for related module section
 $sql = "SELECT * FROM module";
@@ -21,7 +14,7 @@ $result = mysqli_query($conn, $sql);
         <h3 class="text-center">
             Add assignment
         </h3>
-        <form action="components/processAssg.php" method="post">
+        <form action="../templates/processAssg.php" method="post">
             <div class="form-group">
                 <label class="">Name</label>
                 <input name="name" type="text" class="form-control" placeholder="Name of the assignment"  required maxlength="250">

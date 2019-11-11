@@ -1,17 +1,23 @@
-@import './import/import'
-@import './import/variable'
 @import '../../node_modules/bootstrap/scss/bootstrap'
+@import 'import/import'
+@import 'import/variable'
+@import 'import/dropzone.css'
 
 body
-    background-color: $third
+    background-color: $gray-400
     font-family: 'Roboto', 'Open Sans', 'Lato', 'Montserrat', sans-serif
     position: relative
     min-height: 100vh
     padding-bottom: 5em
+.navbar
+    background-color: transparent
 .row
     margin:
         left: 0
         right: 0
+    padding:
+        left: 15px
+        right: 15px
 .meta
     &Duration
         height: 100%
@@ -27,17 +33,24 @@ body
     display: none //this is in order to make the load more fn work
     &-header
         display: flex
-    &-body
-        &__form
-            display: flex
-            justify-content: space-evenly
-            &--comp
+    &-form
+        display: flex
+        flex-direction: column
+        justify-content: space-evenly
+        padding: .75rem 1.25rem
+        &-access, &-comp
+            &-btn
+                width: 100%
+        &-comp
+            margin:
+                top: 0.25rem
+            &-btn
                 &:disabled
                     cursor: not-allowed
                     text-decoration: line-through
 #resp
     position: absolute
-    top: 3em
+    top: 100%
     background-color: $gray-100
     border: $gray-300 solid 0.5px
         top: 0
@@ -63,8 +76,6 @@ body
         background-color: #f8f9fa
         padding: 0.3em 0.7em
         border: 1px solid rgba(0,0,0,.125)
-            radius: 0.25em
-            radius: 0.25em
             radius: 0.25em
         flex-direction: column
         display: none
@@ -116,5 +127,271 @@ body
     width: 100%
     min-height: 80vh
     max-height: stretch
+.jumb
+    padding-top: 1em
+    display: flex
+    align-items: center
+    &--text
+        &--title
+            &:after
+                display: block
+                margin:
+                    bottom: 0.25em
+                    top: 0.25em
+                content: ''
+                width: 10%
+                height: 0.15em
+                background-color: $success
+    &--img
+        display: flex
+        justify-content: center
+        padding-left: 0
+        padding-right: 0
+        position: relative
+        &__ill
+            width: 100%
+        &__form
+            position: absolute
+            width: 100%
+            height: 100%
+            background-color: rgba(0,0,0,0.5)
+            display: flex
+            justify-content: center
+            align-items: center
+        &__play
+            background-color: transparent
+            border: 0
+            font-size: 5em
+            color: white
+.sort
+    border-top: 1px solid $gray-400
+    border-bottom: 1px solid $gray-400
+    padding: 0.75em 0.25em
+    margin-top: 2em
+    display: flex
+    justify-items: center
+    align-items: center
+    &--search
+        width: 100%
+    &--wrapper
+        position: relative
+    &--select
+        background: transparent
+        border: 0
+        width: 100%
+        font-size: 1.1em
+        appearance: none
+        &:after
+            display: block
+            content: ''
+            width: 1em
+            height: 1em
+            background-color: aqua
+    &--options
+        &__lvl, &__module, &__topic, &__search
+            display: flex
+            align-items: center
+        &--wrapper
+            border: 0
+                right: 1.5px solid $gray-500
+            position: relative
+            width: 100%
+            &:after
+                display: block
+                content: "\f078"
+                font: normal normal normal 14px/1 FontAwesome
+                height: 1em
+                width: 1em
+                position: absolute
+                right: 0
+                top: calc(50% - 0.5em)
+                margin-right: 1em
+                z-index: -1
+        &__search
+            .sort--options--wrapper
+                display: flex
+                &:after
+                    display: none
+                border: 0
+                .search
+                    &--input
+                        flex: 2
+                    &--button
+                        flex: 1
+
+.tile
+    border: 1px solid black
+    margin: 0.25em 0.5em
+    border-radius: 0.5em
+    padding: 0
+    overflow: hidden
+    &--image
+        background-image: url("https://via.placeholder.com/1920x1080.png?text=Illustration+Comes+Here")
+        background-position: center center
+        background-size: cover
+        height: 50%
+        width: 100%
+    &--body
+        padding-right: 15px
+        padding-left: 15px
+    &--footer
+        display: flex
+.info
+    &--item
+        display: flex
+        align-content: center
+
+.main
+    &--roller
+        width: 100%
+.card
+    flex: 0 0 auto !important
+    width: 25%
+    &-title
+        margin:
+            bottom: 0
+    &-text
+        margin:
+            top: .75rem
+    &-footer
+        display: flex
+        justify-content: space-between
+    &-deck
+        flex-wrap: nowrap
+        overflow-x: auto
+        scrollbar-width: none
+
+.title
+    &-text
+        flex: 6
+        margin:
+            bottom: 0
+    &--wrapper
+        margin:
+            bottom: 0.5rem
+        flex: 1
+        display: flex
+        flex-direction: row
+        align-items: center
+
+.completed
+    display: none !important
+
+.table
+    td, th
+        vertical-align: middle
+.gutter
+    box-shadow: 0 0.25em 0.25em rgba(0,0,0,0.3)
+    padding: 0
+    margin: 0 15px
+    height: 100%
+    background-color: $gray-300
+    overflow-x: hidden
+.video
+    padding-left: 0
+    &--house
+        margin-right: -13px
+.feature
+    &--cont
+        > .gutter
+            flex-direction: column
+        &--wrapper
+            flex: 1
+        &--list
+            list-style: none
+            padding-left: 0
+            &--item
+                margin: 0.5rem 0
+                &--title
+                    .fa
+                        color: $danger
+                        padding-right: 0.5rem
+                &--value
+                    float: right
+                    text-transform: capitalize
+                    display: inline-block
+.keywords
+    &--key
+        flex: 1
+    &--value
+        flex: 2
+.addGroup
+    &--input
+
+    &--rec
+
+    &--label
+
+    &--wrapper
+
+.module
+    padding: 1rem 15px
+    margin-bottom: 30px
+    background-color: $gray-300
+    &--nav
+        &--button
+            border-radius: 1.25rem
+            &--text
+                margin: 1rem
+.post
+    &--button
+        border-radius: 0
+        align-self: flex-end
+        width: 100%
+
+.signin
+    width: 66%
+    &--group
+        position: relative
+        &--input
+            width: 100%
+            &:focus
+                & + .nav--form--group--label
+                    display: block
+        &--label
+            display: none !important
+            position: absolute
+            top: 3rem
+        &--buttons
+            &--link
+                width: 50%
+#body-overlay
+    background-color: $gray-700
+    opacity: 0.8
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    z-index: 99
+    display: none
+#overlay-close
+    display: none
+    position: absolute
+    right: 0
+    top: 0
+    font-size: 5rem
+    color: $black
+    z-index: 999
+.sidebar
+    display: none
+    width: 15vw
+    height: 100%
+    position: absolute
+    top: 0
+    left: -15vw
+    padding: 1rem 0.5rem
+    background-color: $gray-300
+    z-index: 999
+    transition: 0.75s ease all
+    &.opened
+        left: 0vw
+        transition: 0.75s ease all
+    &-list
+        list-style: none
+        &-item
+            margin: 0.5rem 0rem
+            &-link
+
 
 @import './import/mobile'
