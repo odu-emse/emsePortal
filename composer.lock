@@ -354,5 +354,6 @@
         "ext-mysqli": "*",
         "ext-simplexml": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "version": "2.7.1"
 }

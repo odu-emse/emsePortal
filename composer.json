@@ -6,7 +6,6 @@
     "ext-simplexml": "*",
     "heroku/heroku-buildpack-php": "^164.0"
   },
-  "version": "2.7.0",
-  "require-dev": {
-  }
+  "version": "2.7.1",
+  "require-dev": {}
 }
