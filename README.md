@@ -1,20 +1,28 @@
-# emsePortal
+# emse
 
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+This project was built with Turbo 360. To learn more, click here: https://www.turbo360.co
 
-### pre requisites
-* nodejs >= v10.0
-* npm
-* gulp v3.9
-* MySQL
-* PHP >= v7.0
-* apache2
+## Instructions
+After cloning into repo, cd to project root directory and install dependencies:
 
-*start up your MySQL server before completing the steps below*
+```
+$ npm install
+```
 
-```shell
-$ cd /var/www/html
-$ git clone 
-$ cd emsePortal
-$ gulp default
+To run dev server, install Turbo CLI globally:
+
+```
+$ sudo npm install turbo-cli -g
+```
+
+Then run devserver from project root directory:
+
+```
+$ turbo devserver
+```
+
+To build for production, run build:
+
+```
+$ npm run build
 ```

@@ -1,52 +1,56 @@
 {
-  "name": "emseportal",
-  "version": "2.7.1",
-  "description": "portal to hold courses together",
-  "main": "gulpfile.js",
+  "name": "emse",
+  "version": "0.0.0",
+  "server": false,
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "standard-version",
-    "major": "npm run release -- --release-as major",
-    "minor": "npm run release -- --release-as minor",
-    "patch": "npm run release -- --release-as patch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chef-danny-d/emsePortal.git"
-  },
-  "author": "Daniel Papp",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/chef-danny-d/emsePortal/issues"
-  },
-  "homepage": "https://github.com/chef-danny-d/emsePortal#readme",
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/register": "^7.4.4",
-    "@fortawesome/fontawesome-free": "^5.10.1",
-    "@types/jquery": "^3.3.30",
-    "browser-sync": "^2.26.7",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^6.1.0",
-    "gulp-clean-css": "^4.2.0",
-    "gulp-connect-php": "^1.0.3",
-    "gulp-minify": "^3.1.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-typescript": "^5.0.1",
-    "gulp-uglify": "^3.0.2",
-    "standard-version": "^7.0.0",
-    "typescript": "^3.5.2"
+    "start": "node ./bin/www",
+    "test": "",
+    "build": "",
+    "postinstall": "turbo postinstall"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1"
+    "accepts": "^1.3.5",
+    "array-flatten": "1.1.1",
+    "body-parser": "1.18.2",
+    "content-disposition": "0.5.2",
+    "content-type": "^1.0.4",
+    "cookie": "0.3.1",
+    "cookie-signature": "1.0.6",
+    "debug": "2.6.9",
+    "depd": "^1.1.2",
+    "encodeurl": "^1.0.2",
+    "escape-html": "^1.0.3",
+    "etag": "^1.8.1",
+    "finalhandler": "1.1.1",
+    "fresh": "0.5.2",
+    "merge-descriptors": "1.0.1",
+    "methods": "^1.1.2",
+    "mongodb": "^3.3.4",
+    "on-finished": "^2.3.0",
+    "parseurl": "^1.3.2",
+    "path-to-regexp": "0.1.7",
+    "proxy-addr": "^2.0.3",
+    "qs": "6.5.1",
+    "range-parser": "^1.2.0",
+    "rimraf": "^2.6.2",
+    "safe-buffer": "5.1.1",
+    "send": "0.16.2",
+    "serve-static": "1.13.2",
+    "setprototypeof": "1.1.0",
+    "statuses": "^1.4.0",
+    "turbo360": "latest",
+    "type-is": "^1.6.16",
+    "utils-merge": "1.0.1",
+    "vary": "^1.1.2",
+    "vertex360": "^0.25.45"
   },
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "maintained node versions",
-    "not dead"
-  ]
+  "devDependencies": {
+    "express": "latest",
+    "nodemon": "^1.17.1"
+  },
+  "deploy": [
+    "."
+  ],
+  "format": "vertex"
 }
