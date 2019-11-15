@@ -20,6 +20,10 @@ Then run devserver from project root directory:
 ```
 $ turbo devserver
 ```
+To seed db:
+```
+mongoimport --db portal --collection <collection name> --file seed/<seed file>.json
+```
 
 To build for production, run build:
 
