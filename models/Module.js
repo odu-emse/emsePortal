@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Module = new mongoose.Schema({
     courseName: {
@@ -66,13 +67,15 @@ const Module = new mongoose.Schema({
         //specifies the number of assignments for given module
         type: Number
     },
-    listOfAssignments: [{
+    listOfAssignments: [
         //contains the list of assignments
-        assignment: [{
+        {
             //one specific assignment in the array
+            name: String,
             id: {
-                type: Number,
-                unique: true 
+                type: String,
+                unique: true,
+                name: ObjectId 
             },
             title: String,
             description: String,
@@ -99,14 +102,17 @@ const Module = new mongoose.Schema({
                     link: String,
                     name: String
                 }],
-                relates: Number, //specifies the UUID of the module that has this question's help/answer
+                relates: {
+                    //specifies the UUID of the module that has this question's help/answer
+                    type: String,
+                    value: ObjectId 
+                }
             }],
             retake: Boolean,
             due: Date,
             allowedTime: Number,
-
-        }]
-    }],
+        }
+    ],
     preTest:{
         type: Boolean
     },
