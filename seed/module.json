@@ -1,1 +1,73 @@
-{}
+{
+    "courseName": "ENMA",
+    "courseNumber": 701,
+    "moduleNumber": 1,
+    "moduleName": "Complexity",
+    "description": "Run around the house at 4 in the morning lie on your belly and purr when you are asleep intently stare at the same spot. Poop on grasses nya nya nyan and cat cat moo moo lick ears lick paws, or i’m so hungry i’m so hungry but ew not for that . Rub face on owner.",
+    "duration": 21,
+    "cdLink": "https://google.com",
+    "numSlides": 57,
+    "author": "Endre Papp",
+    "difficulty": 2.57,
+    "done": false,
+    "continue": false,
+    "rating": [
+        5.00,
+        4.89,
+        1.25,
+        2.58,
+        3.98,
+        1.99,
+        4.99
+    ],
+    "keywords": [
+        "enma",
+        "finance",
+        "complexity",
+        "liability",
+        "accounting"
+    ],
+    "assignment": true,
+    "numberOfAssignments": 1,
+    "listOfAssignments": [
+        {
+            "name": "assignment 1",
+            "id": "5dc58a21517aa3.14175777",
+            "title": "Complexity Assignment 1",
+            "description": "Unwrap toilet paper groom yourself 4 hours - checked, have your beauty sleep 18 hours",
+            "topics": [ 
+                "stuff",
+                "yeah",
+                "sick",
+                "assignment"
+            ],
+            "numberOfQuestions": 25,
+            "PassingGrade": 0,
+            "question":[{
+                "number": 1,
+                "title": "Question Title Thing ????",
+                "problem": "checked, be fabulous for the rest of the day - checked for hiss at vacuum cleaner",
+                "correctAnswer": "This is the correct answer SHHHHH!!!!",
+                "response": "You big dummy it says it right there",
+                "point": 0.25,
+                "visual": true,
+                "resource": [
+                    {
+                        "link": "",
+                        "name": ""
+                    },
+                    {
+                        "link": "",
+                        "name": ""
+                    }
+                ],
+                "relates": "5dc58a21517aa3.14175777"
+            }],
+            "retake": false,
+            "due": 20161210,
+            "allowedTime": 25
+        }
+    ],
+    "preTest": false,
+    "postTest": true
+}

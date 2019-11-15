@@ -1,1 +1,21 @@
-{}
+{
+    "firstName": "Daniel",
+    "lastName": "Papp",
+    "middleName": "B",
+    "dob": "1918919819",
+    "degree": "IT stuffs",
+    "advisor": "IDK maaaaan",
+    "email": "yes blah blah",
+    "password": "password123",
+    "classTaken": [
+        "9283y9132b98ed219d",
+        "ds012n9d120dn129d2"
+    ],
+    "classNeeded": [
+        "21e2odinqi0iwidnia",
+        "d0n12d9802198d9898"
+    ],
+    "probation": false,
+    "probationExpire": "16561561561",
+    "admitted": false
+}
