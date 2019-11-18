@@ -69,12 +69,20 @@ router.get('/modules/:id', (req, res) => {
 })
 
 //Add user profile
-router.post('/profile'), (req, res) => {
-	//TODO: Complete the form in handlebars and get post from it to insert into document
-	res.json({
-		confirmation: 'success',
-		data: req.body
+router.post('/users', (req, res) => {
+	User.create(req.body)
+	.then(profiles => {
+		res.json({
+			confirmation: 'success',
+			data: profiles,
+		})
 	})
-}
+	.catch( err => {
+		res.json({
+			confirmation: 'fail',
+			message: err.message
+		})
+	})
+})
 
 module.exports = router

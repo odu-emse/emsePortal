@@ -25,7 +25,7 @@ const User = new mongoose.Schema({
         trim: true,
         default: '',
     },
-    advisor: {
+    adviser: {
         type: String,
         trim: true,
         default: '',
@@ -40,12 +40,14 @@ const User = new mongoose.Schema({
         trim: true,
         default: '',
     },
-    classTaken:[
-        String,
-    ],
-    classNeeded:[
-        String,
-    ],
+    classTaken:[{
+        type: String,
+        default: 'empty'
+    }],
+    classNeeded:[{
+        type: String,
+        default: 'all'
+    }],
     probation: {
         type: Boolean,
         default: false
