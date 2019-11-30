@@ -1,0 +1,44 @@
+@import 'variables'
+@import "../node_modules/bootstrap/scss/bootstrap"
+@import 'reset'
+@import 'helper'
+
+.profile
+	&-picture
+		border: 0px
+		border-radius: 50%
+		width: 15%
+.navbar
+	color: $black
+
+.nav
+	&-pills
+		.nav
+			&-link
+				border-radius: 1.5rem
+				color: $gray-800
+				&.active
+					background:
+						color: $gray-200
+					color: $black
+					box-shadow: 0.15rem 0.15rem 0.15rem rgba(0,0,0,0.2)
+					font-weight: bold
+.dropdown
+	&-toggle
+		display: flex
+		align-items: center
+		&::after
+.sidebar
+	background-color: papayawhip
+	height: 100%
+	min-height: 100vh
+	margin: 
+		top: $gutter
+.card
+	border-radius: $card-radius
+	&-img-top
+		border-top-left-radius: $card-radius
+		border-top-right-radius: $card-radius
+		min-height: 20vh
+		max-width: 100%
+//TODO: need to style search block
