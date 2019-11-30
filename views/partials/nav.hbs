@@ -10,10 +10,18 @@
         <div class="ml-auto">
             <ul class="navbar-nav mr-auto d-flex align-items-center">
                 <li class="nav-item">
-                    <a id="sidebar" class="nav-link" href="./">Dashboard</a>
+                    {{#if activeHome}}
+                        <a id="sidebar" class="nav-link active" href="/">Dashboard</a>
+                    {{else}}
+                        <a id="sidebar" class="nav-link" href="/">Dashboard</a>
+                    {{/if}}
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./">Course List</a>
+                    {{#if activeModules}}
+                        <a class="nav-link active" href="/modules">Modules</a>
+                    {{else}}
+                        <a class="nav-link" href="/modules">Modules</a>
+                    {{/if}}
                 </li>
                 {{#if admin}}
                     <li class="nav-item dropdown">
@@ -31,7 +39,17 @@
                     <a class="btn btn-primary" href="/login">Sign in</a>
                     <a class="btn btn-secondary" href="/signup">Sign up</a>
                 {{else}}
-                    <a class="btn btn-primary" href="/profile">Profile</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="https://via.placeholder.com/150" class="d-block profile-picture" alt="profile picture">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Logout</a>
+                        </div>
+                    </li>
                 {{/if}}
             </ul>
         </div>
