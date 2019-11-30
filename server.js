@@ -13,8 +13,8 @@ mongoose.connect('mongodb+srv://root:root@emseportal-1qgvd.mongodb.net/test?retr
   'useNewUrlParser': true,
   'useCreateIndex': true
 })
-    .then(() => console.log('Connected to database...'))
-    .catch(err => console.error(err));
+  .then(() => console.log('Connected to database...'))
+  .catch(err => console.error(err));
 
 // view engine setup
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/'}))
@@ -22,17 +22,25 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 //Middleware
+//server middleware
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+//Sass middleware
+let sassPath = path.join(__dirname, '/sass');
+let destPath = path.join(__dirname, '/public/style');
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
+  src: __dirname,
+  dest: __dirname + '/public',
   indentedSyntax: true, // true = .sass and false = .scss
-  sourceMap: true
+  sourceMap: true,
+  debug: true, 
 }));
+
+//Static middleware
+app.use(express.static(path.join(__dirname, '/public')));
 
 //Controller
 const modules = require('./routes/modules')
@@ -41,8 +49,8 @@ const home = require('./routes/home')
 const signup = require('./routes/signup')
 
 //Routes
-app.use('/api/modules', modules);
-app.use('/api/users', users);
+app.use('/modules', modules);
+app.use('/users', users);
 app.use('/', home);
 app.use('/signup', signup);
 

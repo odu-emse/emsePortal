@@ -13,12 +13,23 @@ modules.get('/', (req, res) => {
       }
     }
   }
-
-  Module.find(filters)
+  Module.find(filters)   
       .then(modules => {
-        res.json({
-          confirmation: 'success',
+        res.render('module',{
+          activeModules: true,
+          title: "My modules",
           data: modules,
+          courseName: modules.courseName,
+          courseNumner:  modules.courseNumner,
+          moduleNumber:  modules.moduleNumber,
+          moduleName:  modules.moduleName,
+          description:  modules.description,
+          duration:  modules.duration,
+          cdLink:  modules.cdLink,
+          numSlides: modules.numSlides,
+          author: modules.author,
+          difficulty: modules.difficulty,
+          keywords: modules.keywords
         })
       })
       .catch( err => {
@@ -29,6 +40,7 @@ modules.get('/', (req, res) => {
       })
 })
 
+//TODO: need to render the filtered data not json it 
 //Query record by ID
 modules.get('/:id', (req, res) => {
   const id = req.params.id
@@ -43,7 +55,7 @@ modules.get('/:id', (req, res) => {
       .catch( err => {
         res.json({
           confirmation: 'fail',
-          message: `Module ${id} not found. Please check your search term.`
+          message: `Module number ${id} not found. Please check your search term.`
         })
       })
 })
