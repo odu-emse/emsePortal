@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 const signup = express.Router()
 
 //Query record based on difficulty grater than filter
@@ -19,4 +19,4 @@ signup.get('/', (req, res) => {
   })
 })
 
-module.exports = signup
+export { signup }

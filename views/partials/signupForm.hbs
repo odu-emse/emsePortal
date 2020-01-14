@@ -1,33 +1,89 @@
-<form action="/signup" method="post" class="">
-    <label for="">First Name
-        <input type="text" name="firstName">
-    </label><br>
-    <label for="">Last Name
-        <input type="text" name="lastName">
-    </label><br>
-    <label for="">Middle Initial
-        <input type="text" name="middleName">
-    </label><br>
-    <label for="">Date of Birth
-        <input type="text" name="dob">
-    </label><br>
-    <label for="">Intended Degree
-        <input type="text" name="degree">
-    </label><br>
-    <label for="">Adviser
-        <input type="text" name="adviser">
-    </label><br>
-    <label for="">Email
-        <input type="email" name="email">
-    </label><br>
-    <label for="">Password
-        <input type="password" name="password">
-    </label><br>
-    <label for="" class="hidden">Class taken
-        <input type="hidden" name="classTaken">
-    </label><br>
-    <label for="" class="hidden">Class needed
-        <input type="hidden" name="classNeeded">
-    </label><br>
-    <button type="submit">Submit</button>
-</form>
+{{> messages}}
+<div class="row col-lg-8 mx-auto p-3 form-card">
+    <div class="col-lg-6">
+        <h3 class="pb-3">Create your account</h3>
+        <form action="/users/register" method="post" class="form-group">
+            <div class="row pt-5">
+                <div class="col-lg-6 pl-0">
+                    <input
+                        type="text"
+                        name="firstName"
+                        value="{{#if firstName}}{{firstName}}{{/if}}"
+                        required
+                        class="w-100 input"
+                        placeholder="First name"
+                    >
+                    <div class="input-label">First name</div>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <input
+                        type="text"
+                        name="lastName"
+                        value="{{#if lastName}}{{lastName}}{{/if}}"
+                        required
+                        class="w-100 input"
+                        placeholder="Last name"
+                    >
+                    <div class="input-label pl-3">Last name</div>
+                </div>
+            </div>
+            <!-- /names row-->
+            <div class="row pt-5">
+                <div class="col-lg-12 pl-0">
+                    <input
+                            type="email"
+                            name="email"
+                            value="{{#if email}}{{email}}{{/if}}"
+                            required
+                            class="w-100 input"
+                            placeholder="Email"
+                    >
+                    <div class="input-label">Email</div>
+                </div>
+            </div>
+            <!-- /email row-->
+            <div class="row pt-5">
+                <div class="col-lg-6 pl-0">
+                    <input
+                        type="password"
+                        name="password"
+                        value="{{#if password}}{{password}}{{/if}}"
+                        required
+                        class="w-100 input"
+                        placeholder="Password"
+                    >
+                    <div class="input-label">Password</div>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <input
+                        type="password"
+                        name="password2"
+                        value="{{#if password2}}{{password2}}{{/if}}"
+                        required
+                        class="w-100 input"
+                        placeholder="Confirm password"
+                    >
+                    <div class="input-label pl-3">Confirm password</div>
+                </div>
+                <div class="text-muted mt-1">
+                    Use 6 or more characters with a mix of letters, numbers & symbols
+                </div>
+            </div>
+
+
+            <div class="row pt-3">
+                <div class="col-lg-6 pl-0">
+                    <span>Have an account already? <a href="/users/login" class="">Sign in instead.</a></span>
+                </div>
+                <div class="col-lg-6">
+                    <button type="submit" class="btn btn-primary float-right">Create account</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-center align-items-center">
+        <img src="https://via.placeholder.com/250" alt="">
+    </div>
+</div>

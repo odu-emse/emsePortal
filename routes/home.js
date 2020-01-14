@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 const home = express.Router()
 
 //Query record based on difficulty grater than filter
@@ -11,4 +11,4 @@ home.get('/', (req, res) => {
   })
 })
 
-module.exports = home
+export { home }
