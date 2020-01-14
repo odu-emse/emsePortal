@@ -1,0 +1,37 @@
+<li class="list-group-item row module-list-item mb-3">
+    {{#if continue}}
+        <div class="col-md-3">
+            <span class="module-number">{{moduleNumber}}</span> 
+            <span class="module-name">{{moduleName}}</span>
+        </div>
+        <div class="col-md-3">
+            Progress %
+        </div>
+        <div class="col-md-3">
+            {{duration}} <span> minute(s)</span>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-secondary" href="{{cdLink}}">Continue</a>
+        </div>
+    {{else}}
+        <div class="col-md-2">
+            <span class="module-number">{{moduleNumber}}</span> 
+            <span class="module-name">{{moduleName}}</span>
+        </div>
+        <div class="col-md-2">
+            {{author}}
+        </div>
+        <div class="col-md-2">
+            {{round difficulty}}
+        </div>
+        <div class="col-md-2">
+            {{keywords.[1]}}
+        </div>
+        <div class="col-md-2">
+            {{duration}} <span> minute(s)</span>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-secondary" href="{{cdLink}}">Start</a>
+        </div>
+    {{/if}}
+</li>

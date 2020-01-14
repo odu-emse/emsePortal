@@ -1,6 +1,6 @@
-const express = require('express')
-const modules = express.Router()
-const Module = require('../models/Module')
+const express =  require('express')
+const modules =  express.Router()
+import Module from '../models/Module'
 
 //Query record based on difficulty grater than filter
 modules.get('/', (req, res) => {
@@ -16,11 +16,12 @@ modules.get('/', (req, res) => {
   Module.find(filters)   
       .then(modules => {
         res.render('module',{
+          layout: 'modules',
           activeModules: true,
           title: "My modules",
           data: modules,
           courseName: modules.courseName,
-          courseNumner:  modules.courseNumner,
+          courseNumber:  modules.courseNumber,
           moduleNumber:  modules.moduleNumber,
           moduleName:  modules.moduleName,
           description:  modules.description,
@@ -29,7 +30,8 @@ modules.get('/', (req, res) => {
           numSlides: modules.numSlides,
           author: modules.author,
           difficulty: modules.difficulty,
-          keywords: modules.keywords
+          keywords: modules.keywords,
+          continue: modules.continue
         })
       })
       .catch( err => {
@@ -60,4 +62,4 @@ modules.get('/:id', (req, res) => {
       })
 })
 
-module.exports = modules
+export { modules }

@@ -1,15 +1,18 @@
-<div class="col-md-9 row">
-  {{#each data}}
-    <div class="col-md-4 gutter">
-      <div class="card">
-        <img src="/images/module.jpg" class="card-img-top" alt="...">
-        <!--FEATURE: dynamic image rendering using unsplash api -->
-        <!-- TODO: need to decide if we want to include pictures in the cards or not since the compact view wouldn't benefit from having pictures-->
-        <div class="card-body">
-          <h5 class="card-title text-black"><a href="{{cdLink}}">{{moduleName}}</a></h5>
-          <!--TODO: badges added here using bootstrap badges stuff thing ahhhh idk-->
-        </div>
-      </div>
-    </div>
-  {{/each}}
+<div class="col-md-12 module">
+  <h4 class="module-title">In progress</h3>
+    {{> tableHeaderCnt}}
+    <ul class="list-group module-list">
+      {{#each data}}
+        {{#if continue}}
+          {{> cardData}}
+        {{/if}}
+      {{/each}}
+      <h4 class="module-title text-muted">Not started</h3>
+      {{> tableHeaderRem}}
+      {{#each data}}
+        {{#unless continue}}
+          {{> cardData}}
+        {{/unless}}
+      {{/each}}
+    </ul>
 </div>
