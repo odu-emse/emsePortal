@@ -1,5 +1,8 @@
 @import 'variables'
 @import "../node_modules/bootstrap/scss/bootstrap"
+@import '../node_modules/@fortawesome/fontawesome-free/scss/fontawesome'
+@import '../node_modules/@fortawesome/fontawesome-free/scss/regular'
+@import '../node_modules/@fortawesome/fontawesome-free/scss/solid'
 @import 'reset'
 @import 'helper'
 
@@ -28,12 +31,7 @@
 		display: flex
 		align-items: center
 		&::after
-.sidebar
-	background-color: papayawhip
-	height: 100%
-	min-height: 100vh
-	margin: 
-		top: $gutter
+
 .card
 	border-radius: $card-radius
 	&-img-top
@@ -41,4 +39,30 @@
 		border-top-right-radius: $card-radius
 		min-height: 20vh
 		max-width: 100%
-//TODO: need to style search block
+
+.input
+	position: relative
+	&-label
+		visibility: hidden
+		position: absolute
+	&:placeholder-shown + .input-label
+		top: 0.15em
+		transition: 0.25s ease all
+	&:not(:placeholder-shown) + .input-label
+		visibility: visible
+		top: -1.5em
+		font-size: 0.7em
+		transition: 0.25s ease all
+
+.form
+	&-card
+		background-color: $gray-100
+		border:
+			color: $gray-600
+			radius: 0.3em
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15)
+
+
+@import 'search'
+@import 'sidebar'
+@import 'module'
