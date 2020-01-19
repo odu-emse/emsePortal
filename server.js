@@ -12,6 +12,9 @@ import passport from 'passport'
 import Strategy from 'passport-local'
 import session from 'express-session'
 import flash from 'connect-flash'
+import aws from 'aws-sdk'
+import { iamUser, iamSecret, bucket } from './config/keys.js'
+
 const app = express();
 import * as helpers from './helper/helpers'
 
@@ -22,7 +25,7 @@ import {users as users} from './routes/users'
 import {signup as signup} from './routes/signup'
 
 //Database connection
-const url = "mongodb+srv://root:root@emseportal-1qgvd.mongodb.net/test?retryWrites=true&w=majority"
+import { MongoURI as url } from './config/keys.js'
 const options = {
   'useUnifiedTopology': true,
   'useNewUrlParser': true,
@@ -65,13 +68,30 @@ app.use(sassMiddleware({
 }));
 app.use(postcssMiddleware({
   plugins: [
-    /* Plugins */
+    // Plugins
     autoprefixer()
   ],
   src: function(req) {
     return path.join(dest, req.url);
   }
 }))
+
+//session  middleware
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}))
+
+//flash middleware
+app.use(flash())
+
+//message global variables
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.error_msg = req.flash('error_msg')
+  next()
+})
 
 //Static middleware
 app.use(express.static('public'))

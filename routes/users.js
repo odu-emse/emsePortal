@@ -1,6 +1,7 @@
 import express from 'express'
 const users = express.Router()
 import User from '../models/User'
+import bcript from 'bcryptjs'
 
 users.get('/', (req, res) => {
     User.find()
@@ -67,7 +68,48 @@ users.post('/register', (req, res) => {
         })
     }
     else{
-        res.send('pass')
+        User.findOne({ email: email})
+            .then(user => {
+                if (user){
+                    //error handling for existing user trying to sign up
+                    errors.push({ msg: 'This email is already in use. Please sign in, or contact the administrator.'})
+                    res.render('register', {
+                        title: 'Register',
+                        errors,
+                        firstName,
+                        lastName,
+                        email,
+                        password,
+                        password2
+                    })
+                }
+                else{
+                    const newUser = new User({
+                        firstName,
+                        lastName,
+                        email,
+                        password
+                    })
+
+                    //password hashing
+                    bcript.genSalt(10, (err, salt) =>
+                        bcript.hash(newUser.password, salt, (err, hash) =>{
+                            if(err)
+                                throw err
+
+                            //changed plain text password to hashed and saved in db
+                            newUser.password = hash
+
+                            //saving POST data in db
+                            newUser.save()
+                                .then(user => {
+                                    req.flash('success_msg', 'Account created. Now you can log in with your credentials.')
+                                    res.redirect('/users/login')
+                                })
+                                .catch(err => console.log(err))
+                    }))
+                }
+            })
     }
 })
 
