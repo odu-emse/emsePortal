@@ -11508,18 +11508,18 @@ a:not(.btn):not(.nav-link) {
       font-size: 1.25em; }
   .search-input {
     width: 100%;
+    box-shadow: 0 0.1em 0 #6c757d;
     border: 0;
-      border-bottom: 0.1em solid #6c757d;
     background-color: transparent;
     text-align: center;
     font-size: 1.2em;
     color: #043353;
-    transition: 0.1s ease all;
+    transition: 0.2s ease all;
     padding: 0.25rem; }
     .search-input:focus {
-      outline: 0.15em solid rgba(4, 51, 83, 0.3);
-      border-bottom: 0;
-      transition: 0.1s ease all; }
+      outline: 0;
+      box-shadow: 0 0.175em 0 #18a4e0;
+      transition: 0.2s ease all; }
   .search-button {
     background-color: transparent;
     border: 0; }
