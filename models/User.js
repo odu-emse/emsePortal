@@ -18,7 +18,7 @@ const User = new mongoose.Schema({
     },
     dob: {
         type: Date,
-        default: Date.now
+        default: ''
     },
     degree: {
         type: String,
