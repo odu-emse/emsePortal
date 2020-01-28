@@ -2,4 +2,4 @@
 .env
 .DS_Store
 /.idea
-/config/
+/config/keys.js
