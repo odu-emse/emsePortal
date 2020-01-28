@@ -1,146 +1,148 @@
-{
-    "courseName": "ENMA",
-    "courseNumber": 600,
-    "moduleNumber": 201,
-    "moduleName": "Balance Sheet",
-    "description": "Run around the house at 4 in the morning lie on your belly and purr when you are asleep intently stare at the same spot. Poop on grasses nya nya nyan and cat cat moo moo lick ears lick paws, or i’m so hungry i’m so hungry but ew not for that . Rub face on owner.",
-    "duration": 15,
-    "cdLink": "https://google.com",
-    "numSlides": 54,
-    "author": "Endre Papp",
-    "difficulty": 4.76,
-    "done": false,
-    "continue": true,
-    "rating": [
-        5.00,
-        4.89,
-        1.25,
-        2.58,
-        3.98,
-        1.99,
-        4.99
-    ],
-    "keywords": [
-        "enma",
-        "finance",
-        "complexity",
-        "liability",
-        "accounting"
-    ],
-    "assignment": true,
-    "numberOfAssignments": 1,
-    "listOfAssignments": [
-        {
-            "name": "assignment 1",
-            "id": "1iuend1idi101md091mxd91",
-            "title": "Complexity Assignment 1",
-            "description": "Unwrap toilet paper groom yourself 4 hours - checked, have your beauty sleep 18 hours",
-            "topics": [ 
-                "stuff",
-                "yeah",
-                "sick",
-                "assignment"
-            ],
-            "numberOfQuestions": 25,
-            "PassingGrade": 0,
-            "question":[{
-                "number": 1,
-                "title": "Question Title Thing ????",
-                "problem": "checked, be fabulous for the rest of the day - checked for hiss at vacuum cleaner",
-                "correctAnswer": "This is the correct answer SHHHHH!!!!",
-                "response": "You big dummy it says it right there",
-                "point": 0.25,
-                "visual": true,
-                "resource": [
-                    {
-                        "link": "",
-                        "name": "One Resource"
-                    },
-                    {
-                        "link": "",
-                        "name": "Two Resource"
-                    }
+[
+    {
+        "courseName": "ENMA",
+        "courseNumber": 600,
+        "moduleNumber": 201,
+        "moduleName": "Balance Sheet",
+        "description": "Run around the house at 4 in the morning lie on your belly and purr when you are asleep intently stare at the same spot. Poop on grasses nya nya nyan and cat cat moo moo lick ears lick paws, or i’m so hungry i’m so hungry but ew not for that . Rub face on owner.",
+        "duration": 15,
+        "cdLink": "https://google.com",
+        "numSlides": 54,
+        "author": "Endre Papp",
+        "difficulty": 4.76,
+        "done": false,
+        "continue": true,
+        "rating": [
+            5.00,
+            4.89,
+            1.25,
+            2.58,
+            3.98,
+            1.99,
+            4.99
+        ],
+        "keywords": [
+            "enma",
+            "finance",
+            "complexity",
+            "liability",
+            "accounting"
+        ],
+        "assignment": true,
+        "numberOfAssignments": 1,
+        "listOfAssignments": [
+            {
+                "name": "assignment 1",
+                "id": "1iuend1idi101md091mxd91",
+                "title": "Complexity Assignment 1",
+                "description": "Unwrap toilet paper groom yourself 4 hours - checked, have your beauty sleep 18 hours",
+                "topics": [
+                    "stuff",
+                    "yeah",
+                    "sick",
+                    "assignment"
                 ],
-                "relates": "5dc58a21517aa3.14175777"
-            }],
-            "retake": false,
-            "due": 20161210,
-            "allowedTime": 25
-        }
-    ],
-    "preTest": true,
-    "postTest": false
-}
-{
-    "courseName": "ENMA",
-    "courseNumber": 600,
-    "moduleNumber": 202,
-    "moduleName": "Income Statement",
-    "description": "Run around the house at 4 in the morning lie on your belly and purr when you are asleep intently stare at the same spot. Poop on grasses nya nya nyan and cat cat moo moo lick ears lick paws, or i’m so hungry i’m so hungry but ew not for that . Rub face on owner.",
-    "duration": 1,
-    "cdLink": "https://google.com",
-    "numSlides": 15,
-    "author": "Endre Papp",
-    "difficulty": 1.97,
-    "done": true,
-    "continue": false,
-    "rating": [
-        5.00,
-        4.89,
-        1.25,
-        2.58,
-        3.98,
-        1.99,
-        4.99
-    ],
-    "keywords": [
-        "enma",
-        "finance",
-        "complexity",
-        "liability",
-        "accounting"
-    ],
-    "assignment": true,
-    "numberOfAssignments": 1,
-    "listOfAssignments": [
-        {
-            "name": "assignment 1",
-            "id": "dnwoiq1d10pomdpo.1d",
-            "title": "Complexity Assignment 1",
-            "description": "Unwrap toilet paper groom yourself 4 hours - checked, have your beauty sleep 18 hours",
-            "topics": [ 
-                "stuff",
-                "yeah",
-                "sick",
-                "assignment"
-            ],
-            "numberOfQuestions": 25,
-            "PassingGrade": 0,
-            "question":[{
-                "number": 1,
-                "title": "Question Title Thing ????",
-                "problem": "checked, be fabulous for the rest of the day - checked for hiss at vacuum cleaner",
-                "correctAnswer": "This is the correct answer SHHHHH!!!!",
-                "response": "You big dummy it says it right there",
-                "point": 0.25,
-                "visual": true,
-                "resource": [
-                    {
-                        "link": "",
-                        "name": "One Resource"
-                    },
-                    {
-                        "link": "",
-                        "name": "Two Resource"
-                    }
+                "numberOfQuestions": 25,
+                "PassingGrade": 0,
+                "question":[{
+                    "number": 1,
+                    "title": "Question Title Thing ????",
+                    "problem": "checked, be fabulous for the rest of the day - checked for hiss at vacuum cleaner",
+                    "correctAnswer": "This is the correct answer SHHHHH!!!!",
+                    "response": "You big dummy it says it right there",
+                    "point": 0.25,
+                    "visual": true,
+                    "resource": [
+                        {
+                            "link": "",
+                            "name": "One Resource"
+                        },
+                        {
+                            "link": "",
+                            "name": "Two Resource"
+                        }
+                    ],
+                    "relates": "5dc58a21517aa3.14175777"
+                }],
+                "retake": false,
+                "due": 20161210,
+                "allowedTime": 25
+            }
+        ],
+        "preTest": true,
+        "postTest": false
+    },
+    {
+        "courseName": "ENMA",
+        "courseNumber": 600,
+        "moduleNumber": 202,
+        "moduleName": "Income Statement",
+        "description": "Run around the house at 4 in the morning lie on your belly and purr when you are asleep intently stare at the same spot. Poop on grasses nya nya nyan and cat cat moo moo lick ears lick paws, or i’m so hungry i’m so hungry but ew not for that . Rub face on owner.",
+        "duration": 1,
+        "cdLink": "https://google.com",
+        "numSlides": 15,
+        "author": "Endre Papp",
+        "difficulty": 1.97,
+        "done": true,
+        "continue": false,
+        "rating": [
+            5.00,
+            4.89,
+            1.25,
+            2.58,
+            3.98,
+            1.99,
+            4.99
+        ],
+        "keywords": [
+            "enma",
+            "finance",
+            "complexity",
+            "liability",
+            "accounting"
+        ],
+        "assignment": true,
+        "numberOfAssignments": 1,
+        "listOfAssignments": [
+            {
+                "name": "assignment 1",
+                "id": "dnwoiq1d10pomdpo.1d",
+                "title": "Complexity Assignment 1",
+                "description": "Unwrap toilet paper groom yourself 4 hours - checked, have your beauty sleep 18 hours",
+                "topics": [
+                    "stuff",
+                    "yeah",
+                    "sick",
+                    "assignment"
                 ],
-                "relates": "5dc58a21517aa3.14175777"
-            }],
-            "retake": false,
-            "due": 20161210,
-            "allowedTime": 25
-        }
-    ],
-    "preTest": true,
-    "postTest": false
-}
+                "numberOfQuestions": 25,
+                "PassingGrade": 0,
+                "question":[{
+                    "number": 1,
+                    "title": "Question Title Thing ????",
+                    "problem": "checked, be fabulous for the rest of the day - checked for hiss at vacuum cleaner",
+                    "correctAnswer": "This is the correct answer SHHHHH!!!!",
+                    "response": "You big dummy it says it right there",
+                    "point": 0.25,
+                    "visual": true,
+                    "resource": [
+                        {
+                            "link": "",
+                            "name": "One Resource"
+                        },
+                        {
+                            "link": "",
+                            "name": "Two Resource"
+                        }
+                    ],
+                    "relates": "5dc58a21517aa3.14175777"
+                }],
+                "retake": false,
+                "due": 20161210,
+                "allowedTime": 25
+            }
+        ],
+        "preTest": true,
+        "postTest": false
+    }
+]
