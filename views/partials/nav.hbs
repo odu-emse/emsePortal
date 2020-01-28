@@ -23,35 +23,31 @@
                         <a class="nav-link" href="/modules">Modules</a>
                     {{/if}}
                 </li>
-                {{#if admin}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin Utilities
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">Extraction</a>
-                            <a class="dropdown-item" href="">Assignment Addition</a>
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Admin Utilities-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                        <a class="dropdown-item" href="">Extraction</a>-->
+<!--                        <a class="dropdown-item" href="">Assignment Addition</a>-->
+<!--                    </div>-->
+<!--                </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="user-name pr-2">
+                            {{#if auth}}
+                                {{name}}
+                            {{/if}}
                         </div>
-                    </li>
-                {{/if}}
-
-                {{#if loggedOut}}
-                    <a class="btn btn-primary" href="/login">Sign in</a>
-                    <a class="btn btn-secondary" href="/signup">Sign up</a>
-                {{else}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{user.name}}
-                            <img src="https://via.placeholder.com/150" class="d-block profile-picture" alt="profile picture">
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">Logout</a>
-                        </div>
-                    </li>
-                {{/if}}
+                        <img src="https://via.placeholder.com/150" class="d-block profile-picture" alt="profile picture">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="/users/logout">Logout</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

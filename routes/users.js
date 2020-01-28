@@ -2,7 +2,10 @@ import express from 'express'
 const users = express.Router()
 import User from '../models/User'
 import bcript from 'bcryptjs'
+import passport from 'passport'
 
+/*
+------ LIST ALL USERS --------
 users.get('/', (req, res) => {
     User.find()
         .then(profiles => {
@@ -18,6 +21,11 @@ users.get('/', (req, res) => {
             })
         })
 })
+*/
+
+users.get('/' , (req, res) => {
+    res.redirect('/users/login')
+})
 
 users.get('/register' , (req, res) => {
     res.render('register', {
@@ -29,6 +37,13 @@ users.get('/login' , (req, res) => {
     res.render('login', {
         title: 'Login'
     })
+})
+
+//Logout
+users.get('/logout', (req, res) => {
+    req.logout()
+    req.flash('success_msg', 'You are logged out.')
+    res.redirect('/users/login')
 })
 
 
@@ -113,7 +128,12 @@ users.post('/register', (req, res) => {
     }
 })
 
-users.post('/login', (req, res) => {
-    res.send('pass')
+//Handling login POST req
+users.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/modules',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    }, undefined)(req, res, next)
 })
 export { users }
