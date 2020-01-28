@@ -13,6 +13,7 @@ import session from 'express-session'
 import flash from 'connect-flash'
 import aws from 'aws-sdk'
 import { iamUser, iamSecret, bucket } from './config/keys.js'
+import bodyParser from "body-parser";
 
 const app = express();
 import * as helpers from './helper/helpers'
@@ -58,6 +59,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}))
 
 //Sass middleware
 let dest = __dirname + '/public'
