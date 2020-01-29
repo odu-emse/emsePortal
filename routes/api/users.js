@@ -1,6 +1,6 @@
 import express from 'express'
 const users = express.Router()
-import User from '../models/User'
+import User from '../../models/User'
 import bcript from 'bcryptjs'
 import passport from 'passport'
 

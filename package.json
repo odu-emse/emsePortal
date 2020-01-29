@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon bin/dev",
-    "clean": "rm -rf dist",
-    "build": "npm run clean && mkdir dist && babel . -s -d dist",
-    "production": "npm run build && nodemon bin/production"
+    "client-install": "npm install --prefix client",
+    "start": "node bin/dev",
+    "server": "nodemon bin/dev",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "autoprefixer": "^9.7.3",
@@ -14,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
+    "concurrently": "^5.1.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

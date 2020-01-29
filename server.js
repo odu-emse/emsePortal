@@ -11,17 +11,15 @@ import createError from 'http-errors'
 import passport from 'passport'
 import session from 'express-session'
 import flash from 'connect-flash'
-import aws from 'aws-sdk'
-import { iamUser, iamSecret, bucket } from './config/keys.js'
 import bodyParser from "body-parser";
 
 const app = express();
 import * as helpers from './helper/helpers'
 
 //Router imports
-import {dashboard as dashboard} from './routes/dashboard'
-import {modules as modules} from './routes/modules'
-import {users as users} from './routes/users'
+import {dashboard as dashboard} from './routes/api/dashboard'
+import {modules as modules} from './routes/api/modules'
+import {users as users} from './routes/api/users'
 
 //Passport configuration
 import authentication from './config/passport'

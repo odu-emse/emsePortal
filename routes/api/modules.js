@@ -1,7 +1,7 @@
 import {urlencoded} from "express";
 const express =  require('express')
 const modules =  express.Router()
-import Module from '../models/Module'
+import Module from '../../models/Module'
 
 //Query record based on difficulty grater than filter
 modules.get('/', (req, res) => {
@@ -35,6 +35,10 @@ modules.get('/', (req, res) => {
           })
         })
 })
+
+//@route    POST api/modules
+//@desc     shows modules that match searched data
+//@access   Public for testing purposes
 
 modules.post('/', (req, res) => {
   const search = req.body.search
