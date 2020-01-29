@@ -1,13 +1,27 @@
-<form action="" class="search form-group col-sm-8 mx-auto mt-5 mb-5">
-    <input 
-        type="text" 
-        name="search" 
-        class="search-input form-inline" 
-        placeholder="Enter either module name, module number, professor, or topic"
-        autocomplete="off">
+<form action="/modules" method="post" class="search form-group col-sm-8 mx-auto mt-5 mb-5">
+    {{#if query}}
+        <input
+            type="search"
+            name="search"
+            class="search-input form-inline"
+            placeholder="Enter either module name, module number, professor, or topic"
+            autocomplete="off"
+            value={{query}}
+        >
+    {{else}}
+        <input
+            type="search"
+            name="search"
+            class="search-input form-inline"
+            placeholder="Enter either module name, module number, professor, or topic"
+            autocomplete="off"
+        >
+    {{/if}}
+<!--    TODO: add .search-button back into button after fonts are fixed-->
     <button
-        class="search-button"
+        class="btn btn-primary"
         type="submit">
-        <i class="fas fa-search search-icon"></i>
+<!--    <i class="fas fa-search search-icon"></i>-->
+        Search
     </button>
 </form>

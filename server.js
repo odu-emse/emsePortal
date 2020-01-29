@@ -111,10 +111,11 @@ app.use(express.static('public'))
 import ensureAuthenticated from './config/auth'
 
 //Routes
-app.use('/dashboard', ensureAuthenticated, dashboard);
-
-//Add ensure authenticated back into modules once testing is done
+//Add ensure authenticated back once testing is done
+app.use('/dashboard', dashboard);
 app.use('/modules', modules);
+
+//Dont add authenticated
 app.use('/users', users);
 
 // catch 404 and forward to error handler

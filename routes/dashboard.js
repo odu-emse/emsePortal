@@ -6,7 +6,7 @@ dashboard.get('/' , (req, res) => {
   res.render('dashboard', {
     activeDashboard: true,
     title: "Dashboard",
-    name: req.user.firstName,
+    //name: req.user.firstName,
     auth: true
   })
 })
