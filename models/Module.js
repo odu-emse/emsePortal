@@ -2,12 +2,12 @@ import mongoose from 'mongoose'
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Module = new mongoose.Schema({
-    courseName: {
+    parentCourseName: {
         type: String,
         trim: true,
         default: '',
     },
-    courseNumber: {
+    parentCourseNumber: {
         type: Number,
         default: 0,
     },

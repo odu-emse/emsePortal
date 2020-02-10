@@ -1,23 +1,17 @@
 import express from 'express'
-import path from 'path'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-import sassMiddleware from 'node-sass-middleware'
-import postcssMiddleware from 'postcss-middleware'
-import autoprefixer from 'autoprefixer'
 import mongoose from 'mongoose'
-import hbs from 'express-handlebars'
 import createError from 'http-errors'
 import passport from 'passport'
 import session from 'express-session'
 import flash from 'connect-flash'
-import bodyParser from "body-parser";
 
 const app = express();
-import * as helpers from './helper/helpers'
 
 //Router imports
 import {dashboard as dashboard} from './routes/api/dashboard'
+import {course as course} from './routes/api/course'
 import {modules as modules} from './routes/api/modules'
 import {users as users} from './routes/api/users'
 
@@ -41,42 +35,13 @@ mongoose.connect(url, options)
     console.error(err);
   })
 
-// view engine setup
-app.engine('hbs', hbs({
-  helpers: helpers.helpers,
-  extname: 'hbs',
-  defaultLayout: 'layout',
-  layoutsDir: __dirname + '/views/layouts/'
-}))
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-
 //Middleware
 //server middleware
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: true}))
 
-//Sass middleware
-let dest = __dirname + '/public'
-app.use(sassMiddleware({
-  src: __dirname,
-  dest: dest,
-  indentedSyntax: true, // true = .sass and false = .scss
-  sourceMap: true,
-  debug: true, 
-}));
-app.use(postcssMiddleware({
-  plugins: [
-    // Plugins
-    autoprefixer()
-  ],
-  src: function(req) {
-    return path.join(dest, req.url);
-  }
-}))
 
 //session  middleware
 app.use(session({
@@ -100,9 +65,6 @@ app.use((req, res, next) => {
   next()
 })
 
-//Static middleware
-app.use(express.static('public'))
-
 //Controller
 
 //Authentication import
@@ -111,7 +73,8 @@ import ensureAuthenticated from './config/auth'
 //Routes
 //Add ensure authenticated back once testing is done
 app.use('/dashboard', dashboard);
-app.use('/modules', modules);
+app.use('/api/modules', modules);
+app.use('/api/course', course);
 
 //Dont add authenticated
 app.use('/users', users);

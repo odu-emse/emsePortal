@@ -4,25 +4,6 @@ import User from '../../models/User'
 import bcript from 'bcryptjs'
 import passport from 'passport'
 
-/*
------- LIST ALL USERS --------
-users.get('/', (req, res) => {
-    User.find()
-        .then(profiles => {
-            res.json({
-                confirmation: 'success',
-                data: profiles,
-            })
-        })
-        .catch( err => {
-            res.json({
-                confirmation: 'fail',
-                message: err.message
-            })
-        })
-})
-*/
-
 users.get('/' , (req, res) => {
     res.redirect('/users/login')
 })
