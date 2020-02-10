@@ -7,8 +7,15 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Container
+    Container,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownItem,
+    DropdownMenu
 } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
 
 class AppNavbar extends Component{
     state= {
@@ -29,14 +36,35 @@ class AppNavbar extends Component{
                 <Navbar color="light" light expand="sm" className="mb-5">
                     <Container>
                         <NavbarBrand href="/">
-                            ALMP
+                            Asynchronous LMP
                         </NavbarBrand>
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <NavLink href="/">Link</NavLink>
+                                    <NavLink href="/">Portal</NavLink>
                                 </NavItem>
+                                <NavItem>
+                                    <NavLink href="/">Dashboard</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink active href="/">Modules</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/">Assignments</NavLink>
+                                </NavItem>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav caret>
+                                        <FontAwesomeIcon icon={faUser} />
+                                    </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>Profile</DropdownItem>
+                                        <DropdownItem>Billing</DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem>Login</DropdownItem>
+                                        <DropdownItem className='text-danger'>Logout</DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
                             </Nav>
                         </Collapse>
                     </Container>
