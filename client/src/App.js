@@ -1,15 +1,20 @@
 import React from 'react';
 import AppNavbar from "./components/AppNavbar";
 import ModuleList from "./components/ModuleList";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import ModulePop from "./components/ModulePop";
 import './App.sass';
+import {Provider} from 'react-redux'
+import store from './store'
 
 function App() {
   return (
-    <div className="App">
-      <AppNavbar />
-      <ModuleList />
-    </div>
+      <Provider store={store}>
+          <div className="App">
+              <AppNavbar />
+              <ModuleList />
+              <ModulePop />
+          </div>
+      </Provider>
   );
 }
 
