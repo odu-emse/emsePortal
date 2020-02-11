@@ -18,7 +18,7 @@ library.add(fas)
 const resource = fetchData()
 
 let onDeleteClick = id =>{
-    import { deleteModule } from "../actions/itemActions"
+    //import { deleteModule } from "../actions/itemActions"
     //deleteModule comes here somehow to abandon modules for a user
     //TODO: further integration of this is needed in later release
     console.log(`deleted module ${id}`)
