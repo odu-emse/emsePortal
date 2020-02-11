@@ -9,10 +9,8 @@ import {
     Button
 } from "reactstrap";
 import {
-    CSSTransition,
-    TransitionGroup
+    CSSTransition
 } from 'react-transition-group'
-import { deleteModule } from "../actions/itemActions"
 
 //adding font icon solid to library
 library.add(fas)
@@ -20,6 +18,7 @@ library.add(fas)
 const resource = fetchData()
 
 let onDeleteClick = id =>{
+    import { deleteModule } from "../actions/itemActions"
     //deleteModule comes here somehow to abandon modules for a user
     //TODO: further integration of this is needed in later release
     console.log(`deleted module ${id}`)

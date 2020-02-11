@@ -5,7 +5,7 @@
  */
 
 import app from '../server'
-var debug = require('debug')('emsePortal:server');
+let debug = require('debug')('emsePortal:server');
 import http from 'http'
 
 /**

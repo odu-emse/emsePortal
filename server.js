@@ -11,7 +11,6 @@ import path from 'path'
 const app = express();
 
 //Router imports
-import {dashboard as dashboard} from './routes/api/dashboard'
 import {course as course} from './routes/api/course'
 import {modules as modules} from './routes/api/modules'
 import {users as users} from './routes/api/users'
@@ -73,12 +72,9 @@ import ensureAuthenticated from './config/auth'
 
 //Routes
 //Add ensure authenticated back once testing is done
-app.use('/dashboard', dashboard);
 app.use('/api/modules', modules);
 app.use('/api/course', course);
-
-//Dont add authenticated
-app.use('/users', users);
+app.use('/api/users', users);
 
 //Serve static assets if in prod
 if (process.env.NODE_ENV === 'production'){
