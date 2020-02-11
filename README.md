@@ -1,16 +1,15 @@
 # EMSE Portal | rest API
 
 ## Instructions
-After cloning into repo, cd to project root directory and install dependencies:
+After cloning into repo, cd to project root directory and install dependencies as well as install the front-end dependencies:
 
 ```shell script
+$ cd emsePortal
+$ npm install
+$ cd client
 $ npm install
 ```
-Run and expose port `5000`
+Run and expose port `:3000` for React and `:5000` for Express
 ```shell script
-$ npm start
-```
-To seed the database
-```shell script
-mongoimport --host emseportal-shard-0/emseportal-shard-00-00-1qgvd.mongodb.net:27017,emseportal-shard-00-01-1qgvd.mongodb.net:27017,emseportal-shard-00-02-1qgvd.mongodb.net:27017 --ssl --username root --password <PASSWORD> --authenticationDatabase admin --db <DATABASE> --collection <COLLECTION> --type <FILETYPE> --file <FILENAME>
+$ npm run dev
 ```
