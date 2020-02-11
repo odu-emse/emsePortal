@@ -45,8 +45,8 @@ const RemainingModules = modules => {
             </div>
 
             {remaining.map(module => (
-                <div className='module-list-item'>
-                    <CSSTransition key={module._id} timeout={500} classNames="fade">
+                <div className='module-list-item' key={module.moduleNumber}>
+                    <CSSTransition timeout={500} classNames="fade">
                         <ListGroupItem className='d-flex align-items-center w-100'>
                             <div className="row w-100 align-items-center">
                                 <div className="col">{module.moduleName}</div>
@@ -94,8 +94,8 @@ const IncompleteModules = modules => {
             </div>
 
             {completed.map(module => (
-                <div className='module-list-item'>
-                    <CSSTransition key={module._id} timeout={500} classNames="fade">
+                <div className='module-list-item' key={module.moduleNumber}>
+                    <CSSTransition timeout={500} classNames="fade">
                         <ListGroupItem className='d-flex align-items-center w-100'>
                             <div className="row w-100 align-items-center">
                                 <div className="col">{module.moduleName}</div>
@@ -132,6 +132,7 @@ const IncompleteModules = modules => {
 
 const ModuleData = () => {
     const modules = resource.module.read()
+    console.log(modules)
 
     return(
         <ul>

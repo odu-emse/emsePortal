@@ -6,6 +6,7 @@ import createError from 'http-errors'
 import passport from 'passport'
 import session from 'express-session'
 import flash from 'connect-flash'
+import path from 'path'
 
 const app = express();
 
@@ -78,6 +79,16 @@ app.use('/api/course', course);
 
 //Dont add authenticated
 app.use('/users', users);
+
+//Serve static assets if in prod
+if (process.env.NODE_ENV === 'production'){
+  //set static dir
+  app.use(express.static('client/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
