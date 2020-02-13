@@ -1,20 +1,41 @@
-import React from 'react';
+import React from "react";
 import AppNavbar from "./components/AppNavbar";
-import ModuleList from "./components/ModuleList";
-import ModulePop from "./components/ModulePop";
-import './App.sass';
-import {Provider} from 'react-redux'
-import store from './store'
+import Portal from "./components/Portal";
+import Modules from "./components/modules/Modules";
+import Profile from "./components/users/Profile";
+import Login from "./components/users/Login";
+import Signup from "./components/users/Signup";
+import "./App.sass";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-      <Provider store={store}>
-          <div className="App">
-              <AppNavbar />
-              <ModuleList />
-              <ModulePop />
-          </div>
-      </Provider>
+    <Router>
+      <div className="App">
+        <AppNavbar />
+        <Switch>
+          <Route path="/" exact>
+            <Portal />
+          </Route>
+
+          <Route path="/modules">
+            <Modules />
+          </Route>
+
+          <Route path="/profile">
+            <Profile />
+          </Route>
+
+          <Route path="/users/login">
+            <Login />
+          </Route>
+
+          <Route path="/users/signup">
+            <Signup />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
