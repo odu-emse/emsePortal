@@ -1,15 +1,10 @@
 import mongoose from "mongoose";
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Module = new mongoose.Schema({
-  parentCourseName: {
+  parentCourseID: {
     type: String,
     trim: true,
     default: ""
-  },
-  parentCourseNumber: {
-    type: Number,
-    default: 0
   },
   moduleNumber: {
     type: Number,
@@ -22,6 +17,7 @@ const Module = new mongoose.Schema({
   },
   description: {
     type: String,
+    trim: true,
     default: ""
   },
   duration: {
@@ -42,83 +38,39 @@ const Module = new mongoose.Schema({
     trim: true,
     default: 0
   },
-  author: {
+  instructor: {
     type: String,
     trim: true,
     default: ""
   },
-  difficulty: {
-    type: Number,
-    default: 0
-  },
   done: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   continue: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   rating: [Number],
   keywords: [String],
-  assignment: {
-    //specifies if there is an assignment for the module
-    type: Boolean
+  hasAssignment: {
+    type: Boolean,
+    default: false
   },
-  assignmentList: [
-    //contains the list of assignments
-    {
-      //one specific assignment in the array
-      _id: {
-        type: String,
-        unique: true,
-        name: ObjectId
-      },
-      title: String,
-      description: String,
-      topics: [
-        //specifies the topics covered by this specific assignment
-        Array
-      ],
-      numberOfQuestions: Number,
-      passingPercentage: {
-        type: Number,
-        default: 0
-      },
-      question: [
-        {
-          //one specific question in the assignment
-          number: Number,
-          title: String,
-          problem: String,
-          correctAnswer: String,
-          response: String,
-          point: Number,
-          visual: Boolean,
-          resource: [
-            {
-              //available resource for specific question
-              link: String,
-              name: String
-            }
-          ],
-          relates: {
-            //specifies the UUID of the module that has this question's help/answer
-            _id: ObjectId
-          }
-        }
-      ],
-      retake: Boolean,
-      due: Date,
-      allowedTime: Number
-    }
-  ],
-  preTest: {
-    type: Boolean
+  assignments: [String],
+  hasPreTest: {
+    type: Boolean,
+    default: false
   },
-  postTest: {
-    type: Boolean
+  preTest: { type: String },
+  hasPostTest: {
+    type: Boolean,
+    default: false
   },
+  postTest: { type: String },
   enrolled: {
-    type: Number
+    type: Number,
+    default: 0
   }
 });
 
