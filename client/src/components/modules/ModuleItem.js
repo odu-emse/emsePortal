@@ -1,11 +1,11 @@
 import React, { Suspense, Fragment } from "react";
+import { Link } from "react-router-dom";
 import { fetchData } from "./ModuleFetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Container, ListGroupItem, Button, Media } from "reactstrap";
 import StarRatingComponent from "react-star-rating-component";
-import axios from "axios";
 
 //adding font icon solid to library
 library.add(fas);
@@ -101,16 +101,9 @@ const IncompleteModules = modules => {
               </div>
               <div className="col">{module.duration} minutes</div>
               <div className="col actions d-flex flex-row">
-                <Button
-                  color="primary"
-                  className="access-btn mx-2"
-                  size="sm"
-                  onClick={() => {
-                    console.log(`accessed`);
-                  }}
-                >
+                <Link to={`modules/${module._id}`} className="access-btn mx-2">
                   Continue module
-                </Button>
+                </Link>
                 <Button
                   color="danger"
                   className="remove-btn mx-2"
@@ -160,7 +153,10 @@ const RemainingModules = modules => {
           <ListGroupItem className="d-flex align-items-center w-100">
             <div className="row w-100 align-items-center">
               <div className="col">{module.moduleName}</div>
-              <div className="col d-flex align-items-center">
+              <div
+                className="col d-flex align-items-center"
+                title={`Rating: ${rating(module.rating)}`}
+              >
                 <StarRatingComponent
                   editing={false}
                   name={`${module._id}Rating`}

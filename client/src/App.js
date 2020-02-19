@@ -2,6 +2,7 @@ import React from "react";
 import AppNavbar from "./components/AppNavbar";
 import Portal from "./components/Portal";
 import Modules from "./components/modules/Modules";
+import ModuleHousing from "./components/modules/ModuleHousing";
 import Profile from "./components/users/Profile";
 import Login from "./components/users/Login";
 import Signup from "./components/users/Signup";
@@ -18,9 +19,11 @@ function App() {
             <Portal />
           </Route>
 
-          <Route path="/modules">
+          <Route exact path="/modules">
             <Modules />
           </Route>
+
+          <Route path="/modules/:moduleId" component={ModuleHousing} />
 
           <Route path="/profile">
             <Profile />
