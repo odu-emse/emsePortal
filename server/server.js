@@ -1,11 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
 import path from "path";
+import bodyParser from "body-parser";
+require("dotenv").config();
 
 const app = express();
 
 //Middleware
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Router imports
 import { course } from "./routes/api/course";
@@ -13,7 +17,7 @@ import { modules } from "./routes/api/modules";
 import { users } from "./routes/api/users";
 
 //Database configuration
-import { MongoURI as url } from "./config/keys.js";
+let url = process.env.MongoURI;
 const options = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
