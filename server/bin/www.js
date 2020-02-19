@@ -14,7 +14,6 @@ import http from "http";
 
 let port = normalizePort(process.env.PORT || "5000");
 app.set("port", port);
-
 /**
  * Create HTTP server.
  */
