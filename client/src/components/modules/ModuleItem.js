@@ -101,7 +101,7 @@ const IncompleteModules = modules => {
               </div>
               <div className="col">{module.duration} minutes</div>
               <div className="col actions d-flex flex-row">
-                <Link to={`modules/${module._id}`} className="access-btn mx-2">
+                <Link to={`modules/${module._id}`} className="access-btn mx-2 btn btn-primary">
                   Continue module
                 </Link>
                 <Button

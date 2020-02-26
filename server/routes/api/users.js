@@ -3,6 +3,7 @@ const users = express.Router()
 import User from '../../models/User'
 import bcript from 'bcryptjs'
 import passport from 'passport'
+import jwt from 'jsonwebtoken'
 
 users.get('/' , (req, res) => {
     res.redirect('/users/login')
@@ -20,64 +21,42 @@ users.get('/login' , (req, res) => {
     })
 })
 
-//Logout
 users.get('/logout', (req, res) => {
     req.logout()
     req.flash('success_msg', 'You are logged out.')
     res.redirect('/users/login')
 })
 
-
 //Handling form submission
 users.post('/register', (req, res) => {
     //deconstructing the body getting from the server
-    const { firstName, lastName, email, password, password2 } = req.body
+    const { firstName, lastName, email, password} = req.body
 
     //creates empty errors array to store response in
     let errors = []
 
     //check for completed fields
-    if (!firstName || !lastName || !email || !password || !password2 ) {
+    if (!firstName || !lastName || !email || !password ) {
         errors.push({msg: 'Please fill in all fields.' })
     }
 
-    //check for password conf
-    if (password !== password2) {
-        errors.push({msg: 'Please make sure your password and password confirmation matches.' })
-    }
-
     //check for password length
-    if (password.length < 6) {
-        errors.push({msg: 'Password should be at least 6 characters.' })
-    }
+    // if (password.length < 6) {
+    //     errors.push({msg: 'Password should be at least 6 characters.' })
+    // }
 
     //adding errors to array if present
     if (errors.length > 0) {
-        res.render('register', {
-            title: 'Register',
-            errors,
-            firstName,
-            lastName,
-            email,
-            password,
-            password2
-        })
+        errors.push({msg: 'An error occurred.'})
+        res.status(400)
     }
     else{
-        User.findOne({ email: email})
+        User.findOne({ email })
             .then(user => {
                 if (user){
                     //error handling for existing user trying to sign up
                     errors.push({ msg: 'This email is already in use. Please sign in, or contact the administrator.'})
-                    res.render('register', {
-                        title: 'Register',
-                        errors,
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                        password2
-                    })
+                    res.status(400)
                 }
                 else{
                     const newUser = new User({
@@ -99,8 +78,30 @@ users.post('/register', (req, res) => {
                             //saving POST data in db
                             newUser.save()
                                 .then(user => {
-                                    req.flash('success_msg', 'Account created. Now you can log in with your credentials.')
-                                    res.redirect('/users/login')
+                                    //Gen JWT
+
+                                    jwt.sign(
+                                        {
+                                            id: user.id
+                                        },
+                                        process.env.jwtSecret,
+                                        {
+                                            expiresIn: 3600
+                                        },
+                                        (err, token) => {
+                                            if (err) throw err
+
+                                            res.status(200).json({
+                                                token,
+                                                user:{
+                                                    id: user.id,
+                                                    firstName: user.firstName,
+                                                    lastName: user.lastName,
+                                                    email: user.email
+                                                }
+                                            })
+                                        }
+                                    )
                                 })
                                 .catch(err => console.log(err))
                     }))

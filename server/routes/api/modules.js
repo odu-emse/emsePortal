@@ -2,6 +2,7 @@ import express from "express";
 const modules = express.Router();
 import Module from "../../models/Module";
 import aws from "aws-sdk";
+import auth from "../../middleware/auth";
 
 let awsFetch = () => {
   try {
@@ -23,7 +24,7 @@ let awsFetch = () => {
   }
 };
 
-modules.post("/", (req, res, next) => {
+modules.post("/", auth, (req, res, next) => {
   let newModule = new Module(req.body);
   newModule
     .save()
@@ -37,7 +38,7 @@ modules.post("/", (req, res, next) => {
     });
 });
 
-modules.get("/", (req, res, next) => {
+modules.get("/", auth, (req, res, next) => {
   Module.find()
     .then(data => {
       if (!data) {
@@ -54,7 +55,7 @@ modules.get("/", (req, res, next) => {
     });
 });
 
-modules.get("/:moduleId", (req, res, next) => {
+modules.get("/:moduleId", auth, (req, res, next) => {
   if (req.params.moduleId.length < 3) {
     next();
   }
@@ -76,7 +77,7 @@ modules.get("/:moduleId", (req, res, next) => {
     });
 });
 
-modules.get("/:moduleNumber", (req, res, next) => {
+modules.get("/:moduleNumber", auth, (req, res, next) => {
   if (req.params.moduleNumber.length > 3) {
     next();
   }

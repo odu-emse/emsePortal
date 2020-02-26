@@ -4,12 +4,12 @@ const User = new mongoose.Schema({
     firstName: {
         type: String,
         trim: true,
-        default: '',
+        required: true
     },
     lastName: {
         type: String,
         trim: true,
-        default: '',
+        required: true
     },
     middleName: {
         type: String,
@@ -33,12 +33,12 @@ const User = new mongoose.Schema({
     email: {
         type: String,
         trim: true,
-        default: '',
+        require: true
     },
     password: {
         type: String,
         trim: true,
-        default: '',
+        required: true
     },
     classTaken:[{
         type: String,
