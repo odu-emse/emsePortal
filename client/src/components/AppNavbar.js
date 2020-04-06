@@ -60,7 +60,7 @@ class AppNavbar extends Component {
                     <FontAwesomeIcon icon={faUser} />
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <Link to="/profile">
+                    <Link to="/users/:id">
                       <DropdownItem>Profile</DropdownItem>
                     </Link>
 
