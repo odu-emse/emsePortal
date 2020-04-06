@@ -24,7 +24,7 @@ let awsFetch = () => {
   }
 };
 
-modules.post("/", auth, (req, res, next) => {
+modules.post("/", (req, res, next) => {
   let newModule = new Module(req.body);
   newModule
     .save()
@@ -38,7 +38,8 @@ modules.post("/", auth, (req, res, next) => {
     });
 });
 
-modules.get("/", auth, (req, res, next) => {
+//Dev debug removed auth middleware
+modules.get("/", (req, res, next) => {
   Module.find()
     .then(data => {
       if (!data) {
@@ -55,7 +56,7 @@ modules.get("/", auth, (req, res, next) => {
     });
 });
 
-modules.get("/:moduleId", auth, (req, res, next) => {
+modules.get("/:moduleId", (req, res, next) => {
   if (req.params.moduleId.length < 3) {
     next();
   }
@@ -77,10 +78,7 @@ modules.get("/:moduleId", auth, (req, res, next) => {
     });
 });
 
-modules.get("/:moduleNumber", auth, (req, res, next) => {
-  if (req.params.moduleNumber.length > 3) {
-    next();
-  }
+modules.get("/:moduleNumber", (req, res, next) => {
   const moduleNum = req.params.moduleNumber;
   Module.find({
     moduleNumber: moduleNum
@@ -100,4 +98,4 @@ modules.get("/:moduleNumber", auth, (req, res, next) => {
     });
 });
 
-export { modules };
+export default modules;

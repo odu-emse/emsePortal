@@ -9,10 +9,10 @@ const app = express();
 app.use(express.json());
 
 //Router imports
-import { course } from "./routes/api/course";
-import { modules } from "./routes/api/modules";
-import { users } from "./routes/api/users";
-import { authRoute } from "./routes/api/auth";
+import course from "./routes/api/course";
+import modules from "./routes/api/modules";
+import users from "./routes/api/users";
+import authRoute from "./routes/api/auth";
 
 //Database configuration
 let url = process.env.MongoURI;
