@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "reactstrap";
-import Skeleton from 'react-loading-skeleton'
 
 library.add(fas);
 
@@ -22,7 +21,12 @@ export default function ModuleHousing(props) {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await axios(`/api/modules/${params.moduleId}`);
+      let config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      const { data } = await axios(`/api/modules/${params.moduleId}`, config);
 
       setUser(data);
     };

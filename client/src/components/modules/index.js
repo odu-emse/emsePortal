@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
-import ModuleItem from "./ModuleItem";
+import TempModuleFetch from "./ModuleItem";
 import Search from "../search/Search";
 
 class Modules extends Component {
@@ -8,7 +8,7 @@ class Modules extends Component {
     return (
       <Container>
         <Search />
-        <ModuleItem />
+        <TempModuleFetch />
       </Container>
     );
   }
