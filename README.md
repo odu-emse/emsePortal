@@ -1,20 +1,18 @@
-# emsePortal
+# Asynchronous Learning Management Platform | EMSE
 
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+## Getting Started
+After cloning into repo, cd to project root directory and install server dependencies, as well as install the front-end dependencies:
 
-### pre requisites
-* nodejs >= v10.0
-* npm
-* gulp v3.9
-* MySQL
-* PHP >= v7.0
-* apache2
-
-*start up your MySQL server before completing the steps below*
-
-```shell
-$ cd /var/www/html
-$ git clone 
+```shell script
 $ cd emsePortal
-$ gulp default
+$ npm install && npm run client-install
 ```
+
+> *In order for Express to connect to your database, you first need to create a ```.env``` file with the key ```MongoURI``` and the value of your database access URL.*
+
+Run and expose port `:3000` for React and `:5000` for Express
+```shell script
+$ npm run dev
+```
+
+> *You can also add the key ```PORT``` to your ```.env``` file to change the default 5000 Express port assignment.*

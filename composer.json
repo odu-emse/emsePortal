@@ -1,9 +1,0 @@
-{
-  "require": {
-    "twig/twig": "^2.0",
-    "sendgrid/sendgrid": "~7",
-    "ext-mysqli": "*",
-    "ext-simplexml": "*"
-  },
-  "version": "2.7.0"
-}
