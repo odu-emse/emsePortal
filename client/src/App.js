@@ -20,8 +20,6 @@ function App() {
 
           <Route path="/modules/:moduleId" component={ModuleHousing} />
 
-          <Route path="/users/:id" component={Profile} />
-
           <Route path="/users/login" component={Login} />
         </Switch>
       </div>
