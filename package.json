@@ -29,6 +29,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.11",
     "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "rimraf": "^3.0.0"
   },
   "devDependencies": {
