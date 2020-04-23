@@ -11,7 +11,7 @@ const fetchModuleData = async () => {
   };
   console.log("Fetching Module Data...");
   return await axios
-    .get("/api/modules", config)
+    .get("http://localhost:5000/api/modules", config)
     .then(res => res.data)
     .catch(err => console.log(err));
 };

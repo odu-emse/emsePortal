@@ -4,13 +4,11 @@ import bcrypt from "bcryptjs";
 const User = new mongoose.Schema({
   firstName: {
     type: String,
-    trim: true,
-    required: true
+    trim: true
   },
   lastName: {
     type: String,
-    trim: true,
-    required: true
+    trim: true
   },
   middleName: {
     type: String,
@@ -66,13 +64,5 @@ const User = new mongoose.Schema({
     default: false
   }
 });
-
-User.methods.generateHash = password => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-
-User.methods.validPassword = (password, hashedPassword) => {
-  return bcrypt.compareSync(password, hashedPassword);
-};
 
 export default mongoose.model("User", User);
