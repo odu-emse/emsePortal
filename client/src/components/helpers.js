@@ -45,3 +45,7 @@ export const setInStorage = (key, obj) => {
     console.error(err);
   }
 };
+
+export const getToken = () => {
+  return "Bearer " + localStorage.getItem("JWT");
+};

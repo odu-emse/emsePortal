@@ -73,8 +73,8 @@ class AppNavbar extends Component {
                       <DropdownItem>Login</DropdownItem>
                     </Link>
 
-                    <Link to="/users/signup">
-                      <DropdownItem>Signup</DropdownItem>
+                    <Link to="/users/register">
+                      <DropdownItem>Register</DropdownItem>
                     </Link>
 
                     <Link to="/users/logout">
