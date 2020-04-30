@@ -1,42 +1,48 @@
-import { Strategy  as LocalStrategy } from 'passport-local'
-import bcrypt from 'bcryptjs'
+import { Strategy as LocalStrategy } from "passport-local";
+import bcrypt from "bcryptjs";
+require("dotenv").config();
+import {
+  ExtractJwt as ExtractJWT,
+  Strategy as JWTstrategy
+} from "passport-jwt";
+import passport from "passport";
+import User from "../models/User";
+//bcrypt.compare function to see hashed w passed in password
+//TODO: [ALMP-56] compare password confirmation
 
-//Model imports
-import User from '../models/User'
+const opts = {
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken("JWT"),
+  secretOrKey: process.env.jwtSecret
+};
 
-export default function authentication(passport) {
-    passport.use(
-        new LocalStrategy({ usernameField: 'email'}, (email, password, done) => {
-            //match email entered with the one in the database
-            User.findOne({ email: email})
-                .then(user => {
-                    if (!user){
-                        return done(null, false, { message: "The email you entered isn't registered."})
-                    }
+const strategy = new JWTstrategy(opts, (payload, done) => {
+  console.log("jwt payload: ", payload);
+  try {
+    User.findById(payload.id).then(user => {
+      if (user) {
+        // note the return removed with passport JWT - add this return for passport local
+        console.log("user found in db in passport");
+        return done(null, user);
+      } else {
+        console.log("user not found in db");
+        return done(null, false);
+      }
+    });
+  } catch (err) {
+    console.log("try catch jwt error");
+    done(err);
+  }
+});
 
-                    //Match entered password with the one in the database
-                    bcrypt.compare(password, user.password, (err, isMatch) => {
-                        if (err) {
-                            throw err
-                        }
-                        if (isMatch){
-                            return done(null, user)
-                        }
-                        else{
-                            return done(null, false, { message: "Incorrect email and password combination."})
-                        }
-                    })
-                })
-                .catch(err => console.log(err))
-        })
-    )
-    passport.serializeUser((user, done) => {
-        done(null, user.id)
-    })
+passport.use(strategy);
 
-    passport.deserializeUser((id, done) => {
-        User.findById(id, (err,user) => {
-            done(err, user)
-        })
-    })
-}
+passport.serializeUser((user, done) => {
+  console.log("serialized user: ", user.id);
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
