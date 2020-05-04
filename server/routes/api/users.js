@@ -9,7 +9,6 @@ import jwt from "jsonwebtoken";
 //Authenticator
 users.get(
   "/verify",
-  passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
     console.log(req.user);
     return res.send(req.user);
@@ -18,7 +17,6 @@ users.get(
 
 //-------------------------DEV debug helper route----------------------------------------
 users.get("/", (req, res, next) => {
-  //res.redirect("/users/login");
   User.find()
     .then(data => {
       if (!data) {

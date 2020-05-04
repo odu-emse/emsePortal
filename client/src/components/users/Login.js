@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap";
 import axios from "axios";
+import { getToken } from "../helpers";
 
 export default class Login extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ export default class Login extends Component {
       .then(res => {
         localStorage.setItem("JWT", res.data.token);
         this.props.history.push("/Dashboard");
+        res.status(200);
       })
       .catch(err => {
         this.setState({
@@ -47,39 +49,41 @@ export default class Login extends Component {
   }
 
   render() {
-    const { token, email, error, password } = this.state;
+    const { email, error, password } = this.state;
     //form
-    return (
-      <Container>
-        {error ? <p>error</p> : null}
-        <p>Login</p>
-        <Form onSubmit={e => this.onLogin(e)}>
-          {error ? <p>{error}</p> : null}
-          {email ? <p>{email}</p> : null}
-          {password ? <p>{password}</p> : null}
-          <FormGroup>
-            <Label for="Email">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              placeholder="email"
-              value={email}
-              onChange={e => this.change(e)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="Password">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              placeholder="password"
-              value={password}
-              onChange={e => this.change(e)}
-            />
-          </FormGroup>
-          <Button type="submit">Submit</Button>
-        </Form>
-      </Container>
-    );
+    if (getToken() !== `Bearer ${null}`) {
+      //TODO: [ALMP-64] implement session destroy
+      return this.props.history.push("/");
+    } else {
+      return (
+        <Container>
+          <p>Login</p>
+          <Form onSubmit={e => this.onLogin(e)}>
+            {error ? <p>{error}</p> : null}
+            <FormGroup>
+              <Label for="Email">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                placeholder="email"
+                value={email}
+                onChange={e => this.change(e)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="Password">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                placeholder="password"
+                value={password}
+                onChange={e => this.change(e)}
+              />
+            </FormGroup>
+            <Button type="submit">Submit</Button>
+          </Form>
+        </Container>
+      );
+    }
   }
 }

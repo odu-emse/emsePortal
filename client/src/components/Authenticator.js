@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
 import { getToken } from "./helpers";
 
-class Auth extends Component {
-  constructor(props) {
-    super(props);
-
+class Auth {
+  constructor() {
     this.state = {
       user: undefined
     };
@@ -18,14 +16,13 @@ class Auth extends Component {
 
   getUser() {
     const jwt = getToken();
+    console.log(jwt);
     if (!jwt) {
       this.setState({
         user: null
       });
       return;
     }
-
-    console.log(jwt);
 
     axios
       .get("http://localhost:5000/api/users/verify", {
@@ -35,7 +32,6 @@ class Auth extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           user: res.data
         });
@@ -47,16 +43,21 @@ class Auth extends Component {
       });
   }
 
-  render() {
-    const { user } = this.state;
-    if (user === undefined) {
-      return <h1>loading...</h1>;
-    }
-    if (user === null) {
-      this.props.history.push("/users/login");
-    }
-    return this.props.children;
+  // render() {
+  //   const { user } = this.state;
+  //   if (user == undefined) {
+  //     return <h1>loading...</h1>;
+  //   }
+  //   if (user == null) {
+  //     this.props.history.push("/users/login");
+  //   }
+  //   return this.props.children;
+  // }
+
+  isAuthenticated() {
+    console.log(this.state.user);
+    return this.state.user;
   }
 }
 
-export default withRouter(Auth);
+export default new Auth();

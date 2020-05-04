@@ -2,7 +2,7 @@ import express from "express";
 const modules = express.Router();
 import Module from "../../models/Module";
 import aws from "aws-sdk";
-import auth from "../../middleware/auth";
+import passport from "passport";
 
 let awsFetch = () => {
   try {
@@ -56,27 +56,31 @@ modules.get("/", (req, res, next) => {
     });
 });
 
-modules.get("/:moduleId", (req, res, next) => {
-  if (req.params.moduleId.length < 3) {
-    next();
+modules.get(
+  "/:moduleId",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    if (req.params.moduleId.length < 3) {
+      next();
+    }
+    const id = req.params.moduleId;
+    Module.findById(id)
+      .then(data => {
+        if (!data) {
+          return res.status(404).end;
+        } else {
+          awsFetch();
+          res.status(200).json({
+            conf: "success",
+            data: data
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
-  const id = req.params.moduleId;
-  Module.findById(id)
-    .then(data => {
-      if (!data) {
-        return res.status(404).end;
-      } else {
-        awsFetch();
-        res.status(200).json({
-          conf: "success",
-          data: data
-        });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
+);
 
 modules.get("/:moduleNumber", (req, res, next) => {
   const moduleNum = req.params.moduleNumber;
