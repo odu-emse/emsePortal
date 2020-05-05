@@ -9,6 +9,7 @@ import Portal from "./components/Portal";
 import { Protector } from "./components/Protector";
 import "./App.sass";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Logout from "./components/users/Logout";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       <div className="App">
         <AppNavbar />
         <Switch>
-          <Route exact path="/" exact component={Portal} />
+          <Route exact path="/" component={Portal} />
 
           <Route path="/dashboard" exact component={Dashboard} />
 
@@ -27,6 +28,8 @@ function App() {
           <Route path="/users/login" exact component={Login} />
 
           <Route path="/users/register" exact component={Register} />
+
+          <Route path="/users/logout" exact component={Logout} />
         </Switch>
       </div>
     </Router>
