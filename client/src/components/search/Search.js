@@ -21,7 +21,6 @@ export default class Search extends Component {
 
   render() {
     const { modules } = this.state;
-    console.log(modules);
     return (
       <Fragment>
         <Label for="exampleEmail">Email</Label>

@@ -37,8 +37,7 @@ export default class Login extends Component {
       })
       .then(res => {
         localStorage.setItem("JWT", res.data.token);
-        this.props.history.push("/Dashboard");
-        res.status(200);
+        this.props.history.push("/dashboard");
       })
       .catch(err => {
         this.setState({
@@ -52,7 +51,7 @@ export default class Login extends Component {
     const { email, error, password } = this.state;
     //form
     if (getToken() !== `Bearer ${null}`) {
-      //TODO: [ALMP-64] implement session destroy
+      //if there is a token -> send them home
       return this.props.history.push("/");
     } else {
       return (
