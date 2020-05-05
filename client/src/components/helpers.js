@@ -49,3 +49,7 @@ export const setInStorage = (key, obj) => {
 export const getToken = () => {
   return "Bearer " + localStorage.getItem("JWT");
 };
+
+export const removeToken = () => {
+  return localStorage.removeItem("JWT");
+};
