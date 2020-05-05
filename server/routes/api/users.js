@@ -7,13 +7,41 @@ require("dotenv").config();
 import jwt from "jsonwebtoken";
 
 //Authenticator
-users.get(
-  "/verify",
-  (req, res, next) => {
-    console.log(req.user);
-    return res.send(req.user);
+users.get("/verify", (req, res, next) => {
+  const bearerToken = req.headers.authorization;
+  if (bearerToken) {
+    const token = bearerToken.split(" ")[1];
+    if (token !== "null") {
+      jwt.verify(token, process.env.jwtSecret, (err, result) => {
+        if (err) {
+          res.status(400);
+          console.error(err);
+          next();
+        }
+        User.findById(result.id)
+          .then(data => {
+            if (!data) {
+              res.status(400);
+            } else {
+              res.status(200).json({
+                authenticated: true,
+                data
+              });
+            }
+          })
+          .catch(err => {
+            res.status(400);
+            console.error(err);
+            next();
+          });
+      });
+    } else {
+      return res.status(401);
+    }
+  } else {
+    return res.status(401);
   }
-);
+});
 
 //-------------------------DEV debug helper route----------------------------------------
 users.get("/", (req, res, next) => {
