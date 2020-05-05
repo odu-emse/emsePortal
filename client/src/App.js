@@ -5,6 +5,7 @@ import ModuleHousing from "./components/modules/ModuleHousing";
 import Login from "./components/users/Login";
 import Register from "./components/users/Register";
 import Dashboard from "./components/Dashboard";
+import Portal from "./components/Portal";
 import { Protector } from "./components/Protector";
 import "./App.sass";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -15,9 +16,11 @@ function App() {
       <div className="App">
         <AppNavbar />
         <Switch>
-          <Route exact path="/" exact component={Modules} />
+          <Route exact path="/" exact component={Portal} />
 
           <Route path="/dashboard" exact component={Dashboard} />
+
+          <Route path="/modules" exact component={Modules} />
 
           <Protector path="/modules/:moduleId" component={ModuleHousing} />
 
