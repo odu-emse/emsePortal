@@ -4,12 +4,9 @@ const fetchModuleData = async () => {
   let config = {
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "no-cache",
-      "x-auth-token":
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNWZkNjA0NmY3YjYzMzAwZGI2MjRmMiIsImlhdCI6MTU4MzMzOTAxMywiZXhwIjoxNTgzMzQyNjEzfQ.GJSSgA61fxC1kYPcCovAaZFqHzlyxOO9DcNmRlWX1qo"
+      "Cache-Control": "no-cache"
     }
   };
-  console.log("Fetching Module Data...");
   return await axios
     .get("http://localhost:5000/api/modules", config)
     .then(res => res.data)
