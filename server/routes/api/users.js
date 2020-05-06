@@ -1,10 +1,10 @@
 import express from "express";
 const users = express.Router();
 import User from "../../models/User";
-import passport from "passport";
 import bcrypt from "bcryptjs";
 require("dotenv").config();
 import jwt from "jsonwebtoken";
+import sgMail from "@sendgrid/mail";
 
 //Authenticator
 users.get("/verify", (req, res, next) => {
@@ -87,6 +87,16 @@ users.post("/register", (req, res, next) => {
               newUser
                 .save()
                 .then(user => {
+                  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                  const msg = {
+                    to: email,
+                    from: "daniel_papp@outlook.com",
+                    subject:
+                      "Asyncronous Learning Management Platform Verification",
+                    text: "testing this verification thing",
+                    html: "<strong>damn this is lame no 🧢</strong>"
+                  };
+                  sgMail.send(msg);
                   res.json(user);
                 })
                 .catch(err => {
