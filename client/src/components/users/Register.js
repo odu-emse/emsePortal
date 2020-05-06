@@ -1,66 +1,38 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap";
 import axios from "axios";
+import { getToken } from "../helpers";
 
 export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
+      error: "",
       email: "",
       password: "",
-      loading: true,
-      registerError: "",
-      registerEmail: "",
-      registerPassword: "",
+      passwordConf: "",
       firstName: "",
       lastName: ""
     };
-    this.onTexboxChangeFirstName = this.onTexboxChangeFirstName.bind(this);
-    this.onTexboxChangeLastName = this.onTexboxChangeLastName.bind(this);
-    this.onTexboxChangeRegisterEmail = this.onTexboxChangeRegisterEmail.bind(
-      this
-    );
-    this.onTexboxChangeRegisterPassword = this.onTexboxChangeRegisterPassword.bind(
-      this
-    );
-    this.onRegister = this.onRegister.bind(this);
   }
 
-  async componentDidMount() {
+  change(e) {
     this.setState({
-      loading: false
+      [e.target.name]: e.target.value
     });
   }
 
-  onTexboxChangeLastName(e) {
-    this.setState({
-      lastName: e.target.value
-    });
-  }
-  onTexboxChangeFirstName(e) {
-    this.setState({
-      firstName: e.target.value
-    });
-  }
-  onTexboxChangeRegisterEmail(e) {
-    this.setState({
-      registerEmail: e.target.value
-    });
-  }
-  onTexboxChangeRegisterPassword(e) {
-    this.setState({
-      registerPassword: e.target.value
-    });
-  }
-
-  onRegister() {
-    const { registerEmail, registerPassword, firstName, lastName } = this.state;
+  onRegister(e) {
+    e.preventDefault();
+    const { email, password, passwordConf, firstName, lastName } = this.state;
 
     let data = JSON.stringify({
-      firstName: firstName,
-      lastName: lastName,
-      email: registerEmail,
-      password: registerPassword
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordConf
     });
 
     axios
@@ -69,19 +41,24 @@ export default class Register extends Component {
           "Content-Type": "application/json"
         }
       })
-      .then(res => {
-        res.json();
-      })
       .then(response => {
-        const { firstName, lastName, email, password } = response;
+        const {
+          firstName,
+          lastName,
+          email,
+          password,
+          passwordConf
+        } = response.data;
         this.setState({
           firstName,
           lastName,
           email,
           password,
+          passwordConf,
           loading: false,
           error: false
         });
+        this.props.history.push("/users/login");
       })
       .catch(err => {
         return console.error(err);
@@ -90,25 +67,22 @@ export default class Register extends Component {
 
   render() {
     const {
-      token,
-      loading,
       firstName,
       lastName,
-      registerError,
-      registerEmail,
-      registerPassword
+      error,
+      email,
+      password,
+      passwordConf
     } = this.state;
-
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-    if (!token) {
-      //form
+    if (getToken() !== `Bearer ${null}`) {
+      //if there is a token -> send them home
+      return this.props.history.push("/");
+    } else {
       return (
         <Container>
           <p>Register</p>
-          <Form onSubmit={this.onRegister}>
-            {registerError ? <p>{registerError}</p> : null}
+          <Form onSubmit={e => this.onRegister(e)}>
+            {error ? <p>{error}</p> : null}
             <FormGroup>
               <Label for="First name">First name</Label>
               <Input
@@ -116,7 +90,7 @@ export default class Register extends Component {
                 name="firstName"
                 placeholder="First name"
                 value={firstName}
-                onChange={this.onTexboxChangeFirstName}
+                onChange={e => this.change(e)}
               />
             </FormGroup>
             <FormGroup>
@@ -126,7 +100,7 @@ export default class Register extends Component {
                 name="lastName"
                 placeholder="Last name"
                 value={lastName}
-                onChange={this.onTexboxChangeLastName}
+                onChange={e => this.change(e)}
               />
             </FormGroup>
             <FormGroup>
@@ -135,8 +109,8 @@ export default class Register extends Component {
                 type="email"
                 name="email"
                 placeholder="email"
-                value={registerEmail}
-                onChange={this.onTexboxChangeRegisterEmail}
+                value={email}
+                onChange={e => this.change(e)}
               />
             </FormGroup>
             <FormGroup>
@@ -145,8 +119,18 @@ export default class Register extends Component {
                 type="password"
                 name="password"
                 placeholder="password"
-                value={registerPassword}
-                onChange={this.onTexboxChangeRegisterPassword}
+                value={password}
+                onChange={e => this.change(e)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="Password confirmation">Confirm password</Label>
+              <Input
+                type="password"
+                name="passwordConf"
+                placeholder="confirm password"
+                value={passwordConf}
+                onChange={e => this.change(e)}
               />
             </FormGroup>
             <Button type="submit">Submit</Button>
@@ -154,6 +138,5 @@ export default class Register extends Component {
         </Container>
       );
     }
-    return <p>account</p>;
   }
 }

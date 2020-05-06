@@ -39,6 +39,11 @@ const User = new mongoose.Schema({
     trim: true,
     required: true
   },
+  passwordConf: {
+    type: String,
+    trim: true,
+    required: true
+  },
   classTaken: [
     {
       type: String,
