@@ -28,7 +28,7 @@ export const Protector = ({ component: Component, ...rest }) => {
 
       try {
         const { data } = await axios
-          .get("http://localhost:5000/api/users/verify", {
+          .get("/api/users/verify", {
             headers: {
               Authorization: getToken(),
               "Content-Type": "application/json"
