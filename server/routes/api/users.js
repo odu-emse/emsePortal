@@ -64,7 +64,7 @@ users.get("/", (req, res, next) => {
 //-------------------------End of DEV debug helper route---------------------------------
 
 users.post("/register", (req, res, next) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, passwordConf } = req.body;
   User.findOne({ email })
     .then(user => {
       if (user) {
@@ -74,24 +74,31 @@ users.post("/register", (req, res, next) => {
           firstName,
           lastName,
           email,
-          password
+          password,
+          passwordConf
         });
-        bcrypt.genSalt(10, (err, salt) => {
-          if (err) throw err;
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (password == passwordConf) {
+          bcrypt.genSalt(10, (err, salt) => {
             if (err) throw err;
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(user => {
-                res.json(user);
-              })
-              .catch(err => {
-                res.status(400).json(err);
-                console.error(err);
-              });
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser.passwordConf = newUser.password;
+              newUser
+                .save()
+                .then(user => {
+                  res.json(user);
+                })
+                .catch(err => {
+                  res.status(400).json(err);
+                  console.error(err);
+                });
+            });
           });
-        });
+        } else {
+          res.status(400);
+          next();
+        }
       }
     })
     .catch(err => {
