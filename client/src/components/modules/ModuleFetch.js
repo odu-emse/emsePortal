@@ -8,7 +8,7 @@ const fetchModuleData = async () => {
     }
   };
   return await axios
-    .get("http://localhost:5000/api/modules", config)
+    .get("/api/modules", config)
     .then(res => res.data)
     .catch(err => console.log(err));
 };

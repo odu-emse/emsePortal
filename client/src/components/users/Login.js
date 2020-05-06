@@ -30,7 +30,7 @@ export default class Login extends Component {
     });
 
     axios
-      .post("http://localhost:5000/api/users/login", data, {
+      .post("/api/users/login", data, {
         headers: {
           "Content-Type": "application/json"
         }
