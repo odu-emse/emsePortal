@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 require("dotenv").config();
 import jwt from "jsonwebtoken";
 import sgMail from "@sendgrid/mail";
+import UserVerify from "../../models/UserVerify";
 
 //Authenticator
 users.get("/verify", (req, res, next) => {
@@ -93,10 +94,15 @@ users.post("/register", (req, res, next) => {
                     from: "daniel_papp@outlook.com",
                     subject:
                       "Asyncronous Learning Management Platform Verification",
-                    text: "testing this verification thing",
-                    html: "<strong>damn this is lame no 🧢</strong>"
+                    html: `<strong>damn this is lame no 🧢</strong>
+                          <br/>
+                          https://localhost:5000/userVerify?token=${user._id}`
                   };
                   sgMail.send(msg);
+                  const userVerify = new UserVerify({
+                    token: user._id
+                  });
+                  userVerify.save();
                   res.json(user);
                 })
                 .catch(err => {
@@ -116,6 +122,7 @@ users.post("/register", (req, res, next) => {
     });
 });
 
+//TODO: [ALMP-86] add check for activated account
 users.post("/login", (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -151,6 +158,47 @@ users.post("/login", (req, res, next) => {
     .catch(err => {
       res.status(400).json(err);
       return console.error(err);
+    });
+});
+
+users.get("/userVerify", (req, res, next) => {
+  const { token } = req.query;
+  UserVerify.findOne({ token })
+    .then(async document => {
+      if (!document) {
+        res.status(400).end;
+      } else {
+        const { expires, used, token } = document;
+        //check if used is false
+        if (!used) {
+          const now = new Date();
+          if (expires > now) {
+            const filter = { _id: token };
+            await User.updateOne(filter, { active: true });
+            const updateDoc = await User.findOne();
+            //res.json({ updateDoc });
+            console.log(updateDoc._id);
+            await UserVerify.updateOne(
+              { token: updateDoc._id },
+              { used: true }
+            );
+            const toBeRemoved = await UserVerify.findOne();
+            res.json({ verify: toBeRemoved, updateDoc });
+          } else {
+            res.status(400).json({ error: "Error: This token has expired." });
+            next();
+          }
+        } else {
+          res
+            .status(400)
+            .json({ error: "Error: This token has already been used." });
+          next();
+        }
+      }
+    })
+    .catch(err => {
+      res.status(400).json({ error: err });
+      next();
     });
 });
 
