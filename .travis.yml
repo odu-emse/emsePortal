@@ -9,3 +9,7 @@ branches:
   only:
     - master
     - dev
+notifications:
+  email: true
+
+webhooks: https://outlook.office.com/webhook/bb1e0cba-f975-4191-88aa-99540b1fa6ce@48bf86e8-11a2-4b8a-8cb3-68d8be2227f3/TravisCI/24673899305c40639ae36da80c7b876d/d9f14942-bd1b-41b0-82c9-22faf90eb4ec

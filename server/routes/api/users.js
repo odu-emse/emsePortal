@@ -122,7 +122,6 @@ users.post("/register", (req, res, next) => {
     });
 });
 
-//TODO: [ALMP-86] add check for activated account
 users.post("/login", (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -134,12 +133,10 @@ users.post("/login", (req, res, next) => {
         return res.status(400).json("no account found with these credentials");
       }
       if (user.active == false) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "Account not yet activated. Please check your inbox and spam folder for our email."
-          });
+        return res.status(400).json({
+          error:
+            "Account not yet activated. Please check your inbox and spam folder for our email."
+        });
       }
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
@@ -171,6 +168,7 @@ users.post("/login", (req, res, next) => {
 
 users.get("/userVerify", (req, res, next) => {
   const { token } = req.query;
+  console.log(token);
   UserVerify.findOne({ token })
     .then(async document => {
       if (!document) {
@@ -209,5 +207,20 @@ users.get("/userVerify", (req, res, next) => {
       next();
     });
 });
+
+//TODO: [ALMP-90] user id profile check
+
+// users.get("/:id", (req, res, next) => {
+//   const { id } = req.params;
+//   User.findById(id)
+//     .then(user => {
+//       if (!user) throw err;
+//       res.status(200).json({ user });
+//     })
+//     .catch(err => {
+//       res.status(400).json({ err });
+//       next();
+//     });
+// });
 
 export default users;
