@@ -30,6 +30,8 @@ class AppNavbar extends Component {
     });
   };
 
+  //TODO: [ALMP-91] profile anchor id
+
   render() {
     return (
       <Fragment>
@@ -60,9 +62,9 @@ class AppNavbar extends Component {
                     <FontAwesomeIcon icon={faUser} />
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <Link to="/users/:id">
+                    {/* <Link to="/users/:id">
                       <DropdownItem>Profile</DropdownItem>
-                    </Link>
+                    </Link> */}
 
                     <Link to="/billing">
                       <DropdownItem>Billing</DropdownItem>
