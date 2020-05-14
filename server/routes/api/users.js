@@ -133,6 +133,14 @@ users.post("/login", (req, res, next) => {
       if (!user) {
         return res.status(400).json("no account found with these credentials");
       }
+      if (user.active == false) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Account not yet activated. Please check your inbox and spam folder for our email."
+          });
+      }
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           const payload = { id: user._id };
