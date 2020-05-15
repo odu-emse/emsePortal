@@ -1,10 +1,11 @@
 import express from "express";
 const users = express.Router();
 import User from "../../models/User";
-import passport from "passport";
 import bcrypt from "bcryptjs";
 require("dotenv").config();
 import jwt from "jsonwebtoken";
+import sgMail from "@sendgrid/mail";
+import UserVerify from "../../models/UserVerify";
 
 //Authenticator
 users.get("/verify", (req, res, next) => {
@@ -87,6 +88,21 @@ users.post("/register", (req, res, next) => {
               newUser
                 .save()
                 .then(user => {
+                  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                  const msg = {
+                    to: email,
+                    from: "daniel_papp@outlook.com",
+                    subject:
+                      "Asyncronous Learning Management Platform Verification",
+                    html: `<strong>damn this is lame no 🧢</strong>
+                          <br/>
+                          https://localhost:5000/userVerify?token=${user._id}`
+                  };
+                  sgMail.send(msg);
+                  const userVerify = new UserVerify({
+                    token: user._id
+                  });
+                  userVerify.save();
                   res.json(user);
                 })
                 .catch(err => {
@@ -116,6 +132,12 @@ users.post("/login", (req, res, next) => {
       if (!user) {
         return res.status(400).json("no account found with these credentials");
       }
+      if (user.active == false) {
+        return res.status(400).json({
+          error:
+            "Account not yet activated. Please check your inbox and spam folder for our email."
+        });
+      }
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           const payload = { id: user._id };
@@ -143,5 +165,61 @@ users.post("/login", (req, res, next) => {
       return console.error(err);
     });
 });
+
+users.get("/userVerify", (req, res, next) => {
+  const { token } = req.query;
+  UserVerify.findOne({ token })
+    .then(async document => {
+      if (!document) {
+        res.status(400).send({
+          error:
+            "Error: That identifier is not recognized by our system. Please contact us immediately"
+        });
+      } else {
+        const { expires, used, token } = document;
+        if (!used) {
+          const now = new Date();
+          if (expires > now) {
+            const filter = { _id: token };
+            await User.updateOne(filter, { active: true });
+            const updateDoc = await User.findOne();
+            await UserVerify.updateOne(
+              { token: updateDoc._id },
+              { used: true }
+            );
+            const toBeRemoved = await UserVerify.findOne();
+            res.json({ verify: toBeRemoved, updateDoc });
+          } else {
+            res.status(401).send({ error: "Error: This token has expired." });
+            next();
+          }
+        } else {
+          res
+            .status(401)
+            .send({ error: "Error: This token has already been used." });
+          next();
+        }
+      }
+    })
+    .catch(err => {
+      res.status(400).send({ error: err });
+      next();
+    });
+});
+
+//TODO: [ALMP-90] user id profile check
+
+// users.get("/:id", (req, res, next) => {
+//   const { id } = req.params;
+//   User.findById(id)
+//     .then(user => {
+//       if (!user) throw err;
+//       res.status(200).json({ user });
+//     })
+//     .catch(err => {
+//       res.status(400).json({ err });
+//       next();
+//     });
+// });
 
 export default users;

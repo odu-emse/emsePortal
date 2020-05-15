@@ -9,7 +9,7 @@ import { Container } from "reactstrap";
 
 library.add(fas);
 
-export const Protector = ({ component: Component, ...rest }) => {
+const Protector = ({ component: Component, ...rest }) => {
   const initialUserState = {
     user: {},
     loading: true,
@@ -74,3 +74,5 @@ export const Protector = ({ component: Component, ...rest }) => {
     ></Route>
   );
 };
+
+export default Protector;

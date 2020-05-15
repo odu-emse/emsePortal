@@ -3,12 +3,12 @@
   "version": "0.1.2",
   "private": true,
   "scripts": {
-    "devstart": "babel-node ./server/server.js",
-    "start": "npm run build && node ./build/server.js",
+    "devstart": "babel-node ./server/server",
+    "start": "npm run build && node ./build/server",
     "build": "npm run clean && npm run babel-build",
     "babel-build": "babel -d ./build ./server -s",
     "clean": "rm -rf ./build && mkdir build",
-    "server": "nodemon --verbose --exec babel-node --ignore=node_modules ./server/server.js",
+    "server": "PORT=5000 nodemon --verbose --exec babel-node ./server/server",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -21,6 +21,7 @@
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
+    "@sendgrid/mail": "^7.1.0",
     "aws-sdk": "^2.661.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -34,9 +35,12 @@
     "http-errors": "^1.7.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
+    "ms": "^2.1.2",
+    "nodemon": "^2.0.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "react-toastify": "^6.0.4",
     "rimraf": "^3.0.0"
   },
   "devDependencies": {
@@ -45,9 +49,8 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-register": "^6.22.0",
     "kill-port": "^1.6.0",
-    "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
-    "standard-version": "^7.1.0"
+    "standard-version": "^8.0.0"
   },
   "browserslist": "> 0.25%, not dead"
 }
