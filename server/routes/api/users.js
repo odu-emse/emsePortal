@@ -168,22 +168,21 @@ users.post("/login", (req, res, next) => {
 
 users.get("/userVerify", (req, res, next) => {
   const { token } = req.query;
-  console.log(token);
   UserVerify.findOne({ token })
     .then(async document => {
       if (!document) {
-        res.status(400).end;
+        res.status(400).send({
+          error:
+            "Error: That identifier is not recognized by our system. Please contact us immediately"
+        });
       } else {
         const { expires, used, token } = document;
-        //check if used is false
         if (!used) {
           const now = new Date();
           if (expires > now) {
             const filter = { _id: token };
             await User.updateOne(filter, { active: true });
             const updateDoc = await User.findOne();
-            //res.json({ updateDoc });
-            console.log(updateDoc._id);
             await UserVerify.updateOne(
               { token: updateDoc._id },
               { used: true }
@@ -191,19 +190,19 @@ users.get("/userVerify", (req, res, next) => {
             const toBeRemoved = await UserVerify.findOne();
             res.json({ verify: toBeRemoved, updateDoc });
           } else {
-            res.status(400).json({ error: "Error: This token has expired." });
+            res.status(401).send({ error: "Error: This token has expired." });
             next();
           }
         } else {
           res
-            .status(400)
-            .json({ error: "Error: This token has already been used." });
+            .status(401)
+            .send({ error: "Error: This token has already been used." });
           next();
         }
       }
     })
     .catch(err => {
-      res.status(400).json({ error: err });
+      res.status(400).send({ error: err });
       next();
     });
 });

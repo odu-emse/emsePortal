@@ -8,7 +8,7 @@
     "build": "npm run clean && npm run babel-build",
     "babel-build": "babel -d ./build ./server -s",
     "clean": "rm -rf ./build && mkdir build",
-    "server": "nodemon --verbose --exec babel-node ./server/server",
+    "server": "PORT=5000 nodemon --verbose --exec babel-node ./server/server",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -40,6 +40,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "react-toastify": "^6.0.4",
     "rimraf": "^3.0.0"
   },
   "devDependencies": {
