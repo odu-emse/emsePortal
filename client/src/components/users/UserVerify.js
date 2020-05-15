@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 library.add(fas);
 
@@ -11,7 +13,8 @@ const UserVerify = props => {
   const initialUser = {
     user: {},
     loading: true,
-    error: null
+    error: false,
+    errorMessage: ""
   };
 
   const token = props.location.search;
@@ -19,6 +22,7 @@ const UserVerify = props => {
   const [user, setUser] = useState(initialUser.user);
   const [loading, setLoading] = useState(initialUser.loading);
   const [error, setError] = useState(initialUser.error);
+  const [errorMessage, setErrorMessage] = useState(initialUser.errorMessage);
 
   useEffect(() => {
     let config = {
@@ -26,31 +30,46 @@ const UserVerify = props => {
         "Content-Type": "application/json"
       }
     };
-
-    axios
-      .get(`http://localhost:5000/api/users/userVerify${token}`, config)
-      .then(user => {
-        setLoading(false);
-        setUser(user);
-      })
-      .catch(err => {
-        return setError(err);
+    try {
+      axios
+        .get(`/api/users/userVerify${token}`, config)
+        .then(user => {
+          setLoading(false);
+          setUser(user);
+        })
+        .catch(err => {
+          toast.error(err.response.data.error, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          setError(true);
+          setErrorMessage(err.response.data.error);
+        });
+    } catch (error) {
+      toast.error(error.response.data.error, {
+        position: toast.POSITION.TOP_RIGHT
       });
+      setError(true);
+      setErrorMessage(error.response.data.error);
+    }
   }, []);
 
   if (loading) {
-    return (
-      <Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-        <FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
-      </Container>
-    );
-  }
-  if (error !== null) {
-    return (
-      <div className="container">
-        <p>{Error}</p>
-      </div>
-    );
+    if (error) {
+      return (
+        <>
+          <ToastContainer />
+          <div className="container">
+            <p>{errorMessage}</p>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
+          <FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+        </Container>
+      );
+    }
   } else {
     const { updateDoc } = user.data;
     return (
