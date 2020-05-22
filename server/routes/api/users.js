@@ -125,15 +125,17 @@ users.post("/register", (req, res, next) => {
 users.post("/login", (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(401).send("no fields");
+    return res.status(400).send({ error: "Please fill out all the fields" });
   }
   User.findOne({ email })
     .then(user => {
       if (!user) {
-        return res.status(400).json("no account found with these credentials");
+        return res
+          .status(400)
+          .send({ error: "No account found with these credentials." });
       }
       if (user.active == false) {
-        return res.status(400).json({
+        return res.status(400).send({
           error:
             "Account not yet activated. Please check your inbox and spam folder for our email."
         });
@@ -147,7 +149,7 @@ users.post("/login", (req, res, next) => {
             { expiresIn: 36000 },
             (err, token) => {
               if (err) {
-                return res.status(500).json(`Token error: ${err}`);
+                return res.status(500).send({ error: `Token error: ${err}` });
               }
               res.send({
                 success: true,
@@ -156,12 +158,12 @@ users.post("/login", (req, res, next) => {
             }
           );
         } else {
-          return res.status(401).json("incorrect password given");
+          return res.status(401).send({ error: "Incorrect password given." });
         }
       });
     })
     .catch(err => {
-      res.status(400).json(err);
+      res.status(400).send({ error: err });
       return console.error(err);
     });
 });

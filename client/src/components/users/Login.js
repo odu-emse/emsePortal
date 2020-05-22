@@ -1,28 +1,38 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
 import { getToken } from "../helpers";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      token: "",
-      error: ""
-    };
-  }
+library.add(fas);
 
-  change(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+const Login = props => {
+  const initialUserState = {
+    email: "",
+    password: "",
+    loading: false
+  };
 
-  onLogin(e) {
+  const [email, setEmail] = useState(initialUserState.email);
+  const [password, setPassword] = useState(initialUserState.password);
+  const [loading, setLoading] = useState(initialUserState.loading);
+
+  const change = e => {
+    if (e.target.name === "email") {
+      setEmail(e.target.value);
+    }
+    if (e.target.name === "password") {
+      setPassword(e.target.value);
+    }
+  };
+
+  const onLogin = e => {
     e.preventDefault();
-    const { email, password } = this.state;
+
+    setLoading(true);
 
     let data = JSON.stringify({
       email,
@@ -36,29 +46,35 @@ export default class Login extends Component {
         }
       })
       .then(res => {
+        setLoading(false);
         localStorage.setItem("JWT", res.data.token);
-        this.props.history.push("/dashboard");
+        props.history.push("/dashboard");
       })
       .catch(err => {
-        this.setState({
-          error: err
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.TOP_RIGHT
         });
+        setLoading(false);
         console.error("onLogin() error: ", err);
       });
-  }
+  };
 
-  render() {
-    const { email, error, password } = this.state;
-    //form
+  if (loading) {
+    return (
+      <Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
+        <FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+      </Container>
+    );
+  } else {
     if (getToken() !== `Bearer ${null}`) {
-      //if there is a token -> send them home
-      return this.props.history.push("/");
+      props.history.push("/");
     } else {
       return (
         <Container>
-          <p>Login</p>
-          <Form onSubmit={e => this.onLogin(e)}>
-            {error ? <p>{error}</p> : null}
+          <h1>Login</h1>
+          <ToastContainer />
+          <Form onSubmit={e => onLogin(e)}>
+            <ToastContainer />
             <FormGroup>
               <Label for="Email">Email</Label>
               <Input
@@ -66,7 +82,7 @@ export default class Login extends Component {
                 name="email"
                 placeholder="email"
                 value={email}
-                onChange={e => this.change(e)}
+                onChange={e => change(e)}
               />
             </FormGroup>
             <FormGroup>
@@ -76,7 +92,7 @@ export default class Login extends Component {
                 name="password"
                 placeholder="password"
                 value={password}
-                onChange={e => this.change(e)}
+                onChange={e => change(e)}
               />
             </FormGroup>
             <Button type="submit">Submit</Button>
@@ -85,4 +101,6 @@ export default class Login extends Component {
       );
     }
   }
-}
+};
+
+export default Login;
