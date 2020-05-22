@@ -4,6 +4,7 @@ import "./App.sass";
 import AppNavbar from "./components/AppNavbar";
 import Protector from "./components/Protector";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 //Modules
 import Modules from "./components/modules";
 import ModuleHousing from "./components/modules/ModuleHousing";
