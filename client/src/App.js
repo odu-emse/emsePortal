@@ -34,13 +34,13 @@ function App() {
 
           <Route path="/users/login" exact component={Login} />
 
-          {/* <Route path="/users/:id" component={Profile} /> */}
-
           <Route path="/users/register" exact component={Register} />
 
           <Route path="/users/logout" exact component={Logout} />
 
           <Route path="/users/userVerify" component={UserVerify} />
+
+          <Route path="/users/:id" component={Profile} />
         </Switch>
       </div>
     </Router>

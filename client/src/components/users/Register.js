@@ -1,142 +1,175 @@
-import React, { Component } from "react";
-import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap";
-import axios from "axios";
-import { getToken } from "../helpers";
+import React, { Component } from "react"
+import { Form, FormGroup, Input, Label, Container } from "reactstrap"
+import axios from "axios"
+import { getToken } from "../helpers"
+import { Button } from "@material-ui/core"
+import { ToastContainer, toast } from "react-toastify"
+import UserInfo from "./Register/UserInfo"
+import PersonalInfo from "./Register/PersonalInfo"
+import Confirm from "./Register/Confirm"
+import Success from "./Register/Success"
 
 export default class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      error: "",
-      email: "",
-      password: "",
-      passwordConf: "",
-      firstName: "",
-      lastName: ""
-    };
-  }
-
-  change(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  onRegister(e) {
-    e.preventDefault();
-    const { email, password, passwordConf, firstName, lastName } = this.state;
-
-    let data = JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordConf
-    });
-
-    axios
-      .post("/api/users/register", data, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => {
-        const {
-          firstName,
-          lastName,
-          email,
-          password,
-          passwordConf
-        } = response.data;
-        this.setState({
-          firstName,
-          lastName,
-          email,
-          password,
-          passwordConf,
-          loading: false,
-          error: false
-        });
-        this.props.history.push("/users/login");
-      })
-      .catch(err => {
-        return console.error(err);
-      });
-  }
-
-  render() {
-    const {
-      firstName,
-      lastName,
-      error,
-      email,
-      password,
-      passwordConf
-    } = this.state;
-    if (getToken() !== `Bearer ${null}`) {
-      //if there is a token -> send them home
-      return this.props.history.push("/");
-    } else {
-      return (
-        <Container>
-          <p>Register</p>
-          <Form onSubmit={e => this.onRegister(e)}>
-            {error ? <p>{error}</p> : null}
-            <FormGroup>
-              <Label for="First name">First name</Label>
-              <Input
-                type="text"
-                name="firstName"
-                placeholder="First name"
-                value={firstName}
-                onChange={e => this.change(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="Last name">Last name</Label>
-              <Input
-                type="text"
-                name="lastName"
-                placeholder="Last name"
-                value={lastName}
-                onChange={e => this.change(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="Email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={email}
-                onChange={e => this.change(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="Password">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={password}
-                onChange={e => this.change(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="Password confirmation">Confirm password</Label>
-              <Input
-                type="password"
-                name="passwordConf"
-                placeholder="confirm password"
-                value={passwordConf}
-                onChange={e => this.change(e)}
-              />
-            </FormGroup>
-            <Button type="submit">Submit</Button>
-          </Form>
-        </Container>
-      );
+    state = {
+        loading: true,
+        error: "",
+        step: 1,
+        firstName: "",
+        lastName: "",
+        middleName: "",
+        email: "",
+        password: "",
+        passwordConf: "",
+        group: null,
+        title: "",
+        officeLocation: "",
+        officeHours: "",
+        phone: "",
+        background: "",
+        researchInterest: "",
+        selectedPapersAndPublications: "",
+        personalWebsite: "",
+        philosophy: "",
     }
-  }
+
+    //next step
+    nextStep = () => {
+        const {
+            step,
+            password,
+            passwordConf,
+            firstName,
+            lastName,
+            email,
+            group,
+        } = this.state
+        if (
+            firstName.length == 0 ||
+            lastName.length == 0 ||
+            email.length == 0 ||
+            group == null
+        ) {
+            this.setState({
+                step: 1,
+            })
+            toast.error(
+                "Please make sure that the required fields are filled out",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            )
+        } else if (password.length <= 6 || passwordConf.length <= 6) {
+            this.setState({
+                step: 1,
+            })
+            toast.error(
+                "Please make sure that your password is at least 6 characters long",
+                {
+                    position: toast.POSITION.TOP_RIGHT,
+                }
+            )
+        } else {
+            this.setState({
+                step: step + 1,
+            })
+        }
+    }
+
+    //previous step
+    previousStep = () => {
+        const { step } = this.state
+        this.setState({
+            step: step - 1,
+        })
+    }
+
+    change = input => e => {
+        this.setState({
+            [input]: e.target.value,
+        })
+    }
+
+    render() {
+        const {
+            step,
+            firstName,
+            lastName,
+            middleName,
+            email,
+            password,
+            passwordConf,
+            group,
+            title,
+            officeLocation,
+            officeHours,
+            phone,
+            contactPolicy,
+            background,
+            researchInterest,
+            selectedPapersAndPublications,
+            personalWebsite,
+            philosophy,
+        } = this.state
+
+        const values = {
+            firstName,
+            lastName,
+            middleName,
+            email,
+            password,
+            passwordConf,
+            group,
+            title,
+            officeLocation,
+            officeHours,
+            phone,
+            contactPolicy,
+            background,
+            researchInterest,
+            selectedPapersAndPublications,
+            personalWebsite,
+            philosophy,
+        }
+
+        if (getToken() !== `Bearer ${null}`) {
+            //if there is a token -> send them home
+            return this.props.history.push("/")
+        } else {
+            switch (step) {
+                case 1:
+                    return (
+                        <>
+                            <ToastContainer />
+                            <UserInfo
+                                nextStep={this.nextStep}
+                                change={this.change}
+                                values={values}
+                            />
+                        </>
+                    )
+                case 2:
+                    return (
+                        <>
+                            <ToastContainer />
+                            <PersonalInfo
+                                nextStep={this.nextStep}
+                                previousStep={this.previousStep}
+                                change={this.change}
+                                values={values}
+                            />
+                        </>
+                    )
+                case 3:
+                    return (
+                        <Confirm
+                            nextStep={this.nextStep}
+                            previousStep={this.previousStep}
+                            values={values}
+                        />
+                    )
+                case 4:
+                    return <Success />
+            }
+        }
+    }
 }

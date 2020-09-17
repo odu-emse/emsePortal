@@ -25,7 +25,7 @@ course.get("/:courseNumber", (req, res, next) => {
   }
   const courseNum = req.params.courseNumber;
   Course.find({
-    courseNumber: courseNum
+     courseNumber: courseNum
   })
     .then(data => {
       if (!data) {

@@ -61,7 +61,7 @@ const Protector = ({ component: Component, ...rest }) => {
           return (
             <Redirect
               to={{
-                pathname: "/modules",
+                pathname: "/users/login",
                 state: {
                   from: props.location,
                   error: "Not authorized to access..."
