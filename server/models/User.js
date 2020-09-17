@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 
 const User = new mongoose.Schema({
   firstName: {
@@ -71,6 +70,10 @@ const User = new mongoose.Schema({
   active: {
     type: Boolean,
     default: false
+  },
+  group: {
+    type: String,
+    required: true
   }
 });
 
