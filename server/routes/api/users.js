@@ -65,7 +65,14 @@ users.get("/", (req, res, next) => {
 //-------------------------End of DEV debug helper route---------------------------------
 
 users.post("/register", (req, res, next) => {
-  const { firstName, lastName, email, password, passwordConf } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConf,
+    group
+  } = req.body;
   User.findOne({ email })
     .then(user => {
       if (user) {
@@ -76,7 +83,8 @@ users.post("/register", (req, res, next) => {
           lastName,
           email,
           password,
-          passwordConf
+          passwordConf,
+          group
         });
         if (password == passwordConf) {
           bcrypt.genSalt(10, (err, salt) => {
@@ -93,10 +101,10 @@ users.post("/register", (req, res, next) => {
                     to: email,
                     from: "daniel_papp@outlook.com",
                     subject:
-                      "Asyncronous Learning Management Platform Verification",
+                      "Asynchronous Learning Management Platform Verification",
                     html: `<strong>damn this is lame no 🧢</strong>
                           <br/>
-                          https://localhost:5000/userVerify?token=${user._id}`
+                          localhost:3000/users/userVerify?token=${user._id}`
                   };
                   sgMail.send(msg);
                   const userVerify = new UserVerify({
@@ -209,19 +217,17 @@ users.get("/userVerify", (req, res, next) => {
     });
 });
 
-//TODO: [ALMP-90] user id profile check
-
-// users.get("/:id", (req, res, next) => {
-//   const { id } = req.params;
-//   User.findById(id)
-//     .then(user => {
-//       if (!user) throw err;
-//       res.status(200).json({ user });
-//     })
-//     .catch(err => {
-//       res.status(400).json({ err });
-//       next();
-//     });
-// });
+users.get("/:id", (req, res, next) => {
+  const { id } = req.params;
+  User.findById(id)
+    .then(user => {
+      if (!user) throw err;
+      res.status(200).json({ user });
+    })
+    .catch(err => {
+      res.status(400).send({ error: err });
+      next();
+    });
+});
 
 export default users;

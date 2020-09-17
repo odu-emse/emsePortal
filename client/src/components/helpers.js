@@ -1,12 +1,14 @@
+import jwt from "jsonwebtoken";
+
 export let round_to_precision = (x, precision) => {
   let y = +x + (precision === undefined ? 0.5 : precision / 2);
   return y - (y % (precision === undefined ? 1 : +precision));
 };
 
 export let rating = arr => {
-  let avg;
   let sum = arr.reduce((previous, current) => (current += previous));
-  return (avg = sum / arr.length);
+  let avg = sum / arr.length;
+  return avg;
 };
 
 export let progress = (dur, rem) => {
@@ -16,34 +18,7 @@ export let progress = (dur, rem) => {
 
 //TODO:further integration of this is needed in later release
 export let abandonModule = id => {
-  //require("../actions/itemActions");
-};
-
-export const getFromStorage = key => {
-  if (!key) {
-    return null;
-  }
-  try {
-    const valueStr = localStorage.getItem(key);
-    if (valueStr) {
-      return JSON.parse(valueStr);
-    }
-    return null;
-  } catch (err) {
-    return null;
-  }
-};
-
-export const setInStorage = (key, obj) => {
-  if (!key) {
-    console.error("Error: Key is missing");
-  }
-
-  try {
-    localStorage.setItem(key, JSON.stringify(obj));
-  } catch (err) {
-    console.error(err);
-  }
+  console.log(id);
 };
 
 export const getToken = () => {
@@ -53,3 +28,40 @@ export const getToken = () => {
 export const removeToken = () => {
   return localStorage.removeItem("JWT");
 };
+
+export const decoder = () => {
+  const token = localStorage.getItem("JWT");
+  const decoded = jwt.decode(token);
+  return decoded.id;
+};
+
+export const convert = timestamp => {
+  var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
+    yyyy = d.getFullYear(),
+    mm = ("0" + (d.getMonth() + 1)).slice(-2), // Months are zero based. Add leading 0.
+    dd = ("0" + d.getDate()).slice(-2), // Add leading 0.
+    hh = d.getHours(),
+    h = hh,
+    min = ("0" + d.getMinutes()).slice(-2), // Add leading 0.
+    ampm = "AM",
+    time;
+
+  if (hh > 12) {
+    h = hh - 12;
+    ampm = "PM";
+  } else if (hh === 12) {
+    h = 12;
+    ampm = "PM";
+  } else if (hh === 0) {
+    h = 12;
+  }
+
+  // ie: 2013-02-18, 8:35 AM
+  time = yyyy + "-" + mm + "-" + dd + ", " + h + ":" + min + " " + ampm;
+
+  return time;
+};
+
+//TODO: [ALMP-90] user id profile check
+
+//TODO: [ALMP-98] course fetcher function
