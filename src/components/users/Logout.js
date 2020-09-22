@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { removeToken, getToken } from "../helpers";
+import React, { Component } from "react"
+import { removeToken, getToken, refreshPage } from "../helpers"
+import { Redirect } from "react-router-dom"
 
 class Logout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    if (getToken() !== `Bearer ${null}` || getToken() !== undefined) {
-      removeToken();
-      return this.props.history.push("/users/login");
-    } else {
-      return this.props.location;
-    }
-  }
+	state = {}
+
+	render() {
+		if (getToken() !== `Bearer ${null}` || getToken() !== undefined) {
+			removeToken()
+			refreshPage()
+			return <Redirect to="/users/login" />
+		} else {
+			return this.props.location
+		}
+	}
 }
 
-export default Logout;
+export default Logout
