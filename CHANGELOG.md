@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/chef-danny-d/emsePortal/compare/v3.2.0...v0.1.2) (2020-09-22)
+
+
+### Features
+
+* **userbase:** added password confirmation upon register ([55ca5b6](https://github.com/chef-danny-d/emsePortal/commit/55ca5b6ab6020a11664f7ce94c3004f07d13b5f3))
+
+
+### Bug Fixes
+
+* **deploy:** removed localhost fetches ([61dc34c](https://github.com/chef-danny-d/emsePortal/commit/61dc34cf1b6c10b8c67a0b2f610275f3bab6443b))
+
 ## [0.1.1](https://github.com/chef-danny-d/emsePortal/compare/v0.1.0...v3.2.0) (2020-05-05)
 
 ### Features
