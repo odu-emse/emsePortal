@@ -52,9 +52,10 @@ const Login = (props) => {
 				return props.history.push("/dashboard")
 			})
 			.catch((err) => {
-				toast.error(err.response.data.error, {
-					position: toast.POSITION.TOP_RIGHT,
-				})
+				console.log(err)
+				// toast.error(err.response.data.error, {
+				// 	position: toast.POSITION.TOP_RIGHT,
+				// })
 				setLoading(false)
 				console.error("onLogin() error: ", err)
 			})
