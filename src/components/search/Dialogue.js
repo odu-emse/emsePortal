@@ -61,7 +61,7 @@ const Dialogue = (props) => {
 							>
 								{item.containingModules ? (
 									<h1 className="search--result__title">
-										EMSE {item.courseNumber} |{" "}
+										ENMA {item.courseNumber} |{" "}
 										{item.courseName}
 									</h1>
 								) : (

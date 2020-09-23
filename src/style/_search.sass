@@ -16,18 +16,10 @@
       radius: 100%
     &::before
       font-size: 1.25em
-  &-input
-    width: 100%
-    box-shadow: 0 0.1em 0 $gray-600
-    border: 0
-    background-color: transparent
-    text-align: center
-    font-size: 1.2em
-    color: $primary
+  &--input
+    width: 96%
     transition: 0.2s ease all
     padding: 0.25rem
-    &::placeholder
-    //TODO: this is where the autocomplete would be styled possibly since we would add the value as an attribute via JS
     &:focus
       outline: 0
       box-shadow: 0 0.175em 0 $secondary
@@ -44,7 +36,7 @@
       grid-column: 1/-1
   &--result
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: auto repeat(11, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 1em
     border-bottom: 1px solid $gray-100
