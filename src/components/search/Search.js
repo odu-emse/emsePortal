@@ -8,28 +8,33 @@ import {
 	Label,
 	Button,
 } from "reactstrap"
+import { TextField, Grid } from "@material-ui/core"
 import Dialogue from "./Dialogue"
-import axios from "axios"
+import { Search as SearchIcon } from "react-feather"
 
 const Search = () => {
 	const [search, setSearch] = useState("")
 
 	return (
 		<>
-			<Label for="exampleEmail">Email</Label>
-			<InputGroup className="">
-				<Input
-					className=""
-					name="moduleName"
-					placeholder="Module name"
-					onChange={(e) => setSearch(e.target.value)}
-				/>
-				<InputGroupAddon addonType="append">
-					<Button color="primary" type="submit">
-						Search
-					</Button>
-				</InputGroupAddon>
-			</InputGroup>
+			<Grid
+				container
+				spacing={1}
+				alignItems="flex-end"
+				className="w-100 justify-content-center"
+			>
+				<Grid item>
+					<SearchIcon />
+				</Grid>
+				<Grid item className="search--input">
+					<TextField
+						className="w-100"
+						label="Module name"
+						name="moduleName"
+						onChange={(e) => setSearch(e.target.value)}
+					/>
+				</Grid>
+			</Grid>
 			<Dialogue value={search} />
 		</>
 	)
