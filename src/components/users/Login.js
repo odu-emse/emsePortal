@@ -1,13 +1,9 @@
 import React, { useState } from "react"
 import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap"
 import axios from "axios"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
 import { ToastContainer, toast } from "react-toastify"
 import { getToken, refreshPage } from "../helpers"
-
-library.add(fas)
+import { Loader } from "react-feather"
 
 const Login = (props) => {
 	const initialUserState = {
@@ -53,9 +49,9 @@ const Login = (props) => {
 			})
 			.catch((err) => {
 				console.log(err)
-				// toast.error(err.response.data.error, {
-				// 	position: toast.POSITION.TOP_RIGHT,
-				// })
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
 				setLoading(false)
 				console.error("onLogin() error: ", err)
 			})
@@ -64,7 +60,7 @@ const Login = (props) => {
 	if (loading) {
 		return (
 			<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-				<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+				<Loader className="spin" size="42pt" />
 			</Container>
 		)
 	} else {

@@ -7,10 +7,7 @@ import {
 	Button,
 	Grid,
 } from "@material-ui/core"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-library.add(fas)
+import { ArrowRight, ArrowLeft } from "react-feather"
 
 export default class PersonalInfo extends Component {
 	previous = (e) => {
@@ -123,11 +120,7 @@ export default class PersonalInfo extends Component {
 								className="half mr-1"
 								variant="contained"
 								margin="normal"
-								startIcon={
-									<FontAwesomeIcon
-										icon={["fas", "caret-left"]}
-									/>
-								}
+								startIcon={<ArrowLeft />}
 								onClick={this.previous}
 							>
 								Back
@@ -136,11 +129,7 @@ export default class PersonalInfo extends Component {
 								className="half ml-1"
 								variant="contained"
 								color="primary"
-								endIcon={
-									<FontAwesomeIcon
-										icon={["fas", "caret-right"]}
-									/>
-								}
+								endIcon={<ArrowRight />}
 								onClick={this.continue}
 							>
 								Next

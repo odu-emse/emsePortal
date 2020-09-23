@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
 import { Container } from "reactstrap"
 import { ToastContainer, toast } from "react-toastify"
 import { convert, rating, round_to_precision } from "../helpers"
 import StarRatingComponent from "react-star-rating-component"
-
-library.add(fas)
+import { Loader } from "react-feather"
 
 const Profile = (props) => {
 	const initialUserState = {
@@ -75,7 +71,7 @@ const Profile = (props) => {
 	if (loading) {
 		return (
 			<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-				<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+				<Loader className="spin" size="42pt" />
 			</Container>
 		)
 	} else {
