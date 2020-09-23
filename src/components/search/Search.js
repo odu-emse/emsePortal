@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { useState, useEffect } from "react"
 import {
 	Form,
 	FormGroup,
@@ -11,33 +11,28 @@ import {
 import Dialogue from "./Dialogue"
 import axios from "axios"
 
-export default class Search extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			modules: null,
-		}
-	}
+const Search = () => {
+	const [search, setSearch] = useState("")
 
-	render() {
-		const { modules } = this.state
-		return (
-			<Fragment>
-				<Label for="exampleEmail">Email</Label>
-				<InputGroup className="">
-					<Input
-						className=""
-						name="moduleName"
-						placeholder="Module name"
-					/>
-					<InputGroupAddon addonType="append">
-						<Button color="primary" type="submit">
-							Search
-						</Button>
-					</InputGroupAddon>
-				</InputGroup>
-				<Dialogue />
-			</Fragment>
-		)
-	}
+	return (
+		<>
+			<Label for="exampleEmail">Email</Label>
+			<InputGroup className="">
+				<Input
+					className=""
+					name="moduleName"
+					placeholder="Module name"
+					onChange={(e) => setSearch(e.target.value)}
+				/>
+				<InputGroupAddon addonType="append">
+					<Button color="primary" type="submit">
+						Search
+					</Button>
+				</InputGroupAddon>
+			</InputGroup>
+			<Dialogue value={search} />
+		</>
+	)
 }
+
+export default Search

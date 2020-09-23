@@ -25,14 +25,18 @@
 		"reactstrap": "^8.4.1",
 		"uuid": "^3.4.0"
 	},
-	"proxy": "http://localhost:8000",
+	"proxy": "http://localhost:3000",
 	"scripts": {
 		"start": "REACT_APP_API=https://emse-api.herokuapp.com react-scripts start",
-		"dev": "REACT_APP_API=localhost:8000 react-scripts start",
+		"dev": "REACT_APP_API=https://emse-dev-api.herokuapp.com react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"release": "standard-version"
+		"release": "standard-version",
+		"patch": "npm run release -- --release-as patch",
+		"minor": "npm run release -- --release-as minor",
+		"major": "npm run release -- --release-as major",
+		"addTag": "git push --follow-tags origin dev"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
