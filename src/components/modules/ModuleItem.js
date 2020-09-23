@@ -1,8 +1,5 @@
 import React, { Suspense } from "react"
 import { fetchData } from "./ModuleFetch"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
 import {
 	Typography,
 	Card,
@@ -14,9 +11,8 @@ import {
 } from "@material-ui/core"
 import StarRatingComponent from "react-star-rating-component"
 import { rating, round_to_precision, progress } from "../helpers"
+import { Loader } from "react-feather"
 
-//adding font icon solid to library
-library.add(fas)
 //storing fetch data return in resource protected variable for suspense
 const resource = fetchData()
 
@@ -25,7 +21,7 @@ let ModuleItem = () => {
 		<Suspense
 			fallback={
 				<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-					<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+					<Loader className="spin" size="42pt" />
 				</Container>
 			}
 		>
