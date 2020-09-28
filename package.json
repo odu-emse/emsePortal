@@ -15,7 +15,7 @@
 		"bootstrap": "^4.4.1",
 		"jsonwebtoken": "^8.5.1",
 		"node-sass": "^4.13.1",
-		"react": "0.0.0-experimental-241c4467e",
+		"react": "0.14.0",
 		"react-dom": "0.0.0-experimental-241c4467e",
 		"react-feather": "^2.0.8",
 		"react-router-dom": "^5.1.2",
