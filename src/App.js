@@ -19,6 +19,7 @@ import UserVerify from "./components/users/UserVerify";
 //LMS
 import Dashboard from "./components/Dashboard";
 import Portal from "./components/Portal";
+import Assignments from "./components/Assignments";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
           <Route path="/modules" exact component={Modules} />
 
           <Protector path="/modules/:moduleId" component={ModuleHousing} />
+
+          <Protector path="/assignments" component={Assignments} />
 
           <Route path="/users/login" exact component={Login} />
 
