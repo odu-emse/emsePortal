@@ -5,6 +5,8 @@ import AppNavbar from "./components/AppNavbar";
 import Protector from "./components/Protector";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import {ThemeProvider} from '@material-ui/core'
+import {theme} from './components/theme'
 //Modules
 import Modules from "./components/modules";
 import ModuleHousing from "./components/modules/ModuleHousing";

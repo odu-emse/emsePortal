@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+export default class Dashboard extends Component{
+    state = {
 
-    this.state = {};
-  }
-  render() {
-    return <h1>Dashboard</h1>;
-  }
+    }
+    render() {
+        return(
+            <h1>Dashboard</h1>
+        )
+    }
 }
-
-export default Dashboard;

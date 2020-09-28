@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
-const Portal = props => {
-  return <h1>Portal</h1>;
-};
+const Portal = props =>{
+    return <h1>Portal</h1>
+}
 
-export default Portal;
+export default Portal
