@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Container } from "reactstrap"
+import { Container } from "@material-ui/core"
 import { ToastContainer, toast } from "react-toastify"
 import { convert, rating, round_to_precision } from "../helpers"
 import StarRatingComponent from "react-star-rating-component"
@@ -82,14 +82,14 @@ const Profile = (props) => {
 					<ToastContainer />
 					<nav className="col-4 nav flex-column">
 						{/* TODO: [ALMP-99] profile sidebar navigation */}
-						<a class="nav-link active">User information</a>
-						<a class="nav-link">Professor information</a>
-						<a class="nav-link">My modules</a>
-						<a class="nav-link">Security</a>
-						<a class="nav-link">Notifications</a>
+						<a className="nav-link active" href="#">User information</a>
+						<a className="nav-link" href="#">Professor information</a>
+						<a className="nav-link" href="#">My modules</a>
+						<a className="nav-link" href="#">Security</a>
+						<a className="nav-link" href="#">Notifications</a>
 						<a
-							class="nav-link disabled text-danger"
-							aria-disabled="true"
+							className="nav-link disabled text-danger"
+							aria-disabled="true" href="#"
 						>
 							Kill account
 						</a>
@@ -107,7 +107,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="First name"
 									name="firstName"
-									value={profile.firstName}
+									defaultValue={profile.firstName}
 								/>
 							</div>
 
@@ -121,7 +121,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Last name"
 									name="lastName"
-									value={profile.lastName}
+									defaultValue={profile.lastName}
 								/>
 							</div>
 
@@ -135,7 +135,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Middle name"
 									name="middleName"
-									value={profile.middleName}
+									defaultValue={profile.middleName}
 								/>
 							</div>
 
@@ -143,6 +143,7 @@ const Profile = (props) => {
 							<div className="form-group">
 								<label className="col-form-label">Email</label>
 								<input
+									readOnly={true}
 									className="form-control"
 									type="email"
 									disabled

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Route, Redirect } from "react-router-dom"
 import axios from "axios"
 import { getToken } from "./helpers"
-import { Container } from "reactstrap"
+import { Container } from "@material-ui/core"
 import { Loader } from "react-feather"
 
 const Protector = ({ component: Component, ...rest }) => {

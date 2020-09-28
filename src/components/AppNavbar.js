@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
 import {
 	Collapse,
 	Navbar,
@@ -13,7 +13,7 @@ import {
 	DropdownMenu,
 } from "reactstrap"
 import { Link } from "react-router-dom"
-import { getToken, decoder } from "../components/helpers"
+import { getToken, decoder } from "./helpers"
 import { User } from "react-feather"
 
 class AppNavbar extends Component {
@@ -29,13 +29,11 @@ class AppNavbar extends Component {
 		})
 	}
 
-	//TODO: [ALMP-91] profile anchor id
-
 	render() {
 		if (getToken() !== `Bearer ${null}`) {
 			//user logged in
 			return (
-				<Fragment>
+				<>
 					<Navbar color="light" light expand="sm" className="mb-5">
 						<Container>
 							<NavbarBrand href="/">Asynchronous LMP</NavbarBrand>
@@ -91,12 +89,12 @@ class AppNavbar extends Component {
 							</Collapse>
 						</Container>
 					</Navbar>
-				</Fragment>
+				</>
 			)
 		} else {
 			//user is not authenticated
 			return (
-				<Fragment>
+				<>
 					<Navbar color="light" light expand="sm" className="mb-5">
 						<Container>
 							<NavbarBrand href="/">Asynchronous LMP</NavbarBrand>
@@ -120,7 +118,7 @@ class AppNavbar extends Component {
 							</Collapse>
 						</Container>
 					</Navbar>
-				</Fragment>
+				</>
 			)
 		}
 	}
