@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Container } from "reactstrap"
+import { Container } from "@material-ui/core"
 import { Loader } from "react-feather"
 
 export default function ModuleHousing(props) {

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Typography} from "@material-ui/core";
 
 export default class Dashboard extends Component{
     state = {
@@ -6,7 +7,7 @@ export default class Dashboard extends Component{
     }
     render() {
         return(
-            <h1>Dashboard</h1>
+            <Typography variant="h3">Dashboard</Typography>
         )
     }
 }
