@@ -14,7 +14,12 @@ Sentry.init({
 });
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.render(
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('root')
+)
 
 RegExp.escape = function(s) {
     return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
