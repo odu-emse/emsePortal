@@ -14,7 +14,7 @@
 		"axios": "^0.19.2",
 		"bootstrap": "^4.5.2",
 		"jsonwebtoken": "^8.5.1",
-		"node-sass": "^4.13.1",
+		"node-sass": "^4.14.1",
 		"react": "0.14.0",
 		"react-dom": "0.0.0-experimental-241c4467e",
 		"react-feather": "^2.0.8",
