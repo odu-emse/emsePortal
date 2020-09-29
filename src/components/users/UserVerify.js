@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-import { Container } from "reactstrap"
+import { Container } from "@material-ui/core"
 import { ToastContainer, toast } from "react-toastify"
-
-library.add(fas)
+import { Loader } from "react-feather"
 
 const UserVerify = (props) => {
 	const initialUser = {
@@ -68,7 +64,7 @@ const UserVerify = (props) => {
 		} else {
 			return (
 				<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-					<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+					<Loader className="spin" size="42pt" />
 				</Container>
 			)
 		}

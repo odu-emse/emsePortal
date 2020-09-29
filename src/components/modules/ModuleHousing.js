@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-import { Container } from "reactstrap"
-
-library.add(fas)
+import { Container } from "@material-ui/core"
+import { Loader } from "react-feather"
 
 export default function ModuleHousing(props) {
 	const initialUserState = {
@@ -38,7 +34,7 @@ export default function ModuleHousing(props) {
 	}, [])
 	return module.loading ? (
 		<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-			<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+			<Loader className="spin" size="42pt" />
 		</Container>
 	) : (
 		<div className="container">

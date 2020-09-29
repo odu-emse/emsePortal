@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react"
 import { Route, Redirect } from "react-router-dom"
 import axios from "axios"
 import { getToken } from "./helpers"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-import { Container } from "reactstrap"
-
-library.add(fas)
+import { Container } from "@material-ui/core"
+import { Loader } from "react-feather"
 
 const Protector = ({ component: Component, ...rest }) => {
 	const initialUserState = {
@@ -48,7 +44,7 @@ const Protector = ({ component: Component, ...rest }) => {
 	}, [])
 	return user.loading ? (
 		<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-			<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+			<Loader className="spin" size="42pt" />
 		</Container>
 	) : (
 		<Route

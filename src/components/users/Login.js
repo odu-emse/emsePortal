@@ -1,13 +1,10 @@
 import React, { useState } from "react"
-import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap"
+//import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap"
+import {FormControl, FormGroup, TextField, Button, Container, Typography} from "@material-ui/core"
 import axios from "axios"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
 import { ToastContainer, toast } from "react-toastify"
 import { getToken, refreshPage } from "../helpers"
-
-library.add(fas)
+import { Loader } from "react-feather"
 
 const Login = (props) => {
 	const initialUserState = {
@@ -52,6 +49,7 @@ const Login = (props) => {
 				return props.history.push("/dashboard")
 			})
 			.catch((err) => {
+				console.log(err)
 				toast.error(err.response.data.error, {
 					position: toast.POSITION.TOP_RIGHT,
 				})
@@ -63,7 +61,7 @@ const Login = (props) => {
 	if (loading) {
 		return (
 			<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-				<FontAwesomeIcon icon={["fas", "spinner"]} spin size="3x" />
+				<Loader className="spin" size="42pt" />
 			</Container>
 		)
 	} else {
@@ -72,33 +70,33 @@ const Login = (props) => {
 			return null
 		} else {
 			return (
-				<Container>
-					<h1>Login</h1>
+				<Container maxWidth="sm">
+					<Typography variant="h3">Login</Typography>
 					<ToastContainer />
-					<Form onSubmit={(e) => onLogin(e)}>
+					<FormControl className="w-100">
 						<ToastContainer />
 						<FormGroup>
-							<Label for="Email">Email</Label>
-							<Input
+							<TextField
 								type="email"
 								name="email"
-								placeholder="email"
+								placeholder="ODU email"
 								value={email}
 								onChange={(e) => change(e)}
+								label="Email"
 							/>
 						</FormGroup>
 						<FormGroup>
-							<Label for="Password">Password</Label>
-							<Input
+							<TextField
 								type="password"
 								name="password"
-								placeholder="password"
+								placeholder="Password"
 								value={password}
 								onChange={(e) => change(e)}
+								label="Password"
 							/>
 						</FormGroup>
-						<Button type="submit">Submit</Button>
-					</Form>
+						<Button onClick={(e) => onLogin(e)} className="my-2" type="submit" color="primary" variant="contained">Submit</Button>
+					</FormControl>
 				</Container>
 			)
 		}

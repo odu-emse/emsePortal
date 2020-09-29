@@ -1,43 +1,34 @@
-import React, { Component, Fragment } from "react"
-import {
-	Form,
-	FormGroup,
-	Input,
-	InputGroup,
-	InputGroupAddon,
-	Label,
-	Button,
-} from "reactstrap"
+import React, { useState } from "react"
+import { TextField, Grid } from "@material-ui/core"
 import Dialogue from "./Dialogue"
-import axios from "axios"
+import { Search as SearchIcon } from "react-feather"
 
-export default class Search extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			modules: null,
-		}
-	}
+const Search = () => {
+	const [search, setSearch] = useState("")
 
-	render() {
-		const { modules } = this.state
-		return (
-			<Fragment>
-				<Label for="exampleEmail">Email</Label>
-				<InputGroup className="">
-					<Input
-						className=""
+	return (
+		<>
+			<Grid
+				container
+				spacing={1}
+				alignItems="flex-end"
+				className="w-100 justify-content-center"
+			>
+				<Grid item>
+					<SearchIcon />
+				</Grid>
+				<Grid item className="search--input">
+					<TextField
+						className="w-100"
+						label="Module name"
 						name="moduleName"
-						placeholder="Module name"
+						onChange={(e) => setSearch(e.target.value)}
 					/>
-					<InputGroupAddon addonType="append">
-						<Button color="primary" type="submit">
-							Search
-						</Button>
-					</InputGroupAddon>
-				</InputGroup>
-				<Dialogue />
-			</Fragment>
-		)
-	}
+				</Grid>
+			</Grid>
+			<Dialogue value={search} />
+		</>
+	)
 }
+
+export default Search

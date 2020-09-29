@@ -12,10 +12,7 @@ import {
 	RadioGroup,
 	FormControlLabel,
 } from "@material-ui/core"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-library.add(fas)
+import { ArrowRight, ArrowLeft } from "react-feather"
 
 export default class UserInfo extends Component {
 	continue = (e) => {
@@ -128,9 +125,7 @@ export default class UserInfo extends Component {
 							variant="contained"
 							disabled
 							margin="normal"
-							startIcon={
-								<FontAwesomeIcon icon={["fas", "caret-left"]} />
-							}
+							startIcon={<ArrowLeft />}
 						>
 							Back
 						</Button>
@@ -138,11 +133,7 @@ export default class UserInfo extends Component {
 							className="half ml-1"
 							variant="contained"
 							color="primary"
-							endIcon={
-								<FontAwesomeIcon
-									icon={["fas", "caret-right"]}
-								/>
-							}
+							endIcon={<ArrowRight />}
 							onClick={this.continue}
 						>
 							Next

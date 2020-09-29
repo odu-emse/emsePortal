@@ -5,6 +5,8 @@ import AppNavbar from "./components/AppNavbar";
 import Protector from "./components/Protector";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import {ThemeProvider} from '@material-ui/core'
+import {theme} from './components/theme'
 //Modules
 import Modules from "./components/modules";
 import ModuleHousing from "./components/modules/ModuleHousing";
@@ -17,6 +19,7 @@ import UserVerify from "./components/users/UserVerify";
 //LMS
 import Dashboard from "./components/Dashboard";
 import Portal from "./components/Portal";
+import Assignments from "./components/Assignments";
 
 function App() {
   return (
@@ -31,6 +34,8 @@ function App() {
           <Route path="/modules" exact component={Modules} />
 
           <Protector path="/modules/:moduleId" component={ModuleHousing} />
+
+          <Protector path="/assignments" component={Assignments} />
 
           <Route path="/users/login" exact component={Login} />
 

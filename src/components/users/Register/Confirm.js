@@ -11,10 +11,7 @@ import {
 } from "@material-ui/core"
 import axios from "axios"
 import { Redirect } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-library.add(fas)
+import { ArrowRight, ArrowLeft } from "react-feather"
 
 export default class Confirm extends Component {
 	onRegister() {
@@ -200,11 +197,7 @@ export default class Confirm extends Component {
 								variant="contained"
 								margin="normal"
 								disabled
-								startIcon={
-									<FontAwesomeIcon
-										icon={["fas", "caret-left"]}
-									/>
-								}
+								startIcon={<ArrowLeft />}
 							>
 								Back
 							</Button>
@@ -213,11 +206,7 @@ export default class Confirm extends Component {
 								className="half mr-1"
 								variant="contained"
 								margin="normal"
-								startIcon={
-									<FontAwesomeIcon
-										icon={["fas", "caret-left"]}
-									/>
-								}
+								startIcon={<ArrowRight />}
 								onClick={this.previous}
 							>
 								Back
@@ -227,11 +216,7 @@ export default class Confirm extends Component {
 							className="half ml-1"
 							variant="contained"
 							color="primary"
-							endIcon={
-								<FontAwesomeIcon
-									icon={["fas", "caret-right"]}
-								/>
-							}
+							endIcon={<ArrowRight />}
 							onClick={this.continue}
 						>
 							Confirm & Continue
