@@ -22,7 +22,7 @@
 		"react-star-rating-component": "^1.4.1",
 		"react-toastify": "^6.0.8",
 		"reactstrap": "^8.6.0",
-		"uuid": "^3.4.0"
+		"uuid": "^8.3.0"
 	},
 	"proxy": "http://localhost:3000",
 	"scripts": {
