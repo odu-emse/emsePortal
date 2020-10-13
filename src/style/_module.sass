@@ -10,15 +10,23 @@
     &-text
       font-weight: lighter
   &--list
-    &--item
-      display: flex
-      font-weight: bold
-      border-radius: 0.25rem
-      box-shadow: 0.25rem 0.25rem 0.25rem $gray-100
-      align-items: center
-      background-color: $gray-100
-      position: relative
-      overflow: hidden
+    display: grid
+    gap: 1.25rem
+    grid-template-columns: repeat(6, 30%)
+    grid-template-rows: minmax(3rem, 1fr)
+    overflow-x: scroll
+    scroll-snap-type: x proximity
+    padding: 1rem
+  &--card
+    background-color: $gray-100
+    &__content
+      padding: 0.5rem 1.25rem
+    &__image
+      width: 100%
+  &--action
+    display: flex
+    flex-direction: row
+    justify-content: space-between
   &-number
     position: absolute
     left: -1.5rem
