@@ -18,9 +18,13 @@ const Dialogue = (props) => {
 				},
 			})
 			.then((res) => {
-				console.log(res)
+				console.log(res.data)
 				setModule(res.data)
-				setLoading(false)
+				if (res.data.error) {
+					setLoading(true)
+				} else {
+					setLoading(false)
+				}
 			})
 			.catch((err) => {
 				console.error(err)
@@ -28,8 +32,8 @@ const Dialogue = (props) => {
 	}, [props.value])
 
 	return (
-		<div className={!loading ? "search--box" : ""}>
-			{!loading
+		<div className={!loading && props.display ? "search--box" : ""}>
+			{!loading && props.display
 				? modules.data.map((item) => (
 						<div className="search--result" key={item._id}>
 							<>
@@ -73,8 +77,11 @@ const Dialogue = (props) => {
 							</Link>
 							<>
 								{item.keywords.length > 0
-									? item.keywords.map((keyword) => (
-											<span className="search--result__tags">
+									? item.keywords.map((keyword, i) => (
+											<span
+												className="search--result__tags"
+												key={i}
+											>
 												{keyword}
 											</span>
 									  ))
