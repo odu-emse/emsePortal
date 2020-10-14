@@ -38,7 +38,6 @@ let ModuleItem = () => {
 			.getRandomPhoto({ orientation: "landscape" })
 			.then(toJson)
 			.then((json) => {
-				console.log(json)
 				setImage(json)
 			})
 			.catch((err) => {
