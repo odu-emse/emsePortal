@@ -3,38 +3,44 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 
 const Dialogue = (props) => {
-	const [modules, setModule] = useState([])
+	const [combined, setCombined] = useState([])
 	const [loading, setLoading] = useState(true)
+
+	const { value, display } = props
 
 	useEffect(() => {
 		let data = JSON.stringify({
-			query: props.value,
+			query: value,
 		})
 
-		axios
-			.post(`${process.env.REACT_APP_API}/api/search`, data, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
-			.then((res) => {
-				console.log(res.data)
-				setModule(res.data)
-				if (res.data.error) {
-					setLoading(true)
-				} else {
-					setLoading(false)
-				}
-			})
-			.catch((err) => {
-				console.error(err)
-			})
-	}, [props.value])
+		if (value.length > 0) {
+			axios
+				.post(`${process.env.REACT_APP_API}/api/search`, data, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
+				.then((res) => {
+					console.log(res.data.data)
+					setCombined(res.data.data)
+					if (res.data.error) {
+						setLoading(true)
+					} else {
+						setLoading(false)
+					}
+				})
+				.catch((err) => {
+					console.error(err)
+				})
+		}
+	}, [value])
+
+	console.log(combined)
 
 	return (
-		<div className={!loading && props.display ? "search--box" : ""}>
-			{!loading && props.display
-				? modules.data.map((item) => (
+		<div className={!loading && display ? "search--box" : ""}>
+			{!loading && display
+				? combined.map((item) => (
 						<div className="search--result" key={item._id}>
 							<>
 								{item.containingModules ? (
