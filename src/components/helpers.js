@@ -1,5 +1,10 @@
 import jwt from "jsonwebtoken"
 
+/**
+ * @params [x]: number to be rounded
+ * @params [precision]: decimal position to round to
+ * @return rounded float number
+ */
 export let round_to_precision = (x, precision) => {
 	let y = +x + (precision === undefined ? 0.5 : precision / 2)
 	return y - (y % (precision === undefined ? 1 : +precision))
@@ -32,7 +37,7 @@ export const removeToken = () => {
 export const decoder = () => {
 	const token = localStorage.getItem("JWT")
 	const decoded = jwt.decode(token)
-	return decoded.id
+	return decoded.sub
 }
 
 export const convert = (timestamp) => {

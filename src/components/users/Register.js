@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { getToken } from "../helpers"
 import { ToastContainer, toast } from "react-toastify"
+import axios from "axios"
 import UserInfo from "./Register/UserInfo"
 import PersonalInfo from "./Register/PersonalInfo"
 import Confirm from "./Register/Confirm"
@@ -78,7 +79,6 @@ export default class Register extends Component {
 				step: step + 1,
 			})
 		}
-		//TODO: [ALMP-103] check for taken email
 	}
 
 	//previous step
@@ -93,6 +93,27 @@ export default class Register extends Component {
 		this.setState({
 			[input]: e.target.value,
 		})
+		if (input === "email") {
+			const email = e.target.value
+			const checkTaken = async (id) => {
+				const users = await axios.get(
+					`${process.env.REACT_APP_API}/api/users/`
+				)
+				users.data.data.map((user) => {
+					if (user.email === id) {
+						return toast.error(
+							"Account with this email already exists. Please log in",
+							{
+								position: toast.POSITION.TOP_RIGHT,
+							}
+						)
+					} else {
+						return null
+					}
+				})
+			}
+			checkTaken(email)
+		}
 	}
 
 	render() {

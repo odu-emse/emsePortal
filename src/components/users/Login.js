@@ -1,6 +1,12 @@
 import React, { useState } from "react"
-//import { Form, FormGroup, Input, Label, Button, Container } from "reactstrap"
-import {FormControl, FormGroup, TextField, Button, Container, Typography} from "@material-ui/core"
+import {
+	FormControl,
+	FormGroup,
+	TextField,
+	Button,
+	Container,
+	Typography,
+} from "@material-ui/core"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { getToken, refreshPage } from "../helpers"
@@ -49,12 +55,11 @@ const Login = (props) => {
 				return props.history.push("/dashboard")
 			})
 			.catch((err) => {
-				console.log(err)
 				toast.error(err.response.data.error, {
 					position: toast.POSITION.TOP_RIGHT,
 				})
-				setLoading(false)
 				console.error("onLogin() error: ", err)
+				setLoading(false)
 			})
 	}
 
@@ -95,7 +100,15 @@ const Login = (props) => {
 								label="Password"
 							/>
 						</FormGroup>
-						<Button onClick={(e) => onLogin(e)} className="my-2" type="submit" color="primary" variant="contained">Submit</Button>
+						<Button
+							onClick={(e) => onLogin(e)}
+							className="my-2"
+							type="submit"
+							color="primary"
+							variant="contained"
+						>
+							Submit
+						</Button>
 					</FormControl>
 				</Container>
 			)

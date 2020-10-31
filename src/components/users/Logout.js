@@ -8,7 +8,6 @@ class Logout extends Component {
 	render() {
 		if (getToken() !== `Bearer ${null}` || getToken() !== undefined) {
 			removeToken()
-			refreshPage()
 			return <Redirect to="/users/login" />
 		} else {
 			return this.props.location
