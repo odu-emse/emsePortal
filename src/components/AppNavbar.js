@@ -48,8 +48,8 @@ class AppNavbar extends Component {
 										<NavItem>Dashboard</NavItem>
 									</Link>
 
-									<Link to="/modules" className="nav-link">
-										<NavItem>Modules</NavItem>
+									<Link to="/programs" className="nav-link">
+										<NavItem>Programs</NavItem>
 									</Link>
 
 									<Link
