@@ -35,8 +35,6 @@ const Dialogue = (props) => {
 		}
 	}, [value])
 
-	console.log(combined)
-
 	return (
 		<div className={!loading && display ? "search--box" : ""}>
 			{!loading && display

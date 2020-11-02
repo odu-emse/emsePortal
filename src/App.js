@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { ThemeProvider } from "@material-ui/core"
 import { theme } from "./components/theme"
 //Modules
-import Modules from "./components/modules"
+import Programs from "./components/programs"
 import ModuleHousing from "./components/modules/ModuleHousing"
 //Users
 import Profile from "./components/users/Profile"
@@ -31,7 +31,7 @@ function App() {
 
 					<Route path="/dashboard" exact component={Dashboard} />
 
-					<Route path="/modules" exact component={Modules} />
+					<Route path="/programs" exact component={Programs} />
 
 					<Protector
 						path="/modules/:moduleId"
