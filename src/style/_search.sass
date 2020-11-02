@@ -2,28 +2,19 @@
   display: flex
   align-items: center
   &-icon
-    margin:
-      right: 2rem
-    position: relative
-    min-width: 3em
-    min-height: 3em
-    color: white
-    background-color: $primary
-    display: flex
-    justify-content: center
-    align-items: center
-    border:
-      radius: 100%
+    flex: 1
     &::before
       font-size: 1.25em
   &--input
-    width: 96%
     transition: 0.2s ease all
     padding: 0.25rem
+    flex: 6
     &:focus
       outline: 0
       box-shadow: 0 0.175em 0 $secondary
       transition: 0.2s ease all
+  &--select
+      flex: 2
   &-button
     background-color: transparent
     border: 0
