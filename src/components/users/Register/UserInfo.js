@@ -79,7 +79,7 @@ export default class UserInfo extends Component {
 					/>
 					<FormControl component="fieldset">
 						<FormLabel component="legend">
-							Are you a student, assistant or an instructor
+							Are you a student, assistant or an instructor *
 						</FormLabel>
 						<RadioGroup
 							row
@@ -91,7 +91,7 @@ export default class UserInfo extends Component {
 							<FormControlLabel
 								value="student"
 								checked={
-									values.group == "student" ? true : false
+									values.group === "student" ? true : false
 								}
 								control={<Radio />}
 								label="Student"
@@ -99,7 +99,7 @@ export default class UserInfo extends Component {
 							<FormControlLabel
 								value="assistant"
 								checked={
-									values.group == "assistant" ? true : false
+									values.group === "assistant" ? true : false
 								}
 								control={<Radio />}
 								label="Assistant"
@@ -107,7 +107,7 @@ export default class UserInfo extends Component {
 							<FormControlLabel
 								value="instructor"
 								checked={
-									values.group == "instructor" ? true : false
+									values.group === "instructor" ? true : false
 								}
 								control={<Radio />}
 								label="Instructor"
@@ -133,6 +133,16 @@ export default class UserInfo extends Component {
 							className="half ml-1"
 							variant="contained"
 							color="primary"
+							disabled={
+								values.firstName === "" ||
+								values.lastName === "" ||
+								values.email === "" ||
+								values.password === "" ||
+								values.passwordConf === "" ||
+								values.group === null
+									? true
+									: false
+							}
 							endIcon={<ArrowRight />}
 							onClick={this.continue}
 						>
