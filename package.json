@@ -20,7 +20,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.0",
 		"react-star-rating-component": "^1.4.1",
-		"react-toastify": "^6.0.9",
+		"react-toastify": "^6.1.0",
 		"reactstrap": "^8.6.0",
 		"unsplash-js": "^6.3.0",
 		"uuid": "^3.4.0"
