@@ -9,7 +9,7 @@ import { ThemeProvider } from "@material-ui/core"
 import { theme } from "./components/theme"
 //Modules
 import Programs from "./components/programs"
-import ModuleHousing from "./components/modules/ModuleHousing"
+import ModuleHousing from "./components/programs/modules/ModuleHousing"
 //Users
 import Profile from "./components/users/Profile"
 import Login from "./components/users/Login"
@@ -33,7 +33,7 @@ function App() {
 
 					<Route path="/programs" exact component={Programs} />
 
-					<Protector
+					<Route
 						path="/modules/:moduleId"
 						component={ModuleHousing}
 					/>
