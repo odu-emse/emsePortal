@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Container } from "@material-ui/core"
 import { ToastContainer, toast } from "react-toastify"
-import { convert, rating, round_to_precision } from "../helpers"
-import StarRatingComponent from "react-star-rating-component"
+import { profileCheck } from "../helpers"
 import { Loader } from "react-feather"
+import { useHistory } from "react-router-dom"
 
 const Profile = (props) => {
+	const token = localStorage.getItem(process.env.REACT_APP_JWT)
+	const history = useHistory()
+
 	const initialUserState = {
 		user: {},
 		modules: {},
@@ -16,6 +19,8 @@ const Profile = (props) => {
 	const {
 		match: { params },
 	} = props
+
+	profileCheck(token, history, params)
 
 	const [user, setUser] = useState(initialUserState)
 	const [modules, setModule] = useState(initialUserState.modules)
