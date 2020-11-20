@@ -71,6 +71,12 @@ export const refreshPage = () => {
 	window.location.reload()
 }
 
-//TODO: [ALMP-90] user id profile check
+export const profileCheck = (token, history, params) => {
+	const userID = jwt.decode(token)
+	if (userID.sub !== params.id) {
+		history.push(`/users/${userID.sub}`)
+		window.location.reload()
+	}
+}
 
 //TODO: [ALMP-98] course fetcher function
