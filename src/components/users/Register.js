@@ -32,6 +32,7 @@ export default class Register extends Component {
 	}
 
 	//next step
+	//renders errors upon incompletion and allows progress if no errors are present
 	nextStep = () => {
 		const {
 			step,
