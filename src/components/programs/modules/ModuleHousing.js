@@ -13,6 +13,7 @@ export default function ModuleHousing(props) {
 	} = props
 
 	const [module, setModule] = useState([])
+	const [content, setContent] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [enrolled, setEnrolled] = useState(false)
 
@@ -50,6 +51,7 @@ export default function ModuleHousing(props) {
 			.then((response) => {
 				const module = response.data.data
 				setModule(module)
+				setContent(response.data.cd)
 				if (module.enrolled.includes(decoder())) {
 					setEnrolled(true)
 				} else {
@@ -70,6 +72,12 @@ export default function ModuleHousing(props) {
 			<ToastContainer />
 			<div className="container">
 				<h1>{module.moduleName}</h1>
+				<iframe
+					src={`${content.href}/story.html`}
+					title={`${module._id}`}
+					frameBorder="0"
+					width="100%"
+				></iframe>
 			</div>
 		</>
 	) : (
@@ -121,8 +129,8 @@ export default function ModuleHousing(props) {
 					</div>
 					<div className="col-md-3">
 						<img
-							src={`${module.cdLink}/story_content/thumbnail.jpg`}
-							alt={`${module.moduleName} thumbnail`}
+							src={`${content.href}/story_content/thumbnail.jpg`}
+							alt={`${module.moduleName} module thumbnail`}
 						/>
 						<button
 							onClick={(e) => {
