@@ -5,8 +5,6 @@ import AppNavbar from "./components/AppNavbar"
 import Protector from "./components/Protector"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import "react-toastify/dist/ReactToastify.css"
-import { ThemeProvider } from "@material-ui/core"
-import { theme } from "./components/theme"
 //Modules
 import Programs from "./components/programs"
 import ModuleHousing from "./components/programs/modules/ModuleHousing"
@@ -27,13 +25,13 @@ function App() {
 			<div className="App">
 				<AppNavbar />
 				<Switch>
-					<Route exact path="/" component={Portal} />
+					<Protector exact path="/" component={Portal} />
 
-					<Route path="/dashboard" exact component={Dashboard} />
+					<Protector path="/dashboard" exact component={Dashboard} />
 
-					<Route path="/programs" exact component={Programs} />
+					<Protector path="/programs" exact component={Programs} />
 
-					<Route
+					<Protector
 						path="/modules/:moduleId"
 						component={ModuleHousing}
 					/>
@@ -48,7 +46,7 @@ function App() {
 
 					<Route path="/users/userVerify" component={UserVerify} />
 
-					<Route path="/users/:id" component={Profile} />
+					<Protector path="/users/:id" component={Profile} />
 				</Switch>
 			</div>
 		</Router>
