@@ -1,73 +1,76 @@
 import React, { useEffect, useState } from "react"
 import { Route, Redirect } from "react-router-dom"
-import axios from "axios"
 import { getToken } from "./helpers"
-import { Container } from "@material-ui/core"
-import { Loader } from "react-feather"
+import axios from "axios"
 
 const Protector = ({ component: Component, ...rest }) => {
-	const initialUserState = {
-		user: {},
-		loading: true,
-		authenticated: false,
-		fetchError: null,
-	}
-
-	const [user, setUser] = useState(initialUserState)
+	const [authentication, setAuth] = useState(false)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		const getUser = async () => {
-			const jwt = getToken()
-			if (!jwt) {
-				return false
-			}
-
-			try {
-				const { data } = await axios
-					.get(`${process.env.REACT_APP_API}/api/users/verify`, {
-						headers: {
-							Authorization: getToken(),
-							"Content-Type": "application/json",
-						},
-					})
-					.catch((err) => {
-						console.error(`axios get error catch: ${err}`)
-					})
-
-				setUser(data)
-			} catch (error) {
-				console.error(error)
-			}
+		const jwt = getToken()
+		if (!jwt) {
+			setAuth(false)
+			setLoading(false)
+			return false
+		} else {
+			axios
+				.get(`${process.env.REACT_APP_API}/api/users/verify`, {
+					headers: {
+						Authorization: getToken(),
+						"Content-Type": "application/json",
+					},
+				})
+				.then((response) => {
+					if (response.status === 200) {
+						setAuth(true)
+						setLoading(false)
+						return true
+					} else if (
+						response.status === 401 ||
+						response.status === 400
+					) {
+						console.error(response)
+						setLoading(false)
+						setAuth(false)
+						return false
+					} else {
+						setAuth(false)
+						setLoading(false)
+						return false
+					}
+				})
+				.catch((error) => {
+					console.error(error)
+					setAuth(false)
+					setLoading(false)
+					return false
+				})
 		}
+	}, [authentication, loading])
 
-		getUser()
-	}, [])
-	return user.loading ? (
-		<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-			<Loader className="spin" size="42pt" />
-		</Container>
+	return loading === true ? (
+		<>Loading...</>
 	) : (
 		<Route
 			{...rest}
-			render={(props) => {
-				if (user.authenticated === true) {
+			render={(props) =>
+				authentication === false ? (
+					<Redirect
+						to={{
+							pathname: "/users/login",
+							state: {
+								from: props.location,
+								error: "Not authorized to access...",
+							},
+						}}
+					/>
+				) : (
 					//if they are authenticated -> send protected component
-					return <Component {...props}></Component>
-				} else if (user.authenticated === false) {
-					return (
-						<Redirect
-							to={{
-								pathname: "/users/login",
-								state: {
-									from: props.location,
-									error: "Not authorized to access...",
-								},
-							}}
-						/>
-					)
-				}
-			}}
-		></Route>
+					<Component {...props} />
+				)
+			}
+		/>
 	)
 }
 

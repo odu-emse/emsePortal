@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import axios from "axios"
 
 /**
  * @params [x]: number to be rounded
@@ -69,6 +70,36 @@ export const convert = (timestamp) => {
 
 export const refreshPage = () => {
 	window.location.reload()
+}
+
+export const isAuthenticated = async () => {
+	const jwt = getToken()
+	if (!jwt) {
+		return false
+	} else {
+		try {
+			const resp = await axios.get(
+				`${process.env.REACT_APP_API}/api/users/verify`,
+				{
+					headers: {
+						Authorization: getToken(),
+						"Content-Type": "application/json",
+					},
+				}
+			)
+			if (resp.status === 200) {
+				return true
+			} else if (resp.status === 401) {
+				console.error(resp)
+				return false
+			} else {
+				return false
+			}
+		} catch (error) {
+			console.error(error)
+			return false
+		}
+	}
 }
 
 //TODO: [ALMP-90] user id profile check
