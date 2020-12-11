@@ -6,6 +6,16 @@ import { decoder, round_to_precision, rating } from "../../helpers"
 import StarRatingComponent from "react-star-rating-component"
 import pluralize from "pluralize"
 import { ToastContainer, toast } from "react-toastify"
+import {
+	Download,
+	Smartphone,
+	Award,
+	Youtube,
+	Book,
+	LifeBuoy,
+	Repeat,
+	Check,
+} from "react-feather"
 
 export default function ModuleHousing(props) {
 	const {
@@ -71,24 +81,25 @@ export default function ModuleHousing(props) {
 		<>
 			<ToastContainer />
 			<div className="container">
-				<h1>{module.moduleName}</h1>
 				<iframe
 					src={`${content.href}/story.html`}
 					title={`${module._id}`}
 					frameBorder="0"
-					width="100%"
+					className="module--media"
 				></iframe>
+				<h1>{module.moduleName}</h1>
+				<p>{module.description}</p>
 			</div>
 		</>
 	) : (
 		<>
-			<div className="container">
+			<div className="container mb-5">
 				<div className="row">
-					<div className="col-md-9">
+					<div className="col mr-5">
 						<h1>
 							Module {module.moduleNumber} | {module.moduleName}
 						</h1>
-						<p>{module.description}</p>
+						<p>{module.intro}</p>
 						<div className="module--rating row w-50">
 							<p className="font-weight-light col text-warning d-flex align-items-center">
 								<span className="pr-2">{`${round_to_precision(
@@ -122,31 +133,94 @@ export default function ModuleHousing(props) {
 								{module.instructor}
 							</a>
 						</p>
-						<div>
-							<h3>What you'll learn</h3>
-							<p>list of module objectives here</p>
+						<div className="border shadow rounded py-3 px-5 module--housing__objectives">
+							<h3>Module objectives</h3>
+							{module.keywords.map((key, index) => (
+								<div className="d-flex flex-row align-items-center mb-2">
+									<span className="mr-3 text-muted">
+										<Check />
+									</span>
+									<p
+										className="mb-0 text-capitalize"
+										key={index}
+									>
+										{key}
+									</p>
+								</div>
+							))}
+						</div>
+						<div className="border shadow rounded py-3 px-5 mt-5 module--housing__objectives">
+							<h3>Module description</h3>
+							<p>{module.description}</p>
+						</div>
+						<div className="border shadow rounded py-3 px-5 mt-5 module--housing__objectives">
+							<h3>Requirements</h3>
+							<p>{module.description}</p>
 						</div>
 					</div>
-					<div className="col-md-3">
+					<div className="col-4 border col-4 px-3 py-4 rounded shadow module--housing__card">
 						<img
 							src={`${content.href}/story_content/thumbnail.jpg`}
 							alt={`${module.moduleName} module thumbnail`}
+							className="module--housing__img"
 						/>
-						<button
-							onClick={(e) => {
-								addModule(module._id)
-							}}
-							className="btn btn-secondary"
-						>
-							Add module to your curriculum
-						</button>
-						<div className="my-4">
-							<h5>This course will cover:</h5>
-							<div>
-								{module.keywords.map((key, index) => (
-									<p key={index}>{key}</p>
-								))}
-							</div>
+						<div className="module--housing--inclusion">
+							<h5 className="mt-3">This module includes: </h5>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<Youtube />
+								</div>
+								{module.duration} minutes on demand video
+							</span>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<Book />
+								</div>
+								{module.numSlides} interactive slides
+							</span>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<Download />
+								</div>
+								Downloadable resources
+							</span>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<Smartphone />
+								</div>
+								Available on mobile devices
+							</span>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<Repeat />
+								</div>
+								Lifetime access
+							</span>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<LifeBuoy />
+								</div>
+								On-demand helping professionals
+							</span>
+							<span className="d-flex mt-3 font-weight-light align-items-center">
+								<div className="text-muted mr-3">
+									<Award />
+								</div>
+								Certificate of completion
+							</span>
+						</div>
+						<div className="d-flex flex-column my-3">
+							<button
+								onClick={(e) => {
+									addModule(module._id)
+								}}
+								className="btn btn-secondary"
+							>
+								Enroll module
+							</button>
+							<button className="btn border border-info btn mt-3">
+								Favorite
+							</button>
 						</div>
 					</div>
 				</div>
