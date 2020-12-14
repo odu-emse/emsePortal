@@ -9,7 +9,7 @@ import axios from "axios"
 const unsplash = new Unsplash({ accessKey: process.env.REACT_APP_IMAGE_ACCESS })
 
 const Modules = () => {
-	const [image, setImage] = useState(null)
+	const [image, setImage] = useState([])
 	const [modules, setModules] = useState(null)
 	const [courses, setCourses] = useState(null)
 	const [loadingModules, setModulesLoading] = useState(true)
@@ -46,12 +46,15 @@ const Modules = () => {
 			})
 			.catch((err) => console.error(err))
 
-		unsplash.photos
-			.getRandomPhoto({ orientation: "landscape" })
+		unsplash.search
+			.photos({
+				orientation: "landscape",
+				query: "mountain",
+				per_page: 50,
+			})
 			.then(toJson)
 			.then((json) => {
-				console.log(json)
-				setImage(json)
+				setImage((image) => [...image, json.results])
 			})
 			.catch((err) => {
 				console.error(err)
@@ -72,7 +75,7 @@ const Modules = () => {
 			<ModuleItem
 				title="Modules to continue"
 				modules={modules}
-				images={image}
+				images={image[0]}
 				loading={loadingModules}
 			/>
 			{/* <ModuleItem
@@ -90,7 +93,7 @@ const Modules = () => {
 			<Courses
 				title="Courses you might be interested in"
 				courses={courses}
-				images={image}
+				images={image[0]}
 				loading={loadingCourses}
 			/>
 		</Container>

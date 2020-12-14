@@ -7,27 +7,27 @@ import { Loader } from "react-feather"
 let ModuleItem = (props) => {
 	const { modules, images, loading } = props
 
+	console.log(images)
 	const filterModules = (mod, text, variant) => {
 		return (
 			<>
 				<h4 className="mt-3">{text}</h4>
 				<div className="module--list">
-					{mod.data.map((module) => (
+					{mod.data.map((module, index) => (
 						<Link href={`/modules/${module._id}`}>
 							<div className="module--card shadow rounded">
 								<img
 									alt={
-										images === null
-											? ""
-											: images.alt_description
+										images !== null &&
+										images[index].alt_description
 									}
 									src={
-										images === null ? "" : images.urls.thumb
+										images !== null &&
+										images[index].urls.thumb
 									}
 									title={
-										images === null
-											? ""
-											: images.alt_description
+										images !== null &&
+										images[index].alt_description
 									}
 									className="module--card__image card-img-top"
 								/>

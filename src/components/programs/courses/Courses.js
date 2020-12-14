@@ -10,22 +10,21 @@ const Courses = (props) => {
 			<>
 				<h4 className="mt-3">{title}</h4>
 				<div className="module--list">
-					{content.data.map((course) => (
+					{content.data.map((course, index) => (
 						<Link href={`/course/${course._id}`}>
 							<div className="module--card shadow rounded">
 								<img
 									alt={
-										images === null
-											? ""
-											: images.alt_description
+										images !== null &&
+										images[index + 4].alt_description
 									}
 									src={
-										images === null ? "" : images.urls.thumb
+										images !== null &&
+										images[index + 4].urls.thumb
 									}
 									title={
-										images === null
-											? ""
-											: images.alt_description
+										images !== null &&
+										images[index + 4].alt_description
 									}
 									className="module--card__image card-img-top"
 								/>
