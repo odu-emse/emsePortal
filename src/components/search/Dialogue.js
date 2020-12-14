@@ -6,7 +6,7 @@ const Dialogue = (props) => {
 	const [combined, setCombined] = useState([])
 	const [loading, setLoading] = useState(true)
 
-	const { value, display } = props
+	const { value, display, param } = props
 
 	useEffect(() => {
 		let data = JSON.stringify({
@@ -15,11 +15,17 @@ const Dialogue = (props) => {
 
 		if (value.length > 0) {
 			axios
-				.post(`${process.env.REACT_APP_API}/api/search`, data, {
-					headers: {
-						"Content-Type": "application/json",
-					},
-				})
+				.post(
+					`${process.env.REACT_APP_API}/api/search${
+						param ? `?selection=${param}` : ""
+					}`,
+					data,
+					{
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
 				.then((res) => {
 					console.log(res.data.data)
 					setCombined(res.data.data)
@@ -33,9 +39,7 @@ const Dialogue = (props) => {
 					console.error(err)
 				})
 		}
-	}, [value])
-
-	console.log(combined)
+	}, [value, param])
 
 	return (
 		<div className={!loading && display ? "search--box" : ""}>

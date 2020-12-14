@@ -1,73 +1,33 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Typography, Container, Grid, Link } from "@material-ui/core"
 import StarRatingComponent from "react-star-rating-component"
-import { rating, round_to_precision } from "../helpers"
+import { rating, round_to_precision } from "../../helpers"
 import { Loader } from "react-feather"
-import Unsplash, { toJson } from "unsplash-js"
-import axios from "axios"
 
-const unsplash = new Unsplash({ accessKey: process.env.REACT_APP_IMAGE_ACCESS })
+let ModuleItem = (props) => {
+	const { modules, images, loading } = props
 
-let ModuleItem = () => {
-	//initial state is here since api requires are limited
-	const initialImage = {
-		urls: {
-			thumb: "https://unsplash.com/photos/WpbEhnhuXrI",
-		},
-		description: "lorem",
-	}
-	const [image, setImage] = useState(null)
-	const [modules, setModules] = useState(null)
-
-	useEffect(() => {
-		axios
-			.get(`${process.env.REACT_APP_API}/api/modules`, {
-				headers: {
-					"Content-Type": "application/json",
-					"Cache-Control": "no-cache",
-				},
-			})
-			.then((res) => {
-				let results = res.data
-				console.log(res)
-				setModules(results)
-			})
-			.catch((err) => console.log(err))
-
-		unsplash.photos
-			.getRandomPhoto({ orientation: "landscape" })
-			.then(toJson)
-			.then((json) => {
-				setImage(json)
-			})
-			.catch((err) => {
-				console.error(err)
-			})
-	}, [])
-
-	const filterModules = (modules, text, variant) => {
-		if (variant === "full") {
-		} else if (variant === "featured") {
-		} else if (variant === "related") {
-		}
+	console.log(images)
+	const filterModules = (mod, text, variant) => {
 		return (
 			<>
 				<h4 className="mt-3">{text}</h4>
 				<div className="module--list">
-					{modules.data.map((module) => (
+					{mod.data.map((module, index) => (
 						<Link href={`/modules/${module._id}`}>
 							<div className="module--card shadow rounded">
 								<img
 									alt={
-										image === null
-											? ""
-											: image.alt_description
+										images !== null &&
+										images[index].alt_description
 									}
-									src={image === null ? "" : image.urls.thumb}
+									src={
+										images !== null &&
+										images[index].urls.thumb
+									}
 									title={
-										image === null
-											? ""
-											: image.alt_description
+										images !== null &&
+										images[index].alt_description
 									}
 									className="module--card__image card-img-top"
 								/>
@@ -109,16 +69,12 @@ let ModuleItem = () => {
 		)
 	}
 
-	return modules === null ? (
+	return loading ? (
 		<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
 			<Loader className="spin" size="42pt" />
 		</Container>
 	) : (
-		<>
-			{filterModules(modules, "Where you left off")}
-			{filterModules(modules, "Featured modules")}
-			{filterModules(modules, "Because you completed X module")}
-		</>
+		<>{filterModules(modules, props.title)}</>
 	)
 }
 
