@@ -23,7 +23,7 @@
 		"react-star-rating-component": "^1.4.1",
 		"react-toastify": "^6.2.0",
 		"reactstrap": "^8.6.0",
-		"unsplash-js": "^6.3.0",
+		"unsplash-js": "^7.0.1",
 		"uuid": "^8.3.2"
 	},
 	"scripts": {
