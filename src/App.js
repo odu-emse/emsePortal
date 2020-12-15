@@ -25,7 +25,7 @@ function App() {
 			<div className="App">
 				<AppNavbar />
 				<Switch>
-					<Protector exact path="/" component={Portal} />
+					<Protector exact path="/portal" component={Portal} />
 
 					<Protector path="/dashboard" exact component={Dashboard} />
 
