@@ -38,7 +38,11 @@ export const removeToken = () => {
 export const decoder = () => {
 	const token = localStorage.getItem("JWT")
 	const decoded = jwt.decode(token)
-	return decoded.sub
+	if (decoded !== null) {
+		return decoded.sub
+	} else {
+		return null
+	}
 }
 
 export const convert = (timestamp) => {

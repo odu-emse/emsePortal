@@ -71,7 +71,7 @@ const Login = (props) => {
 		)
 	} else {
 		if (getToken() !== `Bearer ${null}`) {
-			props.history.push("/")
+			props.history.push("/portal")
 			return null
 		} else {
 			return (
