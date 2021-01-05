@@ -1,143 +1,206 @@
-import React, { Component } from "react"
-import {
-	Typography,
-	TextField,
-	ThemeProvider,
-	Container,
-	Button,
-	Grid,
-} from "@material-ui/core"
+import React from "react"
 import { ArrowRight, ArrowLeft } from "react-feather"
 
-export default class PersonalInfo extends Component {
-	previous = (e) => {
+const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
+	const previous = (e) => {
 		e.preventDefault()
-		this.props.previousStep()
+		previousStep()
 	}
-	continue = (e) => {
+	const next = (e) => {
 		e.preventDefault()
-		this.props.nextStep()
+		nextStep()
 	}
-	render() {
-		const { values, change } = this.props
-		console.log(values.group)
-		if (values.group == "student") {
-			this.props.nextStep()
-			return null
-		} else {
-			return (
-				<ThemeProvider>
-					<Container maxWidth="md">
-						<Typography variant="h3">
-							Personal Information
-						</Typography>
-						<TextField
-							label="Title"
-							onChange={change("title")}
-							defaultValue={values.title}
-							fullWidth
-							margin="normal"
-						/>
-						<TextField
-							label="Office location"
+	console.log(values.group)
+	if (values.group === "student") {
+		nextStep()
+		return null
+	} else {
+		return (
+			<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
+				<h1 className="text-3xl">Personal information</h1>
+				<form className="w-full my-1">
+					<div className="my-3 w-full flex flex-row">
+						<div className="mr-1 w-1/2">
+							<label
+								htmlFor="title"
+								className="text-gray-400 font-xs"
+							>
+								Title
+							</label>
+							<input
+								type="text"
+								className="py-2 px-3 w-full border border-gray rounded "
+								placeholder="Assistant professor"
+								name="title"
+								onChange={change("title")}
+								defaultValue={values.title}
+								required="true"
+							/>
+						</div>
+						<div className="mx-1 w-1/2">
+							<label
+								htmlFor="phoneNumber"
+								className="text-gray-400 font-xs"
+							>
+								Phone number
+							</label>
+							<input
+								type="text"
+								className="py-2 px-3 w-full border border-gray rounded "
+								placeholder="(123)-456-7890"
+								name="phone"
+								onChange={change("phone")}
+								defaultValue={values.phone}
+								required="true"
+							/>
+						</div>
+					</div>
+					<div className="my-3 w-full">
+						<label
+							htmlFor="title"
+							className="text-gray-400 font-xs"
+						>
+							Office location
+						</label>
+						<input
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="Where is your office located?"
+							name="officeLocation"
 							onChange={change("officeLocation")}
 							defaultValue={values.officeLocation}
-							fullWidth
-							margin="normal"
+							required="true"
 						/>
-						<TextField
-							label="Office hours"
+					</div>
+					<div className="my-3 w-full">
+						<label
+							htmlFor="officeHours"
+							className="text-gray-400 font-xs"
+						>
+							Office hours
+						</label>
+						<textarea
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="What times can students find you at your office?"
+							name="officeHours"
 							onChange={change("officeHours")}
 							defaultValue={values.officeHours}
-							fullWidth
-							margin="normal"
+							required="true"
 						/>
-						<TextField
-							label="Phone number"
-							onChange={change("phone")}
-							defaultValue={values.phone}
-							fullWidth
-							margin="normal"
-						/>
-						<TextField
-							label="Contact policy"
+					</div>
+					<div className="my-3 w-full">
+						<label
+							htmlFor="contactPolicy"
+							className="text-gray-400 font-xs"
+						>
+							Contact policy
+						</label>
+						<textarea
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="What steps do students needs to take before contacting you?"
+							name="contactPolicy"
 							onChange={change("contactPolicy")}
 							defaultValue={values.contactPolicy}
-							fullWidth
-							margin="normal"
-							multiline
-							rows={4}
-							variant="filled"
+							required="true"
 						/>
-						<TextField
-							label="Background"
+					</div>
+					<div className="my-3 w-full">
+						<label
+							htmlFor="email"
+							className="text-gray-400 font-xs"
+						>
+							Teaching background
+						</label>
+						<textarea
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="What is your teaching background in and what experiences do you bring to students?"
+							name="background"
 							onChange={change("background")}
 							defaultValue={values.background}
-							fullWidth
-							margin="normal"
-							multiline
-							rows={4}
-							variant="filled"
+							required="true"
 						/>
-						<TextField
-							label="Research interest"
-							onChange={change("researchInterest")}
-							defaultValue={values.researchInterest}
-							fullWidth
-							margin="normal"
-						/>
-						<TextField
-							label="Selected papers and publications"
-							onChange={change("selectedPapersAndPublications")}
-							defaultValue={values.selectedPapersAndPublications}
-							fullWidth
-							margin="normal"
-						/>
-						<TextField
-							label="Personal website"
-							onChange={change("personalWebsite")}
-							defaultValue={values.personalWebsite}
-							fullWidth
-							margin="normal"
-						/>
-						<TextField
-							label="Philosophy"
+					</div>
+					<div className="my-3 w-full">
+						<label
+							htmlFor="philosophy"
+							className="text-gray-400 font-xs"
+						>
+							Philosophy
+						</label>
+						<textarea
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded"
+							placeholder="What philosophy do you teach by?"
+							name="philosophy"
 							onChange={change("philosophy")}
 							defaultValue={values.philosophy}
-							fullWidth
-							margin="normal"
-							multiline
-							rows={4}
-							variant="filled"
+							required="true"
 						/>
-						<Grid
-							container
-							direction="row"
-							justify="space-evenly"
-							alignItems="center"
+					</div>
+					<div className="my-3 w-full flex flex-row">
+						<div className="w-1/2 mr-1">
+							<label
+								htmlFor="researchInterest"
+								className="text-gray-400 font-xs"
+							>
+								Research interests
+							</label>
+							<input
+								type="text"
+								className="py-2 px-3 w-full border border-gray rounded"
+								placeholder="What research topics excite you?"
+								name="researchInterest"
+								onChange={change("researchInterest")}
+								defaultValue={values.researchInterest}
+								required="true"
+							/>
+						</div>
+						<div className="w-1/2 ml-1">
+							<label
+								htmlFor="website"
+								className="text-gray-400 font-xs"
+							>
+								Personal website URL
+							</label>
+							<input
+								type="text"
+								className="py-2 px-3 w-full border border-gray rounded"
+								placeholder="https://example.com"
+								name="personalWebsite"
+								onChange={change("personalWebsite")}
+								defaultValue={values.website}
+								required="true"
+							/>
+						</div>
+					</div>
+					<div className="w-full flex flex-row justify-between">
+						<button
+							className="text-gray-700 rounded py-2 px-4 bg-gray-300 bg-opacity-75 w-1/3 block transition-all hover:bg-gray-500 hover:text-white"
+							type="reset"
+							onClick={previous}
 						>
-							<Button
-								className="half mr-1"
-								variant="contained"
-								margin="normal"
-								startIcon={<ArrowLeft />}
-								onClick={this.previous}
-							>
-								Back
-							</Button>
-							<Button
-								className="half ml-1"
-								variant="contained"
-								color="primary"
-								endIcon={<ArrowRight />}
-								onClick={this.continue}
-							>
+							<span className="flex flex-row items-center justify-center">
+								<ArrowLeft /> Back
+							</span>
+						</button>
+						<button
+							className="text-white rounded py-2 px-4 bg-blue-400 w-1/3 block transition-all hover:bg-blue-700"
+							type="submit"
+							onClick={next}
+						>
+							<span className="flex flex-row items-center justify-center">
 								Next
-							</Button>
-						</Grid>
-					</Container>
-				</ThemeProvider>
-			)
-		}
+								<ArrowRight />
+							</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		)
 	}
 }
+
+export default PersonalInfo

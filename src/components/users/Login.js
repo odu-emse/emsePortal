@@ -1,16 +1,9 @@
 import React, { useState } from "react"
-import {
-	FormControl,
-	FormGroup,
-	TextField,
-	Button,
-	Container,
-	Typography,
-} from "@material-ui/core"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { getToken, refreshPage } from "../helpers"
 import { Loader } from "react-feather"
+import { Link } from "react-router-dom"
 
 const Login = (props) => {
 	const initialUserState = {
@@ -65,9 +58,9 @@ const Login = (props) => {
 
 	if (loading) {
 		return (
-			<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
+			<div className="mx-auto w-full flex justify-content-center items-center">
 				<Loader className="spin" size="42pt" />
-			</Container>
+			</div>
 		)
 	} else {
 		if (getToken() !== `Bearer ${null}`) {
@@ -75,42 +68,67 @@ const Login = (props) => {
 			return null
 		} else {
 			return (
-				<Container maxWidth="sm">
-					<Typography variant="h3">Login</Typography>
+				<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto mt-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
+					<h1 className="text-3xl">Login</h1>
 					<ToastContainer />
-					<FormControl className="w-100">
-						<ToastContainer />
-						<FormGroup>
-							<TextField
+					<form className="w-full my-1">
+						<div className="my-3 w-full">
+							<label
+								htmlFor="email"
+								className="text-gray-400 font-xs"
+							>
+								ODU affiliated email
+							</label>
+							<input
 								type="email"
+								className="py-2 px-3 w-full border border-gray rounded "
+								placeholder="example@odu.edu"
 								name="email"
-								placeholder="ODU email"
-								value={email}
 								onChange={(e) => change(e)}
-								label="Email"
 							/>
-						</FormGroup>
-						<FormGroup>
-							<TextField
+						</div>
+						<div className="my-3 w-full">
+							<label
+								htmlFor="password"
+								className="text-gray-400 font-xs"
+							>
+								Password
+							</label>
+							<input
 								type="password"
-								name="password"
+								className="py-2 px-3 w-full border border-gray rounded"
 								placeholder="Password"
-								value={password}
+								name="password"
 								onChange={(e) => change(e)}
-								label="Password"
 							/>
-						</FormGroup>
-						<Button
-							onClick={(e) => onLogin(e)}
-							className="my-2"
+						</div>
+						<button
+							className="text-gray-100 rounded border-2 border-blue-400 py-2 px-4 bg-blue-400 w-1/2 mx-auto block transition-all hover:bg-transparent hover:text-gray-800"
 							type="submit"
-							color="primary"
-							variant="contained"
+							onClick={(e) => onLogin(e)}
 						>
-							Submit
-						</Button>
-					</FormControl>
-				</Container>
+							Log in
+						</button>
+						<div className="w-full text-center">
+							<div className="mt-4 block font-sm text-gray-800 font-weight-light">
+								or{" "}
+								<Link to="/users/forgot" className="">
+									<span className="hover:underline hover:text-gray-800 text-blue-800">
+										Reset your password
+									</span>
+								</Link>
+							</div>
+							<div className="mt-4 block font-sm text-gray-800 font-weight-light">
+								Don't have an account?{" "}
+								<Link to="/users/register">
+									<span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
+										Sign up
+									</span>
+								</Link>
+							</div>
+						</div>
+					</form>
+				</div>
 			)
 		}
 	}
