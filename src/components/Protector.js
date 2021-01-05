@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Route, Redirect } from "react-router-dom"
 import { getToken } from "./helpers"
 import axios from "axios"
+import { Loader } from "react-feather"
 
 const Protector = ({ component: Component, ...rest }) => {
 	const [authentication, setAuth] = useState(false)
@@ -50,7 +51,9 @@ const Protector = ({ component: Component, ...rest }) => {
 	}, [authentication, loading])
 
 	return loading === true ? (
-		<>Loading...</>
+		<div className="mx-auto w-full flex justify-content-center items-center">
+			<Loader className="spin" size="42pt" />
+		</div>
 	) : (
 		<Route
 			{...rest}

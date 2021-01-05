@@ -70,12 +70,12 @@ const AppNavbar = () => {
 						<div className="flex-shrink-0 flex items-center">
 							<img
 								className="block lg:hidden h-8 w-auto"
-								src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+								src="https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/crown-r-2-color.png"
 								alt="Workflow"
 							/>
 							<img
 								className="hidden lg:block h-8 w-auto"
-								src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+								src="https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/odu-sig-noidea-fullcolor.png"
 								alt="Workflow"
 							/>
 						</div>
