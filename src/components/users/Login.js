@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { getToken, refreshPage, loader } from "../helpers"
+import { Link } from "react-router-dom"
 
 const Login = (props) => {
 	const initialUserState = {
@@ -55,11 +56,7 @@ const Login = (props) => {
 	}
 
 	if (loading) {
-		return (
-			<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-				<Loader className="spin" size="42pt" />
-			</Container>
-		)
+		return loader()
 	} else {
 		if (getToken() !== `Bearer ${null}`) {
 			props.history.push("/portal")
