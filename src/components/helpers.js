@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import axios from "axios"
+import { Loader } from "react-feather"
 
 /**
  * @params [x]: number to be rounded
@@ -104,6 +105,14 @@ export const isAuthenticated = async () => {
 			return false
 		}
 	}
+}
+
+export const loader = () => {
+	return (
+		<div className="mx-auto w-full flex justify-center items-center">
+			<Loader className="spin" size="42pt" />
+		</div>
+	)
 }
 
 export const profileCheck = (token, history, params) => {

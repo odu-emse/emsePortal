@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Container } from "@material-ui/core"
 import { ToastContainer, toast } from "react-toastify"
-import { Loader } from "react-feather"
+import { loader } from "../helpers"
 
 const UserVerify = (props) => {
 	const initialUser = {
@@ -62,11 +61,7 @@ const UserVerify = (props) => {
 				</>
 			)
 		} else {
-			return (
-				<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-					<Loader className="spin" size="42pt" />
-				</Container>
-			)
+			return loader()
 		}
 	} else {
 		const { updateDoc } = user.data

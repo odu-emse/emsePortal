@@ -1,9 +1,7 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
-import { getToken, refreshPage } from "../helpers"
-import { Loader } from "react-feather"
-import { Link } from "react-router-dom"
+import { getToken, refreshPage, loader } from "../helpers"
 
 const Login = (props) => {
 	const initialUserState = {
@@ -58,9 +56,9 @@ const Login = (props) => {
 
 	if (loading) {
 		return (
-			<div className="mx-auto w-full flex justify-content-center items-center">
+			<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
 				<Loader className="spin" size="42pt" />
-			</div>
+			</Container>
 		)
 	} else {
 		if (getToken() !== `Bearer ${null}`) {

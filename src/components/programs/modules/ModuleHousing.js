@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { decoder, round_to_precision, rating } from "../../helpers"
+import { decoder, round_to_precision, rating, loader } from "../../helpers"
 import StarRatingComponent from "react-star-rating-component"
 import pluralize from "pluralize"
 import { ToastContainer, toast } from "react-toastify"
 import {
-	Loader,
 	Download,
 	Smartphone,
 	Award,
@@ -74,9 +73,7 @@ export default function ModuleHousing(props) {
 			})
 	}, [params.moduleId])
 	return loading ? (
-		<div className="mx-auto w-full flex justify-center items-center">
-			<Loader className="spin" size="42pt" />
-		</div>
+		loader()
 	) : enrolled ? (
 		<>
 			<ToastContainer />

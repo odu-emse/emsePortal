@@ -1,7 +1,6 @@
 import React from "react"
 import StarRatingComponent from "react-star-rating-component"
-import { rating, round_to_precision } from "../../helpers"
-import { Loader } from "react-feather"
+import { rating, round_to_precision, loader } from "../../helpers"
 import { Link } from "react-router-dom"
 
 let ModuleItem = (props) => {
@@ -77,13 +76,7 @@ let ModuleItem = (props) => {
 		)
 	}
 
-	return loading ? (
-		<div className="mx-auto w-full flex justify-center items-center">
-			<Loader className="spin" size="42pt" />
-		</div>
-	) : (
-		<>{filterModules(modules, props.title)}</>
-	)
+	return loading ? loader() : <>{filterModules(modules, props.title)}</>
 }
 
 export default ModuleItem

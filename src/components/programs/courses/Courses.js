@@ -1,5 +1,5 @@
 import React from "react"
-import { Loader } from "react-feather"
+import { loader } from "../../helpers"
 import { Link } from "react-router-dom"
 
 const Courses = (props) => {
@@ -61,13 +61,7 @@ const Courses = (props) => {
 		)
 	}
 
-	return loading ? (
-		<div className="mx-auto w-full flex justify-center items-center">
-			<Loader className="spin" size="42pt" />
-		</div>
-	) : (
-		<>{filterCourses(courses, props.title)}</>
-	)
+	return loading ? loader() : <>{filterCourses(courses, props.title)}</>
 }
 
 export default Courses
