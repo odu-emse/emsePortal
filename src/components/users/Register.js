@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import { getToken } from "../helpers"
 import { ToastContainer, toast } from "react-toastify"
 import axios from "axios"
@@ -7,51 +7,38 @@ import PersonalInfo from "./Register/PersonalInfo"
 import Confirm from "./Register/Confirm"
 import Success from "./Register/Success"
 
-export default class Register extends Component {
-	state = {
-		loading: true,
-		error: "",
-		step: 1,
-		firstName: "",
-		lastName: "",
-		middleName: "",
-		email: "",
-		password: "",
-		passwordConf: "",
-		group: null,
-		title: "",
-		officeLocation: "",
-		officeHours: "",
-		phone: "",
-		contactPolicy: "",
-		background: "",
-		researchInterest: "",
-		selectedPapersAndPublications: "",
-		personalWebsite: "",
-		philosophy: "",
-	}
-
+const Register = (props) => {
+	const [step, setStep] = useState(1)
+	const [firstName, setFirstName] = useState("")
+	const [lastName, setLastName] = useState("")
+	const [middleName, setMiddleName] = useState("")
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
+	const [passwordConf, setPasswordConf] = useState("")
+	const [group, setGroup] = useState(null)
+	const [title, setTitle] = useState("")
+	const [officeLocation, setOfficeLocation] = useState("")
+	const [officeHours, setOfficeHours] = useState("")
+	const [phone, setPhone] = useState("")
+	const [contactPolicy, setContactPolicy] = useState("")
+	const [background, setBackground] = useState("")
+	const [researchInterest, setResearchInterest] = useState("")
+	const [
+		selectedPapersAndPublications,
+		setSelectedPapersAndPublications,
+	] = useState("")
+	const [website, setWebsite] = useState("")
+	const [philosophy, setPhilosophy] = useState("")
 	//next step
 	//renders errors upon incompletion and allows progress if no errors are present
-	nextStep = () => {
-		const {
-			step,
-			password,
-			passwordConf,
-			firstName,
-			lastName,
-			email,
-			group,
-		} = this.state
+	const nextStep = () => {
 		if (
 			firstName.length === 0 ||
 			lastName.length === 0 ||
 			email.length === 0 ||
 			group == null
 		) {
-			this.setState({
-				step: 1,
-			})
+			setStep(1)
 			toast.error(
 				"Please make sure that the required fields are filled out",
 				{
@@ -59,9 +46,7 @@ export default class Register extends Component {
 				}
 			)
 		} else if (password.length <= 6 || passwordConf.length <= 6) {
-			this.setState({
-				step: 1,
-			})
+			setStep(1)
 			toast.error(
 				"Please make sure that your password is at least 6 characters long",
 				{
@@ -69,31 +54,30 @@ export default class Register extends Component {
 				}
 			)
 		} else if (password !== passwordConf) {
-			this.setState({
-				step: 1,
-			})
+			setStep(1)
 			toast.error("Please make sure that your password match", {
 				position: toast.POSITION.TOP_RIGHT,
 			})
 		} else {
-			this.setState({
-				step: step + 1,
-			})
+			setStep(step + 1)
 		}
 	}
 
 	//previous step
-	previousStep = () => {
-		const { step } = this.state
-		this.setState({
-			step: step - 1,
-		})
+	const previousStep = () => {
+		setStep(step - 1)
 	}
 
-	change = (input) => (e) => {
-		this.setState({
-			[input]: e.target.value,
-		})
+	const change = (input) => (e) => {
+		if (input === "firstName") {
+			setFirstName(e.target.value)
+		}
+		if (input === "lastName") {
+			setLastName(e.target.value)
+		}
+		if (input === "middleName") {
+			setMiddleName(e.target.value)
+		}
 		if (input === "email") {
 			const email = e.target.value
 			const checkTaken = async (id) => {
@@ -109,97 +93,114 @@ export default class Register extends Component {
 							}
 						)
 					} else {
-						return null
+						setEmail(email)
 					}
 				})
 			}
 			checkTaken(email)
 		}
-	}
-
-	render() {
-		const {
-			step,
-			firstName,
-			lastName,
-			middleName,
-			email,
-			password,
-			passwordConf,
-			group,
-			title,
-			officeLocation,
-			officeHours,
-			phone,
-			contactPolicy,
-			background,
-			researchInterest,
-			selectedPapersAndPublications,
-			personalWebsite,
-			philosophy,
-		} = this.state
-
-		const values = {
-			firstName,
-			lastName,
-			middleName,
-			email,
-			password,
-			passwordConf,
-			group,
-			title,
-			officeLocation,
-			officeHours,
-			phone,
-			contactPolicy,
-			background,
-			researchInterest,
-			selectedPapersAndPublications,
-			personalWebsite,
-			philosophy,
+		if (input === "password") {
+			setPassword(e.target.value)
 		}
-
-		if (getToken() !== `Bearer ${null}`) {
-			//if there is a token -> send them home
-			return this.props.history.push("/")
-		} else {
-			switch (step) {
-				case 1:
-					return (
-						<>
-							<ToastContainer />
-							<UserInfo
-								nextStep={this.nextStep}
-								change={this.change}
-								values={values}
-							/>
-						</>
-					)
-				case 2:
-					return (
-						<>
-							<ToastContainer />
-							<PersonalInfo
-								nextStep={this.nextStep}
-								previousStep={this.previousStep}
-								change={this.change}
-								values={values}
-							/>
-						</>
-					)
-				case 3:
-					return (
-						<Confirm
-							nextStep={this.nextStep}
-							previousStep={this.previousStep}
+		if (input === "passwordConf") {
+			setPasswordConf(e.target.value)
+		}
+		if (input === "group") {
+			setGroup(e.target.value)
+		}
+		if (input === "title") {
+			setTitle(e.target.value)
+		}
+		if (input === "officeLocation") {
+			setOfficeLocation(e.target.value)
+		}
+		if (input === "officeHours") {
+			setOfficeHours(e.target.value)
+		}
+		if (input === "phone") {
+			setPhone(e.target.value)
+		}
+		if (input === "contactPolicy") {
+			setContactPolicy(e.target.value)
+		}
+		if (input === "background") {
+			setBackground(e.target.value)
+		}
+		if (input === "researchInterest") {
+			setResearchInterest(e.target.value)
+		}
+		if (input === "selectedPapersAndPublications") {
+			setSelectedPapersAndPublications(e.target.value)
+		}
+		if (input === "personalWebsite") {
+			setWebsite(e.target.value)
+		}
+		if (input === "philosophy") {
+			setPhilosophy(e.target.value)
+		}
+	}
+	//combining all form values into a single object
+	const values = {
+		firstName,
+		lastName,
+		middleName,
+		email,
+		password,
+		passwordConf,
+		group,
+		title,
+		officeLocation,
+		officeHours,
+		phone,
+		contactPolicy,
+		background,
+		researchInterest,
+		selectedPapersAndPublications,
+		website,
+		philosophy,
+	}
+	if (getToken() !== `Bearer ${null}`) {
+		//if there is a token -> send them home
+		return props.history.push("/")
+	} else {
+		switch (step) {
+			case 1:
+				return (
+					<>
+						<ToastContainer />
+						<UserInfo
+							nextStep={nextStep}
+							change={change}
 							values={values}
 						/>
-					)
-				case 4:
-					return <Success />
-				default:
-					return null
-			}
+					</>
+				)
+			case 2:
+				return (
+					<>
+						<ToastContainer />
+						<PersonalInfo
+							nextStep={nextStep}
+							previousStep={previousStep}
+							change={change}
+							values={values}
+						/>
+					</>
+				)
+			case 3:
+				return (
+					<Confirm
+						nextStep={nextStep}
+						previousStep={previousStep}
+						values={values}
+					/>
+				)
+			case 4:
+				return <Success />
+			default:
+				return null
 		}
 	}
 }
+
+export default Register

@@ -1,22 +1,10 @@
 import React from "react"
-import {
-	Typography,
-	ThemeProvider,
-	Container,
-	Button,
-	Grid,
-	List,
-	ListItem,
-	ListItemText,
-} from "@material-ui/core"
 import axios from "axios"
 import { ArrowRight, ArrowLeft } from "react-feather"
 import { useHistory } from "react-router-dom"
 
-const Confirm = (props) => {
+const Confirm = ({ previousStep, values }) => {
 	let history = useHistory()
-	const { values } = props
-
 	const onRegister = (val) => {
 		const {
 			firstName,
@@ -65,7 +53,6 @@ const Confirm = (props) => {
 				},
 			})
 			.then((response) => {
-				console.log(response)
 				if (response.status === 200) {
 					history.push("/users/login")
 				}
@@ -77,9 +64,9 @@ const Confirm = (props) => {
 
 	const previous = (e) => {
 		e.preventDefault()
-		props.previousStep()
+		previousStep()
 	}
-	const cont = (e) => {
+	const next = (e) => {
 		e.preventDefault()
 		// handling form process using api in onRegister()
 		onRegister(values)
@@ -98,125 +85,106 @@ const Confirm = (props) => {
 		background,
 		researchInterest,
 		selectedPapersAndPublications,
-		personalWebsite,
+		website,
 		philosophy,
 	} = values
 	return (
-		<ThemeProvider>
-			<Container maxWidth="md">
-				<Typography variant="h3">Confirm information</Typography>
-				<Typography variant="h5">Account information</Typography>
-				<List>
-					<ListItem>
-						<ListItemText primary={`First name: ${firstName}`} />
-					</ListItem>
-					<ListItem>
-						<ListItemText primary={`Last name: ${lastName}`} />
-					</ListItem>
-					<ListItem>
-						<ListItemText primary={`Middle name: ${middleName}`} />
-					</ListItem>
-					<ListItem>
-						<ListItemText primary={`Email: ${email}`} />
-					</ListItem>
-					<ListItem>
-						<ListItemText primary={`Group: ${group}`} />
-					</ListItem>
-					{group === "assistant" || group === "instructor" ? (
-						<>
-							<Typography variant="h5">
-								Personal information
-							</Typography>
-							<ListItem>
-								<ListItemText primary={`Title: ${title}`} />
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Office location: ${officeLocation}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Office hours: ${officeHours}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Phone number: ${phone}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Contact policy: ${contactPolicy}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Background: ${background}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Research interests: ${researchInterest}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Papers & Publications: ${selectedPapersAndPublications}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Personal website: ${personalWebsite}`}
-								/>
-							</ListItem>
-							<ListItem>
-								<ListItemText
-									primary={`Philosophy: ${philosophy}`}
-								/>
-							</ListItem>
-						</>
-					) : null}
-				</List>
-				<Grid
-					container
-					direction="row"
-					justify="space-evenly"
-					alignItems="center"
-				>
-					{group === "student" ? (
-						<Button
-							className="half mr-1"
-							variant="contained"
-							margin="normal"
-							disabled
-							startIcon={<ArrowLeft />}
-						>
-							Back
-						</Button>
-					) : (
-						<Button
-							className="half mr-1"
-							variant="contained"
-							margin="normal"
-							startIcon={<ArrowRight />}
+		<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
+			<h1 className="text-3xl">Confirm account details</h1>
+			<form className="w-full my-1">
+				<h2 className="text-lg mt-3 border-gray-200 border-b">
+					User information
+				</h2>
+				<div className="my-3 w-full flex flex-col">
+					<div className="my-1 ">
+						<span className="text-gray-400">First name:</span>{" "}
+						<span className="font-bold">{firstName}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Middle name:</span>{" "}
+						<span className="font-bold">{middleName}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Last name:</span>{" "}
+						<span className="font-bold">{lastName}</span>
+					</div>
+					<div className="my-1">
+						<span className="text-gray-400">Email:</span>{" "}
+						<span className="font-bold">{email}</span>
+					</div>
+					<div className="my-1">
+						<span className="text-gray-400">Group:</span>{" "}
+						<span className="font-bold">{group}</span>
+					</div>
+				</div>
+				<h2 className="text-lg mt-3 border-gray-200 border-b">
+					Personal information
+				</h2>
+				<div className="my-3 w-full flex flex-col">
+					<div className="my-1 ">
+						<span className="text-gray-400">Title:</span>{" "}
+						<span className="font-bold">{title}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Office location:</span>{" "}
+						<span className="font-bold">{officeLocation}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Office hours:</span>{" "}
+						<span className="font-bold">{officeHours}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Phone number:</span>{" "}
+						<span className="font-bold">{phone}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Contact policy:</span>{" "}
+						<span className="font-bold">{contactPolicy}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Background:</span>{" "}
+						<span className="font-bold">{background}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">
+							Research interests:
+						</span>{" "}
+						<span className="font-bold">{researchInterest}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Personal website:</span>{" "}
+						<span className="font-bold">{website}</span>
+					</div>
+					<div className="my-1 ">
+						<span className="text-gray-400">Philosophy:</span>{" "}
+						<span className="font-bold">{philosophy}</span>
+					</div>
+				</div>
+				<div className="w-full flex flex-row justify-between">
+					<div className="w-full flex flex-row justify-between">
+						<button
+							className="text-gray-700 rounded py-2 px-4 bg-gray-300 bg-opacity-75 w-1/3 block transition-all hover:bg-gray-500 hover:text-white"
+							type="reset"
 							onClick={previous}
 						>
-							Back
-						</Button>
-					)}
-					<Button
-						className="half ml-1"
-						variant="contained"
-						color="primary"
-						endIcon={<ArrowRight />}
-						onClick={cont}
-					>
-						Confirm & Continue
-					</Button>
-				</Grid>
-			</Container>
-		</ThemeProvider>
+							<span className="flex flex-row items-center justify-center">
+								<ArrowLeft /> Back
+							</span>
+						</button>
+						<button
+							className="text-white rounded py-2 px-4 bg-blue-400 w-1/3 block transition-all hover:bg-blue-700"
+							type="submit"
+							onClick={next}
+						>
+							<span className="flex flex-row items-center justify-center">
+								Complete sign up
+								<ArrowRight />
+							</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	)
 }
 
