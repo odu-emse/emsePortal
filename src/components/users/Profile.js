@@ -3,6 +3,7 @@ import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { profileCheck, loader } from "../helpers"
 import { useHistory } from "react-router-dom"
+import PlanOfStudy from "./PlanOfStudy"
 
 const Profile = (props) => {
 	const token = localStorage.getItem(process.env.REACT_APP_JWT)
@@ -10,8 +11,6 @@ const Profile = (props) => {
 
 	const initialUserState = {
 		user: {},
-		modules: {},
-		loading: false,
 	}
 
 	const {
@@ -21,24 +20,19 @@ const Profile = (props) => {
 	profileCheck(token, history, params)
 
 	const [user, setUser] = useState(initialUserState)
-	const [modules, setModule] = useState(initialUserState.modules)
-	const [loading, setLoading] = useState(initialUserState.loading)
+	const [loading, setLoading] = useState(false)
 
 	const profile = user.user
 
 	useEffect(() => {
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}
-		const getUser = async (config) => {
+		const getUser = async () => {
 			setLoading(true)
 			const data = await axios
-				.get(
-					`${process.env.REACT_APP_API}/api/users/${params.id}`,
-					config
-				)
+				.get(`${process.env.REACT_APP_API}/api/users/${params.id}`, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
 				.then((document) => {
 					setLoading(false)
 					return document.data
@@ -50,28 +44,10 @@ const Profile = (props) => {
 				})
 			setUser(data)
 		}
-
-		const getModule = async (config) => {
-			setLoading(true)
-			const moduleData = await axios
-				.get(`${process.env.REACT_APP_API}/api/modules`, config)
-				.then((document) => {
-					setLoading(false)
-					return document.data.data
-				})
-				.catch((err) => {
-					toast.error(err.response.data.error, {
-						position: toast.POSITION.TOP_RIGHT,
-					})
-				})
-			setModule(moduleData)
-		}
-
-		getModule(config)
-		getUser(config)
+		getUser()
 	}, [])
 
-	return loading ? (
+	return loading === true ? (
 		loader()
 	) : (
 		<>
@@ -195,7 +171,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="YYYY/MM/DD"
 									name="dob"
-									value={profile.dob}
+									// value={profile.dob}
 								/>
 							</label>
 						</div>
@@ -309,10 +285,7 @@ const Profile = (props) => {
 						Plan of Study
 					</h3>
 					<div className="">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Suscipit beatae quam sint quis sapiente nobis esse! Et
-						reprehenderit a eum laudantium earum? Voluptas aliquam,
-						sit eaque in sed distinctio vitae!
+						<PlanOfStudy param={params.id} />
 					</div>
 					<h3
 						id="security"
