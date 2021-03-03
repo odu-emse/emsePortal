@@ -123,4 +123,28 @@ export const profileCheck = (token, history, params) => {
 	}
 }
 
+export const getModule = async (id) => {
+	try {
+		const resp = await axios.get(
+			`${process.env.REACT_APP_API}/api/modules/${id.identifier}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+		if (resp.status === 200) {
+			return resp
+		} else if (resp.status === 401) {
+			console.error(resp)
+			return null
+		} else {
+			return null
+		}
+	} catch (error) {
+		console.error(error)
+		return null
+	}
+}
+
 //TODO: [ALMP-98] course fetcher function
