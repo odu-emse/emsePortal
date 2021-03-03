@@ -126,7 +126,7 @@ export const profileCheck = (token, history, params) => {
 export const getModule = async (id) => {
 	try {
 		const resp = await axios.get(
-			`${process.env.REACT_APP_API}/api/modules/${id}`,
+			`${process.env.REACT_APP_API}/api/modules/${id.identifier}`,
 			{
 				headers: {
 					"Content-Type": "application/json",
