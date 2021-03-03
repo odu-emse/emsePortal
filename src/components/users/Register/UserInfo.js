@@ -1,156 +1,191 @@
-import React, { Component } from "react"
-import {
-	Typography,
-	TextField,
-	FormControl,
-	ThemeProvider,
-	Container,
-	Button,
-	Grid,
-	FormLabel,
-	Radio,
-	RadioGroup,
-	FormControlLabel,
-} from "@material-ui/core"
+import React, { Component, useState } from "react"
 import { ArrowRight, ArrowLeft } from "react-feather"
+import { Link } from "react-router-dom"
 
-export default class UserInfo extends Component {
-	continue = (e) => {
+const UserInfo = ({ values, change, nextStep }) => {
+	const next = (e) => {
 		e.preventDefault()
-		this.props.nextStep()
+		nextStep()
 	}
-	render() {
-		const { values, change } = this.props
-		return (
-			<ThemeProvider>
-				<Container maxWidth="md">
-					<Typography variant="h3">User Information</Typography>
-					<TextField
-						label="First name"
-						onChange={change("firstName")}
-						defaultValue={values.firstName}
-						fullWidth
-						margin="normal"
-						required
-					/>
-					<TextField
-						label="Last name"
-						fullWidth
-						margin="normal"
-						onChange={change("lastName")}
-						defaultValue={values.lastName}
-						required
-					/>
-					<TextField
-						label="Middle name"
-						onChange={change("middleName")}
-						defaultValue={values.middleName}
-						helperText="Leave black if its not applicable"
-						fullWidth
-						margin="normal"
-					/>
-					<TextField
-						label="Email"
-						fullWidth
-						margin="normal"
+	return (
+		<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
+			<h1 className="text-3xl">User information</h1>
+			<form className="w-full my-1">
+				<div className="my-3 w-full flex flex-row">
+					<div className="mr-1 w-1/3">
+						<label
+							htmlFor="firstName"
+							className="text-gray-400 font-xs"
+						>
+							First name
+						</label>
+						<input
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="First name"
+							name="firstName"
+							onChange={change("firstName")}
+							defaultValue={values.firstName}
+							required="true"
+						/>
+					</div>
+					<div className="mx-1 w-1/3">
+						<label
+							htmlFor="middleName"
+							className="text-gray-400 font-xs"
+						>
+							Middle name
+						</label>
+						<input
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="Middle name"
+							name="middleName"
+							onChange={change("middleName")}
+							defaultValue={values.middleName}
+							required="true"
+						/>
+					</div>
+					<div className="ml-1 w-1/3">
+						<label
+							htmlFor="lastName"
+							className="text-gray-400 font-xs"
+						>
+							Last name
+						</label>
+						<input
+							type="text"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="Last name"
+							name="lastName"
+							onChange={change("lastName")}
+							defaultValue={values.lastName}
+							required="true"
+						/>
+					</div>
+				</div>
+				<div className="my-3 w-full">
+					<label htmlFor="email" className="text-gray-400 font-xs">
+						ODU affiliated email
+					</label>
+					<input
+						type="email"
+						className="py-2 px-3 w-full border border-gray rounded "
+						placeholder="example@odu.edu"
+						name="email"
 						onChange={change("email")}
 						defaultValue={values.email}
-						type="email"
-						required
+						required="true"
 					/>
-					<TextField
-						label="Password"
-						onChange={change("password")}
-						defaultValue={values.password}
-						helperText="Minimum of 6 characters are required"
-						fullWidth
-						margin="normal"
-						type="password"
-						required
-					/>
-					<TextField
-						label="Password confirmation"
-						fullWidth
-						margin="normal"
-						onChange={change("passwordConf")}
-						defaultValue={values.passwordConf}
-						type="password"
-						required
-					/>
-					<FormControl component="fieldset">
-						<FormLabel component="legend">
-							Are you a student, assistant or an instructor *
-						</FormLabel>
-						<RadioGroup
-							row
-							aria-label="group"
-							name="group"
-							onChange={change("group")}
-							required
+				</div>
+				<div className="my-3 w-full flex flex-row">
+					<div className="w-1/2 mr-1">
+						<label
+							htmlFor="password"
+							className="text-gray-400 font-xs"
 						>
-							<FormControlLabel
-								value="student"
-								checked={
-									values.group === "student" ? true : false
-								}
-								control={<Radio />}
-								label="Student"
-							/>
-							<FormControlLabel
-								value="assistant"
-								checked={
-									values.group === "assistant" ? true : false
-								}
-								control={<Radio />}
-								label="Assistant"
-							/>
-							<FormControlLabel
-								value="instructor"
-								checked={
-									values.group === "instructor" ? true : false
-								}
-								control={<Radio />}
-								label="Instructor"
-							/>
-						</RadioGroup>
-					</FormControl>
-					<Grid
-						container
-						direction="row"
-						justify="space-evenly"
-						alignItems="center"
+							Password
+						</label>
+						<input
+							type="password"
+							className="py-2 px-3 w-full border border-gray rounded"
+							placeholder="Password"
+							name="password"
+							onChange={change("password")}
+							defaultValue={values.password}
+							required="true"
+						/>
+					</div>
+					<div className="w-1/2 ml-1">
+						<label
+							htmlFor="password"
+							className="text-gray-400 font-xs"
+						>
+							Password confirmation
+						</label>
+						<input
+							type="password"
+							className="py-2 px-3 w-full border border-gray rounded"
+							placeholder="Password confirmation"
+							name="passwordConf"
+							onChange={change("passwordConf")}
+							defaultValue={values.passwordConf}
+							required="true"
+						/>
+					</div>
+				</div>
+				<div
+					className="flex flex-row w-1/2 mx-auto px-3 my-3 items-center"
+					onChange={change("group")}
+				>
+					<input
+						type="radio"
+						required={true}
+						name="group"
+						className="mx-2"
+						checked={values.group === "student" && true}
+						value="student"
+					/>
+					<label className="my-0" htmlFor="">
+						Student
+					</label>
+					<input
+						type="radio"
+						required={true}
+						name="group"
+						className="mx-2"
+						checked={values.group === "assistant" && true}
+						value="assistant"
+					/>
+					<label className="my-0" htmlFor="">
+						Adjunct
+					</label>
+					<input
+						type="radio"
+						required={true}
+						name="group"
+						className="mx-2"
+						checked={values.group === "instructor" && true}
+						value="instructor"
+					/>
+					<label className="my-0" htmlFor="">
+						Professor
+					</label>
+				</div>
+				<div className="w-full flex flex-row justify-between">
+					<button
+						className="text-gray-700 rounded py-2 px-4 bg-gray-300 bg-opacity-75 w-1/3 block cursor-not-allowed"
+						type="reset"
+						disabled={true}
 					>
-						<Button
-							className="half mr-1"
-							variant="contained"
-							disabled
-							margin="normal"
-							startIcon={<ArrowLeft />}
-						>
-							Back
-						</Button>
-						<Button
-							className="half ml-1"
-							variant="contained"
-							color="primary"
-							disabled={
-								values.firstName === "" ||
-								values.lastName === "" ||
-								values.email === "" ||
-								values.password === "" ||
-								values.passwordConf === "" ||
-								values.group === null
-									? true
-									: false
-							}
-							endIcon={<ArrowRight />}
-							onClick={this.continue}
-						>
+						<span className="flex flex-row items-center justify-center">
+							<ArrowLeft /> Back
+						</span>
+					</button>
+					<button
+						className="text-white rounded py-2 px-4 bg-blue-400 w-1/3 block transition-all hover:bg-blue-700"
+						type="submit"
+						onClick={next}
+					>
+						<span className="flex flex-row items-center justify-center">
 							Next
-						</Button>
-					</Grid>
-				</Container>
-			</ThemeProvider>
-		)
-	}
+							<ArrowRight />
+						</span>
+					</button>
+				</div>
+				<div className="w-full text-center">
+					<div className="mt-4 block font-sm text-gray-800 font-weight-light">
+						Already have an account?{" "}
+						<Link to="/users/register">
+							<span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
+								Log in
+							</span>
+						</Link>
+					</div>
+				</div>
+			</form>
+		</div>
+	)
 }
+
+export default UserInfo

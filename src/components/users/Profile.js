@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Container } from "@material-ui/core"
 import { ToastContainer, toast } from "react-toastify"
-import { profileCheck } from "../helpers"
-import { Loader } from "react-feather"
+import { profileCheck, loader } from "../helpers"
 import { useHistory } from "react-router-dom"
+import PlanOfStudy from "./PlanOfStudy"
 
 const Profile = (props) => {
 	const token = localStorage.getItem(process.env.REACT_APP_JWT)
@@ -12,8 +11,6 @@ const Profile = (props) => {
 
 	const initialUserState = {
 		user: {},
-		modules: {},
-		loading: false,
 	}
 
 	const {
@@ -23,25 +20,19 @@ const Profile = (props) => {
 	profileCheck(token, history, params)
 
 	const [user, setUser] = useState(initialUserState)
-	const [modules, setModule] = useState(initialUserState.modules)
-	const [loading, setLoading] = useState(initialUserState.loading)
+	const [loading, setLoading] = useState(false)
 
 	const profile = user.user
-	const module = modules
 
 	useEffect(() => {
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}
-		const getUser = async (config) => {
+		const getUser = async () => {
 			setLoading(true)
 			const data = await axios
-				.get(
-					`${process.env.REACT_APP_API}/api/users/${params.id}`,
-					config
-				)
+				.get(`${process.env.REACT_APP_API}/api/users/${params.id}`, {
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
 				.then((document) => {
 					setLoading(false)
 					return document.data
@@ -53,263 +44,288 @@ const Profile = (props) => {
 				})
 			setUser(data)
 		}
-
-		const getModule = async (config) => {
-			setLoading(true)
-			const moduleData = await axios
-				.get(`${process.env.REACT_APP_API}/api/modules`, config)
-				.then((document) => {
-					setLoading(false)
-					return document.data.data
-				})
-				.catch((err) => {
-					toast.error(err.response.data.error, {
-						position: toast.POSITION.TOP_RIGHT,
-					})
-				})
-			setModule(moduleData)
-		}
-
-		getModule(config)
-		getUser(config)
+		getUser()
 	}, [])
 
-	return loading ? (
-		<Container className="mx-auto w-100 d-flex justify-content-center align-items-center">
-			<Loader className="spin" size="42pt" />
-		</Container>
-	) : profile.group === "instructor" || profile.group === "adviser" ? (
-		// instructor
-		<div className="container row mx-auto">
-			<ToastContainer />
-			<nav className="col-4 nav flex-column">
-				<a className="nav-link active" href="#user">
-					User information
-				</a>
-				<a className="nav-link" href="#prof">
-					Professor information
-				</a>
-				<a className="nav-link" href="#security">
-					Security
-				</a>
-				<a className="nav-link" href="#notifications">
-					Notifications
-				</a>
-				<a
-					className="nav-link text-danger"
-					aria-disabled="true"
-					href="#kill"
-				>
-					Kill account
-				</a>
-			</nav>
-			<div className="col-8">
-				<h3 id="user">User information</h3>
-				<form>
-					{/* First name */}
-					<div className="form-group">
-						<label className="col-form-label">First name</label>
-						<input
-							className="form-control"
-							type="text"
-							placeholder="First name"
-							name="firstName"
-							defaultValue={profile.firstName}
-						/>
-					</div>
-
-					{/* Last name */}
-					<div className="form-group">
-						<label className="col-form-label">Last name</label>
-						<input
-							className="form-control"
-							type="text"
-							placeholder="Last name"
-							name="lastName"
-							defaultValue={profile.lastName}
-						/>
-					</div>
-
-					{/* Middle name */}
-					<div className="form-group">
-						<label className="col-form-label">Middle name</label>
-						<input
-							className="form-control"
-							type="text"
-							placeholder="Middle name"
-							name="middleName"
-							defaultValue={profile.middleName}
-						/>
-					</div>
-
-					{/* Email */}
-					<div className="form-group">
-						<label className="col-form-label">Email</label>
-						<input
-							readOnly={true}
-							className="form-control"
-							type="email"
-							disabled
-							placeholder="Email"
-							name="email"
-							value={profile.email}
-						/>
-					</div>
-				</form>
-				<h3 id="prof">Professor information</h3>
-				<form>
-					<div className="form-group">
-						<label className="col-form-label">Course purpose</label>
-						<textarea
-							type="text"
-							className="form-control"
-							placeholder="Course purpose"
-						></textarea>
-					</div>
-					<div className="form-group">
-						<label className="col-form-label">
-							Course value added for students
-						</label>
-						<textarea
-							type="text"
-							className="form-control"
-							placeholder="Course value added for students"
-						></textarea>
-					</div>
-					<div className="form-group">
-						<label className="col-form-label">
-							Course content overview
-						</label>
-						<textarea
-							type="text"
-							className="form-control"
-							placeholder="Course content overview"
-						></textarea>
-					</div>
-					<div className="form-group">
-						<label className="col-form-label">
-							Course objectives
-						</label>
-						<textarea
-							type="text"
-							className="form-control"
-							placeholder="Course objectives"
-						></textarea>
-					</div>
-					<div className="form-group">
-						<label className="col-form-label">
-							Course approach
-						</label>
-						<textarea
-							type="text"
-							className="form-control"
-							placeholder="Course approach"
-						></textarea>
-					</div>
-				</form>
-				<h3 id="security">Security</h3>
-				<h3 id="notifications">Notifications</h3>
-				<h3 id="kill">Kill account</h3>
-			</div>
-		</div>
+	return loading === true ? (
+		loader()
 	) : (
-		// student
-		<div className="container row mx-auto">
-			<ToastContainer />
-			<nav className="col-4 nav flex-column">
-				{/* TODO: [ALMP-99] profile sidebar navigation */}
-				<a className="nav-link active" href="#user">
-					User information
-				</a>
-				<a className="nav-link" href="#modules">
-					My modules
-				</a>
-				<a className="nav-link" href="#security">
-					Security
-				</a>
-				<a className="nav-link" href="#notifications">
-					Notifications
-				</a>
-				<a
-					className="nav-link text-danger"
-					aria-disabled="true"
-					href="#kill"
-				>
-					Kill account
-				</a>
-			</nav>
-			<div className="col-8">
-				<h3 id="user">Profile</h3>
-				<form>
-					<input
-						className="form-control"
-						type="text"
-						placeholder="First name"
-						name="firstName"
-						value={profile.firstName}
-					/>
-					<input
-						className="form-control"
-						type="text"
-						placeholder="Last name"
-						name="lastName"
-						value={profile.lastName}
-					/>
-					<input
-						className="form-control"
-						type="text"
-						placeholder="Middle name"
-						name="middleName"
-						value={profile.middleName}
-					/>
-					<input
-						className="form-control"
-						type="email"
-						placeholder="Email"
-						name="email"
-						value={profile.email}
-					/>
-					<input
-						className="form-control text-capitalize"
-						type="text"
-						placeholder="Adviser"
-						name="adviser"
-						disabled
-						value={profile.group}
-					/>
-					<input
-						className="form-control"
-						type="text"
-						placeholder="Probation expires"
-						name="probationExpire"
-						value={profile.probationExpire}
-					/>
-				</form>
-				<h3 id="modules">My modules</h3>
-				<table className="table">
-					<thead>
-						<tr>
-							<th scope="col">Parent course</th>
-							<th scope="col">Module name</th>
-							<th scope="col">Progress</th>
-							<th scope="col">Rating</th>
-							<th scope="col">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-						</tr>
-					</tbody>
-				</table>
-				<h3 id="security">Security</h3>
-				<h3 id="notifications">Notifications</h3>
-				<h3 id="kill">Kill account</h3>
+		<>
+			<div className="w-full max-w-6xl mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
+				<ToastContainer />
+				<nav className="w-full md:w-1/4 mr-8 flex flex-col border border-gray-200 shadow-sm rounded-md h-full">
+					<a className="text-base" href="#user">
+						<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							User information
+						</li>
+					</a>
+					<a className="text-base" href="#modules">
+						<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Plan of Study
+						</li>
+					</a>
+					<a className="text-base" href="#security">
+						<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Security
+						</li>
+					</a>
+					<a className="text-base" href="#notifications">
+						<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Notifications
+						</li>
+					</a>
+					<a className="text-base" href="#kill">
+						<li className="py-1 px-3 hover:bg-gray-100 border-gray-300 list-none">
+							Close account
+						</li>
+					</a>
+				</nav>
+				<div className="w-full md:w-3/4">
+					<h3
+						id="user"
+						className="text-2xl bold border-b border-gray-100 mb-3"
+					>
+						Profile
+					</h3>
+					<form>
+						<div className="flex md:flex-row md:justify-between flex-col mb-3">
+							<label
+								htmlFor="name"
+								className="block flex-1 mr-2 font-bold"
+							>
+								First name
+								<input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="First name"
+									name="firstName"
+									value={profile.firstName}
+								/>
+							</label>
+							<label
+								htmlFor="name"
+								className="block flex-1 mx-2 font-bold"
+							>
+								Middle name
+								<input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="Middle name"
+									name="middleName"
+									value={profile.middleName}
+								/>
+							</label>
+							<label
+								htmlFor="name"
+								className="block flex-1 ml-2 font-bold"
+							>
+								Last name
+								<input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="Last name"
+									name="lastName"
+									value={profile.lastName}
+								/>
+							</label>
+						</div>
+						<div className="w-full mb-3">
+							<label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Email
+								<input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="email"
+									placeholder="Email"
+									name="email"
+									value={profile.email}
+								/>
+							</label>
+						</div>
+						<div className="w-full mb-3">
+							<label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Group
+								<input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize cursor-not-allowed"
+									type="text"
+									placeholder="Group"
+									name="adviser"
+									disabled
+									value={profile.group}
+								/>
+							</label>
+						</div>
+						<div className="w-full mb-3">
+							<label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Date of birth
+								<input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="YYYY/MM/DD"
+									name="dob"
+									// value={profile.dob}
+								/>
+							</label>
+						</div>
+						{profile.group === "instructor" && (
+							<>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Title
+										<textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Title"
+											name="adviser"
+										/>
+									</label>
+								</div>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Office location
+										<input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Office location"
+											name="adviser"
+										/>
+									</label>
+								</div>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Office hours
+										<input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Office hours"
+											name="adviser"
+										/>
+									</label>
+								</div>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Contact policy
+										<textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Contact policy"
+											name="adviser"
+										/>
+									</label>
+								</div>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Phone number
+										<input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Phone number"
+											name="adviser"
+										/>
+									</label>
+								</div>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Research interest
+										<textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Research interest"
+											name="adviser"
+										/>
+									</label>
+								</div>
+								<div className="w-full mb-3">
+									<label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Teaching philosophy
+										<textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Teaching philosophy"
+											name="adviser"
+										/>
+									</label>
+								</div>
+							</>
+						)}
+					</form>
+					<h3
+						id="modules"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Plan of Study
+					</h3>
+					<div className="">
+						<PlanOfStudy param={params.id} />
+					</div>
+					<h3
+						id="security"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Security
+					</h3>
+					<div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					</div>
+					<h3
+						id="notifications"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Notifications
+					</h3>
+					<div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					</div>
+					<h3
+						id="kill"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Kill account
+					</h3>
+					<div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					</div>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

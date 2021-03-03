@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import axios from "axios"
+import { Loader } from "react-feather"
 
 /**
  * @params [x]: number to be rounded
@@ -38,7 +39,11 @@ export const removeToken = () => {
 export const decoder = () => {
 	const token = localStorage.getItem("JWT")
 	const decoded = jwt.decode(token)
-	return decoded.sub
+	if (decoded !== null) {
+		return decoded.sub
+	} else {
+		return null
+	}
 }
 
 export const convert = (timestamp) => {
@@ -102,11 +107,43 @@ export const isAuthenticated = async () => {
 	}
 }
 
+export const loader = () => {
+	return (
+		<div className="mx-auto w-full flex justify-center items-center">
+			<Loader className="spin" size="42pt" />
+		</div>
+	)
+}
+
 export const profileCheck = (token, history, params) => {
 	const userID = jwt.decode(token)
 	if (userID.sub !== params.id) {
 		history.push(`/users/${userID.sub}`)
 		window.location.reload()
+	}
+}
+
+export const getModule = async (id) => {
+	try {
+		const resp = await axios.get(
+			`${process.env.REACT_APP_API}/api/modules/${id.identifier}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		)
+		if (resp.status === 200) {
+			return resp
+		} else if (resp.status === 401) {
+			console.error(resp)
+			return null
+		} else {
+			return null
+		}
+	} catch (error) {
+		console.error(error)
+		return null
 	}
 }
 

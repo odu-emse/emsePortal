@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Container } from "@material-ui/core"
 import ModuleItem from "./modules/ModuleItem"
 import Search from "../search/Search"
 import Courses from "./courses/Courses"
@@ -70,8 +69,8 @@ const Modules = () => {
 	}, [])
 
 	return (
-		<Container>
-			<Search />
+		<div className="mx-20 px-10 max-w-full">
+			{/* <Search /> */}
 			<ModuleItem
 				title="Modules to continue"
 				modules={modules}
@@ -96,7 +95,7 @@ const Modules = () => {
 				images={image[0]}
 				loading={loadingCourses}
 			/>
-		</Container>
+		</div>
 	)
 }
 

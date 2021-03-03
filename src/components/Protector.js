@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Route, Redirect } from "react-router-dom"
-import { getToken } from "./helpers"
+import { getToken, loader } from "./helpers"
 import axios from "axios"
 
 const Protector = ({ component: Component, ...rest }) => {
@@ -8,8 +8,8 @@ const Protector = ({ component: Component, ...rest }) => {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		const jwt = getToken()
-		if (!jwt) {
+		const jsonwebtoken = getToken()
+		if (!jsonwebtoken) {
 			setAuth(false)
 			setLoading(false)
 			return false
@@ -30,7 +30,6 @@ const Protector = ({ component: Component, ...rest }) => {
 						response.status === 401 ||
 						response.status === 400
 					) {
-						console.error(response)
 						setLoading(false)
 						setAuth(false)
 						return false
@@ -40,8 +39,8 @@ const Protector = ({ component: Component, ...rest }) => {
 						return false
 					}
 				})
-				.catch((error) => {
-					console.error(error)
+				.catch((err) => {
+					console.error(err)
 					setAuth(false)
 					setLoading(false)
 					return false
@@ -50,7 +49,7 @@ const Protector = ({ component: Component, ...rest }) => {
 	}, [authentication, loading])
 
 	return loading === true ? (
-		<>Loading...</>
+		loader()
 	) : (
 		<Route
 			{...rest}
