@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
-import { NavLink, Link } from "react-router-dom"
-import { getToken, decoder } from "./helpers"
+import React, { useState, useEffect } from 'react'
+import { NavLink, Link } from 'react-router-dom'
+import { getToken, decoder } from './helpers'
 
 const AppNavbar = () => {
 	const [open, setOpen] = useState(false)
@@ -175,7 +175,7 @@ const AppNavbar = () => {
 								</div>
 								<div
 									className={`${
-										dropdown === true ? "block" : "hidden"
+										dropdown === true ? 'block' : 'hidden'
 									} origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
 									role="menu"
 									aria-orientation="vertical"
@@ -205,7 +205,7 @@ const AppNavbar = () => {
 					)}
 				</div>
 			</div>
-			<div className={`${open === true ? "block" : "hidden"} sm:hidden`}>
+			<div className={`${open === true ? 'block' : 'hidden'} sm:hidden`}>
 				<div className="px-2 pt-2 pb-3 space-y-1">
 					{authenticated === true ? (
 						<>

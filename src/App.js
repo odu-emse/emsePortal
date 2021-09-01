@@ -1,23 +1,23 @@
 //Helpers
-import React from "react"
-import "./App.sass"
-import AppNavbar from "./components/AppNavbar"
-import Protector from "./components/Protector"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import "react-toastify/dist/ReactToastify.css"
+import React from 'react'
+import './App.sass'
+import AppNavbar from './components/AppNavbar'
+import Protector from './components/Protector'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css'
 //Modules
-import Programs from "./components/programs"
-import ModuleHousing from "./components/programs/modules/ModuleHousing"
+import Programs from './components/programs'
+import ModuleHousing from './components/programs/modules/ModuleHousing'
 //Users
-import Profile from "./components/users/Profile"
-import Login from "./components/users/Login"
-import Logout from "./components/users/Logout"
-import Register from "./components/users/Register"
-import UserVerify from "./components/users/UserVerify"
+import Profile from './components/users/Profile'
+import Login from './components/users/Login'
+import Logout from './components/users/Logout'
+import Register from './components/users/Register'
+import UserVerify from './components/users/UserVerify'
 //LMS
-import Dashboard from "./components/Dashboard"
-import Portal from "./components/Portal"
-import Assignments from "./components/Assignments"
+import Dashboard from './components/Dashboard'
+import Portal from './components/Portal'
+import Assignments from './components/Assignments'
 
 function App() {
 	return (

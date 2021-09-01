@@ -27,6 +27,7 @@
 		"react-scripts": "4.0.1",
 		"react-star-rating-component": "^1.4.1",
 		"react-toastify": "^6.2.0",
+		"recharts": "^2.0.8",
 		"styled-components": "^5.2.1",
 		"tailwindcss": "npm:@tailwindcss/postcss7-compat",
 		"twin.macro": "^2.3.0",
@@ -36,7 +37,7 @@
 	"scripts": {
 		"start": "REACT_APP_API=https://emse-api.herokuapp.com craco start",
 		"dev": "REACT_APP_API=https://emse-dev-api.herokuapp.com craco start",
-		"local": "REACT_APP_API=http://localhost:5000 craco start",
+		"local": "REACT_APP_API=http://localhost:4000 craco start",
 		"build": "craco build",
 		"test": "craco test",
 		"eject": "craco eject",
