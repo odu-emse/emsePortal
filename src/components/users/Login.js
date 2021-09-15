@@ -1,13 +1,13 @@
-import React, { useState } from "react"
-import axios from "axios"
-import { ToastContainer, toast } from "react-toastify"
-import { getToken, refreshPage, loader } from "../helpers"
-import { Link } from "react-router-dom"
+import React, { useState } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { getToken, refreshPage, loader } from '../helpers'
+import { Link } from 'react-router-dom'
 
 const Login = (props) => {
 	const initialUserState = {
-		email: "",
-		password: "",
+		email: '',
+		password: '',
 		loading: false,
 	}
 
@@ -16,10 +16,10 @@ const Login = (props) => {
 	const [loading, setLoading] = useState(initialUserState.loading)
 
 	const change = (e) => {
-		if (e.target.name === "email") {
+		if (e.target.name === 'email') {
 			setEmail(e.target.value)
 		}
-		if (e.target.name === "password") {
+		if (e.target.name === 'password') {
 			setPassword(e.target.value)
 		}
 	}
@@ -29,28 +29,28 @@ const Login = (props) => {
 
 		setLoading(true)
 
-		let data = JSON.stringify({
-			email,
-			password,
-		})
+		let data = {
+			query: `mutation{
+				login (email: "${email}", password: "${password}"){
+					accessToken
+				}
+			}`,
+		}
 
 		axios
-			.post(`${process.env.REACT_APP_API}/api/users/login`, data, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
+			.post(`${process.env.REACT_APP_API}/graphql`, data)
 			.then((res) => {
+				const { accessToken } = res.data.data.login
 				setLoading(false)
-				localStorage.setItem("JWT", res.data.token)
+				localStorage.setItem('JWT', accessToken)
 				refreshPage()
-				return props.history.push("/dashboard")
+				return props.history.push('/dashboard')
 			})
 			.catch((err) => {
 				toast.error(err.response.data.error, {
 					position: toast.POSITION.TOP_RIGHT,
 				})
-				console.error("onLogin() error: ", err)
+				console.error('onLogin() error: ', err)
 				setLoading(false)
 			})
 	}
@@ -59,7 +59,7 @@ const Login = (props) => {
 		return loader()
 	} else {
 		if (getToken() !== `Bearer ${null}`) {
-			props.history.push("/portal")
+			props.history.push('/portal')
 			return null
 		} else {
 			return (
@@ -106,7 +106,7 @@ const Login = (props) => {
 						</button>
 						<div className="w-full text-center">
 							<div className="mt-4 block font-sm text-gray-800 font-weight-light">
-								or{" "}
+								or{' '}
 								<Link to="/users/forgot" className="">
 									<span className="hover:underline hover:text-gray-800 text-blue-800">
 										Reset your password
@@ -114,7 +114,7 @@ const Login = (props) => {
 								</Link>
 							</div>
 							<div className="mt-4 block font-sm text-gray-800 font-weight-light">
-								Don't have an account?{" "}
+								Don't have an account?{' '}
 								<Link to="/users/register">
 									<span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
 										Sign up

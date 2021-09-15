@@ -1,8 +1,9 @@
-import React, { Component, useState } from "react"
-import { ArrowRight, ArrowLeft } from "react-feather"
-import { Link } from "react-router-dom"
+import React, { Component, useState } from 'react'
+import { ArrowRight, ArrowLeft } from 'react-feather'
+import { Link } from 'react-router-dom'
 
-const UserInfo = ({ values, change, nextStep }) => {
+const UserInfo = ({ values, change, nextStep, error }) => {
+	console.log(error)
 	const next = (e) => {
 		e.preventDefault()
 		nextStep()
@@ -24,7 +25,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="First name"
 							name="firstName"
-							onChange={change("firstName")}
+							onChange={change('firstName')}
 							defaultValue={values.firstName}
 							required="true"
 						/>
@@ -41,7 +42,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="Middle name"
 							name="middleName"
-							onChange={change("middleName")}
+							onChange={change('middleName')}
 							defaultValue={values.middleName}
 							required="true"
 						/>
@@ -58,7 +59,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="Last name"
 							name="lastName"
-							onChange={change("lastName")}
+							onChange={change('lastName')}
 							defaultValue={values.lastName}
 							required="true"
 						/>
@@ -73,7 +74,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 						className="py-2 px-3 w-full border border-gray rounded "
 						placeholder="example@odu.edu"
 						name="email"
-						onChange={change("email")}
+						onChange={change('email')}
 						defaultValue={values.email}
 						required="true"
 					/>
@@ -91,7 +92,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 							className="py-2 px-3 w-full border border-gray rounded"
 							placeholder="Password"
 							name="password"
-							onChange={change("password")}
+							onChange={change('password')}
 							defaultValue={values.password}
 							required="true"
 						/>
@@ -108,7 +109,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 							className="py-2 px-3 w-full border border-gray rounded"
 							placeholder="Password confirmation"
 							name="passwordConf"
-							onChange={change("passwordConf")}
+							onChange={change('passwordConf')}
 							defaultValue={values.passwordConf}
 							required="true"
 						/>
@@ -116,14 +117,14 @@ const UserInfo = ({ values, change, nextStep }) => {
 				</div>
 				<div
 					className="flex flex-row w-1/2 mx-auto px-3 my-3 items-center"
-					onChange={change("group")}
+					onChange={change('group')}
 				>
 					<input
 						type="radio"
 						required={true}
 						name="group"
 						className="mx-2"
-						checked={values.group === "student" && true}
+						checked={values.group === 'student' && true}
 						value="student"
 					/>
 					<label className="my-0" htmlFor="">
@@ -134,7 +135,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 						required={true}
 						name="group"
 						className="mx-2"
-						checked={values.group === "assistant" && true}
+						checked={values.group === 'assistant' && true}
 						value="assistant"
 					/>
 					<label className="my-0" htmlFor="">
@@ -145,7 +146,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 						required={true}
 						name="group"
 						className="mx-2"
-						checked={values.group === "instructor" && true}
+						checked={values.group === 'instructor' && true}
 						value="instructor"
 					/>
 					<label className="my-0" htmlFor="">
@@ -163,7 +164,11 @@ const UserInfo = ({ values, change, nextStep }) => {
 						</span>
 					</button>
 					<button
-						className="text-white rounded py-2 px-4 bg-blue-400 w-1/3 block transition-all hover:bg-blue-700"
+						className={`rounded py-2 px-4 w-1/3 block transition-all ${
+							error === true
+								? 'bg-gray-300 bg-opacity-75 text-gray-700 cursor-not-allowed'
+								: 'text-white bg-blue-400 hover:bg-blue-700'
+						}`}
 						type="submit"
 						onClick={next}
 					>
@@ -175,7 +180,7 @@ const UserInfo = ({ values, change, nextStep }) => {
 				</div>
 				<div className="w-full text-center">
 					<div className="mt-4 block font-sm text-gray-800 font-weight-light">
-						Already have an account?{" "}
+						Already have an account?{' '}
 						<Link to="/users/register">
 							<span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
 								Log in

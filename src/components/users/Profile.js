@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { ToastContainer, toast } from "react-toastify"
-import { profileCheck, loader } from "../helpers"
-import { useHistory } from "react-router-dom"
-import PlanOfStudy from "./PlanOfStudy"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { profileCheck, loader } from '../helpers'
+import { useHistory } from 'react-router-dom'
+import PlanOfStudy from './PlanOfStudy'
 
 const Profile = (props) => {
 	const token = localStorage.getItem(process.env.REACT_APP_JWT)
@@ -22,20 +22,35 @@ const Profile = (props) => {
 	const [user, setUser] = useState(initialUserState)
 	const [loading, setLoading] = useState(false)
 
-	const profile = user.user
+	console.log(params.id)
+
+	const profile = user
 
 	useEffect(() => {
 		const getUser = async () => {
 			setLoading(true)
+
+			let payload = {
+				query: `{
+				getUser(id: "${params.id}" ){
+					firstName,
+					lastName,
+					email,
+					active,
+					group,
+				}
+			}`,
+			}
+
 			const data = await axios
-				.get(`${process.env.REACT_APP_API}/api/users/${params.id}`, {
+				.post(`${process.env.REACT_APP_API}/graphql`, payload, {
 					headers: {
-						"Content-Type": "application/json",
+						'Content-Type': 'application/json',
 					},
 				})
 				.then((document) => {
 					setLoading(false)
-					return document.data
+					return document.data.data.getUser
 				})
 				.catch((err) => {
 					toast.error(err.response.data.error, {
@@ -175,7 +190,7 @@ const Profile = (props) => {
 								/>
 							</label>
 						</div>
-						{profile.group === "instructor" && (
+						{profile.group === 'instructor' && (
 							<>
 								<div className="w-full mb-3">
 									<label
@@ -285,7 +300,7 @@ const Profile = (props) => {
 						Plan of Study
 					</h3>
 					<div className="">
-						<PlanOfStudy param={params.id} />
+						{/* <PlanOfStudy param={params.id} /> */}
 					</div>
 					<h3
 						id="security"

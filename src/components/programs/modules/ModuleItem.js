@@ -1,38 +1,31 @@
-import React from "react"
-import StarRatingComponent from "react-star-rating-component"
-import { rating, round_to_precision, loader } from "../../helpers"
-import { Link } from "react-router-dom"
+import React from 'react'
+import StarRatingComponent from 'react-star-rating-component'
+import { rating, round_to_precision, loader } from '../../helpers'
+import { Link } from 'react-router-dom'
+import { getRandomNum } from '../../helpers'
 
 let ModuleItem = (props) => {
-	const { modules, images, loading } = props
+	const { modules, images, loading, imageLoading } = props
+
 	const filterModules = (mod, text, variant) => {
+		console.log(mod)
 		return (
 			<>
 				<h4 className="my-3 text-3xl">{text}</h4>
 				<div className="module--list grid grid-cols-5 gap-5 overflow-x-hidden">
-					{mod.data.map((module, index) => (
+					{mod.map((module, index) => (
 						<Link
-							to={`/modules/${module._id}`}
+							to={`/modules/${module.id}`}
 							className="hover:no-underline"
+							key={module.id}
 						>
 							<div className="shadow-md mb-3 rounded bg-gray-100">
 								<div className="flex items-center justify-center overflow-hidden max-h-56">
+									{/* //this is a temp solution using a statically fetched img into a 1D array */}
 									<img
-										alt={
-											images === undefined
-												? ""
-												: images[index].alt_description
-										}
-										src={
-											images === undefined
-												? ""
-												: images[index].urls.thumb
-										}
-										title={
-											images === undefined
-												? ""
-												: images[index].alt_description
-										}
+										alt={images[0]?.alt_description}
+										src={images[0]?.urls?.thumb}
+										title={images[0]?.alt_description}
 										className="min-w-full min-h-full flex-shrink-0"
 									/>
 								</div>
@@ -76,7 +69,11 @@ let ModuleItem = (props) => {
 		)
 	}
 
-	return loading ? loader() : <>{filterModules(modules, props.title)}</>
+	return loading || imageLoading ? (
+		loader()
+	) : (
+		<>{filterModules(modules, props.title)}</>
+	)
 }
 
 export default ModuleItem

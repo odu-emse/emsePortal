@@ -1,5 +1,5 @@
-import React from "react"
-import { ArrowRight, ArrowLeft } from "react-feather"
+import React from 'react'
+import { ArrowRight, ArrowLeft } from 'react-feather'
 
 const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 	const previous = (e) => {
@@ -10,8 +10,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 		e.preventDefault()
 		nextStep()
 	}
-	console.log(values.group)
-	if (values.group === "student") {
+	if (values.group === 'student') {
 		nextStep()
 		return null
 	} else {
@@ -32,7 +31,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 								className="py-2 px-3 w-full border border-gray rounded "
 								placeholder="Assistant professor"
 								name="title"
-								onChange={change("title")}
+								onChange={change('title')}
 								defaultValue={values.title}
 								required="true"
 							/>
@@ -49,7 +48,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 								className="py-2 px-3 w-full border border-gray rounded "
 								placeholder="(123)-456-7890"
 								name="phone"
-								onChange={change("phone")}
+								onChange={change('phone')}
 								defaultValue={values.phone}
 								required="true"
 							/>
@@ -67,7 +66,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="Where is your office located?"
 							name="officeLocation"
-							onChange={change("officeLocation")}
+							onChange={change('officeLocation')}
 							defaultValue={values.officeLocation}
 							required="true"
 						/>
@@ -84,7 +83,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="What times can students find you at your office?"
 							name="officeHours"
-							onChange={change("officeHours")}
+							onChange={change('officeHours')}
 							defaultValue={values.officeHours}
 							required="true"
 						/>
@@ -101,7 +100,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="What steps do students needs to take before contacting you?"
 							name="contactPolicy"
-							onChange={change("contactPolicy")}
+							onChange={change('contactPolicy')}
 							defaultValue={values.contactPolicy}
 							required="true"
 						/>
@@ -118,7 +117,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 							className="py-2 px-3 w-full border border-gray rounded "
 							placeholder="What is your teaching background in and what experiences do you bring to students?"
 							name="background"
-							onChange={change("background")}
+							onChange={change('background')}
 							defaultValue={values.background}
 							required="true"
 						/>
@@ -135,7 +134,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 							className="py-2 px-3 w-full border border-gray rounded"
 							placeholder="What philosophy do you teach by?"
 							name="philosophy"
-							onChange={change("philosophy")}
+							onChange={change('philosophy')}
 							defaultValue={values.philosophy}
 							required="true"
 						/>
@@ -153,7 +152,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 								className="py-2 px-3 w-full border border-gray rounded"
 								placeholder="What research topics excite you?"
 								name="researchInterest"
-								onChange={change("researchInterest")}
+								onChange={change('researchInterest')}
 								defaultValue={values.researchInterest}
 								required="true"
 							/>
@@ -170,7 +169,7 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 								className="py-2 px-3 w-full border border-gray rounded"
 								placeholder="https://example.com"
 								name="personalWebsite"
-								onChange={change("personalWebsite")}
+								onChange={change('personalWebsite')}
 								defaultValue={values.website}
 								required="true"
 							/>

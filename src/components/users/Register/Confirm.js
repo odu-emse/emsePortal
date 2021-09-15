@@ -1,7 +1,7 @@
-import React from "react"
-import axios from "axios"
-import { ArrowRight, ArrowLeft } from "react-feather"
-import { useHistory } from "react-router-dom"
+import React from 'react'
+import axios from 'axios'
+import { ArrowRight, ArrowLeft } from 'react-feather'
+import { useHistory } from 'react-router-dom'
 
 const Confirm = ({ previousStep, values }) => {
 	let history = useHistory()
@@ -49,12 +49,12 @@ const Confirm = ({ previousStep, values }) => {
 		axios
 			.post(`${process.env.REACT_APP_API}/api/users/register`, data, {
 				headers: {
-					"Content-Type": "application/json",
+					'Content-Type': 'application/json',
 				},
 			})
 			.then((response) => {
 				if (response.status === 200) {
-					history.push("/users/login")
+					history.push('/users/login')
 				}
 			})
 			.catch((err) => {
@@ -93,73 +93,97 @@ const Confirm = ({ previousStep, values }) => {
 			<h1 className="text-3xl">Confirm account details</h1>
 			<form className="w-full my-1">
 				<h2 className="text-lg mt-3 border-gray-200 border-b">
-					User information
+					Account information
 				</h2>
 				<div className="my-3 w-full flex flex-col">
 					<div className="my-1 ">
-						<span className="text-gray-400">First name:</span>{" "}
+						<span className="text-gray-400">First name:</span>{' '}
 						<span className="font-bold">{firstName}</span>
 					</div>
 					<div className="my-1 ">
-						<span className="text-gray-400">Middle name:</span>{" "}
+						<span className="text-gray-400">Middle name:</span>{' '}
 						<span className="font-bold">{middleName}</span>
 					</div>
 					<div className="my-1 ">
-						<span className="text-gray-400">Last name:</span>{" "}
+						<span className="text-gray-400">Last name:</span>{' '}
 						<span className="font-bold">{lastName}</span>
 					</div>
 					<div className="my-1">
-						<span className="text-gray-400">Email:</span>{" "}
+						<span className="text-gray-400">Email:</span>{' '}
 						<span className="font-bold">{email}</span>
 					</div>
 					<div className="my-1">
-						<span className="text-gray-400">Group:</span>{" "}
+						<span className="text-gray-400">Group:</span>{' '}
 						<span className="font-bold">{group}</span>
 					</div>
 				</div>
-				<h2 className="text-lg mt-3 border-gray-200 border-b">
-					Personal information
-				</h2>
-				<div className="my-3 w-full flex flex-col">
-					<div className="my-1 ">
-						<span className="text-gray-400">Title:</span>{" "}
-						<span className="font-bold">{title}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Office location:</span>{" "}
-						<span className="font-bold">{officeLocation}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Office hours:</span>{" "}
-						<span className="font-bold">{officeHours}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Phone number:</span>{" "}
-						<span className="font-bold">{phone}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Contact policy:</span>{" "}
-						<span className="font-bold">{contactPolicy}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Background:</span>{" "}
-						<span className="font-bold">{background}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">
-							Research interests:
-						</span>{" "}
-						<span className="font-bold">{researchInterest}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Personal website:</span>{" "}
-						<span className="font-bold">{website}</span>
-					</div>
-					<div className="my-1 ">
-						<span className="text-gray-400">Philosophy:</span>{" "}
-						<span className="font-bold">{philosophy}</span>
-					</div>
-				</div>
+				{group !== 'student' && (
+					<>
+						<h2 className="text-lg mt-3 border-gray-200 border-b">
+							Personal information
+						</h2>
+						<div className="my-3 w-full flex flex-col">
+							<div className="my-1 ">
+								<span className="text-gray-400">Title:</span>{' '}
+								<span className="font-bold">{title}</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Office location:
+								</span>{' '}
+								<span className="font-bold">
+									{officeLocation}
+								</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Office hours:
+								</span>{' '}
+								<span className="font-bold">{officeHours}</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Phone number:
+								</span>{' '}
+								<span className="font-bold">{phone}</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Contact policy:
+								</span>{' '}
+								<span className="font-bold">
+									{contactPolicy}
+								</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Background:
+								</span>{' '}
+								<span className="font-bold">{background}</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Research interests:
+								</span>{' '}
+								<span className="font-bold">
+									{researchInterest}
+								</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Personal website:
+								</span>{' '}
+								<span className="font-bold">{website}</span>
+							</div>
+							<div className="my-1 ">
+								<span className="text-gray-400">
+									Philosophy:
+								</span>{' '}
+								<span className="font-bold">{philosophy}</span>
+							</div>
+						</div>
+					</>
+				)}
 				<div className="w-full flex flex-row justify-between">
 					<div className="w-full flex flex-row justify-between">
 						<button

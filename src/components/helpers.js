@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken"
-import axios from "axios"
-import { Loader } from "react-feather"
+import jwt from 'jsonwebtoken'
+import axios from 'axios'
+import { Loader } from 'react-feather'
 
 /**
  * @params [x]: number to be rounded
@@ -13,9 +13,13 @@ export let round_to_precision = (x, precision) => {
 }
 
 export let rating = (arr) => {
-	let sum = arr.reduce((previous, current) => (current += previous))
-	let avg = sum / arr.length
-	return avg
+	if (arr.length > 0) {
+		let sum = arr.reduce((previous, current) => (current += previous))
+		let avg = sum / arr.length
+		return avg
+	} else {
+		return 0
+	}
 }
 
 export let progress = (dur, rem) => {
@@ -29,18 +33,18 @@ export let abandonModule = (id) => {
 }
 
 export const getToken = () => {
-	return "Bearer " + localStorage.getItem("JWT")
+	return 'Bearer ' + localStorage.getItem('JWT')
 }
 
 export const removeToken = () => {
-	return localStorage.removeItem("JWT")
+	return localStorage.removeItem('JWT')
 }
 
 export const decoder = () => {
-	const token = localStorage.getItem("JWT")
+	const token = localStorage.getItem('JWT')
 	const decoded = jwt.decode(token)
 	if (decoded !== null) {
-		return decoded.sub
+		return decoded.userId
 	} else {
 		return null
 	}
@@ -49,26 +53,26 @@ export const decoder = () => {
 export const convert = (timestamp) => {
 	var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
 		yyyy = d.getFullYear(),
-		mm = ("0" + (d.getMonth() + 1)).slice(-2), // Months are zero based. Add leading 0.
-		dd = ("0" + d.getDate()).slice(-2), // Add leading 0.
+		mm = ('0' + (d.getMonth() + 1)).slice(-2), // Months are zero based. Add leading 0.
+		dd = ('0' + d.getDate()).slice(-2), // Add leading 0.
 		hh = d.getHours(),
 		h = hh,
-		min = ("0" + d.getMinutes()).slice(-2), // Add leading 0.
-		ampm = "AM",
+		min = ('0' + d.getMinutes()).slice(-2), // Add leading 0.
+		ampm = 'AM',
 		time
 
 	if (hh > 12) {
 		h = hh - 12
-		ampm = "PM"
+		ampm = 'PM'
 	} else if (hh === 12) {
 		h = 12
-		ampm = "PM"
+		ampm = 'PM'
 	} else if (hh === 0) {
 		h = 12
 	}
 
 	// ie: 2013-02-18, 8:35 AM
-	time = yyyy + "-" + mm + "-" + dd + ", " + h + ":" + min + " " + ampm
+	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm
 
 	return time
 }
@@ -88,7 +92,7 @@ export const isAuthenticated = async () => {
 				{
 					headers: {
 						Authorization: getToken(),
-						"Content-Type": "application/json",
+						'Content-Type': 'application/json',
 					},
 				}
 			)
@@ -116,9 +120,9 @@ export const loader = () => {
 }
 
 export const profileCheck = (token, history, params) => {
-	const userID = jwt.decode(token)
-	if (userID.sub !== params.id) {
-		history.push(`/users/${userID.sub}`)
+	const cypher = jwt.decode(token)
+	if (cypher.userId !== params.id) {
+		history.push(`/users/${cypher.userId}`)
 		window.location.reload()
 	}
 }
@@ -129,7 +133,7 @@ export const getModule = async (id) => {
 			`${process.env.REACT_APP_API}/api/modules/${id.identifier}`,
 			{
 				headers: {
-					"Content-Type": "application/json",
+					'Content-Type': 'application/json',
 				},
 			}
 		)
@@ -145,6 +149,12 @@ export const getModule = async (id) => {
 		console.error(error)
 		return null
 	}
+}
+
+export const getRandomNum = (min, max) => {
+	min = Math.ceil(min)
+	max = Math.floor(max)
+	return Math.floor(Math.random() * (max - min) + min)
 }
 
 //TODO: [ALMP-98] course fetcher function

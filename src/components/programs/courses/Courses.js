@@ -1,10 +1,10 @@
-import React from "react"
-import { loader } from "../../helpers"
-import { Link } from "react-router-dom"
+import React from 'react'
+import { loader } from '../../helpers'
+import { Link } from 'react-router-dom'
+import { getRandomNum } from '../../helpers'
 
 const Courses = (props) => {
 	const { courses, images, loading } = props
-	let offset = Math.floor(Math.random() * 10)
 	const filterCourses = (content, title, variant) => {
 		return (
 			<>
@@ -19,22 +19,16 @@ const Courses = (props) => {
 								<div className="flex items-center justify-center overflow-hidden max-h-56">
 									<img
 										alt={
-											images === undefined
-												? ""
-												: images[index + offset]
-														.alt_description
+											images[0][getRandomNum(0, 30)]
+												?.alt_description
 										}
 										src={
-											images === undefined
-												? ""
-												: images[index + offset].urls
-														.thumb
+											images[0][getRandomNum(0, 30)]?.urls
+												?.thumb
 										}
 										title={
-											images === undefined
-												? ""
-												: images[index + offset]
-														.alt_description
+											images[0][getRandomNum(0, 30)]
+												?.alt_description
 										}
 										className="min-w-full min-h-full flex-shrink-0"
 									/>
