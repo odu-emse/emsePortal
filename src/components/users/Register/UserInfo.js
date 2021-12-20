@@ -6,7 +6,9 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 	console.log(error)
 	const next = (e) => {
 		e.preventDefault()
-		nextStep()
+		if (!error) {
+			nextStep()
+		}
 	}
 	return (
 		<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">

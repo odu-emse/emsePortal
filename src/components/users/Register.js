@@ -6,6 +6,7 @@ import UserInfo from './Register/UserInfo'
 import PersonalInfo from './Register/PersonalInfo'
 import Confirm from './Register/Confirm'
 import Success from './Register/Success'
+import { checkTaken } from '../../utils/checkTaken'
 
 const Register = (props) => {
 	const [step, setStep] = useState(1)
@@ -85,36 +86,32 @@ const Register = (props) => {
 
 			let data = {
 				query: `query{
-				getUsers{
-					email
-				}
-			}`,
+                    users{
+                        email
+                    }
+			    }`,
 			}
 
-			const checkTaken = async (entered_email, data) => {
-				const users = await axios.post(
-					`${process.env.REACT_APP_API}/graphql`,
-					data
-				)
-
-				const { getUsers } = users.data.data
-
-				getUsers.map((user) => {
-					if (user.email === entered_email) {
+			checkTaken(email, data)
+				.then((res) => {
+					console.log(res)
+					if (res.message.length > 0) {
 						setError(true)
-						return toast.error(
-							'Account with this email already exists. Please log in',
-							{
-								position: toast.POSITION.TOP_RIGHT,
-							}
-						)
+						return toast.error(res.message, {
+							position: toast.POSITION.TOP_RIGHT,
+						})
 					} else {
-						setEmail(email)
-						return null
+						setError(false)
+						setEmail(res.email)
 					}
 				})
-			}
-			checkTaken(email, data)
+				.catch((err) => {
+					setError(true)
+					console.error(err)
+					return toast.error(err, {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				})
 		}
 		if (input === 'password') {
 			setPassword(e.target.value)

@@ -30,29 +30,40 @@ const Login = (props) => {
 		setLoading(true)
 
 		let data = {
-			query: `mutation{
-				login (email: "${email}", password: "${password}"){
-					accessToken
+			query: `query{
+				login (input: {email: "${email}", password: "${password}"}){
+                    token
 				}
 			}`,
 		}
 
-		axios
-			.post(`${process.env.REACT_APP_API}/graphql`, data)
-			.then((res) => {
-				const { accessToken } = res.data.data.login
-				setLoading(false)
-				localStorage.setItem('JWT', accessToken)
-				refreshPage()
-				return props.history.push('/dashboard')
-			})
-			.catch((err) => {
-				toast.error(err.response.data.error, {
-					position: toast.POSITION.TOP_RIGHT,
+		if (email.length > 0 && password.length > 0) {
+			axios
+				.post(`${process.env.REACT_APP_API}/graphql`, data)
+				.then((res) => {
+					if (res.data.errors) {
+						setLoading(false)
+						return toast.error(res.data.errors[0].message, {
+							position: toast.POSITION.TOP_RIGHT,
+						})
+					} else {
+						const { token } = res.data.data.login
+						setLoading(false)
+						localStorage.setItem('JWT', token)
+						// refreshPage()
+						return props.history.push('/dashboard')
+					}
 				})
-				console.error('onLogin() error: ', err)
-				setLoading(false)
+				.catch((err) => {
+					console.error('onLogin() error: ', err)
+					setLoading(false)
+				})
+		} else {
+			setLoading(false)
+			return toast.error('Please fill out all fields.', {
+				position: toast.POSITION.TOP_RIGHT,
 			})
+		}
 	}
 
 	if (loading) {

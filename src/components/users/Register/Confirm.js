@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from 'axios'
 import { ArrowRight, ArrowLeft } from 'react-feather'
 import { useHistory } from 'react-router-dom'
@@ -26,39 +25,40 @@ const Confirm = ({ previousStep, values }) => {
 			philosophy,
 		} = val
 
-		let data = JSON.stringify({
-			firstName,
-			lastName,
-			middleName,
-			email,
-			password,
-			passwordConf,
-			group,
-			title,
-			officeLocation,
-			officeHours,
-			contactPolicy,
-			phone,
-			background,
-			researchInterest,
-			selectedPapersAndPublications,
-			personalWebsite,
-			philosophy,
-		})
+		let data = {
+			query: `
+            mutation{
+                createUser(input: {
+                email: "${email}",
+                firstName: "${firstName}",
+                lastName: "${lastName}",
+                middleName: "${middleName}",
+                password: "${password}",
+                passwordConf: "${passwordConf}",
+            }){
+                id
+            }
+            }`,
+			variables: {
+				email,
+				firstName,
+				lastName,
+				middleName,
+				password,
+				passwordConf,
+			},
+		}
 
 		axios
-			.post(`${process.env.REACT_APP_API}/api/users/register`, data, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-			.then((response) => {
-				if (response.status === 200) {
+			.post(`${process.env.REACT_APP_API}/graphql`, data)
+			.then((res) => {
+				if (res.status === 200) {
 					history.push('/users/login')
 				}
 			})
 			.catch((err) => {
-				return console.error(err)
+				console.log(err)
+				return null
 			})
 	}
 
