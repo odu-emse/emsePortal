@@ -8,8 +8,7 @@ let ModuleItem = (props) => {
 	const { modules, images, loading, imageLoading } = props
 
 	const filterModules = (mod, text, variant) => {
-		console.log(mod)
-		return (
+		return mod ? (
 			<>
 				<h4 className="my-3 text-3xl">{text}</h4>
 				<div className="module--list grid grid-cols-5 gap-5 overflow-x-hidden">
@@ -66,6 +65,8 @@ let ModuleItem = (props) => {
 					))}
 				</div>
 			</>
+		) : (
+			<p className="text-3xl">Sorry, no modules could be found</p>
 		)
 	}
 
