@@ -63,6 +63,7 @@
 		]
 	},
 	"devDependencies": {
+		"prettier": "^2.4.1",
 		"standard-version": "^9.1.1"
 	},
 	"resolutions": {

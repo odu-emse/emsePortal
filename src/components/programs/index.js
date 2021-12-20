@@ -57,17 +57,14 @@ const Modules = () => {
 	useEffect(() => {
 		let data = {
 			query: `{
-				getModules{
+				modules{
 					id,
 					moduleName,
 					moduleNumber,
 					description,
 					duration,
 					numSlides,
-					rating,
 					keywords,
-					hasAssignment,
-					enrolled
 				}
 			}`,
 		}
@@ -84,7 +81,10 @@ const Modules = () => {
 				setModules(results)
 				setModulesLoading(false)
 			})
-			.catch((err) => console.error(err))
+			.catch((err) => {
+				console.error(err)
+				setModulesLoading(false)
+			})
 
 		// TODO: course fetching
 		// axios
@@ -102,8 +102,6 @@ const Modules = () => {
 		// 	.catch((err) => console.error(err))
 
 		getImages()
-
-		console.log(image)
 	}, [])
 
 	return loadingImages || loadingModules ? (

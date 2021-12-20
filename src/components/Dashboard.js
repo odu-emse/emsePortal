@@ -9,26 +9,52 @@ import {
 	Line,
 	LineChart,
 } from 'recharts'
+import styled from 'styled-components'
+
+const Matrix = styled.div`
+	&:before {
+		content: ' ';
+		width: 1px;
+		height: 66%;
+		display: block;
+		background-color: ${(props) => props.bg};
+	}
+`
 
 const Dashboard = () => {
 	return (
-		<section className="px-4 py-3">
-			<div className="flex flex-col flex-wrap">
-				<div className="flex flex-row">
-					<Panel className="mx-4 my-4 lg:w-1/2">
+		<section className="">
+			<div className="w-full h-72 bg-gray-50 flex flex-row content-around shadow-md border-b-2 border-gray-50 ">
+				<div className="w-1/3 text-center px-3 py-3">
+					<RenderLineChart />
+					<h3 className="text-lg text-gray-300">
+						Estimated Time of Completion
+					</h3>
+				</div>
+				<Matrix className="w-1/3 text-center border-l-2 border-r-2 border-gray-200 px-3 py-3">
+					<RenderLineChart />
+					<h3 className="text-lg text-gray-300">Dedication Matrix</h3>
+				</Matrix>
+				<div className="w-1/3 text-center px-3 py-3">
+					<h3 className="text-lg text-gray-300">Hours Completed</h3>
+				</div>
+			</div>
+			<div className="flex flex-col flex-wrap px-4 py-3">
+				<div className="flex flex-col lg:flex-row relative max-w-full">
+					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
 						<h1 className="text-xl my-2">Your assignments</h1>
 						<RenderLineChart />
 					</Panel>
-					<Panel className="mx-4 my-4 lg:w-1/2">
+					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
 						<h1 className="text-xl my-2">Your courses</h1>
 					</Panel>
 				</div>
 
-				<div className="flex flex-row">
-					<Panel className="mx-4 my-4 lg:w-1/2">
+				<div className="flex flex-col lg:flex-row relative max-w-full">
+					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
 						<h1 className="text-xl my-2">Assignment type scores</h1>
 					</Panel>
-					<Panel className="mx-4 my-4 lg:w-1/2">
+					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
 						<h1 className="text-xl my-2">Module learning format</h1>
 					</Panel>
 				</div>
@@ -40,7 +66,7 @@ const Dashboard = () => {
 const Panel = ({ children, className }) => {
 	return (
 		<div
-			className={`bg-gray-50 border border-gray-100 rounded-sm shadow-md w-full h-96 md:w-1/2 md:h-96 lg:h-96 max-h-screen relative py-2 px-3 ${className}`}
+			className={`bg-gray-50 border border-gray-100 rounded-sm shadow-md w-2/3 h-96 lg:w-1/2 md:h-96 lg:h-96 max-h-screen relative py-2 px-3 ${className}`}
 		>
 			{children}
 		</div>

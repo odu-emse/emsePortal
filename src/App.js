@@ -23,31 +23,70 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-				<AppNavbar />
-				<Switch>
-					<Protector exact path="/portal" component={Portal} />
+				<div className="flex flex-row">
+					<AppNavbar />
+					<div className="pt-16 w-10/12">
+						<Switch>
+							{/* <Protector exact path="/portal" component={Portal} /> */}
+							<Route exact path="/portal" component={Portal} />
 
-					<Protector path="/dashboard" exact component={Dashboard} />
+							{/* <Protector path="/dashboard" exact component={Dashboard} /> */}
+							<Route
+								path="/dashboard"
+								exact
+								component={Dashboard}
+							/>
 
-					<Protector path="/programs" exact component={Programs} />
+							{/* <Protector path="/programs" exact component={Programs} /> */}
+							<Route
+								path="/programs"
+								exact
+								component={Programs}
+							/>
 
-					<Protector
-						path="/modules/:moduleId"
-						component={ModuleHousing}
-					/>
+							{/* <Protector
+								path="/modules/:moduleId"
+								component={ModuleHousing}
+							/> */}
+							<Route
+								path="/modules/:moduleId"
+								component={ModuleHousing}
+							/>
 
-					<Protector path="/assignments" component={Assignments} />
+							{/* <Protector path="/assignments" component={Assignments} /> */}
+							<Route
+								path="/assignments"
+								component={Assignments}
+							/>
 
-					<Route path="/users/login" exact component={Login} />
+							<Route
+								path="/users/login"
+								exact
+								component={Login}
+							/>
 
-					<Route path="/users/register" exact component={Register} />
+							<Route
+								path="/users/register"
+								exact
+								component={Register}
+							/>
 
-					<Route path="/users/logout" exact component={Logout} />
+							<Route
+								path="/users/logout"
+								exact
+								component={Logout}
+							/>
 
-					<Route path="/users/userVerify" component={UserVerify} />
+							<Route
+								path="/users/userVerify"
+								component={UserVerify}
+							/>
 
-					<Protector path="/users/:id" component={Profile} />
-				</Switch>
+							{/* <Protector path="/users/:id" component={Profile} /> */}
+							<Route path="/users/:id" component={Profile} />
+						</Switch>
+					</div>
+				</div>
 			</div>
 		</Router>
 	)
