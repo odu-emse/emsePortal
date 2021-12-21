@@ -90,6 +90,7 @@ const Login = (props) => {
 								className="py-2 px-3 w-full border border-gray rounded "
 								placeholder="example@odu.edu"
 								name="email"
+								value={email}
 								onChange={(e) => change(e)}
 							/>
 						</div>

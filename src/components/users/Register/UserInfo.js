@@ -183,7 +183,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 				<div className="w-full text-center">
 					<div className="mt-4 block font-sm text-gray-800 font-weight-light">
 						Already have an account?{' '}
-						<Link to="/users/register">
+						<Link to="/users/login">
 							<span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
 								Log in
 							</span>
