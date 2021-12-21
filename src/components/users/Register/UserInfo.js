@@ -6,7 +6,9 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 	console.log(error)
 	const next = (e) => {
 		e.preventDefault()
-		nextStep()
+		if (!error) {
+			nextStep()
+		}
 	}
 	return (
 		<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
@@ -181,7 +183,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 				<div className="w-full text-center">
 					<div className="mt-4 block font-sm text-gray-800 font-weight-light">
 						Already have an account?{' '}
-						<Link to="/users/register">
+						<Link to="/users/login">
 							<span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
 								Log in
 							</span>
