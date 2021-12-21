@@ -68,7 +68,11 @@ const Register = (props) => {
 
 	//previous step
 	const previousStep = () => {
-		setStep(step - 1)
+		if (group === 'student' && step === 3) {
+			setStep(step - 2)
+		} else {
+			setStep(step - 1)
+		}
 	}
 
 	const change = (input) => (e) => {
