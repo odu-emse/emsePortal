@@ -23,11 +23,12 @@ describe('Load Register screen', () => {
 	})
 
 	it('should not display an error if email you are trying to register with is not taken', () => {
-		cy.get('input[name=firstName]').type('John')
-		cy.get('input[name=lastName]').type('Doe')
 		cy.get('input[name=middleName]').type('Smith')
-		cy.get('input[name=email]')
-			.type('admin@odu.edu')
+		cy.register({
+			email: 'admin@admin.com',
+			password: 'testing12345',
+			group: 'student',
+		})
 			.get('div.Toastify__toast-body')
 			.should('not.exist')
 	})
@@ -38,13 +39,11 @@ describe('Load Register screen', () => {
 	})
 
 	it('should not display an error if middle name is not entered', () => {
-		cy.get('input[name=firstName]').type('John')
-		cy.get('input[name=lastName]').type('Doe')
-		cy.get('input[name=email]').type('admin@odu.edu')
-		cy.get('input[name=password]').type('password')
-		cy.get('input[name=passwordConf]').type('password')
-		cy.get('input[name=group]').first().check()
-		cy.get('button[type=submit]').click()
+		cy.register({
+			email: 'admin@admin.com',
+			password: 'testing12345',
+			group: 'student',
+		})
 		cy.get('div.Toastify__toast-body').should('not.exist')
 	})
 
@@ -62,13 +61,46 @@ describe('Load Register screen', () => {
 	})
 
 	it('should lead to next form if not student', () => {
-		cy.get('input[name=firstName]').type('John')
-		cy.get('input[name=lastName]').type('Doe')
-		cy.get('input[name=email]').type('admin@odu.edu')
-		cy.get('input[name=password]').type('password')
-		cy.get('input[name=passwordConf]').type('password')
-		cy.get('form input[name=group]').last().check()
-		cy.get('button[type=submit]').click()
+		cy.register({ group: 'admin' })
 		cy.get('h1').should('contain', 'Personal information')
 	})
+
+	it('should let students go backward from confirmation page', () => {
+		cy.register({ group: 'student' })
+		cy.get('button[type=reset]').click()
+		cy.get('h1').should('contain', 'User information')
+	})
+
+	//TODO: We expect this to fail since this is an active bug ALMP-205
+	it('should display an error if email you are trying to register with not a valid email', () => {
+		cy.register({
+			email: 'dpapp001',
+			password: 'testing12345',
+			group: 'student',
+		})
+		cy.get('div.Toastify__toast-body').should('exist')
+	})
+
+	// TODO: Figure out what's going on when we submit rather then click
+	// The point of this case is that when we are doing our post request on form submit
+	// we are putting all user data into the url and not displaying any error massages.
+	// It's like we are only resetting the form and not submitting it.
+	// The fact that it lets us proceed even without a proper email address is concerning
+	it('should display an error if email you are trying to submit the form with not a valid email', () => {
+		cy.get('input[name=firstName]').type('John')
+		cy.get('input[name=lastName]').type('Doe')
+		cy.get('input[name=email]').type('dpapp001')
+		cy.get('input[name=password]').type('testing12345')
+		cy.get('input[name=passwordConf]').type('testing12345')
+		cy.get('form input[name=group]').first().check()
+		cy.get('form').submit()
+		cy.get('div.Toastify__toast-body').should('exist')
+	})
 })
+
+//TODO: Break these cases up into separate test clusters
+// describe('Test Register form', () => {
+// 	beforeEach(() => {
+// 		cy.visit('/users/register')
+// 	})
+// })
