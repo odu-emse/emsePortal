@@ -57,17 +57,17 @@ const Modules = () => {
 	useEffect(() => {
 		let data = {
 			query: `{
-				getModules{
+				modules{
 					id,
-					moduleName,
-					moduleNumber,
-					description,
-					duration,
-					numSlides,
-					rating,
-					keywords,
-					hasAssignment,
-					enrolled
+                    moduleNumber,
+                    moduleName,
+                    description,
+                    duration,
+                    intro,
+                    numSlides,
+                    keywords,
+                    createdAt,
+                    updatedAt,
 				}
 			}`,
 		}
@@ -80,7 +80,7 @@ const Modules = () => {
 				},
 			})
 			.then(async (res) => {
-				let results = await res.data.data.getModules
+				let results = await res.data.data.modules
 				setModules(results)
 				setModulesLoading(false)
 			})
