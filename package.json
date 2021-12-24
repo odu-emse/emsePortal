@@ -10,7 +10,7 @@
 		"@sentry/tracing": "^6.2.1",
 		"@tailwindcss/postcss7-compat": "^2.0.2",
 		"@testing-library/jest-dom": "^5.11.9",
-		"@testing-library/react": "^11.2.5",
+		"@testing-library/react": "^12.1.2",
 		"@testing-library/user-event": "^7.1.2",
 		"autoprefixer": "^9",
 		"axios": "^0.21.1",
@@ -39,7 +39,8 @@
 		"dev": "REACT_APP_API=https://emse-dev-api.herokuapp.com craco start",
 		"local": "REACT_APP_API=http://localhost:4000 craco start",
 		"build": "craco build",
-		"test": "craco test",
+		"test": "cypress run",
+		"test:ui": "cypress open",
 		"eject": "craco eject",
 		"release": "standard-version",
 		"patch": "npm run release -- --release-as patch",
@@ -48,7 +49,10 @@
 		"addTag": "git push --follow-tags origin dev"
 	},
 	"eslintConfig": {
-		"extends": "react-app"
+		"extends": [
+			"react-app",
+			"plugin:cypress/recommended"
+		]
 	},
 	"browserslist": {
 		"production": [
@@ -63,6 +67,10 @@
 		]
 	},
 	"devDependencies": {
+		"@cypress/react": "^5.11.0",
+		"@cypress/webpack-dev-server": "^1.8.0",
+		"cypress": "^9.1.1",
+		"eslint-plugin-cypress": "^2.12.1",
 		"standard-version": "^9.1.1"
 	},
 	"resolutions": {
