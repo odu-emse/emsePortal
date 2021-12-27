@@ -1,7 +1,6 @@
 //Helpers
-import React from 'react'
+import { createContext } from 'react'
 import './App.sass'
-import AppNavbar from './components/AppNavbar'
 import Protector from './components/Protector'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,6 +17,10 @@ import UserVerify from './components/users/UserVerify'
 import Dashboard from './components/Dashboard'
 import Portal from './components/Portal'
 import Assignments from './components/Assignments'
+import Layout from './components/Layout'
+import Sidebar from './components/Sidebar'
+
+export const AuthContext = createContext()
 
 function App() {
 	return (
@@ -34,57 +37,57 @@ function App() {
 									component={Portal}
 								/>
 
-							{/* <Protector path="/dashboard" exact component={Dashboard} /> */}
-							<Route
-								path="/dashboard"
-								exact
-								component={Dashboard}
-							/>
+								{/* <Protector path="/dashboard" exact component={Dashboard} /> */}
+								<Route
+									path="/dashboard"
+									exact
+									component={Dashboard}
+								/>
 
-							{/* <Protector path="/programs" exact component={Programs} /> */}
-							<Route
-								path="/programs"
-								exact
-								component={Programs}
-							/>
+								{/* <Protector path="/programs" exact component={Programs} /> */}
+								<Route
+									path="/programs"
+									exact
+									component={Programs}
+								/>
 
-							{/* <Protector
+								{/* <Protector
 								path="/modules/:moduleId"
 								component={ModuleHousing}
 							/> */}
-							<Route
-								path="/modules/:moduleId"
-								component={ModuleHousing}
-							/>
+								<Route
+									path="/modules/:moduleId"
+									component={ModuleHousing}
+								/>
 
-							{/* <Protector path="/assignments" component={Assignments} /> */}
-							<Route
-								path="/assignments"
-								component={Assignments}
-							/>
+								{/* <Protector path="/assignments" component={Assignments} /> */}
+								<Route
+									path="/assignments"
+									component={Assignments}
+								/>
 
-							<Route
-								path="/users/login"
-								exact
-								component={Login}
-							/>
+								<Route
+									path="/users/login"
+									exact
+									component={Login}
+								/>
 
-							<Route
-								path="/users/register"
-								exact
-								component={Register}
-							/>
+								<Route
+									path="/users/register"
+									exact
+									component={Register}
+								/>
 
-							<Route
-								path="/users/logout"
-								exact
-								component={Logout}
-							/>
+								<Route
+									path="/users/logout"
+									exact
+									component={Logout}
+								/>
 
-							<Route
-								path="/users/userVerify"
-								component={UserVerify}
-							/>
+								<Route
+									path="/users/userVerify"
+									component={UserVerify}
+								/>
 
 								<Protector
 									path="/users/:id"
