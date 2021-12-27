@@ -12,13 +12,13 @@ import {
 import styled from 'styled-components'
 
 const Matrix = styled.div`
-	&:before {
+	/* &:before {
 		content: ' ';
 		width: 1px;
 		height: 66%;
 		display: block;
 		background-color: ${(props) => props.bg};
-	}
+	} */
 `
 
 const Dashboard = () => {

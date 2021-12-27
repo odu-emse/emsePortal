@@ -23,12 +23,16 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-				<div className="flex flex-row">
-					<AppNavbar />
-					<div className="pt-16 w-10/12">
-						<Switch>
-							{/* <Protector exact path="/portal" component={Portal} /> */}
-							<Route exact path="/portal" component={Portal} />
+				<AuthContext.Provider value={{}}>
+					<Layout>
+						<Sidebar />
+						<div className="w-full">
+							<Switch>
+								<Protector
+									exact
+									path="/portal"
+									component={Portal}
+								/>
 
 							{/* <Protector path="/dashboard" exact component={Dashboard} /> */}
 							<Route
@@ -82,11 +86,14 @@ function App() {
 								component={UserVerify}
 							/>
 
-							{/* <Protector path="/users/:id" component={Profile} /> */}
-							<Route path="/users/:id" component={Profile} />
-						</Switch>
-					</div>
-				</div>
+								<Protector
+									path="/users/:id"
+									component={Profile}
+								/>
+							</Switch>
+						</div>
+					</Layout>
+				</AuthContext.Provider>
 			</div>
 		</Router>
 	)
