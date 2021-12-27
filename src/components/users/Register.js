@@ -177,9 +177,10 @@ const Register = (props) => {
 		website,
 		philosophy,
 	}
-	if (getToken() !== `Bearer ${null}`) {
+	if (getToken() !== `Bearer ${null}` || getToken() !== undefined) {
 		//if there is a token -> send them home
-		return props.history.push('/')
+		props.history.push('/portal')
+		return null
 	} else {
 		switch (step) {
 			case 1:

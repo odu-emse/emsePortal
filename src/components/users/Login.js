@@ -51,7 +51,9 @@ const Login = (props) => {
 						setLoading(false)
 						localStorage.setItem('JWT', token)
 						// refreshPage()
-						return props.history.push('/dashboard')
+						return props.history.push(
+							props.location.from.pathname || '/portal'
+						)
 					}
 				})
 				.catch((err) => {

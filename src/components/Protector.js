@@ -56,7 +56,7 @@ const Protector = ({ component: Component, ...rest }) => {
 			// 		return false
 			// 	})
 		}
-	}, [authentication, loading])
+	}, [])
 
 	return loading === true ? (
 		loader()
@@ -67,6 +67,7 @@ const Protector = ({ component: Component, ...rest }) => {
 				authentication === false ? (
 					<Redirect
 						to={{
+							from: props.location,
 							pathname: '/users/login',
 							state: {
 								from: props.location,

@@ -29,7 +29,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="firstName"
 							onChange={change('firstName')}
 							defaultValue={values.firstName}
-							required="true"
+							required={true}
 						/>
 					</div>
 					<div className="mx-1 w-1/3">
@@ -46,7 +46,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="middleName"
 							onChange={change('middleName')}
 							defaultValue={values.middleName}
-							required="true"
+							required={true}
 						/>
 					</div>
 					<div className="ml-1 w-1/3">
@@ -63,7 +63,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="lastName"
 							onChange={change('lastName')}
 							defaultValue={values.lastName}
-							required="true"
+							required={true}
 						/>
 					</div>
 				</div>
@@ -78,7 +78,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						name="email"
 						onChange={change('email')}
 						defaultValue={values.email}
-						required="true"
+						required={true}
 					/>
 				</div>
 				<div className="my-3 w-full flex flex-row">
@@ -96,7 +96,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="password"
 							onChange={change('password')}
 							defaultValue={values.password}
-							required="true"
+							required={true}
 						/>
 					</div>
 					<div className="w-1/2 ml-1">
@@ -113,7 +113,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="passwordConf"
 							onChange={change('passwordConf')}
 							defaultValue={values.passwordConf}
-							required="true"
+							required={true}
 						/>
 					</div>
 				</div>
