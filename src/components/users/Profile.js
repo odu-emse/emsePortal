@@ -20,45 +20,105 @@ const Profile = (props) => {
 	profileCheck(token, history, params)
 
 	const [user, setUser] = useState(initialUserState)
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 
-	console.log(params.id)
-
-	const profile = user
-
-	useEffect(() => {
-		const getUser = async () => {
-			setLoading(true)
-
-			let payload = {
-				query: `{
-				getUser(id: "${params.id}" ){
+	const getUser = async () => {
+		let payload = {
+			query: `{
+				user(id: "${params.id}" ){
 					firstName,
 					lastName,
+                    middleName
 					email,
-					active,
-					group,
+                    isAdmin
 				}
 			}`,
-			}
-
-			const data = await axios
-				.post(`${process.env.REACT_APP_API}/graphql`, payload, {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				})
-				.then((document) => {
-					setLoading(false)
-					return document.data.data.getUser
-				})
-				.catch((err) => {
-					toast.error(err.response.data.error, {
-						position: toast.POSITION.TOP_RIGHT,
-					})
-				})
-			setUser(data)
 		}
+
+		const data = await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((document) => {
+				setLoading(false)
+				return document.data.data.user
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+		setUser(data)
+	}
+
+	const updateUser = async (e) => {
+		setLoading(true)
+		e.preventDefault()
+		const payload = {
+			query: `mutation{
+                        updateUser(input: {
+                            id: "${params.id}",
+                            middleName: "${user.middleName}",
+                            firstName: "${user.firstName}",
+                            lastName: "${user.lastName}",
+                            email: "${user.email}"
+                        }){
+                            firstName,
+                            lastName,
+                            middleName,
+                            email
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => {
+				setLoading(false)
+				setUser(res.data.data.updateUser)
+				toast.success('Your profile was updated!', {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+	}
+
+	const deleteUser = async (e) => {
+		e.preventDefault()
+		const payload = {
+			query: `mutation{
+                        deleteUser(id: "${params.id}"){
+                            id
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then(() => {
+				setLoading(false)
+				return props.history.push('/users/register')
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+	}
+
+	useEffect(() => {
 		getUser()
 	}, [])
 
@@ -114,7 +174,13 @@ const Profile = (props) => {
 									type="text"
 									placeholder="First name"
 									name="firstName"
-									value={profile.firstName}
+									value={user.firstName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											firstName: e.target.value,
+										})
+									}
 								/>
 							</label>
 							<label
@@ -127,7 +193,13 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Middle name"
 									name="middleName"
-									value={profile.middleName}
+									value={user.middleName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											middleName: e.target.value,
+										})
+									}
 								/>
 							</label>
 							<label
@@ -140,7 +212,13 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Last name"
 									name="lastName"
-									value={profile.lastName}
+									value={user.lastName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											lastName: e.target.value,
+										})
+									}
 								/>
 							</label>
 						</div>
@@ -155,23 +233,13 @@ const Profile = (props) => {
 									type="email"
 									placeholder="Email"
 									name="email"
-									value={profile.email}
-								/>
-							</label>
-						</div>
-						<div className="w-full mb-3">
-							<label
-								htmlFor=""
-								className="block flex-1 font-bold"
-							>
-								Group
-								<input
-									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize cursor-not-allowed"
-									type="text"
-									placeholder="Group"
-									name="adviser"
-									disabled
-									value={profile.group}
+									value={user.email}
+									onChange={(e) =>
+										setUser({
+											...user,
+											email: e.target.value,
+										})
+									}
 								/>
 							</label>
 						</div>
@@ -190,7 +258,7 @@ const Profile = (props) => {
 								/>
 							</label>
 						</div>
-						{profile.group === 'instructor' && (
+						{user.isAdmin && (
 							<>
 								<div className="w-full mb-3">
 									<label
@@ -292,6 +360,12 @@ const Profile = (props) => {
 								</div>
 							</>
 						)}
+						<button
+							className="bg-blue-300 border-blue-200 rounded w-auto text-black px-4 py-2"
+							onClick={(e) => updateUser(e)}
+						>
+							Update profile
+						</button>
 					</form>
 					<h3
 						id="modules"
@@ -328,16 +402,17 @@ const Profile = (props) => {
 					</div>
 					<h3
 						id="kill"
-						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+						className="text-2xl bold border-b border-gray-100 text-red-500 mb-3 mt-3"
+					>
+						Danger zone
+					</h3>
+
+					<button
+						className="text-white border-red-400 bg-red-500 rounded w-auto px-4 py-2"
+						onClick={() => deleteUser()}
 					>
 						Kill account
-					</h3>
-					<div className="">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Suscipit beatae quam sint quis sapiente nobis esse! Et
-						reprehenderit a eum laudantium earum? Voluptas aliquam,
-						sit eaque in sed distinctio vitae!
-					</div>
+					</button>
 				</div>
 			</div>
 		</>

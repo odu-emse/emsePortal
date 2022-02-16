@@ -1,8 +1,10 @@
-import React from "react"
+import Container from './Container'
 
 const Portal = (props) => {
 	return (
-		<h3 className="text-3xl">Portal</h3>
+		<Container>
+			<h3 className="text-3xl">Portal</h3>
+		</Container>
 	)
 }
 

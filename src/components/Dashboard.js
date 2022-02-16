@@ -1,4 +1,4 @@
-import React from 'react'
+import Container from './Container'
 import {
 	CartesianGrid,
 	XAxis,
@@ -8,57 +8,226 @@ import {
 	ReferenceLine,
 	Line,
 	LineChart,
+	Radar,
+	RadarChart,
+	PolarGrid,
+	PolarAngleAxis,
+	Legend,
 } from 'recharts'
-import styled from 'styled-components'
 
-const Matrix = styled.div`
-	/* &:before {
-		content: ' ';
-		width: 1px;
-		height: 66%;
-		display: block;
-		background-color: ${(props) => props.bg};
-	} */
-`
+const data = [
+	{
+		subject: 'ENMA 600',
+		A: 50,
+		B: 98,
+		C: 150,
+		fullMark: 150,
+	},
+	{
+		subject: 'ENMA 601',
+		A: 48,
+		B: 87,
+		C: 130,
+		fullMark: 150,
+	},
+	{
+		subject: 'ENMA 603',
+		A: 52,
+		B: 71,
+		C: 120,
+		fullMark: 150,
+	},
+	{
+		subject: 'ENMA 604',
+		A: 99,
+		B: 120,
+		C: 150,
+		fullMark: 150,
+	},
+	{
+		subject: 'ENMA 614',
+		A: 62,
+		B: 70,
+		C: 120,
+		fullMark: 150,
+	},
+	{
+		subject: 'ENMA 715',
+		A: 25,
+		B: 55,
+		C: 130,
+		fullMark: 150,
+	},
+]
+
+const timeOfCompletion = [
+	{
+		name: 'January',
+		you: 100,
+	},
+	{
+		name: 'February',
+		you: 195,
+	},
+	{
+		name: 'March',
+		you: 305,
+	},
+	{
+		name: 'April',
+		you: 380,
+	},
+	{
+		name: 'May',
+		you: 370,
+	},
+	{
+		name: 'June',
+		you: 265,
+	},
+	{
+		name: 'July',
+		you: 220,
+	},
+	{
+		name: 'August',
+		you: 175,
+	},
+	{
+		name: 'September',
+		you: 140,
+	},
+	{
+		name: 'October',
+		you: 100,
+	},
+	{
+		name: 'November',
+		you: 80,
+	},
+	{
+		name: 'December',
+		you: 65,
+	},
+]
 
 const Dashboard = () => {
 	return (
-		<section className="">
-			<div className="w-full h-72 bg-gray-50 flex flex-row content-around shadow-md border-b-2 border-gray-50 ">
-				<div className="w-1/3 text-center px-3 py-3">
-					<RenderLineChart />
+		<section className="w-full overflow-x-hidden">
+			<div className="w-full h-auto xl:h-72 bg-gray-50 flex flex-col xl:flex-row justify-between items-center xl:content-around shadow-md border-b-2 border-gray-50 ">
+				<div className="w-full xl:w-1/4 h-full text-center px-3 py-3">
+					<ResponsiveContainer width="100%" height="80%">
+						<LineChart
+							width={500}
+							height={300}
+							data={timeOfCompletion}
+							margin={{
+								top: 20,
+								right: 50,
+								left: 20,
+								bottom: 5,
+							}}
+						>
+							<CartesianGrid strokeDasharray="3 3" />
+							<XAxis dataKey="name" />
+							<YAxis type="number" domain={[0, 400]} />
+							<Tooltip />
+							<Line
+								dataKey="you"
+								type="monotone"
+								stroke="#92C1E9"
+								dot={{ stroke: '#92C1E9', strokeWidth: 1 }}
+							/>
+						</LineChart>
+					</ResponsiveContainer>
 					<h3 className="text-lg text-gray-300">
 						Estimated Time of Completion
 					</h3>
 				</div>
-				<Matrix className="w-1/3 text-center border-l-2 border-r-2 border-gray-200 px-3 py-3">
-					<RenderLineChart />
-					<h3 className="text-lg text-gray-300">Dedication Matrix</h3>
-				</Matrix>
-				<div className="w-1/3 text-center px-3 py-3">
+				<div className="w-4/5 xl:w-2/4 h-full text-center border-b-2 border-t-2 xl:border-l-2 xl:border-r-2 xl:border-t-0 xl:border-b-0 border-gray-200 px-3 py-3">
+					<ResponsiveContainer width="100%" height="80%">
+						<RadarChart
+							cx="50%"
+							cy="50%"
+							outerRadius="80%"
+							data={data}
+						>
+							<PolarGrid />
+							<PolarAngleAxis dataKey="subject" />
+							<Radar
+								name="Current semester"
+								dataKey="A"
+								stroke="#e74d3c"
+								fill="#e74d3c"
+								fillOpacity={0.5}
+							/>
+							<Radar
+								name="Next semester"
+								dataKey="B"
+								stroke="#f39d12"
+								fill="#f39d12"
+								fillOpacity={0.5}
+							/>
+							<Radar
+								name="Projected semester"
+								dataKey="C"
+								stroke="#7ccc63"
+								fill="#7ccc63"
+								fillOpacity={0.5}
+							/>
+							<Legend
+								iconType={'diamond'}
+								layout="vertical"
+								align="right"
+								verticalAlign="middle"
+								margin={{
+									top: 0,
+									right: 0,
+									bottom: 0,
+									left: 150,
+								}}
+							/>
+						</RadarChart>
+					</ResponsiveContainer>
+					<h3 className="text-lg text-gray-300">
+						Course Material Matrix
+					</h3>
+				</div>
+				<div className="w-full xl:w-1/4 h-full text-center px-3 py-3 ">
+					<div className="h-4/5 flex items-center justify-center">
+						<h2 className="text-7xl">
+							<span className="text-yellow-500">528</span>/1500
+						</h2>
+					</div>
 					<h3 className="text-lg text-gray-300">Hours Completed</h3>
 				</div>
 			</div>
-			<div className="flex flex-col flex-wrap px-4 py-3">
-				<div className="flex flex-col lg:flex-row relative max-w-full">
-					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
-						<h1 className="text-xl my-2">Your assignments</h1>
-						<RenderLineChart />
-					</Panel>
-					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
-						<h1 className="text-xl my-2">Your courses</h1>
-					</Panel>
-				</div>
+			<Container>
+				<div className="w-full flex flex-col flex-wrap md:px-4 md:py-3">
+					<div className="flex flex-col lg:flex-row relative max-w-full">
+						<Panel className="md:mx-4 md:my-4 my-2 lg:w-1/2 w-full">
+							<h1 className="text-xl my-2">Your assignments</h1>
+							<RenderLineChart />
+						</Panel>
+						<Panel className="md:mx-4 md:my-4 my-2 lg:w-1/2 w-full">
+							<h1 className="text-xl my-2">Your courses</h1>
+						</Panel>
+					</div>
 
-				<div className="flex flex-col lg:flex-row relative max-w-full">
-					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
-						<h1 className="text-xl my-2">Assignment type scores</h1>
-					</Panel>
-					<Panel className="mx-4 my-4 lg:w-1/2 w-full">
-						<h1 className="text-xl my-2">Module learning format</h1>
-					</Panel>
+					<div className="flex flex-col lg:flex-row relative max-w-full">
+						<Panel className="md:mx-4 md:my-4 my-2 lg:w-1/2 w-full">
+							<h1 className="text-xl my-2">
+								Assignment type scores
+							</h1>
+						</Panel>
+						<Panel className="md:mx-4 md:my-4 my-2 lg:w-1/2 w-full">
+							<h1 className="text-xl my-2">
+								Module learning format
+							</h1>
+						</Panel>
+					</div>
 				</div>
-			</div>
+			</Container>
 		</section>
 	)
 }
@@ -66,7 +235,7 @@ const Dashboard = () => {
 const Panel = ({ children, className }) => {
 	return (
 		<div
-			className={`bg-gray-50 border border-gray-100 rounded-sm shadow-md w-2/3 h-96 lg:w-1/2 md:h-96 lg:h-96 max-h-screen relative py-2 px-3 ${className}`}
+			className={`bg-gray-50 border border-gray-100 rounded-sm shadow-md w-full md:w-2/3 h-auto lg:w-1/2 md:h-96 lg:h-96 max-h-screen relative py-2 px-3 ${className}`}
 		>
 			{children}
 		</div>

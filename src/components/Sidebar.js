@@ -75,19 +75,15 @@ export default function Sidebar() {
 					</svg>
 				</button>
 				<div className="logo w-full flex items-center justify-center py-5">
-					{open ? (
-						<img
-							className="block h-16 w-auto"
-							src="https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/odu-sig-noidea-fullcolor.png"
-							alt="Workflow"
-						/>
-					) : (
-						<img
-							className="block h-16 w-auto"
-							src="https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/crown-r-2-color.png"
-							alt="Workflow"
-						/>
-					)}
+					<img
+						className="block max-h-16 w-auto h-auto"
+						src={`${
+							open
+								? 'https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/odu-sig-noidea-fullcolor.png'
+								: 'https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/crown-r-2-color.png'
+						}`}
+						alt="Workflow"
+					/>
 				</div>
 				<div
 					className={`menu relative h-full flex flex-col ${
@@ -120,7 +116,11 @@ export default function Sidebar() {
 							<div className="flex flex-col">
 								<NavLink
 									to="/portal"
-									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest`}
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -131,7 +131,11 @@ export default function Sidebar() {
 								</NavLink>
 								<NavLink
 									to="/dashboard"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -145,7 +149,11 @@ export default function Sidebar() {
 								</NavLink>
 								<NavLink
 									to="/programs"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -156,7 +164,11 @@ export default function Sidebar() {
 								</NavLink>
 								<NavLink
 									to="/assignments"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -167,7 +179,11 @@ export default function Sidebar() {
 								</NavLink>
 								<NavLink
 									to="/community"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -181,7 +197,11 @@ export default function Sidebar() {
 								</NavLink>
 								<NavLink
 									to="/support"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -197,7 +217,11 @@ export default function Sidebar() {
 
 							<div className="flex flex-col w-full">
 								<button
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest text-left"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: 'text-left'
+									}`}
 									id="user-menu"
 									aria-haspopup="true"
 									onClick={openUser}
@@ -209,7 +233,7 @@ export default function Sidebar() {
 										'Account'
 									) : (
 										<img
-											className="h-8 w-8 rounded-full"
+											className="md:h-8 md:w-8 h-auto w-auto rounded-full"
 											src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 											alt=""
 										/>
@@ -231,10 +255,7 @@ export default function Sidebar() {
 									on
 								>
 									<NavLink
-										to={
-											authenticated === true &&
-											`/users/${decoder()}`
-										}
+										to={`/users/${decoder()}`}
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 										role="menuitem"
@@ -253,7 +274,11 @@ export default function Sidebar() {
 								</div>
 								<NavLink
 									to="/sitemap"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
@@ -267,7 +292,11 @@ export default function Sidebar() {
 								</NavLink>
 								<NavLink
 									to="users/logout"
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest"
+									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
+										!open
+											? 'flex items-center justify-center'
+											: ''
+									}`}
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (

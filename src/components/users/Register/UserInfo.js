@@ -1,4 +1,3 @@
-import React, { Component, useState } from 'react'
 import { ArrowRight, ArrowLeft } from 'react-feather'
 import { Link } from 'react-router-dom'
 
