@@ -92,6 +92,7 @@ const Login = (props) => {
 								name="email"
 								value={email}
 								onChange={(e) => change(e)}
+								required
 							/>
 						</div>
 						<div className="my-3 w-full">
@@ -107,6 +108,7 @@ const Login = (props) => {
 								placeholder="Password"
 								name="password"
 								onChange={(e) => change(e)}
+								required
 							/>
 						</div>
 						<button
