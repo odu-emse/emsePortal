@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { decoder, round_to_precision, rating, loader } from "../../helpers"
-import StarRatingComponent from "react-star-rating-component"
-import pluralize from "pluralize"
-import { ToastContainer, toast } from "react-toastify"
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { decoder, round_to_precision, rating, loader } from '../../helpers'
+import StarRatingComponent from 'react-star-rating-component'
+import pluralize from 'pluralize'
+import { ToastContainer, toast } from 'react-toastify'
 import {
 	Download,
 	Smartphone,
@@ -13,13 +13,16 @@ import {
 	LifeBuoy,
 	Repeat,
 	Check,
-} from "react-feather"
-import IframeResizer from "iframe-resizer-react"
+} from 'react-feather'
+import IframeResizer from 'iframe-resizer-react'
+import { calculateRating } from '../../helpers'
 
 export default function ModuleHousing(props) {
 	const {
 		match: { params },
 	} = props
+
+	console.log(params)
 
 	const [module, setModule] = useState([])
 	const [content, setContent] = useState([])
@@ -37,7 +40,7 @@ export default function ModuleHousing(props) {
 			)
 			.then(() => {
 				window.location.reload()
-				toast.success("You have successfully enrolled", {
+				toast.success('You have successfully enrolled', {
 					position: toast.POSITION.TOP_RIGHT,
 				})
 			})
@@ -49,23 +52,51 @@ export default function ModuleHousing(props) {
 	useEffect(() => {
 		let config = {
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
 		}
 		axios
-			.get(
-				`${process.env.REACT_APP_API}/api/modules/${params.moduleId}`,
+			.post(
+				`${process.env.REACT_APP_API}/graphql`,
+				{
+					query: `{
+                            module(id: "${params.moduleId}"){
+                                id,
+                                moduleNumber,
+                                moduleName,
+                                description,
+                                duration,
+                                intro,
+                                numSlides,
+                                keywords,
+                                createdAt,
+                                updatedAt,
+                                feedback{
+                                    feedback,
+                                    rating
+                                },
+                                parentCourses{
+                                    course{
+                                        name
+                                    }
+                                }
+                            }
+                        }`,
+				},
 				config
 			)
 			.then((response) => {
-				const module = response.data.data
+				console.log(response)
+				const module = response.data.data.module
 				setModule(module)
 				setContent(response.data.cd)
-				if (module.enrolled.includes(decoder())) {
-					setEnrolled(true)
-				} else {
-					setEnrolled(false)
-				}
+				//TODO: identify weather the user is enrolled or not
+				// if (module.enrolled.includes(decoder())) {
+				// 	setEnrolled(true)
+				// } else {
+				// 	setEnrolled(false)
+				// }
+				setEnrolled(false)
 				setLoading(false)
 			})
 			.catch((err) => {
@@ -78,15 +109,16 @@ export default function ModuleHousing(props) {
 		<>
 			<ToastContainer />
 			<div className="mx-auto max-w-7xl px-4 py-4">
-				<IframeResizer
+				{/*TODO: we need to get content delivery working to get this fixed */}
+				{/* <IframeResizer
 					log
 					src={`${content.href}/story.html`}
 					style={{
-						width: "1px",
-						minWidth: "100%",
-						minHeight: "75vh",
+						width: '1px',
+						minWidth: '100%',
+						minHeight: '75vh',
 					}}
-				/>
+				/> */}
 				<h1 className="text-3xl font-bold mt-4 mb-2">
 					{module.moduleName}
 				</h1>
@@ -104,32 +136,30 @@ export default function ModuleHousing(props) {
 						<p className="mb-2">{module.intro}</p>
 						<div className="w-1/2">
 							<p className="font-light text-yellow-500 flex items-center">
-								<span className="pr-2">{`${round_to_precision(
-									rating(module.rating),
-									0.5
-								)}`}</span>
+								<span className="pr-2">
+									{calculateRating(module.feedback)}
+								</span>
 								<StarRatingComponent
+									name="module-rating"
 									starCount={5}
 									editing={false}
-									value={round_to_precision(
-										rating(module.rating),
-										0.5
-									)}
+									value={calculateRating(module.feedback)}
 								/>
 								<span className="pl-2 text-gray-400">
-									({module.rating.length} ratings)
+									({module.feedback.length} ratings)
 								</span>
-								<span className="pl-2 text-gray-400">
+								{/*TODO: we need to get member list to calculate this*/}
+								{/* <span className="pl-2 text-gray-400">
 									{pluralize(
-										"student",
+										'student',
 										module.enrolled.length,
 										true
 									)}
-								</span>
+								</span> */}
 							</p>
 						</div>
 						<p className="mb-4">
-							Instructed by{" "}
+							Instructed by{' '}
 							<a className="underline" href="./">
 								{module.instructor}
 							</a>
@@ -161,14 +191,15 @@ export default function ModuleHousing(props) {
 						</div>
 					</div>
 					<div className="md:w-1/3 w-full md:border border-gray-50 px-3 py-4 rounded-sm md:shadow-md">
-						<img
+						{/*TODO: we need to get content delivery working to get this fixed */}
+						{/* <img
 							src={`${content.href}/story_content/thumbnail.jpg`}
 							alt={`${module.moduleName} module thumbnail`}
 							className="w-full"
-						/>
+						/> */}
 						<div className="module--housing--inclusion">
 							<h5 className="mt-3 text-lg font-bold">
-								This module includes:{" "}
+								This module includes:{' '}
 							</h5>
 							<span className="flex mt-3 font-light items-center">
 								<div className="text-gray-400 mr-3">

@@ -44,7 +44,7 @@ export const decoder = () => {
 	const token = localStorage.getItem('JWT')
 	const decoded = jwt.decode(token)
 	if (decoded !== null) {
-		return decoded.userId
+		return decoded.id
 	} else {
 		return null
 	}
@@ -121,8 +121,8 @@ export const loader = () => {
 
 export const profileCheck = (token, history, params) => {
 	const cypher = jwt.decode(token)
-	if (cypher.userId !== params.id) {
-		history.push(`/users/${cypher.userId}`)
+	if (cypher.id !== params.id) {
+		history.push(`/users/${cypher.id}`)
 		window.location.reload()
 	}
 }
@@ -155,6 +155,20 @@ export const getRandomNum = (min, max) => {
 	min = Math.ceil(min)
 	max = Math.floor(max)
 	return Math.floor(Math.random() * (max - min) + min)
+}
+
+export const calculateRating = (feedback) => {
+	try {
+		let sum = 0
+		feedback.map((rating) => {
+			sum += rating.rating
+		})
+
+		return round_to_precision(sum / feedback.length, 0.5)
+	} catch (error) {
+		console.error(error)
+		return null
+	}
 }
 
 //TODO: [ALMP-98] course fetcher function

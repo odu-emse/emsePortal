@@ -68,6 +68,15 @@ const Modules = () => {
                     keywords,
                     createdAt,
                     updatedAt,
+                    feedback{
+                        feedback,
+                        rating
+                    },
+                    parentCourses{
+                        course{
+                            name
+                        }
+                    }
 				}
 			}`,
 		}
@@ -81,6 +90,7 @@ const Modules = () => {
 			})
 			.then(async (res) => {
 				let results = await res.data.data.modules
+				console.log(results)
 				setModules(results)
 				setModulesLoading(false)
 			})
@@ -110,22 +120,75 @@ const Modules = () => {
 	return loadingImages || loadingModules ? (
 		loader()
 	) : (
-		<div className="mx-20 px-10 max-w-full">
+		<section className="px-10 w-full overflow-x-hidden flex">
 			{/* <Search /> */}
 			<ModuleItem
-				title="All modules"
+				title="My Modules"
 				modules={modules}
 				images={image}
 				loading={loadingModules}
 				imageLoading={loadingImages}
 			/>
-			{/* <Courses
-				title="Courses you might be interested in"
-				courses={courses}
-				images={image[0]}
-				loading={loadingCourses}
-			/> */}
-		</div>
+			<aside className="w-2/12 pl-4">
+				<ul>
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Status
+					</p>
+					<li className="bg-gray-200 rounded-full my-2 px-2">All</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Overdue
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Completed
+					</li>
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Parent Courses
+					</p>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						ENMA 600
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						ENMA 601
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						ENMA 603
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						ENMA 604
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						ENMA 709
+					</li>
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Delivery Type
+					</p>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Asynchronous Media
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Hands On
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Writing Intensive
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Presentation
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Activity
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Multiple Choice
+					</li>
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Legend
+					</p>
+					<li>Completed</li>
+					<li>Overdue</li>
+					<li>Available</li>
+				</ul>
+			</aside>
+		</section>
 	)
 }
 
