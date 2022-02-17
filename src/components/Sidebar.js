@@ -148,7 +148,7 @@ export default function Sidebar() {
 									)}
 								</NavLink>
 								<NavLink
-									to="/programs"
+									to="/program"
 									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
 										!open
 											? 'flex items-center justify-center'
@@ -157,9 +157,9 @@ export default function Sidebar() {
 									activeClassName="bg-gray-900 text-white px-3 py-2 text-sm font-medium border-l-4"
 								>
 									{open ? (
-										'Programs'
+										'My Program'
 									) : (
-										<BsStack size={30} title="Programs" />
+										<BsStack size={30} title="My Program" />
 									)}
 								</NavLink>
 								<NavLink

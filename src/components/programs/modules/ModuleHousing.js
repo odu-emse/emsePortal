@@ -22,8 +22,6 @@ export default function ModuleHousing(props) {
 		match: { params },
 	} = props
 
-	console.log(params)
-
 	const [module, setModule] = useState([])
 	const [content, setContent] = useState([])
 	const [loading, setLoading] = useState(true)
@@ -86,7 +84,6 @@ export default function ModuleHousing(props) {
 				config
 			)
 			.then((response) => {
-				console.log(response)
 				const module = response.data.data.module
 				setModule(module)
 				setContent(response.data.cd)
@@ -127,14 +124,14 @@ export default function ModuleHousing(props) {
 		</>
 	) : (
 		<>
-			<div className="mx-auto max-w-7xl py-4 px-4">
-				<div className="flex md:flex-row flex-col-reverse">
-					<div className="md:w-2/3 w-full sm:mb-4 sm:mr-0 lg:mb-0 lg:mr-5">
+			<div className="mx-auto max-w-7xl py-4 px-4 w-3/4 sm:w-full xl:w-2/3">
+				<div className="flex xl:flex-row flex-col-reverse">
+					<div className="xl:w-2/3 w-full sm:mb-4 sm:mr-0 lg:mb-0 lg:mr-5">
 						<h1 className="text-3xl font-bold mb-2">
 							Module {module.moduleNumber} | {module.moduleName}
 						</h1>
 						<p className="mb-2">{module.intro}</p>
-						<div className="w-1/2">
+						<div className="w-full xl:w-1/2">
 							<p className="font-light text-yellow-500 flex items-center">
 								<span className="pr-2">
 									{calculateRating(module.feedback)}
@@ -190,7 +187,7 @@ export default function ModuleHousing(props) {
 							<p>{module.description}</p>
 						</div>
 					</div>
-					<div className="md:w-1/3 w-full md:border border-gray-50 px-3 py-4 rounded-sm md:shadow-md">
+					<div className="xl:w-1/3 w-full xl:border border-gray-50 px-3 py-4 rounded-sm xl:shadow-md">
 						{/*TODO: we need to get content delivery working to get this fixed */}
 						{/* <img
 							src={`${content.href}/story_content/thumbnail.jpg`}
@@ -205,7 +202,7 @@ export default function ModuleHousing(props) {
 								<div className="text-gray-400 mr-3">
 									<Youtube />
 								</div>
-								{module.duration} minutes on demand video
+								{module.duration} hours on demand video
 							</span>
 							<span className="flex mt-3 font-light items-center">
 								<div className="text-gray-400 mr-3">

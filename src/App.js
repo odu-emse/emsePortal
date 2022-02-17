@@ -49,12 +49,12 @@ function App() {
 								component={Dashboard}
 							/>
 							<Protector
-								path="/programs"
+								path="/program"
 								exact
 								component={Programs}
 							/>
 							<Protector
-								path="/modules/:moduleId"
+								path="/program/:moduleId"
 								component={ModuleHousing}
 							/>
 							<Protector
