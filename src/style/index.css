@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layout base {
+    .error-input {
+        @apply border-red-500 focus:ring-red-500 focus:outline-0;
+    }
+}

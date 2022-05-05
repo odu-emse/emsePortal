@@ -1,20 +1,32 @@
-import React, { useEffect, useState } from "react"
-import { getModule, loader } from "../helpers"
-import axios from "axios"
+import React, { useEffect, useState } from 'react'
+import { getModule, loader } from '../helpers'
+import axios from 'axios'
 
 const PlanOfStudy = ({ param }) => {
 	const [lessons, setLessons] = useState([])
 	const [loading, setLoading] = useState(true)
 
 	const getPlan = async () => {
+		const payload = {
+			query: `{
+                        planByID(id: "${param}"){
+                            id,
+                            student{
+                                id,
+                                firstName,
+                                lastName
+                            }
+                        }
+                    }`,
+		}
 		const plan = await axios
-			.get(`${process.env.REACT_APP_API}/api/plan/${param}`, {
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
 				headers: {
-					"Content-Type": "application/json",
+					'Content-Type': 'application/json',
 				},
 			})
 			.then((document) => {
-				return document.data.data
+				return document.data.data.planByID
 			})
 			.catch((err) => {
 				console.error(err)
@@ -25,19 +37,24 @@ const PlanOfStudy = ({ param }) => {
 	useEffect(() => {
 		getPlan()
 			.then((response) => {
-				response.modules.forEach((id) => {
-					getModule(id)
-						.then((resp) => {
-							setLessons((lessons) => [
-								...lessons,
-								resp.data.data,
-							])
-							setLoading(false)
-						})
-						.catch((err) => {
-							console.error(err)
-						})
-				})
+				try {
+					response?.modules.forEach((id) => {
+						getModule(id)
+							.then((resp) => {
+								setLessons((lessons) => [
+									...lessons,
+									resp.data.data,
+								])
+								setLoading(false)
+							})
+							.catch((err) => {
+								console.error(err)
+							})
+					})
+				} catch (error) {
+					console.error(error)
+					setLoading(false)
+				}
 			})
 			.catch((err) => {
 				console.log(err)

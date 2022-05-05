@@ -2,13 +2,13 @@ import { ArrowRight, ArrowLeft } from 'react-feather'
 import { Link } from 'react-router-dom'
 
 const UserInfo = ({ values, change, nextStep, error }) => {
-	console.log(error)
 	const next = (e) => {
 		e.preventDefault()
 		if (!error) {
 			nextStep()
 		}
 	}
+
 	return (
 		<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
 			<h1 className="text-3xl">User information</h1>
@@ -28,7 +28,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="firstName"
 							onChange={change('firstName')}
 							defaultValue={values.firstName}
-							required="true"
+							required={true}
 						/>
 					</div>
 					<div className="mx-1 w-1/3">
@@ -45,7 +45,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="middleName"
 							onChange={change('middleName')}
 							defaultValue={values.middleName}
-							required="true"
+							required={true}
 						/>
 					</div>
 					<div className="ml-1 w-1/3">
@@ -62,7 +62,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="lastName"
 							onChange={change('lastName')}
 							defaultValue={values.lastName}
-							required="true"
+							required={true}
 						/>
 					</div>
 				</div>
@@ -70,14 +70,22 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 					<label htmlFor="email" className="text-gray-400 font-xs">
 						ODU affiliated email
 					</label>
+					{/*
+					TODO: specify error class addition to email errors only. This would require me to refactor the error state in the Register component
+					*/}
 					<input
 						type="email"
-						className="py-2 px-3 w-full border border-gray rounded "
+						className={`${
+							error
+								? 'border-red-500 focus:ring-red-500 focus:outline-0'
+								: ''
+						} py-2 px-3 w-full border border-gray rounded`}
 						placeholder="example@odu.edu"
 						name="email"
 						onChange={change('email')}
 						defaultValue={values.email}
-						required="true"
+						required={true}
+						autoComplete="off"
 					/>
 				</div>
 				<div className="my-3 w-full flex flex-row">
@@ -95,7 +103,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="password"
 							onChange={change('password')}
 							defaultValue={values.password}
-							required="true"
+							required={true}
 						/>
 					</div>
 					<div className="w-1/2 ml-1">
@@ -112,21 +120,19 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="passwordConf"
 							onChange={change('passwordConf')}
 							defaultValue={values.passwordConf}
-							required="true"
+							required={true}
 						/>
 					</div>
 				</div>
-				<div
-					className="flex flex-row w-1/2 mx-auto px-3 my-3 items-center"
-					onChange={change('group')}
-				>
+				<div className="flex flex-row w-1/2 mx-auto px-3 my-3 items-center">
 					<input
 						type="radio"
 						required={true}
 						name="group"
 						className="mx-2"
-						checked={values.group === 'student' && true}
+						defaultChecked={values.group === 'student' && true}
 						value="student"
+						onChange={change('group')}
 					/>
 					<label className="my-0" htmlFor="">
 						Student
@@ -136,8 +142,9 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						required={true}
 						name="group"
 						className="mx-2"
-						checked={values.group === 'assistant' && true}
+						defaultChecked={values.group === 'assistant' && true}
 						value="assistant"
+						onChange={change('group')}
 					/>
 					<label className="my-0" htmlFor="">
 						Adjunct
@@ -147,8 +154,9 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						required={true}
 						name="group"
 						className="mx-2"
-						checked={values.group === 'instructor' && true}
+						defaultChecked={values.group === 'instructor' && true}
 						value="instructor"
+						onChange={change('group')}
 					/>
 					<label className="my-0" htmlFor="">
 						Professor

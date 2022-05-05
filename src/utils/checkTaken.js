@@ -20,6 +20,7 @@ export const checkTaken = async (entered_email, data) => {
 				response.error = true
 				response.message =
 					'Account with this email already exists. Please log in'
+				response.email = entered_email
 			} else {
 				response.error = false
 				response.email = entered_email

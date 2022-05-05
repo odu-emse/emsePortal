@@ -15,7 +15,6 @@ const Modules = () => {
 	const [modules, setModules] = useState(null)
 	const [courses, setCourses] = useState(null)
 	const [loadingModules, setModulesLoading] = useState(true)
-	const [loadingCourses, setCoursesLoading] = useState(true)
 	const [loadingImages, setImagesLoading] = useState(true)
 
 	// TODO: find a better way to fetch images
@@ -121,23 +120,21 @@ const Modules = () => {
 			.then(async (res) => {
 				let results = await res.data.data.courses
 				setCourses(results)
-				setCoursesLoading(false)
 			})
 			.catch((err) => console.error(err))
 
 		getImages()
 	}, [])
 
-	const filterModules = (courseID) => {
+	// TODO: figure out how to filter modules by course
+	const filterModules = (event) => {
+		event.preventDefault()
+		console.log(event.target.value)
 		try {
 			modules.filter((module) =>
-				module.parentCourses.map((item) => {
-					if (item.course.id === courseID) {
-						return module
-					} else {
-						return null
-					}
-				})
+				module.parentCourses.map(
+					(item) => item.course.id === event.target.value
+				)
 			)
 		} catch (error) {
 			console.error(error)
@@ -149,7 +146,6 @@ const Modules = () => {
 		loader()
 	) : (
 		<section className="px-10 w-full overflow-x-hidden flex">
-			{/* <Search /> */}
 			<ModuleItem
 				title="My Modules"
 				modules={modules}
@@ -174,13 +170,14 @@ const Modules = () => {
 					</p>
 					{courses &&
 						courses.map((course) => (
-							<li
-								className="bg-gray-200 rounded-full my-2 px-2"
-								value={course.id}
+							<button
+								className="bg-gray-200 rounded-full my-2 px-2 cursor-pointer block text-left w-full"
+								value={course.id.toString()}
 								onClick={(e) => filterModules(e)}
+								key={course.id}
 							>
 								{course.name}
-							</li>
+							</button>
 						))}
 					<p className="border-b border-gray-200 mt-1 font-semibold">
 						Delivery Type

@@ -29,11 +29,11 @@
 	"scripts": {
 		"start": "REACT_APP_API=https://emse-api.herokuapp.com react-scripts start",
 		"dev": "REACT_APP_API=https://portal-dev-a-quickfix-d-3faekb.herokuapp.com/graphql react-scripts start",
-		"local": "REACT_APP_API=http://localhost:4000 react-scripts start",
-		"build": "react-scripts build",
+		"local": "REACT_APP_API=http://localhost:4000 react-app-rewired start",
+		"build": "react-app-rewired build",
+		"eject": "react-app-rewired eject",
 		"test": "cypress run",
 		"test:ui": "cypress open",
-		"eject": "react-scripts eject",
 		"release": "standard-version",
 		"patch": "npm run release -- --release-as patch",
 		"minor": "npm run release -- --release-as minor",
@@ -55,15 +55,24 @@
 	"devDependencies": {
 		"@cypress/react": "^5.11.0",
 		"@cypress/webpack-dev-server": "^1.8.0",
+		"assert": "^2.0.0",
 		"autoprefixer": "^10.4.4",
+		"buffer": "^6.0.3",
 		"cypress": "9.5.0",
 		"eslint": "^7.11.0",
 		"eslint-plugin-cypress": "^2.12.1",
 		"eslint-plugin-react": "^7.29.4",
+		"https-browserify": "^1.0.0",
+		"os-browserify": "^0.3.0",
 		"postcss": "^8.4.12",
 		"postcss-loader": "^6.2.1",
+		"process": "^0.11.10",
+		"react-app-rewired": "^2.2.1",
 		"react-error-overlay": "^6.0.11",
 		"standard-version": "^9.1.1",
-		"tailwindcss": "^3.0.24"
+		"stream-browserify": "^3.0.0",
+		"stream-http": "^3.2.0",
+		"tailwindcss": "^3.0.24",
+		"url": "^0.11.0"
 	}
 }

@@ -30,7 +30,7 @@ const Register = (props) => {
 	const [philosophy, setPhilosophy] = useState('')
 	const [error, setError] = useState(false)
 	//next step
-	//renders errors upon incompletion and allows progress if no errors are present
+	//renders errors upon incomplete and allows progress if no errors are present
 	const nextStep = () => {
 		if (
 			firstName.length === 0 ||
@@ -98,7 +98,6 @@ const Register = (props) => {
 
 			checkTaken(email, data)
 				.then((res) => {
-					console.log(res)
 					if (res.message.length > 0) {
 						setError(true)
 						return toast.error(res.message, {

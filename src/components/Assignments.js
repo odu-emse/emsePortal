@@ -1,11 +1,10 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 
 const Assignments = props => {
 	return(
-		<Typography variant="h3">
+		<h1 className="text-3xl">
 			Assignments
-		</Typography>
+		</h1>
 	)
 }
 

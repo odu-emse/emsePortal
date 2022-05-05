@@ -3,18 +3,19 @@ import StarRatingComponent from 'react-star-rating-component'
 import { rating, round_to_precision, loader } from '../../helpers'
 import { Link } from 'react-router-dom'
 import { getRandomNum, calculateRating } from '../../helpers'
+import Search from '../../search/Search'
 
 let ModuleItem = (props) => {
 	const { modules, images, loading, imageLoading } = props
 
 	const filterModules = (mod, text, variant) => {
 		return mod ? (
-			<section className="flex flex-col w-10/12">
-				<h4 className="my-3 text-7xl opacity-20">{text}</h4>
+			<section className="flex flex-col w-full mt-5">
 				<div className="module--list flex flex-col">
 					{mod.map((module, index) => (
 						<div
 							className={`p-2 flex justify-between shadow-md mb-3 rounded bg-gray-100 w-full border-l-8 border-red-500`}
+							key={index}
 						>
 							{/* TODO: add view switching feature to make use of the images */}
 							{/* <div className="flex items-center justify-center overflow-hidden max-h-56">
@@ -87,9 +88,9 @@ let ModuleItem = (props) => {
 								<span className="font-light text-gray-400">
 									75% <br /> Viewed
 								</span>
-								<svg class="w-20 h-20">
+								<svg className="w-20 h-20">
 									<circle
-										class="text-gray-300"
+										className="text-gray-300"
 										strokeWidth="5"
 										stroke="currentColor"
 										fill="transparent"
@@ -98,7 +99,7 @@ let ModuleItem = (props) => {
 										cy="40"
 									/>
 									<circle
-										class="text-blue-600"
+										className="text-blue-600"
 										strokeWidth="5"
 										strokeDasharray="100"
 										strokeDashoffset="100 - 75 / 100 * 100"
@@ -148,7 +149,11 @@ let ModuleItem = (props) => {
 	return loading || imageLoading ? (
 		loader()
 	) : (
-		<>{filterModules(modules, props.title)}</>
+		<div className="flex flex-col w-full">
+			<h4 className="my-3 text-7xl opacity-20">{props.title}</h4>
+			<Search />
+			{filterModules(modules, props.title)}
+		</div>
 	)
 }
 

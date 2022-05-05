@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { decoder, round_to_precision, rating, loader } from '../../helpers'
+import { decoder, round_to_precision, rating, loader, calculateRating } from '../../helpers'
 import StarRatingComponent from 'react-star-rating-component'
 import pluralize from 'pluralize'
 import { ToastContainer, toast } from 'react-toastify'
@@ -14,8 +14,6 @@ import {
 	Repeat,
 	Check,
 } from 'react-feather'
-import IframeResizer from 'iframe-resizer-react'
-import { calculateRating } from '../../helpers'
 
 export default function ModuleHousing(props) {
 	const {

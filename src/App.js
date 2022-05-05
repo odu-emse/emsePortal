@@ -1,12 +1,11 @@
 //Helpers
 import { createContext } from 'react'
-import './App.sass'
 import Protector from './components/Protector'
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Redirect,
+	Redirect
 } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 //Modules
@@ -31,7 +30,7 @@ export const AuthContext = createContext()
 function App() {
 	return (
 		<Router>
-			<div className="App">
+			<div className="App font-sans">
 				<AuthContext.Provider value={{}}>
 					<Layout>
 						<Sidebar />

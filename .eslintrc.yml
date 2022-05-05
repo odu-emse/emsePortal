@@ -1,0 +1,28 @@
+env:
+    browser: true
+    es2021: true
+extends:
+    - 'eslint:recommended'
+    - 'plugin:react/recommended'
+parserOptions:
+    ecmaFeatures:
+        jsx: true
+    ecmaVersion: 12
+    sourceType: module
+plugins:
+    - react
+rules:
+    {
+        no-unused-vars: warn,
+        sort-imports: [warn, {
+            allowSeparatedGroups: true,
+        }],
+        react/prop-types: warn,
+        react/jsx-uses-react: warn,
+        react/jsx-uses-vars: warn,
+        react/no-unescaped-entities: warn,
+        react/react-in-jsx-scope: off,
+        react/jsx-key: warn,
+        no-duplicate-imports: warn,
+        no-mixed-spaces-and-tabs: warn,
+    }

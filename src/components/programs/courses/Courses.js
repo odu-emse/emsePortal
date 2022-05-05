@@ -1,7 +1,6 @@
 import React from 'react'
-import { loader } from '../../helpers'
+import { loader, getRandomNum } from '../../helpers'
 import { Link } from 'react-router-dom'
-import { getRandomNum } from '../../helpers'
 
 const Courses = (props) => {
 	const { courses, images, loading } = props

@@ -371,10 +371,10 @@ const Profile = (props) => {
 						id="modules"
 						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
 					>
-						Plan of Study
+						My Plan of Study
 					</h3>
 					<div className="">
-						{/* <PlanOfStudy param={params.id} /> */}
+						<PlanOfStudy param={params.id} />
 					</div>
 					<h3
 						id="security"
