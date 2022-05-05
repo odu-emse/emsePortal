@@ -76,11 +76,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 					*/}
 					<input
 						type="email"
-						className={`${
-							error
-								? 'border-red-500 focus:ring-red-500 focus:outline-0'
-								: ''
-						} py-2 px-3 w-full border border-gray rounded`}
+						className={` py-2 px-3 w-full border border-gray rounded`}
 						placeholder="example@odu.edu"
 						name="email"
 						onChange={change('email')}
@@ -205,13 +201,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 export default UserInfo
 
 UserInfo.propTypes = {
-	values: {
-		firstName: PropTypes.string,
-		lastName: PropTypes.string,
-		email: PropTypes.string,
-		password: PropTypes.string,
-		passwordConf: PropTypes.string,
-	},
+	values: PropTypes.object,
 	change: PropTypes.func,
 	nextStep: PropTypes.func,
 	error: PropTypes.bool,

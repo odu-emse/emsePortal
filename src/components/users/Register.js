@@ -76,6 +76,9 @@ const Register = (props) => {
 	}
 
 	const change = (input) => (e) => {
+		if (error && input) {
+			setError(false)
+		}
 		if (input === 'firstName') {
 			setFirstName(e.target.value)
 		}
