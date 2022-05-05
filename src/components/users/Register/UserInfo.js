@@ -1,5 +1,6 @@
 import { ArrowRight, ArrowLeft } from 'react-feather'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const UserInfo = ({ values, change, nextStep, error }) => {
 	const next = (e) => {
@@ -12,7 +13,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 	return (
 		<div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto my-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
 			<h1 className="text-3xl">User information</h1>
-			<form className="w-full my-1">
+			<form className="w-full my-1" onSubmit={next}>
 				<div className="my-3 w-full flex flex-row">
 					<div className="mr-1 w-1/3">
 						<label
@@ -179,7 +180,6 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 								: 'text-white bg-blue-400 hover:bg-blue-700'
 						}`}
 						type="submit"
-						onClick={next}
 					>
 						<span className="flex flex-row items-center justify-center">
 							Next
@@ -203,3 +203,16 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 }
 
 export default UserInfo
+
+UserInfo.propTypes = {
+	values: {
+		firstName: PropTypes.string,
+		lastName: PropTypes.string,
+		email: PropTypes.string,
+		password: PropTypes.string,
+		passwordConf: PropTypes.string,
+	},
+	change: PropTypes.func,
+	nextStep: PropTypes.func,
+	error: PropTypes.bool,
+}
