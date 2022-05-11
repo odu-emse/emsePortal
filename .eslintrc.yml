@@ -1,6 +1,7 @@
 env:
     browser: true
     es2021: true
+    node: true
 extends:
     - 'eslint:recommended'
     - 'plugin:react/recommended'
@@ -14,9 +15,7 @@ plugins:
 rules:
     {
         no-unused-vars: warn,
-        sort-imports: [warn, {
-            allowSeparatedGroups: true,
-        }],
+        sort-imports: [warn, { allowSeparatedGroups: true }],
         react/prop-types: warn,
         react/jsx-uses-react: warn,
         react/jsx-uses-vars: warn,
