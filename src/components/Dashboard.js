@@ -1,18 +1,18 @@
 import Container from './Container'
 import {
 	CartesianGrid,
-	XAxis,
-	YAxis,
-	ResponsiveContainer,
-	Tooltip,
-	ReferenceLine,
+	Legend,
 	Line,
 	LineChart,
+	PolarAngleAxis,
+	PolarGrid,
 	Radar,
 	RadarChart,
-	PolarGrid,
-	PolarAngleAxis,
-	Legend,
+	ReferenceLine,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
 } from 'recharts'
 
 const data = [

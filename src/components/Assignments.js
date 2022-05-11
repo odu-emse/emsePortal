@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
-const Assignments = props => {
-	return(
-		<h1 className="text-3xl">
-			Assignments
-		</h1>
+const Assignments = (props) => {
+	return (
+		<section className="flex w-full px-10">
+			<h1 className="text-3xl">Assignments</h1>
+		</section>
 	)
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import { getToken, loader } from './helpers'
 import axios from 'axios'
 

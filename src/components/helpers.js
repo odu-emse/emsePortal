@@ -12,7 +12,7 @@ export let round_to_precision = (x, precision) => {
 	return y - (y % (precision === undefined ? 1 : +precision))
 }
 
-export let rating = (arr) => {
+export let rating = arr => {
 	if (arr.length > 0) {
 		let sum = arr.reduce((previous, current) => (current += previous))
 		let avg = sum / arr.length
@@ -28,7 +28,7 @@ export let progress = (dur, rem) => {
 }
 
 //TODO:further integration of this is needed in later release
-export let abandonModule = (id) => {
+export let abandonModule = id => {
 	console.log(id)
 }
 
@@ -50,7 +50,7 @@ export const decoder = () => {
 	}
 }
 
-export const convert = (timestamp) => {
+export const convert = timestamp => {
 	var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
 		yyyy = d.getFullYear(),
 		mm = ('0' + (d.getMonth() + 1)).slice(-2), // Months are zero based. Add leading 0.
@@ -127,7 +127,7 @@ export const profileCheck = (token, history, params) => {
 	}
 }
 
-export const getModule = async (id) => {
+export const getModule = async id => {
 	try {
 		const resp = await axios.get(
 			`${process.env.REACT_APP_API}/api/modules/${id.identifier}`,
@@ -157,10 +157,10 @@ export const getRandomNum = (min, max) => {
 	return Math.floor(Math.random() * (max - min) + min)
 }
 
-export const calculateRating = (feedback) => {
+export const calculateRating = feedback => {
 	try {
 		let sum = 0
-		feedback.map((rating) => {
+		feedback.map(rating => {
 			sum += rating.rating
 		})
 
@@ -170,5 +170,3 @@ export const calculateRating = (feedback) => {
 		return null
 	}
 }
-
-//TODO: [ALMP-98] course fetcher function

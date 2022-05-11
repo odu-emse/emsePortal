@@ -1,5 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
 import App from './App'
@@ -13,7 +11,6 @@ if (process.env.REACT_APP_INSTANCE !== 'production') {
 		integrations: [new BrowserTracing()],
 	})
 }
-
 
 const container = document.getElementById('root')
 const root = createRoot(container)
