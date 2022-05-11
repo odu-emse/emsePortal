@@ -126,7 +126,7 @@ const Profile = (props) => {
 		loader()
 	) : (
 		<>
-			<div className="w-full max-w-6xl mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
+			<div className="w-11/12 lg:w-3/4 mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
 				<ToastContainer />
 				<nav className="w-full md:w-1/4 mr-8 flex flex-col border border-gray-200 shadow-sm rounded-md h-full">
 					<a className="text-base" href="#user">
@@ -254,7 +254,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="YYYY/MM/DD"
 									name="dob"
-									// value={profile.dob}
+									value={user.dob}
 								/>
 							</label>
 						</div>

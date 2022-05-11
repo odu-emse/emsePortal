@@ -13,6 +13,7 @@
 		"axios": "^0.26.1",
 		"crypto-browserify": "^3.12.0",
 		"jsonwebtoken": "^8.5.1",
+		"moment": "^2.29.3",
 		"pluralize": "^8.0.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
@@ -38,7 +39,10 @@
 		"patch": "npm run release -- --release-as patch",
 		"minor": "npm run release -- --release-as minor",
 		"major": "npm run release -- --release-as major",
-		"addTag": "git push --follow-tags origin dev"
+		"addTag": "git push --follow-tags origin dev",
+		"lint": "eslint src/**/*.js src/**/*.jsx",
+		"lint:fix": "eslint src/**/*.js src/**/*.jsx --fix",
+		"format:watch": "npx onchange \"**/*.{js,jsx,ts,tsx}\" -- prettier --write --ignore-unknown {{changed}}"
 	},
 	"browserslist": {
 		"production": [
