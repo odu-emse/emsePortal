@@ -1,25 +1,19 @@
 version: 2.1
 jobs:
-    install:
+    test:
         docker:
-        # replace with your preferred image
-        - image: cimg/base:stable
-        steps:
-        - node/install:
-            install-yarn: true 
-    build:
-        docker:
-            - image: cimg/node:17.3.0
+            - image: circleci/node:latest-browsers
         steps:
             - checkout
-            - run:
-                  name: Build
-                  command: yarn build
-orbs:
-    cypress: cypress-io/cypress@1.29.0
+            - run: yarn
+            - run: yarn test
+            - store_test_results:
+                  path: test-results
+            - store_artifacts:
+                  path: cypress/videos
+            - store_artifacts:
+                  path: cypress/screenshots
 workflows:
     basic:
         jobs:
-            - install
-            - cypress/run:
-                yarn: true 
+            - test
