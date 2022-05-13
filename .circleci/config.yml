@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.29.0
 jobs:
     test:
         docker:
@@ -6,14 +8,8 @@ jobs:
         steps:
             - checkout
             - run: yarn
-            - run: yarn test
-            - store_test_results:
-                  path: test-results
-            - store_artifacts:
-                  path: cypress/videos
-            - store_artifacts:
-                  path: cypress/screenshots
 workflows:
     basic:
         jobs:
             - test
+            - cypress/run
