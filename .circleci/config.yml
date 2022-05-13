@@ -4,12 +4,13 @@ orbs:
 jobs:
     test:
         docker:
-            - image: circleci/node:latest-browsers
+            - image: cimg/base:stable
         steps:
-            - checkout
-            - run: yarn
+            - cypress/setup:
+                yarn: true
 workflows:
     basic:
         jobs:
             - test
-            - cypress/run
+            - cypress/run:
+                yarn: true
