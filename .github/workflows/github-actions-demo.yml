@@ -6,8 +6,9 @@ jobs:
     # let's make sure our tests pass on Chrome browser
     name: E2E on Chrome
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
       - name: Start server
         run: yarn local
       - name: Running tests
