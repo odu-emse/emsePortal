@@ -6,3 +6,9 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
+          executor: cypress/base-14
+          start: yarn dev
+          parallel: true
+          parallelism: 2
+          group: 2 machines
+          record: true
