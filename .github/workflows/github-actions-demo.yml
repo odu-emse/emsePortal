@@ -9,8 +9,8 @@ jobs:
     name: E2E on Chrome
     steps:
       - uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node }}
+        with:
+          node-version: ${{ matrix.node }}
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: yarn
