@@ -3,9 +3,14 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
-    # let's make sure our tests pass on Chrome browser
+    strategy:
+      matrix:
+        node: [ 12, 14, 16, 18 ]
     name: E2E on Chrome
     steps:
+      - uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node }}
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: yarn
@@ -13,4 +18,11 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           start: yarn local
+          wait-on: 'http://localhost:3000'
           browser: chrome
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
