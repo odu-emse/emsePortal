@@ -42,7 +42,7 @@
 		"addTag": "git push --follow-tags origin dev",
 		"lint": "eslint src/**/*.js src/**/*.jsx",
 		"lint:fix": "eslint src/**/*.js src/**/*.jsx --fix",
-		"format:watch": "npx onchange \"**/*.{js,jsx,ts,tsx}\" -- prettier --write --ignore-unknown {{changed}}"
+		"format:watch": "npx onchange \"src/**/*.{js,jsx,ts,tsx}\" -- prettier --write --ignore-unknown {{changed}}"
 	},
 	"browserslist": {
 		"production": [
@@ -63,6 +63,7 @@
 		"autoprefixer": "^10.4.4",
 		"buffer": "^6.0.3",
 		"cypress": "9.5.0",
+		"cypress-axe": "^0.14.0",
 		"eslint": "^7.11.0",
 		"eslint-plugin-cypress": "^2.12.1",
 		"eslint-plugin-react": "^7.29.4",

@@ -1,4 +1,4 @@
-name: E2E on Chrome
+name: E2E Test for EMSE Portal
 on: [push]
 jobs:
   cypress-run:
@@ -6,7 +6,8 @@ jobs:
     strategy:
       matrix:
         node: [ 14, 16, 18 ]
-    name: E2E on Chrome
+        browser: [ chrome, firefox, edge ]
+    name: E2E on ${{ matrix.browser }} on ${{ matrix.node }}
     continue-on-error: true
     steps:
       - uses: actions/setup-node@v1
@@ -20,7 +21,7 @@ jobs:
         with:
           start: yarn local
           wait-on: 'http://localhost:3000'
-          browser: chrome
+          browser: ${{ matrix.browser }}
           record: true
           tag: node-${{ matrix.node }}
           command-prefix: "--"
