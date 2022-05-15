@@ -20,6 +20,8 @@ jobs:
           start: yarn local
           wait-on: 'http://localhost:3000'
           browser: chrome
+          record: true
+          tag: node-${{ matrix.node }}
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
