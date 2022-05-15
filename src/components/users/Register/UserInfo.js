@@ -46,7 +46,6 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 							name="middleName"
 							onChange={change('middleName')}
 							defaultValue={values.middleName}
-							required={true}
 						/>
 					</div>
 					<div className="ml-1 w-1/3">

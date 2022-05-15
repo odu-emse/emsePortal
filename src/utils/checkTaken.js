@@ -1,11 +1,14 @@
 import axios from 'axios'
 
-export const checkTaken = async (entered_email, data) => {
+export const checkTaken = async (entered_email) => {
 	try {
-		const res = await axios.post(
-			`${process.env.REACT_APP_API}/graphql`,
-			data
-		)
+		const res = await axios.post(`${process.env.REACT_APP_API}/graphql`, {
+			query: `query{
+                    users{
+                        email
+                    }
+			    }`,
+		})
 
 		const { users } = res.data.data
 

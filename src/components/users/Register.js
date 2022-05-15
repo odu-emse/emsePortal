@@ -62,7 +62,26 @@ const Register = (props) => {
 			})
 			setError(true)
 		} else {
-			setStep(step + 1)
+			checkTaken(email)
+				.then((res) => {
+					if (res.message.length > 0) {
+						setError(true)
+						return toast.error(res.message, {
+							position: toast.POSITION.TOP_RIGHT,
+						})
+					} else {
+						setError(false)
+						setEmail(res.email)
+						setStep(step + 1)
+					}
+				})
+				.catch((err) => {
+					setError(true)
+					console.error(err)
+					return toast.error(err, {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				})
 		}
 	}
 
@@ -89,35 +108,7 @@ const Register = (props) => {
 			setMiddleName(e.target.value)
 		}
 		if (input === 'email') {
-			const email = e.target.value
-
-			let data = {
-				query: `query{
-                    users{
-                        email
-                    }
-			    }`,
-			}
-
-			checkTaken(email, data)
-				.then((res) => {
-					if (res.message.length > 0) {
-						setError(true)
-						return toast.error(res.message, {
-							position: toast.POSITION.TOP_RIGHT,
-						})
-					} else {
-						setError(false)
-						setEmail(res.email)
-					}
-				})
-				.catch((err) => {
-					setError(true)
-					console.error(err)
-					return toast.error(err, {
-						position: toast.POSITION.TOP_RIGHT,
-					})
-				})
+			setEmail(e.target.value)
 		}
 		if (input === 'password') {
 			setPassword(e.target.value)
