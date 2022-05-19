@@ -254,7 +254,6 @@ export default function Sidebar() {
 								aria-labelledby="user-menu"
 								onMouseOut={() => setDropdown(!dropdown)}
 								onMouseLeave={() => setDropdown(!dropdown)}
-								on
 							>
 								<NavLink
 									to={`/users/${decoder()}`}
