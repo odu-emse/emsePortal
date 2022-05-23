@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { loader } from '../helpers'
-import getPlan from '../../scripts/getPlanByStudentID'
-import moment from 'moment'
 import PropTypes from 'prop-types'
+import getPlan from '../../scripts/getPlanByStudentID'
+import { loader } from '../helpers'
+import moment from 'moment'
 
 /**
- * Functional component for displaying the plan of a student
+ * @summary Functional React component for displaying the plan of a student in a table format.
  * @category Plan Of Study
  * @component
- * @borrows {getPlan}
- * @param {string} param The user's ID that is viewing the page
+ * @see {@link scripts/getPlanByStudentID}
+ * @borrows loader as loader
  * @returns {React.ReactElement} The plan of study in a table format
+ * @requires moment
  */
 
 const PlanOfStudy = ({ param }) => {
@@ -296,7 +297,7 @@ const PlanOfStudy = ({ param }) => {
 
 PlanOfStudy.propTypes = {
 	/*
-	 * The user's ID to execute the getPlanByStudentID query
+	 * An object that contains the user's ID to execute the getPlanByStudentID query
 	 */
 	param: PropTypes.object.isRequired,
 }

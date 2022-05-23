@@ -35,6 +35,11 @@ const Profile = (props) => {
 	const [isInstructor, setIsInstructor] = useState(false)
 	const [showInstructor, setShowInstructor] = useState(false)
 
+	/**
+	 * @summary Asynchronous function for fetching the user's profile based on the URL parameter containing the user's ID
+	 * @function
+	 * @returns {Object} The user's object
+	 */
 	const getUser = async () => {
 		let payload = {
 			// language=GraphQL
@@ -74,6 +79,11 @@ const Profile = (props) => {
 		return data
 	}
 
+	/**
+	 * @summary Asynchronous function for updating the user's profile. This function is called when the user submits the update profile form.
+	 * @function
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
 	const updateUser = async (e) => {
 		setLoading(true)
 		e.preventDefault()
@@ -172,6 +182,11 @@ const Profile = (props) => {
 			})
 	}
 
+	/**
+	 * @summary Asynchronous function for deleting the user's profile. This function is called when the user clicks on the delete account button.
+	 * @function
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
 	const deleteUser = async (e) => {
 		e.preventDefault()
 		const payload = {
@@ -189,7 +204,7 @@ const Profile = (props) => {
 			})
 			.then(() => {
 				setLoading(false)
-				return props.history.push('/users/register')
+				props.history.push('/users/register')
 			})
 			.catch((err) => {
 				toast.error(err.response.data.error, {
@@ -198,6 +213,11 @@ const Profile = (props) => {
 			})
 	}
 
+	/**
+	 * @summary Helper function for checking if the user has any enrollments as an instructor.
+	 * @function
+	 * @param {Object} usr - The user's profile object
+	 */
 	const toggleInstructor = (usr) => {
 		console.log(
 			'User: ',
@@ -211,6 +231,29 @@ const Profile = (props) => {
 		})
 	}
 
+	/**
+	 * @summary Function that handles the change between user's profile and instructor's profile. This function dispatches a reducer action with a 'SET_INSTRUCTOR_PROFILE' `type` and a `payload` of the field name and value that was changed.
+	 * @function
+	 * @param {React.ChangeEvent<HTMLInputElement>} event - The event object of the click event
+	 * @example
+	 *
+	 * const handleInstructorProfileChange = (event) => {
+	 *	instructor.dispatch({
+	 *		type: 'SET_INSTRUCTOR_PROFILE',
+	 *		payload: { [event.target.name]: event.target.value },
+	 *	})
+	 * }
+	 * //returns [...{title: "Chair of the Department of Computer Science"}]
+	 *
+	 * return (
+	 * <input
+	 * 	type="text"
+	 * 	name="title"
+	 * 	value="Chair of the Department of Computer Science"
+	 * 	onChange={(event) => handleInstructorProfileChange(event)}
+	 * />
+	 * )
+	 */
 	const handleInstructorProfileChange = (event) => {
 		instructor.dispatch({
 			type: 'SET_INSTRUCTOR_PROFILE',
