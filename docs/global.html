@@ -90,7 +90,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#removeToken">removeToken</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
                 
             </nav>
         </div>
@@ -196,10 +196,8 @@
     
 
     
+    <p class="summary"><p>Helper function for abandoning a module</p></p>
     
-    <div class="description">
-        <p>Helper function for abandoning a module</p>
-    </div>
     
 
 
@@ -351,10 +349,8 @@
     
 
     
+    <p class="summary"><p>Helper function to calculate the average of the feedback scores provided by students. The function takes an array of feedback scores and returns the average or null if the array is empty or the average cannot be calculated.</p></p>
     
-    <div class="description">
-        <p>Helper function to calculate the average of the feedback scores provided by students. The function takes an array of feedback scores and returns the average or null if the array is empty or the average cannot be calculated.</p>
-    </div>
     
 
 
@@ -407,7 +403,7 @@
 
   
 
-  <td class="description last"><p>The array of feedback scores</p></td>
+  <td class="description last"><p>The array of feedback objects</p></td>
 </tr>
 
   
@@ -504,13 +500,22 @@
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line265">line 265</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line289">line 289</a>
             </span>
         </p>
     
 </dl>
 
 
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:round_to_precision</li>
+            </ul>
+        </div>
+    </div>
 
 
 
@@ -555,6 +560,21 @@
 
 
 
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const feedback = [
+	{"rating": 7, ...},
+	{"rating": 8, ...},
+	{"rating": 9, ...},
+	{"rating": 10, ...}
+]
+
+// returns 8
+calculateRating(feedback)</code></pre>
+    
+
+
 </div>
             
                 <div class="member">
@@ -573,10 +593,8 @@
     
 
     
+    <p class="summary"><p>Helper function to format full unix date into a single string that includes the time in a 12-hour format</p></p>
     
-    <div class="description">
-        <p>Helper function to format full unix date into a single string that includes the time in a 12-hour format</p>
-    </div>
     
 
 
@@ -679,7 +697,7 @@
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line108">line 108</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line109">line 109</a>
             </span>
         </p>
     
@@ -756,10 +774,8 @@ convert(1589788800)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to decode the JWT token present in local storage</p></p>
     
-    <div class="description">
-        <p>Helper function to decode the JWT token present in local storage</p>
-    </div>
     
 
 
@@ -809,7 +825,7 @@ convert(1589788800)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line87">line 87</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line88">line 88</a>
             </span>
         </p>
     
@@ -872,15 +888,21 @@ convert(1589788800)</code></pre>
     <h4 class="name" id="getModule">
         <a class="href-link" href="#getModule">#</a>
         
+            
+                <span class='tag'>async</span>
+            
+        
         <span class="code-name">
             
-                getModule<span class="signature">()</span><span class="type-signature"></span>
+                getModule<span class="signature">(id)</span><span class="type-signature"></span>
             
         </span>
     </h4>
     
 
     
+    <p class="summary"><p>Hook that allows us to fetch module data from the API given a module's ID.</p></p>
+    
     
 
 
@@ -890,6 +912,83 @@ convert(1589788800)</code></pre>
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The module object</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>identifier</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The module's ID</p></td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -932,13 +1031,22 @@ convert(1589788800)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line214">line 214</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line227">line 227</a>
             </span>
         </p>
     
 </dl>
 
 
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:axios</li>
+            </ul>
+        </div>
+    </div>
 
 
 
@@ -976,10 +1084,8 @@ convert(1589788800)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to generate a random number between two numbers (inclusive), given as arguments</p></p>
     
-    <div class="description">
-        <p>Helper function to generate a random number between two numbers (inclusive), given as arguments</p>
-    </div>
     
 
 
@@ -1105,7 +1211,7 @@ convert(1589788800)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line249">line 249</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line262">line 262</a>
             </span>
         </p>
     
@@ -1182,10 +1288,8 @@ gerRandomNum(0, 10)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header</p></p>
     
-    <div class="description">
-        <p>Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header</p>
-    </div>
     
 
 
@@ -1306,10 +1410,8 @@ gerRandomNum(0, 10)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to check if a user is authenticated or not. It uses <code>getToken()</code> to get the JWT token from local storage and verify it. If the token is not valid, the function returns false. If the token is present and valid, the function sends a GET request to the <code>/api/users/verify</code> REST route with the token as an Authorization header. If the API responds with a HTTP code 200, the function returns true. If the response is not successful, the function returns false.</p></p>
     
-    <div class="description">
-        <p>Helper function to check if a user is authenticated or not. It uses <code>getToken()</code> to get the JWT token from local storage and verify it. If the token is not valid, the function returns false. If the token is present and valid, the function sends a GET request to the <code>/api/users/verify</code> REST route with the token as an Authorization header. If the API responds with a HTTP code 200, the function returns true. If the response is not successful, the function returns false.</p>
-    </div>
     
 
 
@@ -1361,7 +1463,7 @@ gerRandomNum(0, 10)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line146">line 146</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line152">line 152</a>
             </span>
         </p>
     
@@ -1430,10 +1532,8 @@ gerRandomNum(0, 10)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to display a loading spinner</p></p>
     
-    <div class="description">
-        <p>Helper function to display a loading spinner</p>
-    </div>
     
 
 
@@ -1483,13 +1583,22 @@ gerRandomNum(0, 10)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line182">line 182</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line189">line 189</a>
             </span>
         </p>
     
 </dl>
 
 
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:react-feather.Loader</li>
+            </ul>
+        </div>
+    </div>
 
 
 
@@ -1556,9 +1665,11 @@ gerRandomNum(0, 10)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to check if the user's ID from local storage is the same as the user's ID from the URL params. If not, the user is redirected to their own profile page.</p></p>
+    
     
     <div class="description">
-        <p>Helper function to check if the user's ID from local storage is the same as the user's ID from the URL params. If not, the user is redirected to their own profile page.</p>
+        <p><strong>WIP</strong> </br></p>
     </div>
     
 
@@ -1736,13 +1847,22 @@ gerRandomNum(0, 10)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line201">line 201</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line209">line 209</a>
             </span>
         </p>
     
 </dl>
 
 
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:jsonwebtoken.decode</li>
+            </ul>
+        </div>
+    </div>
 
 
 
@@ -1780,10 +1900,8 @@ gerRandomNum(0, 10)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to calculate the percentage of the remaining time left in a lesson</p></p>
     
-    <div class="description">
-        <p>Helper function to calculate the percentage of the remaining time left in a lesson</p>
-    </div>
     
 
 
@@ -1980,10 +2098,8 @@ gerRandomNum(0, 10)</code></pre>
     
 
     
+    <p class="summary"><p>Helper function to calculate the average score of the feedbacks</p></p>
     
-    <div class="description">
-        <p>Helper function to calculate the average score of the feedbacks</p>
-    </div>
     
 
 
@@ -2143,22 +2259,20 @@ gerRandomNum(0, 10)</code></pre>
 
 
     
-    <h4 class="name" id="removeToken">
-        <a class="href-link" href="#removeToken">#</a>
+    <h4 class="name" id="refreshPage">
+        <a class="href-link" href="#refreshPage">#</a>
         
         <span class="code-name">
             
-                removeToken<span class="signature">()</span><span class="type-signature"></span>
+                refreshPage<span class="signature">()</span><span class="type-signature"></span>
             
         </span>
     </h4>
     
 
     
+    <p class="summary"><p>Helper function to refresh the page. We use this function to refresh the page after a successful login or signup to trigger a compleat re-render of the page.</p></p>
     
-    <div class="description">
-        <p>Helper function to log out the user by removing their local storage JWT</p>
-    </div>
     
 
 
@@ -2208,7 +2322,102 @@ gerRandomNum(0, 10)</code></pre>
         <p class="tag-source">
             <a href="components_helpers.js.html" class="button">View Source</a>
             <span>
-                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line77">line 77</a>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line141">line 141</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="removeToken">
+        <a class="href-link" href="#removeToken">#</a>
+        
+        <span class="code-name">
+            
+                removeToken<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    <p class="summary"><p>Helper function to log out the user by removing their local storage JWT</p></p>
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_helpers.js.html" class="button">View Source</a>
+            <span>
+                <a href="components_helpers.js.html">components/helpers.js</a>, <a href="components_helpers.js.html#line78">line 78</a>
             </span>
         </p>
     

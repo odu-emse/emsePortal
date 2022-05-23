@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken'
-import axios from 'axios'
 import { Loader } from 'react-feather'
+import axios from 'axios'
+import jwt from 'jsonwebtoken'
 
 /**
  * @category helper
@@ -16,7 +16,7 @@ export let round_to_precision = (x, precision) => {
 }
 
 /**
- * @desc Helper function to calculate the average score of the feedbacks
+ * @summary Helper function to calculate the average score of the feedbacks
  * @category helper
  * @function
  * @deprecated
@@ -34,7 +34,7 @@ export let rating = (arr) => {
 }
 
 /**
- * @desc Helper function to calculate the percentage of the remaining time left in a lesson
+ * @summary Helper function to calculate the percentage of the remaining time left in a lesson
  * @category helper
  * @function
  * @deprecated
@@ -49,7 +49,7 @@ export let progress = (dur, rem) => {
 
 //TODO:further integration of this is needed in later release
 /**
- * @desc Helper function for abandoning a module
+ * @summary Helper function for abandoning a module
  * @category helper
  * @function
  * @todo Further integration of this is needed in later release
@@ -60,7 +60,7 @@ export let abandonModule = (id) => {
 }
 
 /**
- * @desc Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header
+ * @summary Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header
  * @function
  * @deprecated
  * @category helper
@@ -71,15 +71,16 @@ export const getToken = () => {
 }
 
 /**
- * @desc Helper function to log out the user by removing their local storage JWT
+ * @summary Helper function to log out the user by removing their local storage JWT
  * @function
+ * @category helper
  */
 export const removeToken = () => {
 	return localStorage.removeItem('JWT')
 }
 
 /**
- * @desc Helper function to decode the JWT token present in local storage
+ * @summary Helper function to decode the JWT token present in local storage
  * @category helper
  * @function
  * @returns { string | null } Returns the user's ID if the token is valid, null otherwise
@@ -95,7 +96,7 @@ export const decoder = () => {
 }
 
 /**
- * @desc Helper function to format full unix date into a single string that includes the time in a 12-hour format
+ * @summary Helper function to format full unix date into a single string that includes the time in a 12-hour format
  * @example
  * // returns 2020-05-18, 4:00 AM
  * convert(1589788800)
@@ -132,12 +133,17 @@ export const convert = (timestamp) => {
 	return time
 }
 
+/**
+ * @summary Helper function to refresh the page. We use this function to refresh the page after a successful login or signup to trigger a compleat re-render of the page.
+ * @category helper
+ * @function
+ */
 export const refreshPage = () => {
 	window.location.reload()
 }
 
 /**
- * @desc Helper function to check if a user is authenticated or not. It uses `getToken()` to get the JWT token from local storage and verify it. If the token is not valid, the function returns false. If the token is present and valid, the function sends a GET request to the `/api/users/verify` REST route with the token as an Authorization header. If the API responds with a HTTP code 200, the function returns true. If the response is not successful, the function returns false.
+ * @summary Helper function to check if a user is authenticated or not. It uses `getToken()` to get the JWT token from local storage and verify it. If the token is not valid, the function returns false. If the token is present and valid, the function sends a GET request to the `/api/users/verify` REST route with the token as an Authorization header. If the API responds with a HTTP code 200, the function returns true. If the response is not successful, the function returns false.
  * @category helper
  * @function
  * @deprecated
@@ -174,10 +180,11 @@ export const isAuthenticated = async () => {
 }
 
 /**
- * @desc Helper function to display a loading spinner
+ * @summary Helper function to display a loading spinner
  * @category helper
  * @function
  * @returns { React.ReactElement } Returns the loader component
+ * @requires react-feather.Loader
  */
 export const loader = () => {
 	return (
@@ -189,7 +196,7 @@ export const loader = () => {
 
 /**
  * __WIP__ </br>
- * @desc Helper function to check if the user's ID from local storage is the same as the user's ID from the URL params. If not, the user is redirected to their own profile page.
+ * @summary Helper function to check if the user's ID from local storage is the same as the user's ID from the URL params. If not, the user is redirected to their own profile page.
  * @category helper
  * @async
  * @function
@@ -197,6 +204,7 @@ export const loader = () => {
  * @param {object} history - React router DOM history object
  * @param {object} params - Object containing the user's ID from the URL params
  * @param {string} params.id - The user's ID from the URL params
+ * @requires jsonwebtoken.decode
  */
 export const profileCheck = (token, history, params) => {
 	const cypher = jwt.decode(token)
@@ -207,9 +215,14 @@ export const profileCheck = (token, history, params) => {
 }
 
 /**
+ * @summary Hook that allows us to fetch module data from the API given a module's ID.
  * @category helper
+ * @async
  * @function
+ * @param {Object} id - The module object
+ * @param {string} id.identifier - The module's ID
  * @deprecated
+ * @requires axios
  */
 export const getModule = async (id) => {
 	try {
@@ -236,7 +249,7 @@ export const getModule = async (id) => {
 }
 
 /**
- * @desc Helper function to generate a random number between two numbers (inclusive), given as arguments
+ * @summary Helper function to generate a random number between two numbers (inclusive), given as arguments
  * @category helper
  * @function
  * @example
@@ -253,10 +266,21 @@ export const getRandomNum = (min, max) => {
 }
 
 /**
- * @desc Helper function to calculate the average of the feedback scores provided by students. The function takes an array of feedback scores and returns the average or null if the array is empty or the average cannot be calculated.
+ * @summary Helper function to calculate the average of the feedback scores provided by students. The function takes an array of feedback scores and returns the average or null if the array is empty or the average cannot be calculated.
  * @category helper
  * @function
- * @param {Object[]} feedback - The array of feedback scores
+ * @requires round_to_precision
+ * @example
+ * const feedback = [
+ *	{"rating": 7, ...},
+ *	{"rating": 8, ...},
+ *	{"rating": 9, ...},
+ *	{"rating": 10, ...}
+ * ]
+ *
+ * // returns 8
+ * calculateRating(feedback)
+ * @param {Object[]} feedback - The array of feedback objects
  * @param {number} feedback[].rating - The rating that the student gave the module
  * @param {string} feedback[].feedback - The feedback/review that the student gave the module
  * @returns { number } Returns the average of the feedback scores provided by students rounded to the nearest 0.5 decimal.
