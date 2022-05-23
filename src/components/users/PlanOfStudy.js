@@ -2,6 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { loader } from '../helpers'
 import getPlan from '../../scripts/getPlanByStudentID'
 import moment from 'moment'
+import PropTypes from 'prop-types'
+
+/**
+ * Functional component for displaying the plan of a student
+ * @category Plan Of Study
+ * @component
+ * @borrows {getPlan}
+ * @param {string} param The user's ID that is viewing the page
+ * @returns {React.ReactElement} The plan of study in a table format
+ */
 
 const PlanOfStudy = ({ param }) => {
 	const [enrollment, setEnrollment] = useState(null)
@@ -282,6 +292,13 @@ const PlanOfStudy = ({ param }) => {
 			</div>
 		</>
 	)
+}
+
+PlanOfStudy.propTypes = {
+	/*
+	 * The user's ID to execute the getPlanByStudentID query
+	 */
+	param: PropTypes.object.isRequired,
 }
 
 export default PlanOfStudy

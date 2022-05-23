@@ -1,0 +1,437 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ODU ALMP Docs components/users/PlanOfStudy.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Asynchronous Learning Management System @ ODU-EMSE</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emsePortal"
+                        >
+                            Github - UI
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emseAPI"
+                        >
+                            Github - API
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#removeToken">removeToken</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/users/PlanOfStudy.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+import { loader } from '../helpers'
+import getPlan from '../../scripts/getPlanByStudentID'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+
+/**
+ * Functional component for displaying the plan of a student
+ * @category Plan Of Study
+ * @component
+ * @borrows {getPlan}
+ * @param {string} param The user's ID that is viewing the page
+ * @returns {React.ReactElement} The plan of study in a table format
+ */
+
+const PlanOfStudy = ({ param }) => {
+	const [enrollment, setEnrollment] = useState(null)
+	const [courses, setCourses] = useState(null)
+	const [assignments, setAssignments] = useState(null)
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		getPlan(param)
+			.then((response) => {
+				try {
+					console.log(response)
+					setEnrollment(response.modules)
+					setCourses(response.courses)
+					setAssignments(response.assignmentResults)
+					setLoading(false)
+				} catch (error) {
+					console.error(error)
+					setLoading(false)
+				}
+			})
+			.catch((err) => {
+				console.error(err)
+				setLoading(false)
+			})
+	}, [])
+
+	return loading === true ? (
+		loader()
+	) : (
+		&lt;>
+			&lt;div className="lg:mb-2">
+				&lt;h1 className="text-lg font-semibold">My Modules&lt;/h1>
+				&lt;table className="border-collapse w-full">
+					&lt;thead>
+						&lt;tr>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Enrolled At
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Role
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Module
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Progress
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Actions
+							&lt;/th>
+						&lt;/tr>
+					&lt;/thead>
+					&lt;tbody>
+						{enrollment.map((enrollment, index) => {
+							let at = moment.unix(
+								~~(enrollment.enrolledAt / 1000)
+							)
+							const enrolledAt = {
+								day: at.format('DD'),
+								month: at.format('MM'),
+								year: at.format('YYYY'),
+								time: at.format('hh:mm A'),
+							}
+							return (
+								&lt;tr
+									key={index}
+									className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+								>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Enrolled At
+										&lt;/span>
+										{`${enrolledAt.day}/${enrolledAt.month}/${enrolledAt.year} ${enrolledAt.time}`}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Role
+										&lt;/span>
+										{enrollment.role}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Module
+										&lt;/span>
+										{enrollment.module.moduleNumber} -{' '}
+										{enrollment.module.moduleName}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Progress
+										&lt;/span>
+										{/* &lt;span className="rounded bg-red-400 py-1 px-3 text-xs font-bold"> */}
+										some number that AI generates or
+										whatever smart people say... 🤠
+										{/* &lt;/span> */}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Actions
+										&lt;/span>
+										&lt;button className="bg-red-700 text-red-50 hover:text-red-200 hover:bg-red-800 px-6 py-2">
+											Abandon
+										&lt;/button>
+									&lt;/td>
+								&lt;/tr>
+							)
+						})}
+					&lt;/tbody>
+				&lt;/table>
+			&lt;/div>
+			&lt;div className="lg:mb-2">
+				&lt;h1 className="text-lg font-semibold">My Courses&lt;/h1>
+				&lt;table className="border-collapse w-full">
+					&lt;thead>
+						&lt;tr>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Enrolled At
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Course
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Actions
+							&lt;/th>
+						&lt;/tr>
+					&lt;/thead>
+					&lt;tbody>
+						{courses.map((course, index) => {
+							let at = moment.unix(~~(course.enrolledAt / 1000))
+							const enrolledAt = {
+								day: at.format('DD'),
+								month: at.format('MM'),
+								year: at.format('YYYY'),
+								time: at.format('hh:mm A'),
+							}
+							return (
+								&lt;tr
+									key={index}
+									className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+								>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Enrolled At
+										&lt;/span>
+										{`${enrolledAt.day}/${enrolledAt.month}/${enrolledAt.year} ${enrolledAt.time}`}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Course
+										&lt;/span>
+										{course.course.name}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Actions
+										&lt;/span>
+										&lt;button className="bg-red-700 text-red-50 hover:text-red-200 hover:bg-red-800 px-6 py-2">
+											Abandon
+										&lt;/button>
+									&lt;/td>
+								&lt;/tr>
+							)
+						})}
+					&lt;/tbody>
+				&lt;/table>
+			&lt;/div>
+			&lt;div className="lg:mb-2">
+				&lt;h1 className="text-lg font-semibold">My Assignments&lt;/h1>
+				&lt;table className="border-collapse w-full">
+					&lt;thead>
+						&lt;tr>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Due At
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Submitted At
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Assignment Name
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Graded By
+							&lt;/th>
+							&lt;th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+								Result
+							&lt;/th>
+						&lt;/tr>
+					&lt;/thead>
+					&lt;tbody>
+						{assignments.map((assignment, index) => {
+							let at = moment.unix(
+								~~(assignment.submittedAt / 1000)
+							)
+							let due = moment.unix(
+								~~(assignment.assignment.dueAt / 1000)
+							)
+							const enrolledAt = {
+								day: at.format('DD'),
+								month: at.format('MM'),
+								year: at.format('YYYY'),
+								hour: at.format('HH'),
+								minute: at.format('mm'),
+								time: at.format('hh:mm A'),
+							}
+							const dueAt = {
+								day: due.format('DD'),
+								month: due.format('MM'),
+								year: due.format('YYYY'),
+								hour: due.format('hh'),
+								minute: due.format('mm'),
+								time: at.format('hh:mm A'),
+							}
+							return (
+								&lt;tr
+									key={index}
+									className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+								>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Due At
+										&lt;/span>
+										{`${dueAt.day}/${dueAt.month}/${dueAt.year} ${dueAt.time}`}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Submitted At
+										&lt;/span>
+										{`${enrolledAt.day}/${enrolledAt.month}/${enrolledAt.year} ${enrolledAt.time}`}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Course
+										&lt;/span>
+										{assignment.assignment.name}
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Course
+										&lt;/span>
+										&lt;a
+											href={`mailto:${assignment.gradedBy.email}?subject=Question about assignment ${assignment.assignment.name}`}
+											target="_blank"
+											rel="noreferrer"
+											className="underline text-blue-400"
+										>
+											{assignment.gradedBy.firstName}{' '}
+											{assignment.gradedBy.lastName}
+										&lt;/a>
+									&lt;/td>
+									&lt;td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										&lt;span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Actions
+										&lt;/span>
+										&lt;span
+											className={`${
+												assignment.result &lt; 75
+													? 'text-red-600'
+													: null
+											} ${
+												assignment.result >= 75
+													? 'text-yellow-600'
+													: null
+											} ${
+												assignment.result >= 85
+													? 'text-green-600'
+													: null
+											}`}
+										>
+											{assignment.result}
+										&lt;/span>
+									&lt;/td>
+								&lt;/tr>
+							)
+						})}
+					&lt;/tbody>
+				&lt;/table>
+			&lt;/div>
+		&lt;/>
+	)
+}
+
+PlanOfStudy.propTypes = {
+	/*
+	 * The user's ID to execute the getPlanByStudentID query
+	 */
+	param: PropTypes.object.isRequired,
+}
+
+export default PlanOfStudy
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

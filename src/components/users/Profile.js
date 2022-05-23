@@ -10,6 +10,14 @@ import {
 } from '../../scripts/instructorProfileContex'
 import moment from 'moment'
 
+/**
+ * Functional component for displaying the student's profile page
+ * @category Plan Of Study
+ * @function
+ * @component
+ * @param {React.FC<Props>} props - React props object
+ * @returns {React.ReactElement} The profile page of the user
+ */
 const Profile = (props) => {
 	const token = localStorage.getItem(process.env.REACT_APP_JWT)
 	const history = useHistory()
