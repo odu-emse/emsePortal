@@ -1,3 +1,8 @@
+/**
+ * @name App
+ * @class
+ * @summary The main application component that renders the entire application.
+ */
 //Helpers
 import { createContext } from 'react'
 import Protector from './components/Protector'

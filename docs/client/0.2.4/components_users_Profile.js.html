@@ -1,0 +1,832 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      components/users/Profile.js - ODU ALMP Docs
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
+
+      
+      <li>
+        <div class="search-wrapper">
+          <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+
+          </svg>
+          <input type="text" placeholder="Search" class="search-input">
+        </div>
+      </li>
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      Asynchronous Learning Management System @ ODU-EMSE
+    </h3>
+
+    
+
+    <h3>Classes</h3><ul><li id="App-nav"><a href="App.html">App</a></li><li id="PlanOfStudy-nav"><a href="PlanOfStudy.html">PlanOfStudy</a><ul class='methods'><li data-type="method" id="PlanOfStudy-getPlan-nav"><a href="PlanOfStudy.html#.getPlan">getPlan</a></li><li data-type="method" id="PlanOfStudy-loader-nav"><a href="PlanOfStudy.html#.loader">loader</a></li></ul></li><li id="Profile-nav"><a href="Profile.html">Profile</a><ul class='methods'><li data-type="method" id="Profile-deleteUser-nav"><a href="Profile.html#~deleteUser">deleteUser</a></li><li data-type="method" id="Profile-getUser-nav"><a href="Profile.html#~getUser">getUser</a></li><li data-type="method" id="Profile-handleInstructorProfileChange-nav"><a href="Profile.html#~handleInstructorProfileChange">handleInstructorProfileChange</a></li><li data-type="method" id="Profile-toggleInstructor-nav"><a href="Profile.html#~toggleInstructor">toggleInstructor</a></li><li data-type="method" id="Profile-updateUser-nav"><a href="Profile.html#~updateUser">updateUser</a></li></ul></li><li id="Register-nav"><a href="Register.html">Register</a><ul class='methods'><li data-type="method" id="Register-change-nav"><a href="Register.html#.change">change</a></li><li data-type="method" id="Register-nextStep-nav"><a href="Register.html#.nextStep">nextStep</a></li><li data-type="method" id="Register-previousStep-nav"><a href="Register.html#.previousStep">previousStep</a></li></ul></li><li id="UserInfo-nav"><a href="UserInfo.html">UserInfo</a><ul class='methods'><li data-type="method" id="UserInfo-next-nav"><a href="UserInfo.html#~next">next</a></li></ul></li></ul><h3>Modules</h3><ul><li id="GetPlanByStudentID-nav"><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a><ul class='methods'><li data-type="method" id="GetPlanByStudentID-getPlan-nav"><a href="module-GetPlanByStudentID.html#~getPlan">getPlan</a></li></ul></li><li id="InstructorProfileContext-nav"><a href="module-InstructorProfileContext.html">InstructorProfileContext</a><ul class='methods'><li data-type="method" id="InstructorProfileContext-contextReducer-nav"><a href="module-InstructorProfileContext.html#~contextReducer">contextReducer</a></li><li data-type="method" id="InstructorProfileContext-InstructorProvider-nav"><a href="module-InstructorProfileContext.html#~InstructorProvider">InstructorProvider</a></li><li data-type="method" id="InstructorProfileContext-useInstructorContext-nav"><a href="module-InstructorProfileContext.html#~useInstructorContext">useInstructorContext</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul>
+  </nav>
+
+  <div id="main">
+    
+      <h1 class="page-title">
+        components/users/Profile.js
+      </h1>
+    
+
+    
+      
+
+<section>
+  <article>
+    <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, createContext } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { profileCheck, loader } from '../helpers'
+import { useHistory } from 'react-router-dom'
+import PlanOfStudy from './PlanOfStudy'
+import {
+	InstructorProvider,
+	useInstructorContext,
+} from '../../scripts/instructorProfileContex'
+import moment from 'moment'
+
+/**
+ * Functional component for displaying the student's profile page
+ * @category Plan Of Study
+ * @function
+ * @component
+ * @param {React.FC&lt;Props>} props - React props object
+ * @returns {React.ReactElement} The profile page of the user
+ */
+const Profile = (props) => {
+	const token = localStorage.getItem(process.env.REACT_APP_JWT)
+	const history = useHistory()
+
+	const {
+		match: { params },
+	} = props
+
+	profileCheck(token, history, params)
+
+	const instructor = useInstructorContext()
+
+	const [user, setUser] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [isInstructor, setIsInstructor] = useState(false)
+	const [showInstructor, setShowInstructor] = useState(false)
+
+	/**
+	 * @summary Asynchronous function for fetching the user's profile based on the URL parameter containing the user's ID
+	 * @function
+	 * @returns {Object} The user's object
+	 */
+	const getUser = async () => {
+		let payload = {
+			// language=GraphQL
+			query: `{
+				user(id: "${params.id}" ){
+					firstName,
+					lastName,
+                    middleName
+					email,
+                    isAdmin,
+                    dob,
+                    plan{
+                        id,
+                        modules{
+                            role
+                        }
+                    }
+				}
+			}`,
+		}
+
+		const data = await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((document) => {
+				return document.data.data.user
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+		setUser(data)
+		return data
+	}
+
+	/**
+	 * @summary Asynchronous function for updating the user's profile. This function is called when the user submits the update profile form.
+	 * @function
+	 * @param {React.MouseEvent&lt;HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
+	const updateUser = async (e) => {
+		setLoading(true)
+		e.preventDefault()
+		if (user.dob) {
+			const dob = user.dob.split('/')
+			const mom = moment()
+			await mom.set({
+				year: dob[0],
+				month: dob[1],
+				date: dob[2],
+			})
+			await setUser({ ...user, dob: mom.unix() })
+		}
+		const payload = {
+			query: `mutation{
+                        updateUser(input: {
+                            id: "${params.id}",
+                            middleName: "${user.middleName}",
+                            firstName: "${user.firstName}",
+                            lastName: "${user.lastName}",
+                            email: "${user.email}",
+                            password: "${user.password}",
+                            passwordConf: "${user.passwordConf}",
+                            dob: "${user.dob}",
+                            ${
+								isInstructor
+									? `instructorProfile: {
+										title: "${instructor.state.instructorProfile.title || ''}",
+									    officeLocation: "${
+											instructor.state.instructorProfile
+												.officeLocation || ''
+										}",
+									    officeHours: "${instructor.state.instructorProfile.officeHours || ''}",
+									    contactPolicy: "${instructor.state.instructorProfile.contactPolicy || ''}",
+									    phone: "${instructor.state.instructorProfile.phone || ''}",
+									    background: "${instructor.state.instructorProfile.background || ''}",
+									    researchInterest: "${
+											instructor.state.instructorProfile
+												.researchInterest || ''
+										}",
+									    selectedPapersAndPublications: "${
+											instructor.state.instructorProfile
+												.selectedPapersAndPublications ||
+											''
+										}",
+									    personalWebsite: "${
+											instructor.state.instructorProfile
+												.personalWebsite || ''
+										}",
+									    philosophy: "${instructor.state.instructorProfile.philosophy || ''}"
+									}`
+									: ''
+							}
+                            }){
+                            firstName,
+                            lastName,
+                            middleName,
+                            email,
+                            dob,
+                            instructorProfile{
+                                title,
+                                phone,
+                                officeHours,
+                                officeLocation,
+                            }
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => {
+				if (res.data) {
+					setLoading(false)
+					setUser(res.data.data.updateUser)
+					toast.success('Your profile was updated!', {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				} else {
+					setLoading(false)
+					toast.error('There was an error updating your profile', {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				}
+			})
+			.catch((err) => {
+				setLoading(false)
+				err.response.data.errors.map((error) => {
+					toast.error(error.message, {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				})
+			})
+	}
+
+	/**
+	 * @summary Asynchronous function for deleting the user's profile. This function is called when the user clicks on the delete account button.
+	 * @function
+	 * @param {React.MouseEvent&lt;HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
+	const deleteUser = async (e) => {
+		e.preventDefault()
+		const payload = {
+			query: `mutation{
+                        deleteUser(id: "${params.id}"){
+                            id
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then(() => {
+				setLoading(false)
+				props.history.push('/users/register')
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+	}
+
+	/**
+	 * @summary Helper function for checking if the user has any enrollments as an instructor.
+	 * @function
+	 * @param {Object} usr - The user's profile object
+	 */
+	const toggleInstructor = (usr) => {
+		console.log(
+			'User: ',
+			usr.plan.modules.find((m) => m.role === 'GRADER')
+		)
+		user?.plan?.modules.map((module) => {
+			console.log(module)
+			if (module.role === 'TEACHER' || module.role === 'GRADER') {
+				setIsInstructor(true)
+			}
+		})
+	}
+
+	/**
+	 * @summary Function that handles the change between user's profile and instructor's profile. This function dispatches a reducer action with a 'SET_INSTRUCTOR_PROFILE' `type` and a `payload` of the field name and value that was changed.
+	 * @function
+	 * @param {React.ChangeEvent&lt;HTMLInputElement>} event - The event object of the click event
+	 * @example
+	 *
+	 * const handleInstructorProfileChange = (event) => {
+	 *	instructor.dispatch({
+	 *		type: 'SET_INSTRUCTOR_PROFILE',
+	 *		payload: { [event.target.name]: event.target.value },
+	 *	})
+	 * }
+	 * //returns [...{title: "Chair of the Department of Computer Science"}]
+	 *
+	 * return (
+	 * &lt;input
+	 * 	type="text"
+	 * 	name="title"
+	 * 	value="Chair of the Department of Computer Science"
+	 * 	onChange={(event) => handleInstructorProfileChange(event)}
+	 * />
+	 * )
+	 */
+	const handleInstructorProfileChange = (event) => {
+		instructor.dispatch({
+			type: 'SET_INSTRUCTOR_PROFILE',
+			payload: { [event.target.name]: event.target.value },
+		})
+	}
+
+	useEffect(() => {
+		getUser().then((res) => {
+			toggleInstructor(res)
+			setLoading(false)
+		})
+	}, [showInstructor])
+
+	return loading ? (
+		loader()
+	) : (
+		&lt;>
+			&lt;div className="w-11/12 lg:w-3/4 mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
+				&lt;ToastContainer />
+				&lt;nav className="w-full md:w-1/4 mr-8 flex flex-col border border-gray-200 shadow-sm rounded-md h-full">
+					{isInstructor ? (
+						&lt;button
+							onClick={() => setShowInstructor(!showInstructor)}
+						>
+							&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+								Switch to Professor
+							&lt;/li>
+						&lt;/button>
+					) : null}
+					&lt;a className="text-base" href="#user">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							User information
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#modules">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Plan of Study
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#security">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Security
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#notifications">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Notifications
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#kill">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-gray-300 list-none">
+							Close account
+						&lt;/li>
+					&lt;/a>
+				&lt;/nav>
+				&lt;div className="w-full md:w-3/4">
+					&lt;h3
+						id="user"
+						className="text-2xl bold border-b border-gray-100 mb-3"
+					>
+						Profile
+					&lt;/h3>
+					&lt;form>
+						&lt;div className="flex md:flex-row md:justify-between flex-col mb-3">
+							&lt;label
+								htmlFor="name"
+								className="block flex-1 mr-2 font-bold"
+							>
+								First name
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="First name"
+									name="firstName"
+									value={user.firstName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											firstName: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+							&lt;label
+								htmlFor="name"
+								className="block flex-1 mx-2 font-bold"
+							>
+								Middle name
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="Middle name"
+									name="middleName"
+									value={user.middleName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											middleName: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+							&lt;label
+								htmlFor="name"
+								className="block flex-1 ml-2 font-bold"
+							>
+								Last name
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="Last name"
+									name="lastName"
+									value={user.lastName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											lastName: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						&lt;div className="w-full mb-3">
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Email
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="email"
+									placeholder="Email"
+									name="email"
+									value={user.email}
+									onChange={(e) =>
+										setUser({
+											...user,
+											email: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						&lt;div className="w-full mb-3">
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Date of birth
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="YYYY/MM/DD"
+									name="dob"
+									defaultValue={user.dob}
+									onChange={(e) =>
+										setUser({
+											...user,
+											dob: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						{showInstructor &amp;&amp; (
+							&lt;>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Title
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Title"
+											name="title"
+											defaultValue={
+												instructor.state
+													.instructorProfile.title
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Office location
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Office location"
+											name="officeLocation"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.officeLocation
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Office hours
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Office hours"
+											name="officeHours"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.officeHours
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Contact policy
+										&lt;textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											placeholder="Contact policy"
+											name="contactPolicy"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.contactPolicy
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Phone number
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Phone number"
+											name="phone"
+											defaultValue={
+												instructor.state
+													.instructorProfile.phone
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Research interest
+										&lt;textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											placeholder="Research interest"
+											name="researchInterest"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.researchInterest
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Teaching philosophy
+										&lt;textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											placeholder="Teaching philosophy"
+											name="philosophy"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.philosophy
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+							&lt;/>
+						)}
+						&lt;div className="w-full mb-3 flex gap-4">
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Password
+								&lt;input
+									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
+									type="password"
+									placeholder="Password"
+									name="password"
+									defaultValue={user.password}
+									onChange={(e) =>
+										setUser({
+											...user,
+											password: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Password Confirmation
+								&lt;input
+									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
+									type="password"
+									placeholder="Password Confirmation"
+									name="passwordConf"
+									defaultValue={user.passwordConf}
+									onChange={(e) =>
+										setUser({
+											...user,
+											passwordConf: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						&lt;button
+							className="bg-blue-300 border-blue-200 rounded w-auto text-black px-4 py-2"
+							onClick={(e) => updateUser(e)}
+							type="submit"
+						>
+							Update profile
+						&lt;/button>
+					&lt;/form>
+					&lt;h3
+						id="modules"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						My Plan of Study
+					&lt;/h3>
+					&lt;div className="">
+						&lt;PlanOfStudy param={params.id} />
+					&lt;/div>
+					&lt;h3
+						id="security"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Security
+					&lt;/h3>
+					&lt;div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					&lt;/div>
+					&lt;h3
+						id="notifications"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Notifications
+					&lt;/h3>
+					&lt;div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					&lt;/div>
+					&lt;h3
+						id="kill"
+						className="text-2xl bold border-b border-gray-100 text-red-500 mb-3 mt-3"
+					>
+						Danger zone
+					&lt;/h3>
+
+					&lt;button
+						className="text-white border-red-400 bg-red-500 rounded w-auto px-4 py-2"
+						onClick={() => deleteUser()}
+					>
+						Kill account
+					&lt;/button>
+				&lt;/div>
+			&lt;/div>
+		&lt;/>
+	)
+}
+
+export default Profile
+</code></pre>
+  </article>
+</section>
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> <br/>
+    Theme by <a href="https://github.com/braintree/jsdoc-template">Braintree</a> <br/>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+  {# <script>
+    $(function () {
+      window.docsearch({
+        apiKey: '',
+        indexName: 'braintree',
+        inputSelector: '.search-input',
+        debug: false, // Set debug to true if you want to inspect the dropdown
+        algoliaOptions: {
+          hitsPerPage: 7
+        }
+      });
+    });
+  </script> #}
+  
+
+</body>
+</html>

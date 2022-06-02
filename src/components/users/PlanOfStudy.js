@@ -5,21 +5,29 @@ import { loader } from '../helpers'
 import moment from 'moment'
 
 /**
+ * @name PlanOfStudy
  * @summary Functional React component for displaying the plan of a student in a table format.
  * @category Plan Of Study
  * @component
- * @see {@link scripts/getPlanByStudentID}
  * @borrows loader as loader
  * @returns {React.ReactElement} The plan of study in a table format
  * @requires moment
  */
-
-const PlanOfStudy = ({ param }) => {
+export default function PlanOfStudy({ param }) {
 	const [enrollment, setEnrollment] = useState(null)
 	const [courses, setCourses] = useState(null)
 	const [assignments, setAssignments] = useState(null)
 	const [loading, setLoading] = useState(true)
 
+	/**
+	 * @name getPlan
+	 * @summary Asynchronous function for updating the component state with the user's plan of study
+	 * @async
+	 * @function
+	 * @memberof PlanOfStudy
+	 * @see {@link scripts/getPlanByStudentID}
+	 * @borrows React.useState as React.useState
+	 */
 	useEffect(() => {
 		getPlan(param)
 			.then((response) => {
@@ -301,5 +309,3 @@ PlanOfStudy.propTypes = {
 	 */
 	param: PropTypes.object.isRequired,
 }
-
-export default PlanOfStudy

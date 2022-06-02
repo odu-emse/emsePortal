@@ -38,7 +38,7 @@
 		"test": "cypress run",
 		"test:ui": "cypress open",
 		"docs": "jsdoc -c jsdoc.conf.json",
-		"docs:watch": "npx nodemon --exec 'npx jsdoc -c jsdoc.conf.json' --watch src",
+		"docs:watch": "npx nodemon --exec 'jsdoc -c ./jsdoc.conf.json' --watch src",
 		"release": "standard-version",
 		"patch": "npm run release -- --release-as patch",
 		"minor": "npm run release -- --release-as minor",

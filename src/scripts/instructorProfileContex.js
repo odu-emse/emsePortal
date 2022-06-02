@@ -1,4 +1,5 @@
 /**
+ * @name InstructorProfileContext
  * @desc A React Context for the Instructor Profile to be used in the user's profile page
  * @module
  * @category Context
@@ -11,6 +12,7 @@ import React, { createContext, useContext, useReducer } from 'react'
 const InstructorProfileContext = createContext()
 
 /**
+ * @summary A React Context Reducer function that manages the state of the Instructor Profile Context. This function processes the action type that is given and handles the dispatching of new state values based on the action type.
  * @function
  * @param {InstructorProfile} state - The current state of the context
  * @param {Object} action - The action object
@@ -31,6 +33,7 @@ function contextReducer(state, action) {
 }
 
 /**
+ * @summary A React Context Provider wrapper component that uses `useReducer` to manage the state of the Instructor Profile Context
  * @function
  * @param {React.ReactChild} children - The children components to be rendered inside of the provider
  * @returns {JSX.Element} The Provider component for the Instructor Profile Context
@@ -60,6 +63,7 @@ function InstructorProvider({ children }) {
 }
 
 /**
+ * @summary A hook to access the Instructor Profile Context from any component that resides in the Instructor Profile Context Provider
  * @function
  * @returns {InstructorProfile | Error} The current state of the context or an error if the context is not found or not within the Provider.
  */
