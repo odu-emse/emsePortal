@@ -2,6 +2,15 @@ import React from 'react'
 import { loader, getRandomNum } from '../../helpers'
 import { Link } from 'react-router-dom'
 
+/**
+ * @component
+ * @name Course
+ * @description The Course component is used to display a course.
+ * @deprecated
+ * @todo Update this component to be implemented into the new design
+ * @param {React.FC<Props>} props
+ * @returns {React.ReactFragment} The Course component
+ */
 const Courses = (props) => {
 	const { courses, images, loading } = props
 	const filterCourses = (content, title, variant) => {

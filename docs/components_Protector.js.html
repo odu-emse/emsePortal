@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
-      GetPlanByStudentID - ODU ALMP Docs
+      components/Protector.js - ODU ALMP Docs
   </title>
 
   <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
@@ -93,235 +95,73 @@
   <div id="main">
     
       <h1 class="page-title">
-        GetPlanByStudentID
+        components/Protector.js
       </h1>
     
 
     
+      
 
 <section>
-  <header>
-    
-      
-  </header>
-
   <article>
-    <div class="container-overview">
-      
-        
-
-        
-      
-    </div>
-
-    
-
-    
-      <h3 class="subsection-title">Requires</h3>
-
-      <ul>
-        
-          <li>
-            module:axios
-          </li>
-        
-      </ul>
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-      <h3 class="subsection-title">Methods</h3>
-
-      
-        
-
-
-  
-
-  <span class='name-container'>
-    <a class="link-icon" href="#~getPlan">
-      <svg height="20" width="20" style="fill: black;">
-        <use xlink:href="#linkIcon"></use>
-      </svg>
-    </a>
-    <h4 class="name" id="~getPlan">
-      <span class="type-signature">(async, inner) </span>getPlan<span class="signature">(studentID)</span><span class="type-signature"> &rarr; {Object}</span>
-    </h4>
-  </span>
-
-  
-    <p class="summary">
-      <p>Asynchronous helper function (fetch hook) for fetching the user's plan of study based on the user's ID</p>
-    </p>
-  
-
-
-
-
-
-
-
-
-
-  <h5>Parameters:</h5>
-  
-
-<table class="params">
-  <thead>
-    <tr>
-      
-        <th>Name</th>
-      
-
-      <th>Type</th>
-
-      
-
-      
-
-      <th class="last">Description</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    
-      <tr>
-        
-          <td class="name"><code>studentID</code></td>
-        
-
-        <td class="type">
-          
-            
-    <span class="param-type">
-      string
-    </span>
-
-    
-
-
-          
-        </td>
-
-        
-
-        
-
-        <td class="description last">
-          <p>The user's ID that the query is executed against</p>
-          
-        </td>
-      </tr>
-
-    
-  </tbody>
-</table>
-
-
-
-
-
-<dl class="details">
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  <div style="display:block;">
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source">
-      <ul class="dummy">
-        <li>
-          <a href="scripts_getPlanByStudentID.js.html">scripts/getPlanByStudentID.js</a>, <a href="scripts_getPlanByStudentID.js.html#line9">line 9</a>
-        </li>
-      </ul>
-    </dd>
-  </div>
-  
-
-  
-
-  
-
-  
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="example-container">
-    <a class="link-icon" href="#getPlan-examples">
-      <svg height="20" width="20" style="fill: black;">
-        <use xlink:href="#linkIcon"></use>
-      </svg>
-    </a>
-    <h5 id="getPlan-examples">Example</h5>
-    
-
-  <pre class="prettyprint"><code>getPlan(param)
-		.then((response) => {
-			try {
-				... // Update the component state with the response
-				... // Set the loading state to false
-			} catch (error) {
-				... // Handle the error if the response is not valid
+    <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+import { Redirect, Route } from 'react-router-dom'
+import { getToken, loader } from './helpers'
+
+/**
+ * @component
+ * @name Protector
+ * @description A wrapper component that handles the verification of users using built in authentication methods.
+ * @param {React.FC&lt;Props>} props - The child component coming from the React Router switch statement that we are authenticating and passing down the tree.
+ * @returns {React.ReactNode} The child element that is passed in via props, wrapped in the HOC.
+ */
+const Protector = ({ component: Component, ...rest }) => {
+	const [authentication, setAuth] = useState(false)
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		const jsonwebtoken = getToken()
+		if (!jsonwebtoken) {
+			setAuth(false)
+			setLoading(false)
+			return false
+		} else {
+			setAuth(true)
+			setLoading(false)
+		}
+	}, [authentication, loading])
+
+	return loading === true ? (
+		loader()
+	) : (
+		&lt;Route
+			{...rest}
+			render={(props) =>
+				authentication === false ? (
+					&lt;Redirect
+						to={{
+							pathname: '/users/login',
+							state: {
+								from: props.location,
+								error: 'Not authorized to access...',
+							},
+						}}
+					/>
+				) : (
+					//if they are authenticated -> send protected component
+					&lt;Component {...props} />
+				)
 			}
-		})
-		.catch((err) => {
-			... // Handle the error if the fetch request fails
-		})</code></pre>
+		/>
+	)
+}
 
-
-  </div>
-
-
-      
-    
-
-    
-
-    
+export default Protector
+</code></pre>
   </article>
 </section>
 
-
+    
 
 
   </div>

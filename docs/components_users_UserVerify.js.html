@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
-      GetPlanByStudentID - ODU ALMP Docs
+      components/users/UserVerify.js - ODU ALMP Docs
   </title>
 
   <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
@@ -93,235 +95,109 @@
   <div id="main">
     
       <h1 class="page-title">
-        GetPlanByStudentID
+        components/users/UserVerify.js
       </h1>
     
 
     
+      
 
 <section>
-  <header>
-    
-      
-  </header>
-
   <article>
-    <div class="container-overview">
-      
-        
-
-        
-      
-    </div>
-
-    
-
-    
-      <h3 class="subsection-title">Requires</h3>
-
-      <ul>
-        
-          <li>
-            module:axios
-          </li>
-        
-      </ul>
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-      <h3 class="subsection-title">Methods</h3>
-
-      
-        
-
-
-  
-
-  <span class='name-container'>
-    <a class="link-icon" href="#~getPlan">
-      <svg height="20" width="20" style="fill: black;">
-        <use xlink:href="#linkIcon"></use>
-      </svg>
-    </a>
-    <h4 class="name" id="~getPlan">
-      <span class="type-signature">(async, inner) </span>getPlan<span class="signature">(studentID)</span><span class="type-signature"> &rarr; {Object}</span>
-    </h4>
-  </span>
-
-  
-    <p class="summary">
-      <p>Asynchronous helper function (fetch hook) for fetching the user's plan of study based on the user's ID</p>
-    </p>
-  
-
-
-
-
-
-
-
-
-
-  <h5>Parameters:</h5>
-  
-
-<table class="params">
-  <thead>
-    <tr>
-      
-        <th>Name</th>
-      
-
-      <th>Type</th>
-
-      
-
-      
-
-      <th class="last">Description</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    
-      <tr>
-        
-          <td class="name"><code>studentID</code></td>
-        
-
-        <td class="type">
-          
-            
-    <span class="param-type">
-      string
-    </span>
-
-    
-
-
-          
-        </td>
-
-        
-
-        
-
-        <td class="description last">
-          <p>The user's ID that the query is executed against</p>
-          
-        </td>
-      </tr>
-
-    
-  </tbody>
-</table>
-
-
-
-
-
-<dl class="details">
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  <div style="display:block;">
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source">
-      <ul class="dummy">
-        <li>
-          <a href="scripts_getPlanByStudentID.js.html">scripts/getPlanByStudentID.js</a>, <a href="scripts_getPlanByStudentID.js.html#line9">line 9</a>
-        </li>
-      </ul>
-    </dd>
-  </div>
-  
-
-  
-
-  
-
-  
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="example-container">
-    <a class="link-icon" href="#getPlan-examples">
-      <svg height="20" width="20" style="fill: black;">
-        <use xlink:href="#linkIcon"></use>
-      </svg>
-    </a>
-    <h5 id="getPlan-examples">Example</h5>
-    
-
-  <pre class="prettyprint"><code>getPlan(param)
-		.then((response) => {
-			try {
-				... // Update the component state with the response
-				... // Set the loading state to false
-			} catch (error) {
-				... // Handle the error if the response is not valid
-			}
-		})
-		.catch((err) => {
-			... // Handle the error if the fetch request fails
-		})</code></pre>
-
-
-  </div>
-
-
-      
-    
-
-    
-
-    
+    <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { loader } from '../helpers'
+
+/**
+ * @name UserVerify
+ * @component
+ * @description This component is used to verify a user's email address. The link to this component/page is sent to the user's email address upon registration. The user is then authenticated and redirected to the dashboard if the verification is successful.
+ * @param {React.FC&lt;Props>} props - Simple props object that we use to redirect the user if they are not successfully authenticated. The members of this object come from `react-router-dom`'s `&lt;Route>` component.
+ * @returns {React.ReactHTMLElement | React.ReactFragment} - The UserVerify page and redirection or an error page if the user is not successfully authenticated.
+ * @deprecated
+ */
+const UserVerify = (props) => {
+	const token = props.match.params.id
+
+	const [user, setUser] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
+
+	useEffect(() => {
+		let config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		}
+		try {
+			axios
+				.get(
+					`${process.env.REACT_APP_API}/api/users/userVerify${token}`,
+					config
+				)
+				.then((user) => {
+					setLoading(false)
+					setUser(user)
+				})
+				.catch((err) => {
+					toast.error(err.response.data.error, {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+					setError(true)
+					setErrorMessage(err.response.data.error)
+				})
+		} catch (error) {
+			toast.error(error.response.data.error, {
+				position: toast.POSITION.TOP_RIGHT,
+			})
+			setError(true)
+			setErrorMessage(error.response.data.error)
+		}
+	}, [])
+
+	if (loading) {
+		if (error) {
+			return (
+				&lt;>
+					&lt;ToastContainer />
+					&lt;div className="container">
+						&lt;p>{errorMessage}&lt;/p>
+					&lt;/div>
+				&lt;/>
+			)
+		} else {
+			return loader()
+		}
+	} else {
+		const { updateDoc } = user.data
+		return (
+			&lt;div className="container">
+				&lt;h1>
+					Thank you for verifying your account,{' '}
+					{`${updateDoc.firstName} ${updateDoc.lastName}`}!
+				&lt;/h1>
+			&lt;/div>
+		)
+	}
+}
+
+UserVerify.propTypes = {
+	props: {
+		match: PropTypes.object,
+		location: PropTypes.object,
+		history: PropTypes.object,
+	},
+}
+
+export default UserVerify
+</code></pre>
   </article>
 </section>
 
-
+    
 
 
   </div>

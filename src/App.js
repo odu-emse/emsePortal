@@ -91,7 +91,7 @@ function App() {
 							/>
 
 							<Route
-								path="/users/userVerify"
+								path="/users/verify/:id"
 								component={UserVerify}
 							/>
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
-      GetPlanByStudentID - ODU ALMP Docs
+      components/programs/courses/Courses.js - ODU ALMP Docs
   </title>
 
   <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
@@ -93,235 +95,89 @@
   <div id="main">
     
       <h1 class="page-title">
-        GetPlanByStudentID
+        components/programs/courses/Courses.js
       </h1>
     
 
     
+      
 
 <section>
-  <header>
-    
-      
-  </header>
-
   <article>
-    <div class="container-overview">
-      
-        
-
-        
-      
-    </div>
-
-    
-
-    
-      <h3 class="subsection-title">Requires</h3>
-
-      <ul>
-        
-          <li>
-            module:axios
-          </li>
-        
-      </ul>
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-      <h3 class="subsection-title">Methods</h3>
-
-      
-        
-
-
-  
-
-  <span class='name-container'>
-    <a class="link-icon" href="#~getPlan">
-      <svg height="20" width="20" style="fill: black;">
-        <use xlink:href="#linkIcon"></use>
-      </svg>
-    </a>
-    <h4 class="name" id="~getPlan">
-      <span class="type-signature">(async, inner) </span>getPlan<span class="signature">(studentID)</span><span class="type-signature"> &rarr; {Object}</span>
-    </h4>
-  </span>
-
-  
-    <p class="summary">
-      <p>Asynchronous helper function (fetch hook) for fetching the user's plan of study based on the user's ID</p>
-    </p>
-  
-
-
-
-
-
-
-
-
-
-  <h5>Parameters:</h5>
-  
-
-<table class="params">
-  <thead>
-    <tr>
-      
-        <th>Name</th>
-      
-
-      <th>Type</th>
-
-      
-
-      
-
-      <th class="last">Description</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    
-      <tr>
-        
-          <td class="name"><code>studentID</code></td>
-        
-
-        <td class="type">
-          
-            
-    <span class="param-type">
-      string
-    </span>
-
-    
-
-
-          
-        </td>
-
-        
-
-        
-
-        <td class="description last">
-          <p>The user's ID that the query is executed against</p>
-          
-        </td>
-      </tr>
-
-    
-  </tbody>
-</table>
-
-
-
-
-
-<dl class="details">
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  <div style="display:block;">
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source">
-      <ul class="dummy">
-        <li>
-          <a href="scripts_getPlanByStudentID.js.html">scripts/getPlanByStudentID.js</a>, <a href="scripts_getPlanByStudentID.js.html#line9">line 9</a>
-        </li>
-      </ul>
-    </dd>
-  </div>
-  
-
-  
-
-  
-
-  
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="example-container">
-    <a class="link-icon" href="#getPlan-examples">
-      <svg height="20" width="20" style="fill: black;">
-        <use xlink:href="#linkIcon"></use>
-      </svg>
-    </a>
-    <h5 id="getPlan-examples">Example</h5>
-    
-
-  <pre class="prettyprint"><code>getPlan(param)
-		.then((response) => {
-			try {
-				... // Update the component state with the response
-				... // Set the loading state to false
-			} catch (error) {
-				... // Handle the error if the response is not valid
-			}
-		})
-		.catch((err) => {
-			... // Handle the error if the fetch request fails
-		})</code></pre>
-
-
-  </div>
-
-
-      
-    
-
-    
-
-    
+    <pre class="prettyprint source linenums"><code>import React from 'react'
+import { loader, getRandomNum } from '../../helpers'
+import { Link } from 'react-router-dom'
+
+/**
+ * @component
+ * @name Course
+ * @description The Course component is used to display a course.
+ * @deprecated
+ * @todo Update this component to be implemented into the new design
+ * @param {React.FC&lt;Props>} props
+ * @returns {React.ReactFragment} The Course component
+ */
+const Courses = (props) => {
+	const { courses, images, loading } = props
+	const filterCourses = (content, title, variant) => {
+		return (
+			&lt;>
+				&lt;h4 className="my-3 text-3xl">{title}&lt;/h4>
+				&lt;div className="module--list grid grid-cols-5 gap-5 overflow-x-hidden">
+					{content.data.map((course, index) => (
+						&lt;Link
+							to={`/course/${course._id}`}
+							className="hover:no-underline"
+						>
+							&lt;div className="shadow-md mb-3 rounded bg-gray-100">
+								&lt;div className="flex items-center justify-center overflow-hidden max-h-56">
+									&lt;img
+										alt={
+											images[0][getRandomNum(0, 30)]
+												?.alt_description
+										}
+										src={
+											images[0][getRandomNum(0, 30)]?.urls
+												?.thumb
+										}
+										title={
+											images[0][getRandomNum(0, 30)]
+												?.alt_description
+										}
+										className="min-w-full min-h-full flex-shrink-0"
+									/>
+								&lt;/div>
+								&lt;div className="p-2">
+									&lt;h4 className="font-bold text-xl">
+										{course.courseName}
+									&lt;/h4>
+									&lt;div container className="w-full">
+										&lt;div className="flex flex-row flex-wrap">
+											{course.keywords.map((keyword) => (
+												&lt;span className="bg-blue-500 rounded-full text-xs text-white py-1 px-2 m-1">
+													{keyword}
+												&lt;/span>
+											))}
+										&lt;/div>
+									&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/Link>
+					))}
+				&lt;/div>
+			&lt;/>
+		)
+	}
+
+	return loading ? loader() : &lt;>{filterCourses(courses, props.title)}&lt;/>
+}
+
+export default Courses
+</code></pre>
   </article>
 </section>
 
-
+    
 
 
   </div>

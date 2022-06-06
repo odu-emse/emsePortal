@@ -87,6 +87,7 @@ export default function Sidebar() {
 							: 'https://www.odu.edu/content/dam/odu/logos/univ/png-72dpi/crown-r-2-color.png'
 					}`}
 					alt="Workflow"
+					loading="lazy"
 				/>
 			</div>
 			<div
@@ -237,12 +238,9 @@ export default function Sidebar() {
 									<img
 										className="md:h-8 md:w-8 h-auto w-auto rounded-full"
 										src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-										alt=""
+										alt="user account avatar"
+										loading="lazy"
 									/>
-									// <RiUserSettingsLine
-									// 	size={30}
-									// 	title="Account"
-									// />
 								)}
 							</button>
 							<div

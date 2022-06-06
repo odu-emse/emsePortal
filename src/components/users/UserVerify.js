@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { ToastContainer, toast } from "react-toastify"
-import { loader } from "../helpers"
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { loader } from '../helpers'
 
+/**
+ * @name UserVerify
+ * @component
+ * @description This component is used to verify a user's email address. The link to this component/page is sent to the user's email address upon registration. The user is then authenticated and redirected to the dashboard if the verification is successful.
+ * @param {React.FC<Props>} props - Simple props object that we use to redirect the user if they are not successfully authenticated. The members of this object come from `react-router-dom`'s `<Route>` component.
+ * @returns {React.ReactHTMLElement | React.ReactFragment} - The UserVerify page and redirection or an error page if the user is not successfully authenticated.
+ * @deprecated
+ */
 const UserVerify = (props) => {
-	const initialUser = {
-		user: {},
-		loading: true,
-		error: false,
-		errorMessage: "",
-	}
+	const token = props.match.params.id
 
-	const token = props.location.search
-
-	const [user, setUser] = useState(initialUser.user)
-	const [loading, setLoading] = useState(initialUser.loading)
-	const [error, setError] = useState(initialUser.error)
-	const [errorMessage, setErrorMessage] = useState(initialUser.errorMessage)
+	const [user, setUser] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
 	useEffect(() => {
 		let config = {
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
 		}
 		try {
@@ -68,12 +70,20 @@ const UserVerify = (props) => {
 		return (
 			<div className="container">
 				<h1>
-					Thank you for verifying your account,{" "}
+					Thank you for verifying your account,{' '}
 					{`${updateDoc.firstName} ${updateDoc.lastName}`}!
 				</h1>
 			</div>
 		)
 	}
+}
+
+UserVerify.propTypes = {
+	props: {
+		match: PropTypes.object,
+		location: PropTypes.object,
+		history: PropTypes.object,
+	},
 }
 
 export default UserVerify

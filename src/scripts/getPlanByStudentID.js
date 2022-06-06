@@ -48,13 +48,39 @@ export default async function getPlan(studentID) {
 							module{
 								id,
 								moduleName,
-								moduleNumber
+								moduleNumber,
+								description,
+								duration,
+								intro,
+								keywords,
+								updatedAt,
+								feedback{
+									rating
+								},
+								assignments{
+									id,
+									name,
+									dueAt
+								},
+								members{
+									enrolledAt,
+									role,
+									id
+								},
+								parentCourses{
+									id,
+									course{
+										id,
+										name
+									}
+								}
 							},
 						},
 						courses{
 							id,
 							enrolledAt,
 							course{
+								id,
 								name,
 							}
 						},

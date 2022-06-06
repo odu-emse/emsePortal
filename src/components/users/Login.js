@@ -4,17 +4,36 @@ import { ToastContainer, toast } from 'react-toastify'
 import { getToken, refreshPage, loader } from '../helpers'
 import { Link } from 'react-router-dom'
 
+/**
+ * @component
+ * @name Login
+ * @description This component is used to render the login page.
+ * @param {React.FC<Props>} props - Simple props object that we use to redirect the user after they are successfully authenticated. The members of this object come from `react-router-dom`'s `<Route>` component.
+ * @returns {React.ReactHTMLElement} The rendered HTML element that wraps this component within the page.
+ */
 const Login = (props) => {
-	const initialUserState = {
-		email: '',
-		password: '',
-		loading: false,
-	}
+	/**
+	 * @member
+	 * @name LoginComponentState
+	 * @memberof Login
+	 * @type {React.ComponentState}
+	 * @property {String | null} [email=null] The current state of the email form field.
+	 * @property {String | null} [password=null] The current state of the password form field.
+	 * @property {Boolean} [loading=false] The current state of the loading indicator based on fetching and requests being sent.
+	 * @description This is the states of the component. These properties come from the return of the initialization of the specific `useState`, which returns a tuple of the current state and a function that allows us to update the state. Initial values are set on load.
+	 */
+	const [email, setEmail] = useState(null)
+	const [password, setPassword] = useState(null)
+	const [loading, setLoading] = useState(false)
 
-	const [email, setEmail] = useState(initialUserState.email)
-	const [password, setPassword] = useState(initialUserState.password)
-	const [loading, setLoading] = useState(initialUserState.loading)
-
+	/**
+	 *
+	 * @param {React.FormEvent} e - The event that is triggered when the user changes the form data.
+	 * @function
+	 * @memberof Login
+	 * @description This function is used to handle all the changes that are done to either the email or password fields in the form.
+	 * @todo Simplify this function by switch the state of the email and password fields to a single user state with email and password as a key.
+	 */
 	const change = (e) => {
 		if (e.target.name === 'email') {
 			setEmail(e.target.value)
@@ -24,6 +43,13 @@ const Login = (props) => {
 		}
 	}
 
+	/**
+	 * @name onLogin
+	 * @description This function takes in an html event element to prevent the default browser behavior. It then creates the GraphQL query to login the user, and asks for the token back as a response. If no errors are present in the returned data, the token is saved in local storage and the user is redirected to the home page after a success message. If errors are present, an error message is displayed in a small notification toast.
+	 * @function
+	 * @memberof Login
+	 * @param {React.FormEvent} e - The event that is triggered when the user submits the form.
+	 */
 	const onLogin = (e) => {
 		e.preventDefault()
 
