@@ -1,111 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-
+  
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ODU ALMP Docs Home</title>
 
-  <title>
-      Home - ODU ALMP Docs
-  </title>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
-  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
   
-
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
-  
-
-  <!-- start Mixpanel -->
-  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
-  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
-  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
-  <!-- end Mixpanel -->
 </head>
 
-<body>
-  <svg style="display: none;">
-    <defs>
-      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0h24v24H0z" fill="none"/>
-          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
-      </symbol>
-    </defs>
-  </svg>
 
-  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-  <label for="nav-trigger" class="navicon-button x">
-    <div class="navicon"></div>
-  </label>
 
-  <label for="nav-trigger" class="overlay"></label>
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
 
-  <div class="top-nav-wrapper">
-    <ul>
-      <li  class="active" >
-        <a href="index.html">
-          
-          
-            <svg fill="#0095dd" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
         </a>
-      </li>
-
-      
-      <li>
-        <div class="search-wrapper">
-          <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-
-          </svg>
-          <input type="text" placeholder="Search" class="search-input">
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Asynchronous Learning Management System @ ODU-EMSE</h1>
+                </a>
+            
         </div>
-      </li>
-      
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emsePortal"
+                        >
+                            Github - UI
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emseAPI"
+                        >
+                            Github - API
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="App.html">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="UserInfo.html">UserInfo</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p></p>
+                    <h1>Home</h1>
+                </header>
+                
 
-    </ul>
-  </div>
 
-  <nav>
-    <h3 class="reference-title">
-      Asynchronous Learning Management System @ ODU-EMSE
-    </h3>
 
     
 
-    <h3>Classes</h3><ul><li id="App-nav"><a href="App.html">App</a></li><li id="Course-nav"><a href="Course.html">Course</a></li><li id="Dashboard-nav"><a href="Dashboard.html">Dashboard</a><ul class='methods'><li data-type="method" id="Dashboard-Panel-nav"><a href="Dashboard.html#.Panel">Panel</a></li><li data-type="method" id="Dashboard-RenderLineChart-nav"><a href="Dashboard.html#.RenderLineChart">RenderLineChart</a></li></ul></li><li id="Login-nav"><a href="Login.html">Login</a><ul class='methods'><li data-type="method" id="Login-change-nav"><a href="Login.html#.change">change</a></li><li data-type="method" id="Login-onLogin-nav"><a href="Login.html#.onLogin">onLogin</a></li></ul></li><li id="PlanOfStudy-nav"><a href="PlanOfStudy.html">PlanOfStudy</a><ul class='methods'><li data-type="method" id="PlanOfStudy-getPlan-nav"><a href="PlanOfStudy.html#.getPlan">getPlan</a></li><li data-type="method" id="PlanOfStudy-loader-nav"><a href="PlanOfStudy.html#.loader">loader</a></li></ul></li><li id="Profile-nav"><a href="Profile.html">Profile</a><ul class='methods'><li data-type="method" id="Profile-deleteUser-nav"><a href="Profile.html#~deleteUser">deleteUser</a></li><li data-type="method" id="Profile-getUser-nav"><a href="Profile.html#~getUser">getUser</a></li><li data-type="method" id="Profile-handleInstructorProfileChange-nav"><a href="Profile.html#~handleInstructorProfileChange">handleInstructorProfileChange</a></li><li data-type="method" id="Profile-toggleInstructor-nav"><a href="Profile.html#~toggleInstructor">toggleInstructor</a></li><li data-type="method" id="Profile-updateUser-nav"><a href="Profile.html#~updateUser">updateUser</a></li></ul></li><li id="Protector-nav"><a href="Protector.html">Protector</a></li><li id="Register-nav"><a href="Register.html">Register</a><ul class='methods'><li data-type="method" id="Register-change-nav"><a href="Register.html#.change">change</a></li><li data-type="method" id="Register-nextStep-nav"><a href="Register.html#.nextStep">nextStep</a></li><li data-type="method" id="Register-previousStep-nav"><a href="Register.html#.previousStep">previousStep</a></li></ul></li><li id="UserInfo-nav"><a href="UserInfo.html">UserInfo</a><ul class='methods'><li data-type="method" id="UserInfo-next-nav"><a href="UserInfo.html#~next">next</a></li></ul></li><li id="UserVerify-nav"><a href="UserVerify.html">UserVerify</a></li></ul><h3>Modules</h3><ul><li id="GetPlanByStudentID-nav"><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a><ul class='methods'><li data-type="method" id="GetPlanByStudentID-getPlan-nav"><a href="module-GetPlanByStudentID.html#~getPlan">getPlan</a></li></ul></li><li id="InstructorProfileContext-nav"><a href="module-InstructorProfileContext.html">InstructorProfileContext</a><ul class='methods'><li data-type="method" id="InstructorProfileContext-contextReducer-nav"><a href="module-InstructorProfileContext.html#~contextReducer">contextReducer</a></li><li data-type="method" id="InstructorProfileContext-InstructorProvider-nav"><a href="module-InstructorProfileContext.html#~InstructorProvider">InstructorProvider</a></li><li data-type="method" id="InstructorProfileContext-useInstructorContext-nav"><a href="module-InstructorProfileContext.html#~useInstructorContext">useInstructorContext</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul>
-  </nav>
 
-  <div id="main">
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
     
 
-    
-      
 
 
 
-    
-
-      
-
-
-  <section class="readme">
-    <article>
-      <p>This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.</p>
+    <section>
+        <article><p>This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.</p>
 <h2>Available Scripts</h2>
 <p>In the project directory, you can run:</p>
 <h3><code>yarn start</code></h3>
@@ -141,41 +160,26 @@ Your app is ready to be deployed!</p>
 <h3>Deployment</h3>
 <p>This section has moved here: https://facebook.github.io/create-react-app/docs/deployment</p>
 <h3><code>yarn build</code> fails to minify</h3>
-<p>This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify</p>
-    </article>
-  </section>
+<p>This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify</p></article>
+    </section>
 
 
-    
 
 
-  </div>
 
-  <br class="clear">
 
-  <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> <br/>
-    Theme by <a href="https://github.com/braintree/jsdoc-template">Braintree</a> <br/>
-  </footer>
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
 
-  <script src="scripts/linenumber.js"></script>
-  <script src="scripts/pagelocation.js"></script>
+<script src="scripts/search.js"> </script>
 
-  
-  {# <script>
-    $(function () {
-      window.docsearch({
-        apiKey: '',
-        indexName: 'braintree',
-        inputSelector: '.search-input',
-        debug: false, // Set debug to true if you want to inspect the dropdown
-        algoliaOptions: {
-          hitsPerPage: 7
-        }
-      });
-    });
-  </script> #}
-  
 
 </body>
 </html>
