@@ -40,7 +40,7 @@
 		"recurse": true,
 		"verbose": true,
 		"readme": "README.md",
-		"template": "docs/templates/jsdoc-template",
+		"template": "node_modules/better-docs",
 		"hideGenerator": true
 	}
 }

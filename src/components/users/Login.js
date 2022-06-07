@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 /**
  * @component
  * @name Login
+ * @category Authentication
  * @description This component is used to render the login page.
  * @param {React.FC<Props>} props - Simple props object that we use to redirect the user after they are successfully authenticated. The members of this object come from `react-router-dom`'s `<Route>` component.
  * @returns {React.ReactHTMLElement} The rendered HTML element that wraps this component within the page.

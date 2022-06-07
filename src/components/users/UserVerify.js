@@ -7,10 +7,9 @@ import { loader } from '../helpers'
 /**
  * @name UserVerify
  * @component
+ * @category Authentication
  * @description This component is used to verify a user's email address. The link to this component/page is sent to the user's email address upon registration. The user is then authenticated and redirected to the dashboard if the verification is successful.
- * @param {React.FC<Props>} props - Simple props object that we use to redirect the user if they are not successfully authenticated. The members of this object come from `react-router-dom`'s `<Route>` component.
  * @returns {React.ReactHTMLElement | React.ReactFragment} - The UserVerify page and redirection or an error page if the user is not successfully authenticated.
- * @deprecated
  */
 const UserVerify = (props) => {
 	const token = props.match.params.id
@@ -79,11 +78,14 @@ const UserVerify = (props) => {
 }
 
 UserVerify.propTypes = {
-	props: {
+	/**
+	 * Simple props object that we use to redirect the user if they are not successfully authenticated. The members of this object come from react-router-dom's {@link App.js BrowserRouter} component.
+	 */
+	props: PropTypes.shape({
 		match: PropTypes.object,
 		location: PropTypes.object,
 		history: PropTypes.object,
-	},
+	}),
 }
 
 export default UserVerify

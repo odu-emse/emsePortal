@@ -5,10 +5,7 @@ import PropTypes from 'prop-types'
 /**
  * @summary The User Info component displays the basic form fields that all users need to fill out to register.
  * @component
- * @param {Object} values - The form field values passed down from the Register component
- * @param {Function} change - The change function to handle the input changes in the form and update the state in the parent component
- * @param {Function} nextStep - The next step function to handle progressing further in the form
- * @param {Boolean} error - The error state of the form to be shared across sibling components and interpreted by the parent component
+ * @category User
  */
 const UserInfo = ({ values, change, nextStep, error }) => {
 	/**

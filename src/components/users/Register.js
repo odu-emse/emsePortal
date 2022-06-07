@@ -19,10 +19,58 @@ import { getToken } from '../helpers'
 
 const Register = (props) => {
 	/**
-	 * @member
-	 * @name RegisterComponentState
+	 * @typedef UserRegister
 	 * @memberof Register
-	 * @type {React.ComponentState}
+	 * @property {String} firstName
+	 * @property {String} lastName
+	 * @property {String} middleName
+	 * @property {String} email The email address of the user.
+	 * @property {String} password
+	 * @property {String} passwordConf
+	 * @property {String} group
+	 */
+
+	/**
+	 * @typedef InstructorRegister
+	 * @memberof Register
+	 * @property {String} [title]
+	 * @property {String} [officeHours]
+	 * @property {String} [officeLocation]
+	 * @property {String} [phone]
+	 * @property {String} [contactPolicy]
+	 * @property {String} [background]
+	 * @property {String} [researchInterests]
+	 * @property {String} [selectedPapersAndPublications]
+	 * @property {String} [website]
+	 * @property {String} [philosophy]
+	 */
+
+	/**
+	 * @callback setUser
+	 * @memberof Register
+	 * @param {UserRegister} values
+	 */
+	/**
+	 * @callback setInstructorProfile
+	 * @memberof Register
+	 * @param {InstructorRegister} values
+	 */
+
+	/**
+	 * @typedef State
+	 * @memberof Register
+	 * @prop {UserRegister} [user]
+	 * @prop {setUser} setUser
+	 */
+
+	/**
+	 * @typedef State
+	 * @memberof Register
+	 * @prop {InstructorRegister} [instructor]
+	 * @prop {setInstructorProfile} setInstructorProfile
+	 */
+
+	/**
 	 * @property {Number} step The current step in the registration flow
 	 * @property {String} firstName
 	 * @property {String} lastName
@@ -42,6 +90,9 @@ const Register = (props) => {
 	 * @property {String} [website]
 	 * @property {String} [philosophy]
 	 * @property {Boolean} error
+	 */
+	/**
+	 * @type {State}
 	 */
 	const [step, setStep] = useState(1)
 	const [firstName, setFirstName] = useState('')

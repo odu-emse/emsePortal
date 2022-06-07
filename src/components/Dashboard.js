@@ -14,6 +14,7 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts'
+import PropTypes from 'prop-types'
 
 /**
  * @var {object[]} data
@@ -140,6 +141,7 @@ const timeOfCompletion = [
 /**
  * @name Dashboard
  * @component
+ * @category Program
  * @returns {React.ReactHTMLElement} - The Dashboard page
  * @description A React component that renders the Dashboard page completely
  */
