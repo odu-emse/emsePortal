@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {
-	decoder,
-	round_to_precision,
-	rating,
-	loader,
 	calculateRating,
+	decoder,
+	loader,
+	rating,
+	round_to_precision,
 } from '../../helpers'
 import StarRatingComponent from 'react-star-rating-component'
 import pluralize from 'pluralize'
 import { ToastContainer, toast } from 'react-toastify'
 import {
-	Download,
-	Smartphone,
 	Award,
-	Youtube,
 	Book,
+	Check,
+	Download,
 	LifeBuoy,
 	Repeat,
-	Check,
+	Smartphone,
+	Youtube,
 } from 'react-feather'
 import PropTypes from 'prop-types'
 

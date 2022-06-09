@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowLeft } from 'react-feather'
+import { ArrowLeft, ArrowRight } from 'react-feather'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import StarRatingComponent from 'react-star-rating-component'
-import { rating, round_to_precision, loader } from '../../helpers'
+import { loader, rating, round_to_precision } from '../../helpers'
 import { Link } from 'react-router-dom'
-import { getRandomNum, calculateRating } from '../../helpers'
+import { calculateRating, getRandomNum } from '../../helpers'
 import Search from '../../search/Search'
 
 let ModuleItem = (props) => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { loader, getRandomNum } from '../../helpers'
+import { getRandomNum, loader } from '../../helpers'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 

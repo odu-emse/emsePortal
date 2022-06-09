@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ArrowRight, ArrowLeft } from 'react-feather'
+import { ArrowLeft, ArrowRight } from 'react-feather'
 import { useHistory } from 'react-router-dom'
 
 const Confirm = ({ previousStep, values }) => {

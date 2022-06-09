@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
-import { getToken, refreshPage, loader } from '../helpers'
+import { getToken, loader, refreshPage } from '../helpers'
 import { Link } from 'react-router-dom'
 
 /**

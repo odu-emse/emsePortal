@@ -1,4 +1,5 @@
 import Container from './Container'
+import PropTypes from 'prop-types'
 import {
 	CartesianGrid,
 	Legend,
@@ -14,7 +15,6 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts'
-import PropTypes from 'prop-types'
 
 /**
  * @var {object[]} data

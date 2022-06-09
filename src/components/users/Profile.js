@@ -1,7 +1,7 @@
-import React, { useState, useEffect, createContext } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
-import { profileCheck, loader } from '../helpers'
+import { loader, profileCheck } from '../helpers'
 import { useHistory } from 'react-router-dom'
 import PlanOfStudy from './PlanOfStudy'
 import {

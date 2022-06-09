@@ -20,18 +20,15 @@ module.exports = {
 			// There is also an old syntax for this available (click to show)
 			type: 'umd', // universal module definition
 			// the type of the exported library
-			name: 'MyLibrary' // string | string[]
+			name: 'MyLibrary', // string | string[]
 			// the name of the exported library
 
 			/* Advanced output.library configuration (click to show) */
 		},
 		uniqueName: 'my-application', // (defaults to package.json "name")
 		// unique name for this build to avoid conflicts with other builds in the same HTML
-		name: 'my-config'
+		name: 'my-config',
 		// name of the configuration, shown in output
-		/* Advanced output configuration (click to show) */
-		/* Expert output configuration 1 (on own risk) */
-		/* Expert output configuration 2 (on own risk) */
 	},
 	module: {
 		// configuration regarding modules
@@ -52,19 +49,12 @@ module.exports = {
 				// Each condition can also receive an object with "and", "or" or "not" properties
 				// which are an array of conditions.
 				issuer: /\.css$/,
-				issuer: path.resolve(__dirname, 'app'),
-				issuer: { and: [/\.css$/, path.resolve(__dirname, 'app')] },
-				issuer: { or: [/\.css$/, path.resolve(__dirname, 'app')] },
-				issuer: { not: [/\.css$/] },
-				issuer: [/\.css$/, path.resolve(__dirname, 'app')], // like "or"
-				// conditions for the issuer (the origin of the import)
-				/* Advanced conditions (click to show) */
 
 				// Actions:
 				loader: 'babel-loader',
 				// the loader which should be applied, it'll be resolved relative to the context
 				options: {
-					presets: ['es2015']
+					presets: ['es2015'],
 				},
 				// options for the loader
 				use: [
@@ -74,28 +64,21 @@ module.exports = {
 						loader: 'html-loader',
 						options: {
 							// ...
-						}
-					}
+						},
+					},
 				],
-				type: 'javascript/auto'
+				type: 'javascript/auto',
 				// specifies the module type
-				/* Advanced actions (click to show) */
 			},
 			{
-				oneOf: [
-					// ... (rules)
-				]
+				oneOf: [],
 				// only use one of these nested rules
 			},
 			{
-				// ... (conditions)
-				rules: [
-					// ... (rules)
-				]
+				rules: [],
 				// use all of these nested rules (combine with conditions to be useful)
-			}
-		]
-		/* Advanced module configuration (click to show) */
+			},
+		],
 	},
 	resolve: {
 		// options for resolving module requests
@@ -107,28 +90,13 @@ module.exports = {
 		alias: {
 			// a list of module name aliases
 			// aliases are imported relative to the current context
-			module: 'new-module',
-			// alias "module" -> "new-module" and "module/path/file" -> "new-module/path/file"
-			'only-module$': 'new-module',
-			// alias "only-module" -> "new-module", but not "only-module/path/file" -> "new-module/path/file"
-			module: path.resolve(__dirname, 'app/third/module.js'),
-			// alias "module" -> "./app/third/module.js" and "module/file" results in error
-			module: path.resolve(__dirname, 'app/third'),
-			// alias "module" -> "./app/third" and "module/file" -> "./app/third/file"
-			[path.resolve(__dirname, 'app/module.js')]: path.resolve(
-				__dirname,
-				'app/alternative-module.js'
-			)
 			// alias "./app/module.js" -> "./app/alternative-module.js"
 		},
 		fallback: {
 			// a list of fallback module paths
 			// modules will be looked up in the given order in the regular module resolver
 			// fallback "alias" -> "./app/third/empty-module"
-		}
-		/* Alternative alias syntax (click to show) */
-		/* Advanced resolve configuration (click to show) */
-		/* Expert resolve configuration (click to show) */
+		},
 	},
 	performance: {
 		hints: 'warning', // enum
@@ -139,7 +107,7 @@ module.exports = {
 			return (
 				assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
 			)
-		}
+		},
 	},
 	devtool: 'source-map', // enum
 	// enhance debugging by adding meta info for the browser devtools
@@ -156,12 +124,7 @@ module.exports = {
 	// Don't follow/bundle these modules, but request them at runtime from the environment
 	externalsType: 'var', // (defaults to output.library.type)
 	// Type of externals, when not specified inline in externals
-	externalsPresets: {
-		/* ... */
-	},
-	// presets of externals
-	ignoreWarnings: [/warning/],
-	stats: 'errors-only',
+	externalsPresets: {},
 	stats: {
 		// lets you precisely control what bundle information gets displayed
 		preset: 'errors-only',
@@ -230,19 +193,19 @@ module.exports = {
 		// show build timing in summary
 		version: true,
 		// show webpack version in summary
-		hash: true
+		hash: true,
 		// show build hash in summary
 	},
 	devServer: {
 		proxy: {
 			// proxy URLs to backend development server
-			'/api': 'http://localhost:3000'
+			'/api': 'http://localhost:3000',
 		},
 		static: path.join(__dirname, 'public'), // boolean | string | array | object, static file location
 		compress: true, // enable gzip compression
 		historyApiFallback: true, // true for index.html upon 404, object for multiple paths
 		hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
-		https: false // true for self-signed, object for cert authority
+		https: false, // true for self-signed, object for cert authority
 		// ...
 	},
 	experiments: {
@@ -252,12 +215,10 @@ module.exports = {
 		// WebAssembly as sync module (deprecated)
 		outputModule: true,
 		// Allow to output ESM
-		topLevelAwait: true
+		topLevelAwait: true,
 		// Allow to use await on module evaluation (Proposal)
 	},
-	plugins: [
-		// ...
-	],
+	plugins: [],
 	// list of additional plugins
 	optimization: {
 		chunkIds: 'size',
@@ -279,26 +240,9 @@ module.exports = {
 					// define groups of modules with specific
 					// caching behavior
 					test: /\.sass$/,
-					type: 'css/mini-extract'
-
-					/* Advanced selectors (click to show) */
-
-					/* Advanced effects (click to show) */
-				}
+					type: 'css/mini-extract',
+				},
 			},
-
-			fallbackCacheGroup: {
-				/* Advanced (click to show) */
-			}
-
-			/* Advanced selectors (click to show) */
-
-			/* Advanced effects (click to show) */
-
-			/* Expert settings (click to show) */
-		}
-	}
-	/* Advanced configuration (click to show) */
-	/* Advanced caching configuration (click to show) */
-	/* Advanced build configuration (click to show) */
+		},
+	},
 }
