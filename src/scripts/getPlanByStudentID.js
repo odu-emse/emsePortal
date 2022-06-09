@@ -32,7 +32,7 @@ export default async function getPlan(studentID) {
 	const payload = {
 		// language=GraphQL
 		query: `{
-					planByID(id: "${studentID}"){
+					plan(studentID: "${studentID}"){
 						id,
 						student{
 							id,
@@ -106,9 +106,10 @@ export default async function getPlan(studentID) {
 	return await axios
 		.post(`${process.env.REACT_APP_API}/graphql`, payload)
 		.then((document) => {
-			return document.data.data.planByID
+			return document.data.data.plan
 		})
 		.catch((err) => {
 			console.error(err)
+			throw new Error(err)
 		})
 }
