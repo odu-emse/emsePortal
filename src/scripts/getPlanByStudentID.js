@@ -1,5 +1,33 @@
+/**
+ * @name GetPlanByStudentID
+ * @module
+ * @category Hooks
+ * @requires axios
+ */
 import axios from 'axios'
 
+/**
+ * @name getPlan
+ * @summary Asynchronous helper function (fetch hook) for fetching the user's plan of study based on the user's ID
+ * @function
+ * @async
+ * @param {string} studentID The user's ID that the query is executed against
+ * @returns {Object} The user's plan of study or an axios Error object
+ * @example
+ *
+ * getPlan(param)
+ *		.then((response) => {
+ *			try {
+ *				... // Update the component state with the response
+ *				... // Set the loading state to false
+ *			} catch (error) {
+ *				... // Handle the error if the response is not valid
+ *			}
+ *		})
+ *		.catch((err) => {
+ *			... // Handle the error if the fetch request fails
+ *		})
+ */
 export default async function getPlan(studentID) {
 	const payload = {
 		// language=GraphQL
@@ -20,13 +48,39 @@ export default async function getPlan(studentID) {
 							module{
 								id,
 								moduleName,
-								moduleNumber
+								moduleNumber,
+								description,
+								duration,
+								intro,
+								keywords,
+								updatedAt,
+								feedback{
+									rating
+								},
+								assignments{
+									id,
+									name,
+									dueAt
+								},
+								members{
+									enrolledAt,
+									role,
+									id
+								},
+								parentCourses{
+									id,
+									course{
+										id,
+										name
+									}
+								}
 							},
 						},
 						courses{
 							id,
 							enrolledAt,
 							course{
+								id,
 								name,
 							}
 						},

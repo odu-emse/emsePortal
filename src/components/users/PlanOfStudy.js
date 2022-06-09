@@ -1,14 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { loader } from '../helpers'
+import PropTypes from 'prop-types'
 import getPlan from '../../scripts/getPlanByStudentID'
+import { loader } from '../helpers'
 import moment from 'moment'
 
-const PlanOfStudy = ({ param }) => {
+/**
+ * @name PlanOfStudy
+ * @summary Functional React component for displaying the plan of a student in a table format.
+ * @category Plan Of Study
+ * @component
+ * @borrows loader as loader
+ * @returns {React.ReactElement} The plan of study in a table format
+ * @requires moment
+ */
+export default function PlanOfStudy({ param }) {
 	const [enrollment, setEnrollment] = useState(null)
 	const [courses, setCourses] = useState(null)
 	const [assignments, setAssignments] = useState(null)
 	const [loading, setLoading] = useState(true)
 
+	/**
+	 * @name getPlan
+	 * @summary Asynchronous function for updating the component state with the user's plan of study
+	 * @async
+	 * @function
+	 * @memberof PlanOfStudy
+	 * @see {@link scripts/getPlanByStudentID}
+	 * @borrows React.useState as React.useState
+	 */
 	useEffect(() => {
 		getPlan(param)
 			.then((response) => {
@@ -284,4 +303,9 @@ const PlanOfStudy = ({ param }) => {
 	)
 }
 
-export default PlanOfStudy
+PlanOfStudy.propTypes = {
+	/*
+	 * An object that contains the user's ID to execute the getPlanByStudentID query
+	 */
+	param: PropTypes.object.isRequired,
+}

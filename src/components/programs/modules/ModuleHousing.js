@@ -1,20 +1,34 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { decoder, round_to_precision, rating, loader, calculateRating } from '../../helpers'
+import {
+	calculateRating,
+	decoder,
+	loader,
+	rating,
+	round_to_precision,
+} from '../../helpers'
 import StarRatingComponent from 'react-star-rating-component'
 import pluralize from 'pluralize'
 import { ToastContainer, toast } from 'react-toastify'
 import {
-	Download,
-	Smartphone,
 	Award,
-	Youtube,
 	Book,
+	Check,
+	Download,
 	LifeBuoy,
 	Repeat,
-	Check,
+	Smartphone,
+	Youtube,
 } from 'react-feather'
+import PropTypes from 'prop-types'
 
+/**
+ * @component
+ * @name ModuleHousing
+ * @category Program
+ * @description This component renders the page that students see when they access a module. Including a video player, module listing, reviews of the module etc. This component also determines weather the user is enrolled in the module or not and displays the appropriate interface.
+ * @returns {JSX.Element} The individual module's page
+ */
 export default function ModuleHousing(props) {
 	const {
 		match: { params },
@@ -257,4 +271,11 @@ export default function ModuleHousing(props) {
 			</div>
 		</>
 	)
+}
+
+ModuleHousing.propTypes = {
+	/**
+	 * The prop object that comes from `react-router-dom` that allows us to redirect users and check their url location
+	 */
+	props: PropTypes.object.isRequired,
 }

@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ODU ALMP Docs scripts/instructorProfileContex.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Asynchronous Learning Management System @ ODU-EMSE</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emsePortal"
+                        >
+                            Github - UI
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emseAPI"
+                        >
+                            Github - API
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="App.html">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="UserInfo.html">UserInfo</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>scripts/instructorProfileContex.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @name InstructorProfileContext
+ * @desc A React Context for the Instructor Profile to be used in the user's profile page
+ * @module
+ * @category Context
+ * @requires React.createContext
+ * @requires React.useContext
+ * @requires React.useReducer
+ */
+import React, { createContext, useContext, useReducer } from 'react'
+
+const InstructorProfileContext = createContext()
+
+/**
+ * @summary A React Context Reducer function that manages the state of the Instructor Profile Context. This function processes the action type that is given and handles the dispatching of new state values based on the action type.
+ * @function
+ * @param {InstructorProfile} state - The current state of the context
+ * @param {Object} action - The action object
+ * @param {string} action.type - The type of action to be performed
+ * @param {string} action.payload - The payload of the action
+ * @returns {InstructorProfile | Error} The new state of the context or an error if the action type is not found.
+ */
+function contextReducer(state, action) {
+	switch (action.type) {
+		case 'SET_INSTRUCTOR_PROFILE':
+			return {
+				...state,
+				instructorProfile: action.payload,
+			}
+		default:
+			throw new Error(`Unhandled action type: ${action.type}`)
+	}
+}
+
+/**
+ * @summary A React Context Provider wrapper component that uses `useReducer` to manage the state of the Instructor Profile Context
+ * @function
+ * @param {React.ReactChild} children - The children components to be rendered inside of the provider
+ * @returns {JSX.Element} The Provider component for the Instructor Profile Context
+ */
+function InstructorProvider({ children }) {
+	const [state, dispatch] = useReducer(contextReducer, {
+		instructorProfile: {
+			id: '',
+			title: '',
+			officeLocation: '',
+			officeHours: '',
+			contactPolicy: '',
+			phone: '',
+			background: '',
+			researchInterest: '',
+			selectedPapersAndPublications: '',
+			personalWebsite: '',
+			philosophy: '',
+		},
+	})
+
+	return (
+		&lt;InstructorProfileContext.Provider value={{ state, dispatch }}>
+			{children}
+		&lt;/InstructorProfileContext.Provider>
+	)
+}
+
+/**
+ * @summary A hook to access the Instructor Profile Context from any component that resides in the Instructor Profile Context Provider
+ * @function
+ * @returns {InstructorProfile | Error} The current state of the context or an error if the context is not found or not within the Provider.
+ */
+function useInstructorContext() {
+	const context = useContext(InstructorProfileContext)
+	if (context === undefined) {
+		throw new Error(
+			'useInstructorContext must be used within a InstructorProvider'
+		)
+	}
+	return context
+}
+
+/**
+ * @desc The default state of the Instructor Profile Context
+ * @typedef {Object} InstructorProfile
+ * @property {string} id - The id of the instructor
+ * @property {string} title - The title of the instructor
+ * @property {string} officeLocation - The office location of the instructor
+ * @property {string} officeHours - The office hours of the instructor
+ * @property {string} contactPolicy - The contact policy of the instructor
+ * @property {string} phone - The phone number of the instructor
+ * @property {string} background - The background of the instructor
+ * @property {string} researchInterest - The research interest of the instructor
+ * @property {string} selectedPapersAndPublications - The selected papers and publications of the instructor
+ * @property {string} personalWebsite - The personal website URL of the instructor
+ * @property {string} philosophy - The philosophy of the instructor
+ */
+
+export { InstructorProvider, useInstructorContext }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

@@ -1,11 +1,16 @@
+/**
+ * @name App
+ * @class
+ * @summary The main application component that renders the entire application.
+ */
 //Helpers
 import { createContext } from 'react'
 import Protector from './components/Protector'
 import {
+	Redirect,
+	Route,
 	BrowserRouter as Router,
 	Switch,
-	Route,
-	Redirect,
 } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 //Modules
@@ -86,7 +91,7 @@ function App() {
 							/>
 
 							<Route
-								path="/users/userVerify"
+								path="/users/verify/:id"
 								component={UserVerify}
 							/>
 

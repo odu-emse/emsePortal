@@ -1,8 +1,18 @@
-import { ArrowRight, ArrowLeft } from 'react-feather'
+import { ArrowLeft, ArrowRight } from 'react-feather'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+/**
+ * @summary The User Info component displays the basic form fields that all users need to fill out to register.
+ * @component
+ * @category User
+ */
 const UserInfo = ({ values, change, nextStep, error }) => {
+	/**
+	 * @function
+	 * @summary This function is called when the user clicks on the next button. This function has an event parameter to prevent the page from refreshing after a mocked submit event.
+	 * @param {React.ChangeEventHandler<HTMLInputElement>} e - The event handler object for the input fields
+	 */
 	const next = (e) => {
 		e.preventDefault()
 		if (!error) {
@@ -200,8 +210,20 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 export default UserInfo
 
 UserInfo.propTypes = {
-	values: PropTypes.object,
-	change: PropTypes.func,
-	nextStep: PropTypes.func,
-	error: PropTypes.bool,
+	/**
+	 * The form field values passed down from the Register component
+	 * */
+	values: PropTypes.object.isRequired,
+	/**
+	 * The change function to handle the input changes in the form and update the state in the parent component
+	 * */
+	change: PropTypes.func.isRequired,
+	/**
+	 * The next step function to handle progressing further in the form
+	 * */
+	nextStep: PropTypes.func.isRequired,
+	/**
+	 * The error state of the form to be shared across sibling components and interpreted by the parent component
+	 * */
+	error: PropTypes.bool.isRequired,
 }

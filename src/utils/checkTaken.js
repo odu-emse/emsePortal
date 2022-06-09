@@ -1,3 +1,8 @@
+/**
+ * @name checkTaken
+ * @function
+ * @category helper
+ */
 import axios from 'axios'
 
 export const checkTaken = async (entered_email) => {
