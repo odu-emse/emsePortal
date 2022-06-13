@@ -150,12 +150,12 @@ export default function PlanOfStudy({ param }) {
 					setLoading(false)
 				} catch (error) {
 					console.error(error)
-					setLoading(false)
+					throw new Error(error)
 				}
 			})
 			.catch((err) => {
 				console.error(err)
-				setLoading(false)
+				throw new Error(err)
 			})
 	}, [])
 
