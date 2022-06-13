@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ODU ALMP Docs ModuleHousing</title>
+  <title>ODU ALMP Docs components/Assignments.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -97,220 +99,37 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Components</p>
-                    <h1>ModuleHousing</h1>
+                    <p>Source</p>
+                    <h1>components/Assignments.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-            &ltModuleHousing <i>props</i> /&gt
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <div class="members">
-                    <div class="member">
-                        <div class=name>
-                            <span class="tag">Constructor</span>
-                        </div>
-                        
-
-
-    
-    <h4 class="name" id="ModuleHousing">
-        <a class="href-link" href="#ModuleHousing">#</a>
-        
-        <span class="code-name">
-            
-                &ltModuleHousing <i>props</i> /&gt
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>This component renders the page that students see when they access a module. Including a video player, module listing, reviews of the module etc. This component also determines weather the user is enrolled in the module or not and displays the appropriate interface.</p>
-    </div>
-    
-
-
-
-
-
-
-
-    
-        <h5>PropTypes:</h5>
-        
-<div class="table-container">
-  <table class="params table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th class="last">Default</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-          <tr class="deep-level-0">
-            <td class="name"><code>props</code></td>
-            <td>
-              object
-            </td>
-            <td>Yes</td>
-            <td>The prop object that comes from `react-router-dom` that allows us to redirect users and check their url location</td>
-            <td></td>
-          </tr>
-          
-    
-    </tbody>
-  </table>
-</div>
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_programs_modules_ModuleHousing.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_programs_modules_ModuleHousing.js.html">components/programs/modules/ModuleHousing.js</a>, <a href="components_programs_modules_ModuleHousing.js.html#line25">line 25</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    <div class='param-desc column is-7'><p>The individual module's page</p></div>
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">JSX.Element</code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        
-    
-    </div>
-    
-        
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+
+/**
+ * @component
+ * @category Program
+ * @summary The Assignments component that is used to render the assignmets page.
+ * @param {React.FC&lt;Props>} props
+ * @returns {JSX.Element}
+ */
+const Assignments = (props) => {
+	return (
+		&lt;section className="flex w-full px-10">
+			&lt;h1 className="text-3xl">Assignments&lt;/h1>
+		&lt;/section>
+	)
+}
+
+export default Assignments
+</code></pre>
+        </article>
+    </section>
 
 
 

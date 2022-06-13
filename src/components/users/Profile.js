@@ -12,7 +12,7 @@ import moment from 'moment'
 
 /**
  * Functional component for displaying the student's profile page
- * @category Plan Of Study
+ * @category User
  * @function
  * @component
  * @param {React.FC<Props>} props - React props object

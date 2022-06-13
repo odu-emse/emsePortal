@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 /**
  * @summary The User Info component displays the basic form fields that all users need to fill out to register.
  * @component
- * @category User
+ * @category Authentication
  */
 const UserInfo = ({ values, change, nextStep, error }) => {
 	/**

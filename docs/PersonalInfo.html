@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ODU ALMP Docs Dashboard</title>
+  <title>ODU ALMP Docs PersonalInfo</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -98,7 +98,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Components</p>
-                    <h1>Dashboard</h1>
+                    <h1>PersonalInfo</h1>
                 </header>
                 
 
@@ -110,7 +110,7 @@
 <header>
     
         <h2>
-            &ltDashboard  /&gt
+            &ltPersonalInfo <i>values</i> <i>change</i> <i>nextStep</i> <i>previousStep</i> /&gt
         </h2>
         
     
@@ -130,22 +130,20 @@
 
 
     
-    <h4 class="name" id="Dashboard">
-        <a class="href-link" href="#Dashboard">#</a>
+    <h4 class="name" id="PersonalInfo">
+        <a class="href-link" href="#PersonalInfo">#</a>
         
         <span class="code-name">
             
-                &ltDashboard  /&gt
+                &ltPersonalInfo <i>values</i> <i>change</i> <i>nextStep</i> <i>previousStep</i> /&gt
             
         </span>
     </h4>
     
 
     
+    <p class="summary"><p>The Personal Info component that is renderd on the second step of the Registration component. This component can be skipped if the user signing up is a student.</p></p>
     
-    <div class="description">
-        <p>A React component that renders the Dashboard page completely</p>
-    </div>
     
 
 
@@ -154,6 +152,70 @@
 
 
 
+    
+        <h5>PropTypes:</h5>
+        
+<div class="table-container">
+  <table class="params table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th class="last">Default</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>values</code></td>
+            <td>
+              object
+            </td>
+            <td>Yes</td>
+            <td>The form field values passed down from the Register component</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>change</code></td>
+            <td>
+              func
+            </td>
+            <td>Yes</td>
+            <td>The change function to handle the input changes in the form and update the state in the parent component</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>nextStep</code></td>
+            <td>
+              func
+            </td>
+            <td>Yes</td>
+            <td>The next step function to handle progressing further in the form</td>
+            <td></td>
+          </tr>
+          
+    
+          <tr class="deep-level-0">
+            <td class="name"><code>previousStep</code></td>
+            <td>
+              func
+            </td>
+            <td>Yes</td>
+            <td>The prevous step function to handle backwards movement in the form</td>
+            <td></td>
+          </tr>
+          
+    
+    </tbody>
+  </table>
+</div>
     
 
 
@@ -192,12 +254,19 @@
     
 
     
+    <dt class="tag-todo">To Do:</dt>
+    <dd class="tag-todo">
+        <ul>
+            <li>Add error handling for form fields before processing the prevous/next functions</li>
+        </ul>
+    </dd>
+    
 
     
         <p class="tag-source">
-            <a href="components_Dashboard.js.html" class="button">View Source</a>
+            <a href="components_users_Register_PersonalInfo.js.html" class="button">View Source</a>
             <span>
-                <a href="components_Dashboard.js.html">components/Dashboard.js</a>, <a href="components_Dashboard.js.html#line141">line 141</a>
+                <a href="components_users_Register_PersonalInfo.js.html">components/users/Register/PersonalInfo.js</a>, <a href="components_users_Register_PersonalInfo.js.html#line13">line 13</a>
             </span>
         </p>
     
@@ -228,15 +297,11 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'><ul>
-<li>The Dashboard page</li>
-</ul></div>
-    
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<code class="param-type">React.ReactHTMLElement</code>
+<code class="param-type">JSX.Element</code>
 
 
     </div>
@@ -273,202 +338,6 @@
     
 
     
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Array.&lt;object></code>
-
-
-    </span>
-
-<h4 class="name" id=".data">
-    <a class="href-link" href="#.data">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-    
-    <span class="code-name">
-        data
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>Mock data that represents progresses of individual courses containing progress from 3 different students.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_Dashboard.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_Dashboard.js.html">components/Dashboard.js</a>, <a href="components_Dashboard.js.html#line19">line 19</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>[
-{
- subject: 'ENMA 601',
- A: 50,
- B: 76,
- C: 90,
- fullMark: 150
-}
-]</code></pre>
-    
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<code class="param-type">Array.&lt;object></code>
-
-
-    </span>
-
-<h4 class="name" id=".timeOfCompletion">
-    <a class="href-link" href="#.timeOfCompletion">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-    
-    <span class="code-name">
-        timeOfCompletion
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>Mock data that represents that time of completion of modules/assignments aggregated over time binned by months.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="components_Dashboard.js.html" class="button">View Source</a>
-            <span>
-                <a href="components_Dashboard.js.html">components/Dashboard.js</a>, <a href="components_Dashboard.js.html#line79">line 79</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>[
-{
-name: "January",
-you: "385",
-},
-]</code></pre>
-    
-
-
-</div>
-            
-            </div>
-        </div>
-    
 
     
         <div class='vertical-section'>
@@ -479,26 +348,24 @@ you: "385",
 
 
     
-    <h4 class="name" id=".Panel">
-        <a class="href-link" href="#.Panel">#</a>
+    <h4 class="name" id="~next">
+        <a class="href-link" href="#~next">#</a>
         
             
-                <span class='tag'>static</span>
+                <span class='tag'>inner</span>
             
         
         <span class="code-name">
             
-                Panel<span class="signature">(children, className)</span><span class="type-signature"> &rarr; {React.ReactHTMLElement}</span>
+                next<span class="signature">(e)</span><span class="type-signature"></span>
             
         </span>
     </h4>
     
 
     
+    <p class="summary"><p>This function is called when the user clicks on the next button. This function has an event parameter to prevent the page from refreshing after a mocked submit event. This is an exact copy of the <a href="UserInfo.html#~next"><code>next method</code></a> from the UserInfo component. The only thing that is different between this function and the above mentioned one, is that this function is not checking for form field errors.</p></p>
     
-    <div class="description">
-        <p>A wrapper component that adds styles and different size variations to the child component that is being passed in via props.</p>
-    </div>
     
 
 
@@ -535,13 +402,13 @@ you: "385",
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>children</code></td>
+      <td class="name"><code>e</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">React.ReactChild</code>
+<code class="param-type">React.ChangeEventHandler.&lt;HTMLInputElement></code>
 
 
   
@@ -551,32 +418,7 @@ you: "385",
 
   
 
-  <td class="description last"><p>A React Component that we want to render inside the panel wrapper</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>className</code></td>
-  
-
-  <td class="type">
-  
-      
-<code class="param-type">string</code>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>A string of values that will be inserted into the HTML class attribute that is present in the returned wrapper</p></td>
+  <td class="description last"><p>The event handler object for the input fields</p></td>
 </tr>
 
 
@@ -622,9 +464,9 @@ you: "385",
 
     
         <p class="tag-source">
-            <a href="components_Dashboard.js.html" class="button">View Source</a>
+            <a href="components_users_Register_PersonalInfo.js.html" class="button">View Source</a>
             <span>
-                <a href="components_Dashboard.js.html">components/Dashboard.js</a>, <a href="components_Dashboard.js.html#line269">line 269</a>
+                <a href="components_users_Register_PersonalInfo.js.html">components/users/Register/PersonalInfo.js</a>, <a href="components_users_Register_PersonalInfo.js.html#line28">line 28</a>
             </span>
         </p>
     
@@ -647,33 +489,6 @@ you: "385",
 
 
 
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    <div class='param-desc column is-7'><ul>
-<li>The complete child argument wrapped in a div with the appropriate styles applied</li>
-</ul></div>
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">React.ReactHTMLElement</code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
 
 
 
@@ -683,26 +498,24 @@ you: "385",
 
 
     
-    <h4 class="name" id=".RenderLineChart">
-        <a class="href-link" href="#.RenderLineChart">#</a>
+    <h4 class="name" id="~previous">
+        <a class="href-link" href="#~previous">#</a>
         
             
-                <span class='tag'>static</span>
+                <span class='tag'>inner</span>
             
         
         <span class="code-name">
             
-                RenderLineChart<span class="signature">()</span><span class="type-signature"> &rarr; {React.Component}</span>
+                previous<span class="signature">(e)</span><span class="type-signature"></span>
             
         </span>
     </h4>
     
 
     
+    <p class="summary"><p>This function is called when the user clicks on the back button. This function has an event parameter to prevent the page from refreshing after a mocked submit event.</p></p>
     
-    <div class="description">
-        <p>A simple wrapper component that contains mock data for the line chart. This is a temporary solution until we can get the data from the API.</p>
-    </div>
     
 
 
@@ -712,6 +525,57 @@ you: "385",
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>e</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">React.ChangeEventHandler.&lt;HTMLInputElement></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The event handler object for the input fields</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -747,19 +611,12 @@ you: "385",
     
 
     
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Replace the mock data with the data from the API</li>
-        </ul>
-    </dd>
-    
 
     
         <p class="tag-source">
-            <a href="components_Dashboard.js.html" class="button">View Source</a>
+            <a href="components_users_Register_PersonalInfo.js.html" class="button">View Source</a>
             <span>
-                <a href="components_Dashboard.js.html">components/Dashboard.js</a>, <a href="components_Dashboard.js.html#line288">line 288</a>
+                <a href="components_users_Register_PersonalInfo.js.html">components/users/Register/PersonalInfo.js</a>, <a href="components_users_Register_PersonalInfo.js.html#line19">line 19</a>
             </span>
         </p>
     
@@ -781,33 +638,6 @@ you: "385",
 
 
 
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    <div class='param-desc column is-7'><ul>
-<li>The line chart component that handles the way the data is visualized</li>
-</ul></div>
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<code class="param-type">React.Component</code>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 

@@ -1,11 +1,30 @@
 import React from 'react'
 import { ArrowLeft, ArrowRight } from 'react-feather'
+import PropTypes from 'prop-types'
+
+/**
+ * @component
+ * @category User
+ * @summary The Personal Info component that is renderd on the second step of the Registration component. This component can be skipped if the user signing up is a student.
+ * @returns {JSX.Element}
+ * @todo Add error handling for form fields before processing the previous/next functions
+ */
 
 const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
+	/**
+	 * @function
+	 * @summary This function is called when the user clicks on the back button. This function has an event parameter to prevent the page from refreshing after a mocked submit event.
+	 * @param {React.ChangeEventHandler<HTMLInputElement>} e - The event handler object for the input fields
+	 */
 	const previous = (e) => {
 		e.preventDefault()
 		previousStep()
 	}
+	/**
+	 * @function
+	 * @summary This function is called when the user clicks on the next button. This function has an event parameter to prevent the page from refreshing after a mocked submit event. This is an exact copy of the {@link UserInfo~next next method} from the UserInfo component. The only thing that is different between this function and the above mentioned one, is that this function is not checking for form field errors.
+	 * @param {React.ChangeEventHandler<HTMLInputElement>} e - The event handler object for the input fields
+	 */
 	const next = (e) => {
 		e.preventDefault()
 		nextStep()
@@ -203,3 +222,22 @@ const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 }
 
 export default PersonalInfo
+
+PersonalInfo.propTypes = {
+	/**
+	 * The form field values passed down from the Register component
+	 * */
+	values: PropTypes.object.isRequired,
+	/**
+	 * The change function to handle the input changes in the form and update the state in the parent component
+	 * */
+	change: PropTypes.func.isRequired,
+	/**
+	 * The next step function to handle progressing further in the form
+	 * */
+	nextStep: PropTypes.func.isRequired,
+	/**
+	 * The prevous step function to handle backwards movement in the form
+	 * */
+	previousStep: PropTypes.func.isRequired,
+}
