@@ -20,19 +20,41 @@ export default function PlanOfStudy({ param }) {
 	const [loading, setLoading] = useState(true)
 
 	/**
-	 * @name getPlan
-	 * @summary Asynchronous function for updating the component state with the user's plan of study
+	 * @typedef {useState} EnrollmentState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [enrollment=null] - The enrollment state of the current component. This `read-only` variable is set on component load to the enrollment we get from the {@link module:GetPlanByStudentID~getPlan getPlan} function promise return. This variable is used throughout the component to render enrollment details and all relations that are populated by the API in the returned object.
+	 * @property {useState.resolver} setEnrollment - This function is used soley to update the value of the enrollment state.
+	 */
+	/**
+	 * @typedef {useState} CourseState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [courses=null] - The course state is similar to the `EnrollmentState.enrollment`, as it is set on component load. There are no differences between inidividual states besides their value and in the case of the loading state, the data type that is used. All other states are either array of objects or true objects. The value that is set on load can be observed by looking at the {@link module:GetPlanByStudentID~getPlan getPlan} function.
+	 * @property {useState.resolver} setCourses - This function is used to update the value of the courses state.
+	 */
+	/**
+	 * @typedef {useState} AssignmentState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [assignment=null] - This component state holds all the information regarding the assignments that are part of the student's Plan of Study. The structure of the value that is present after component load comes from the {@link module:GetPlanByStudentID~getPlan getPlan} function.
+	 * @property {useState.resolver} setAssignments
+	 */
+	/**
+	 * @typedef {useState} LoadingState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [loading=true] - A simple loading state that toggles it's value. Once all data fetching is complete, the value is set to false. Until that is complete, this component will render the `<Loader />` component.
+	 * @property {useState.resolver} setLoading - This function is used extensivly in this component to control when the render should change.
+	 */
+
+	/**
+	 * @summary Asynchronous function that is placed inside of the `useEffect()` function. This way the funciton fires a call when the page loads and re-renders based on the variables in the dependency array. The function is to fetch the Plan of Study of the student and set it in our `useState()`, which allows the student to update non-persisitent data and later save their changes to update entries in the database.
 	 * @async
 	 * @function
 	 * @memberof PlanOfStudy
-	 * @see {@link scripts/getPlanByStudentID}
-	 * @borrows React.useState as React.useState
+	 * @see {@link module:GetPlanByStudentID~getPlan getPlan}
 	 */
 	useEffect(() => {
 		getPlan(param)
 			.then((response) => {
 				try {
-					console.log(response)
 					setEnrollment(response.modules)
 					setCourses(response.courses)
 					setAssignments(response.assignmentResults)

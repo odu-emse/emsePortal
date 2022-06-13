@@ -1,6 +1,6 @@
 /**
  * @name App
- * @class
+ * @component
  * @summary The main application component that renders the entire application.
  */
 //Helpers
@@ -37,6 +37,14 @@ import {
 import { InstructorProvider } from './scripts/instructorProfileContex'
 
 export const AuthContext = createContext({})
+
+/**
+ *
+ * @typedef useState
+ * @property {Array} useState - Tuple that is returned from the `useState()` function.
+ * @property {*} useState.state - The read-only variable that represents our current state
+ * @property {function} useState.resolver - The update function that can be distructured from the `useState()` function. This is the only valid way to update our individual states.
+ */
 
 function App() {
 	return (

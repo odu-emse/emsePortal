@@ -92,7 +92,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="App.html">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="UserInfo.html">UserInfo</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="UserInfo.html">UserInfo</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
                 
             </nav>
         </div>
@@ -131,19 +131,41 @@ export default function PlanOfStudy({ param }) {
 	const [loading, setLoading] = useState(true)
 
 	/**
-	 * @name getPlan
-	 * @summary Asynchronous function for updating the component state with the user's plan of study
+	 * @typedef {useState} EnrollmentState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [enrollment=null] - The enrollment state of the current component. This `read-only` variable is set on component load to the enrollment we get from the {@link module:GetPlanByStudentID~getPlan getPlan} function promise return. This variable is used throughout the component to render enrollment details and all relations that are populated by the API in the returned object.
+	 * @property {useState.resolver} setEnrollment - This function is used soley to update the value of the enrollment state.
+	 */
+	/**
+	 * @typedef {useState} CourseState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [courses=null] - The course state is similar to the `EnrollmentState.enrollment`, as it is set on component load. There are no differences between inidividual states besides their value and in the case of the loading state, the data type that is used. All other states are either array of objects or true objects. The value that is set on load can be observed by looking at the {@link module:GetPlanByStudentID~getPlan getPlan} function.
+	 * @property {useState.resolver} setCourses - This function is used to update the value of the courses state.
+	 */
+	/**
+	 * @typedef {useState} AssignmentState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [assignment=null] - This component state holds all the information regarding the assignments that are part of the student's Plan of Study. The structure of the value that is present after component load comes from the {@link module:GetPlanByStudentID~getPlan getPlan} function.
+	 * @property {useState.resolver} setAssignments
+	 */
+	/**
+	 * @typedef {useState} LoadingState
+	 * @memberof PlanOfStudy
+	 * @property {useState.state} [loading=true] - A simple loading state that toggles it's value. Once all data fetching is complete, the value is set to false. Until that is complete, this component will render the `&lt;Loader />` component.
+	 * @property {useState.resolver} setLoading - This function is used extensivly in this component to control when the render should change.
+	 */
+
+	/**
+	 * @summary Asynchronous function that is placed inside of the `useEffect()` function. This way the funciton fires a call when the page loads and re-renders based on the variables in the dependency array. The function is to fetch the Plan of Study of the student and set it in our `useState()`, which allows the student to update non-persisitent data and later save their changes to update entries in the database.
 	 * @async
 	 * @function
 	 * @memberof PlanOfStudy
-	 * @see {@link scripts/getPlanByStudentID}
-	 * @borrows React.useState as React.useState
+	 * @see {@link module:GetPlanByStudentID~getPlan getPlan}
 	 */
 	useEffect(() => {
 		getPlan(param)
 			.then((response) => {
 				try {
-					console.log(response)
 					setEnrollment(response.modules)
 					setCourses(response.courses)
 					setAssignments(response.assignmentResults)
