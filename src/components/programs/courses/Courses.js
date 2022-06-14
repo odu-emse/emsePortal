@@ -18,7 +18,11 @@ const Courses = ({ courses, images, loading, title }) => {
 	 * @description The Course component is used to display a course.
 	 * @deprecated
 	 * @memberof Course
-	 * @param {object} content - The course content object to be filtered and rendered on the page
+	 * @param {Array} content - The array of course content objects to be filtered and rendered on the page
+	 * @param {Object} content.data - The course content object that is rendered on the page
+	 * @param {String} content.data._id - The course document ID
+	 * @param {String} content.data.courseName - The course name
+	 * @param {Array} [content.data.keywords] - The course keywords
 	 * @param {string} title - The list title we want to use to contain the filtered list of courses
 	 * @param {string} [variant] - The variant of the list that we are rendering. This should differentiate between recommended courses, enrolled courses, and other courses etc.
 	 * @returns {React.ReactFragment} The Course component
@@ -58,16 +62,17 @@ const Courses = ({ courses, images, loading, title }) => {
 									</h4>
 									<div container className="w-full">
 										<div className="flex flex-row flex-wrap">
-											{course.keywords.map(
-												(keyword, idx) => (
-													<span
-														className="bg-blue-500 rounded-full text-xs text-white py-1 px-2 m-1"
-														key={idx}
-													>
-														{keyword}
-													</span>
-												)
-											)}
+											{course.keywords ??
+												course.keywords.map(
+													(keyword, idx) => (
+														<span
+															className="bg-blue-500 rounded-full text-xs text-white py-1 px-2 m-1"
+															key={idx}
+														>
+															{keyword}
+														</span>
+													)
+												)}
 										</div>
 									</div>
 								</div>

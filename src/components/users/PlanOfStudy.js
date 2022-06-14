@@ -23,12 +23,12 @@ export default function PlanOfStudy({ param }) {
 	 * @typedef {useState} EnrollmentState
 	 * @memberof PlanOfStudy
 	 * @property {useState.state} [enrollment=null] - The enrollment state of the current component. This `read-only` variable is set on component load to the enrollment we get from the {@link module:GetPlanByStudentID~getPlan getPlan} function promise return. This variable is used throughout the component to render enrollment details and all relations that are populated by the API in the returned object.
-	 * @property {useState.resolver} setEnrollment - This function is used soley to update the value of the enrollment state.
+	 * @property {useState.resolver} setEnrollment - This function is used solely to update the value of the enrollment state.
 	 */
 	/**
 	 * @typedef {useState} CourseState
 	 * @memberof PlanOfStudy
-	 * @property {useState.state} [courses=null] - The course state is similar to the `EnrollmentState.enrollment`, as it is set on component load. There are no differences between inidividual states besides their value and in the case of the loading state, the data type that is used. All other states are either array of objects or true objects. The value that is set on load can be observed by looking at the {@link module:GetPlanByStudentID~getPlan getPlan} function.
+	 * @property {useState.state} [courses=null] - The course state is similar to the `EnrollmentState.enrollment`, as it is set on component load. There are no differences between individual states besides their value and in the case of the loading state, the data type that is used. All other states are either array of objects or true objects. The value that is set on load can be observed by looking at the {@link module:GetPlanByStudentID~getPlan getPlan} function.
 	 * @property {useState.resolver} setCourses - This function is used to update the value of the courses state.
 	 */
 	/**
@@ -41,11 +41,11 @@ export default function PlanOfStudy({ param }) {
 	 * @typedef {useState} LoadingState
 	 * @memberof PlanOfStudy
 	 * @property {useState.state} [loading=true] - A simple loading state that toggles it's value. Once all data fetching is complete, the value is set to false. Until that is complete, this component will render the `<Loader />` component.
-	 * @property {useState.resolver} setLoading - This function is used extensivly in this component to control when the render should change.
+	 * @property {useState.resolver} setLoading - This function is used extensively in this component to control when the render should change.
 	 */
 
 	/**
-	 * @summary Asynchronous function that is placed inside of the `useEffect()` function. This way the funciton fires a call when the page loads and re-renders based on the variables in the dependency array. The function is to fetch the Plan of Study of the student and set it in our `useState()`, which allows the student to update non-persisitent data and later save their changes to update entries in the database.
+	 * @summary Asynchronous function that is placed inside of the `useEffect()` function. This way the function fires a call when the page loads and re-renders based on the variables in the dependency array. The function is to fetch the Plan of Study of the student and set it in our `useState()`, which allows the student to update non-persistent data and later save their changes to update entries in the database.
 	 * @async
 	 * @function
 	 * @memberof PlanOfStudy
@@ -326,7 +326,7 @@ export default function PlanOfStudy({ param }) {
 }
 
 PlanOfStudy.propTypes = {
-	/*
+	/**
 	 * An object that contains the user's ID to execute the getPlanByStudentID query
 	 */
 	param: PropTypes.object.isRequired,

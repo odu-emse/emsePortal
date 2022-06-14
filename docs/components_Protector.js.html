@@ -119,25 +119,56 @@ import PropTypes from 'prop-types'
  * @name Protector
  * @category Authentication
  * @description A wrapper component that handles the verification of users using built in authentication methods.
- * @returns {React.ReactNode} The child element that is passed in via props, wrapped in the HOC.
+ * @returns {JSX.Element} The child element that is passed in via props, wrapped in the HOC.
  */
 const Protector = ({ component: Component, ...rest }) => {
 	const [authentication, setAuth] = useState(false)
 	const [loading, setLoading] = useState(true)
 
-	useEffect(() => {
-		const jsonwebtoken = getToken()
-		if (!jsonwebtoken) {
-			setAuth(false)
-			setLoading(false)
-			return false
-		} else {
-			setAuth(true)
-			setLoading(false)
-		}
-	}, [authentication, loading])
+	const redirect = () => {
+		// getToken()
+		// 	.then((jwt) => {
+		// 		console.log(jwt)
+		// 		if (jwt) {
+		// 			setAuth(true)
+		// 			setLoading(false)
+		// 			return true
+		// 		}
+		// 	})
+		// 	.catch((err) => {
+		// 		console.error(err)
+		// 		return false
+		// 	})
+		getToken()
+			.then((res) => {
+				if (res) {
+					setAuth(true)
+					return setLoading(false)
+				} else {
+					setAuth(false)
+					setLoading(false)
+					throw new Error('No token')
+				}
+			})
+			.catch((err) => {
+				console.error(err)
+				setAuth(false)
+				return setLoading(false)
+			})
 
-	return loading === true ? (
+		// else {
+		// 	setAuth(false)
+		// 	setLoading(false)
+		// 	return false
+		// }
+	}
+
+	useEffect(() => {
+		// redirect()
+		return () => {}
+	}, [loading, authentication])
+
+	return loading ? (
 		loader()
 	) : (
 		&lt;Route
@@ -166,7 +197,7 @@ Protector.propTypes = {
 	/**
 	 * The child component coming from the React Router switch statement that we are authenticating and passing down the tree.
 	 */
-	component: PropTypes.node.isRequired,
+	component: PropTypes.elementType.isRequired,
 }
 
 export default Protector

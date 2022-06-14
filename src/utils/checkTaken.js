@@ -2,6 +2,15 @@
  * @name checkTaken
  * @function
  * @category helper
+ * @summary This function is a helper function that check if the email passed in is present in the DB or not. See the {@link Register.nextStep Register} component for implementation and more details.
+ * @param {String} entered_email - The email to be checked for uniqueness.
+ * @returns {Object | Error} The result of the check.
+ * @example
+ * checkTaken('validEmail@gmail.com')
+ * //returns {error: false, message: '', email: 'validEmail@gmail.com'}
+ *
+ * checkTaken('invalidEmail@gmail.com')
+ * //returns {error: true, message: 'Account with this email already exists. Please log in', email: 'invalidEmail@gmail.com'}
  */
 import axios from 'axios'
 

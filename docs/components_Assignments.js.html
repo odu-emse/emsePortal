@@ -109,16 +109,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
+            <pre class="prettyprint source linenums"><code>import PropTypes from 'prop-types'
+import React from 'react'
 
 /**
  * @component
  * @category Program
- * @summary The Assignments component that is used to render the assignmets page.
- * @param {React.FC&lt;Props>} props
+ * @summary The Assignments component that is used to render the assignments page.
  * @returns {JSX.Element}
  */
 const Assignments = (props) => {
+	console.log(props)
 	return (
 		&lt;section className="flex w-full px-10">
 			&lt;h1 className="text-3xl">Assignments&lt;/h1>
@@ -127,6 +128,17 @@ const Assignments = (props) => {
 }
 
 export default Assignments
+
+Assignments.propTypes = {
+	/**
+	 * Basic props that are passed down to this component from the parent.
+	 */
+	props: PropTypes.shape({
+		history: PropTypes.object,
+		location: PropTypes.object,
+		match: PropTypes.object,
+	}),
+}
 </code></pre>
         </article>
     </section>

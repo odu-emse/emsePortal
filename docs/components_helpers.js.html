@@ -173,12 +173,21 @@ export let abandonModule = (id) => {
 /**
  * @summary Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header
  * @function
- * @deprecated
+ * @async
  * @category helper
- * @returns { string } Returns the JWT token in a Bearer format
+ * @returns { Promise&lt;String | Error> } Returns the JWT token in a Bearer format
  */
-export const getToken = () => {
-	return 'Bearer ' + localStorage.getItem('JWT')
+export const getToken = async () => {
+	try {
+		let token = localStorage.getItem('JWT')
+		if (token) {
+			return `Bearer ${token}`
+		} else {
+			throw new Error('No token found')
+		}
+	} catch (error) {
+		throw new Error(error)
+	}
 }
 
 /**
