@@ -1,6 +1,6 @@
-import { Loader } from 'react-feather'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import { Loader } from 'react-feather'
 
 /**
  * @category helper
@@ -60,14 +60,41 @@ export let abandonModule = (id) => {
 }
 
 /**
+ * @summary Helper function that handles the checking of the JWT token in the local storage. This function *DOESN'T* verify or decode the token.
+ * @function
+ * @category helper
+ * @returns { Boolean | Error } Returns true if the token is present in the local storage, false if not. If there is an error, the function returns an `Error` object.
+ */
+export const checkForToken = () => {
+	try {
+		let token = localStorage.getItem('JWT')
+		if (token) {
+			return true
+		} else {
+			return false
+		}
+	} catch (error) {
+		throw new Error(error)
+	}
+}
+
+/**
  * @summary Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header
  * @function
- * @deprecated
  * @category helper
- * @returns { string } Returns the JWT token in a Bearer format
+ * @returns { String | Error } Returns the JWT token in a Bearer format
  */
 export const getToken = () => {
-	return 'Bearer ' + localStorage.getItem('JWT')
+	try {
+		let token = localStorage.getItem('JWT')
+		if (token) {
+			return `Bearer ${token}`
+		} else {
+			throw new Error('No token found')
+		}
+	} catch (error) {
+		throw new Error(error)
+	}
 }
 
 /**
@@ -189,7 +216,7 @@ export const isAuthenticated = async () => {
 export const loader = () => {
 	return (
 		<div className="mx-auto w-full flex justify-center items-center">
-			<Loader className="spin" size="42pt" />
+			<Loader className="animate-spin" size="42pt" />
 		</div>
 	)
 }

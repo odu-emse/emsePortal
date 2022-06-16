@@ -92,7 +92,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserInfo.html">UserInfo</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Assignments.html">Assignments</a></li><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="PersonalInfo.html">PersonalInfo</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserInfo.html">UserInfo</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Assignments.html">Assignments</a></li><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="PersonalInfo.html">PersonalInfo</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkForToken">checkForToken</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
                 
             </nav>
         </div>
@@ -112,7 +112,7 @@
             <pre class="prettyprint source linenums"><code>import React, { useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
-import { getToken, loader, refreshPage } from '../helpers'
+import { checkForToken, getToken, loader, refreshPage } from '../helpers'
 import { Link } from 'react-router-dom'
 
 /**
@@ -204,80 +204,90 @@ const Login = (props) => {
 		}
 	}
 
+	// const checkForToken = () => {
+	// 	getToken()
+	// 		.then(() => {
+	// 			return true
+	// 		})
+	// 		.catch((err) => {
+	// 			throw new Error(err)
+	// 		})
+	// }
+
 	if (loading) {
 		return loader()
+	}
+
+	if (checkForToken()) {
+		props.history.push('/portal')
+		return loader()
 	} else {
-		if (getToken() !== `Bearer ${null}`) {
-			props.history.push('/portal')
-			return null
-		} else {
-			return (
-				&lt;div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto mt-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
-					&lt;h1 className="text-3xl">Login&lt;/h1>
-					&lt;ToastContainer />
-					&lt;form className="w-full my-1">
-						&lt;div className="my-3 w-full">
-							&lt;label
-								htmlFor="email"
-								className="text-gray-400 font-xs"
-							>
-								ODU affiliated email
-							&lt;/label>
-							&lt;input
-								type="email"
-								className="py-2 px-3 w-full border border-gray rounded "
-								placeholder="example@odu.edu"
-								name="email"
-								value={email}
-								onChange={(e) => change(e)}
-								required
-							/>
-						&lt;/div>
-						&lt;div className="my-3 w-full">
-							&lt;label
-								htmlFor="password"
-								className="text-gray-400 font-xs"
-							>
-								Password
-							&lt;/label>
-							&lt;input
-								type="password"
-								className="py-2 px-3 w-full border border-gray rounded"
-								placeholder="Password"
-								name="password"
-								onChange={(e) => change(e)}
-								required
-							/>
-						&lt;/div>
-						&lt;button
-							className="text-gray-100 rounded border-2 border-blue-400 py-2 px-4 bg-blue-400 w-1/2 mx-auto block transition-all hover:bg-transparent hover:text-gray-800"
-							type="submit"
-							onClick={(e) => onLogin(e)}
+		return (
+			&lt;div className="lg:w-1/2 md:w-2/3 sm:mx-4 md:mx-auto mt-4 bg-gray-100 py-5 px-3 rounded shadow border border-gray">
+				&lt;h1 className="text-3xl">Login&lt;/h1>
+				&lt;ToastContainer />
+				&lt;form className="w-full my-1">
+					&lt;div className="my-3 w-full">
+						&lt;label
+							htmlFor="email"
+							className="text-gray-400 font-xs"
 						>
-							Log in
-						&lt;/button>
-						&lt;div className="w-full text-center">
-							&lt;div className="mt-4 block font-sm text-gray-800 font-weight-light">
-								or{' '}
-								&lt;Link to="/users/forgot" className="">
-									&lt;span className="hover:underline hover:text-gray-800 text-blue-800">
-										Reset your password
-									&lt;/span>
-								&lt;/Link>
-							&lt;/div>
-							&lt;div className="mt-4 block font-sm text-gray-800 font-weight-light">
-								Don't have an account?{' '}
-								&lt;Link to="/users/register">
-									&lt;span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
-										Sign up
-									&lt;/span>
-								&lt;/Link>
-							&lt;/div>
+							ODU affiliated email
+						&lt;/label>
+						&lt;input
+							type="email"
+							className="py-2 px-3 w-full border border-gray rounded "
+							placeholder="example@odu.edu"
+							name="email"
+							value={email}
+							onChange={(e) => change(e)}
+							required
+						/>
+					&lt;/div>
+					&lt;div className="my-3 w-full">
+						&lt;label
+							htmlFor="password"
+							className="text-gray-400 font-xs"
+						>
+							Password
+						&lt;/label>
+						&lt;input
+							type="password"
+							className="py-2 px-3 w-full border border-gray rounded"
+							placeholder="Password"
+							name="password"
+							onChange={(e) => change(e)}
+							required
+						/>
+					&lt;/div>
+					&lt;button
+						className="text-gray-100 rounded border-2 border-blue-400 py-2 px-4 bg-blue-400 w-1/2 mx-auto block transition-all hover:bg-transparent hover:text-gray-800"
+						type="submit"
+						onClick={(e) => onLogin(e)}
+					>
+						Log in
+					&lt;/button>
+					&lt;div className="w-full text-center">
+						&lt;div className="mt-4 block font-sm text-gray-800 font-weight-light">
+							&lt;span>{`or `}&lt;/span>
+							&lt;Link to="/users/forgot" className="">
+								&lt;span className="hover:underline hover:text-gray-800 text-blue-800">
+									Reset your password
+								&lt;/span>
+							&lt;/Link>
 						&lt;/div>
-					&lt;/form>
-				&lt;/div>
-			)
-		}
+						&lt;div className="mt-4 block font-sm text-gray-800 font-weight-light">
+							&lt;span>{`Don't have an account? `}&lt;/span>
+							&lt;Link to="/users/register">
+								&lt;span className="hover:underline hover:text-gray-800 text-blue-800 font-bold">
+									Sign up
+								&lt;/span>
+							&lt;/Link>
+						&lt;/div>
+					&lt;/div>
+				&lt;/form>
+			&lt;/div>
+		)
 	}
 }
 

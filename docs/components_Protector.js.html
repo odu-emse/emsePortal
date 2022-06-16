@@ -92,7 +92,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserInfo.html">UserInfo</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Assignments.html">Assignments</a></li><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="PersonalInfo.html">PersonalInfo</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserInfo.html">UserInfo</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Assignments.html">Assignments</a></li><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="PersonalInfo.html">PersonalInfo</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkForToken">checkForToken</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
                 
             </nav>
         </div>
@@ -109,10 +109,10 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+            <pre class="prettyprint source linenums"><code>import PropTypes from 'prop-types'
+import { checkForToken, getToken, loader } from './helpers'
+import React, { useEffect, useState } from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { getToken, loader } from './helpers'
-import PropTypes from 'prop-types'
 
 /**
  * @component
@@ -124,49 +124,21 @@ import PropTypes from 'prop-types'
 const Protector = ({ component: Component, ...rest }) => {
 	const [authentication, setAuth] = useState(false)
 	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(null)
 
-	const redirect = () => {
-		// getToken()
-		// 	.then((jwt) => {
-		// 		console.log(jwt)
-		// 		if (jwt) {
-		// 			setAuth(true)
-		// 			setLoading(false)
-		// 			return true
-		// 		}
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error(err)
-		// 		return false
-		// 	})
-		getToken()
-			.then((res) => {
-				if (res) {
-					setAuth(true)
-					return setLoading(false)
-				} else {
-					setAuth(false)
-					setLoading(false)
-					throw new Error('No token')
-				}
-			})
-			.catch((err) => {
-				console.error(err)
-				setAuth(false)
-				return setLoading(false)
-			})
+	function redirect() {
+		try {
+			checkForToken() ? setAuth(true) : setAuth(false)
 
-		// else {
-		// 	setAuth(false)
-		// 	setLoading(false)
-		// 	return false
-		// }
+			setLoading(false)
+		} catch (error) {
+			setError(error)
+		}
 	}
 
 	useEffect(() => {
-		// redirect()
-		return () => {}
-	}, [loading, authentication])
+		redirect()
+	}, [authentication])
 
 	return loading ? (
 		loader()
@@ -174,19 +146,21 @@ const Protector = ({ component: Component, ...rest }) => {
 		&lt;Route
 			{...rest}
 			render={(props) =>
-				authentication === false ? (
-					&lt;Redirect
-						to={{
-							pathname: '/users/login',
-							state: {
-								from: props.location,
-								error: 'Not authorized to access...',
-							},
-						}}
-					/>
+				!authentication ? (
+					//TODO: Pass error state through the router
+					props.history.push('/users/login')
 				) : (
+					// &lt;Redirect
+					// 	to={{
+					// 		pathname: '/users/login',
+					// 		state: {
+					// 			from: props.location,
+					// 			error: 'Not authorized to access...',
+					// 		},
+					// 	}}
+					// />
 					//if they are authenticated -> send protected component
-					&lt;Component {...props} />
+					&lt;Component {...props} authentication={authentication} />
 				)
 			}
 		/>

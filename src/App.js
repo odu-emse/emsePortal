@@ -34,7 +34,7 @@ import {
 	InstructorContext,
 	InstructorContextDefaultValue,
 } from './components/users/Profile'
-import { InstructorProvider } from './scripts/instructorProfileContex'
+import { InstructorProvider } from './scripts/instructorProfileContext'
 
 export const AuthContext = createContext({})
 
@@ -43,7 +43,7 @@ export const AuthContext = createContext({})
  * @typedef useState
  * @property {Array} useState - Tuple that is returned from the `useState()` function.
  * @property {*} useState.state - The read-only variable that represents our current state
- * @property {function} useState.resolver - The update function that can be distructured from the `useState()` function. This is the only valid way to update our individual states.
+ * @property {function} useState.resolver - The update function that can be destructured from the `useState()` function. This is the only valid way to update our individual states.
  */
 
 function App() {
@@ -53,7 +53,6 @@ function App() {
 				<AuthContext.Provider value={{}}>
 					<Layout>
 						<Sidebar />
-
 						<Switch>
 							<Redirect exact from="/" to="/portal" />
 							<Protector

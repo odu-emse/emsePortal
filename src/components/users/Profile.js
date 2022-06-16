@@ -7,7 +7,7 @@ import PlanOfStudy from './PlanOfStudy'
 import {
 	InstructorProvider,
 	useInstructorContext,
-} from '../../scripts/instructorProfileContex'
+} from '../../scripts/instructorProfileContext'
 import moment from 'moment'
 
 /**

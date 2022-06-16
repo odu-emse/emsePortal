@@ -92,7 +92,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserInfo.html">UserInfo</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Assignments.html">Assignments</a></li><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="PersonalInfo.html">PersonalInfo</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="App.html">App</a></li></ul><h3><a href="global.html">Global</a></h3></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserInfo.html">UserInfo</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Assignments.html">Assignments</a></li><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="PersonalInfo.html">PersonalInfo</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkForToken">checkForToken</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
                 
             </nav>
         </div>
@@ -109,9 +109,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Loader } from 'react-feather'
-import axios from 'axios'
+            <pre class="prettyprint source linenums"><code>import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import { Loader } from 'react-feather'
 
 /**
  * @category helper
@@ -171,13 +171,31 @@ export let abandonModule = (id) => {
 }
 
 /**
+ * @summary Helper function that handles the checking of the JWT token in the local storage. This function *DOESN'T* verify or decode the token.
+ * @function
+ * @category helper
+ * @returns { Boolean | Error } Returns true if the token is present in the local storage, false if not. If there is an error, the function returns an `Error` object.
+ */
+export const checkForToken = () => {
+	try {
+		let token = localStorage.getItem('JWT')
+		if (token) {
+			return true
+		} else {
+			return false
+		}
+	} catch (error) {
+		throw new Error(error)
+	}
+}
+
+/**
  * @summary Helper function for getting the JWT token from local storage and adds Bearer in front of it to be used as an Authorization header
  * @function
- * @async
  * @category helper
- * @returns { Promise&lt;String | Error> } Returns the JWT token in a Bearer format
+ * @returns { String | Error } Returns the JWT token in a Bearer format
  */
-export const getToken = async () => {
+export const getToken = () => {
 	try {
 		let token = localStorage.getItem('JWT')
 		if (token) {
@@ -309,7 +327,7 @@ export const isAuthenticated = async () => {
 export const loader = () => {
 	return (
 		&lt;div className="mx-auto w-full flex justify-center items-center">
-			&lt;Loader className="spin" size="42pt" />
+			&lt;Loader className="animate-spin" size="42pt" />
 		&lt;/div>
 	)
 }
