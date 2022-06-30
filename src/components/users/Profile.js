@@ -89,13 +89,8 @@ const Profile = (props) => {
 		e.preventDefault()
 		if (user.dob) {
 			const dob = user.dob.split('/')
-			const mom = moment()
-			await mom.set({
-				year: dob[0],
-				month: dob[1],
-				date: dob[2],
-			})
-			await setUser({ ...user, dob: mom.unix() })
+			const prismaString = dob[0] + dob[1] + dob[2] + "T00:00:00Z";
+			await setUser({ ...user, dob: prismaString })
 		}
 		const payload = {
 			query: `mutation{
