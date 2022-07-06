@@ -25,3 +25,10 @@ yarn-error.log*
 .vscode
 .env
 .eslintcache
+
+cypress/videos/
+
+cypress/screenshots/
+
+workspace.code-workspace
+.parcel-cache/

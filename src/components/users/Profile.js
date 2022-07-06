@@ -1,17 +1,26 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { ToastContainer, toast } from "react-toastify"
-import { profileCheck, loader } from "../helpers"
-import { useHistory } from "react-router-dom"
-import PlanOfStudy from "./PlanOfStudy"
+import React, { createContext, useEffect, useState } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { loader, profileCheck } from '../helpers'
+import { useHistory } from 'react-router-dom'
+import PlanOfStudy from './PlanOfStudy'
+import {
+	InstructorProvider,
+	useInstructorContext,
+} from '../../scripts/instructorProfileContex'
+import moment from 'moment'
 
+/**
+ * Functional component for displaying the student's profile page
+ * @category Plan Of Study
+ * @function
+ * @component
+ * @param {React.FC<Props>} props - React props object
+ * @returns {React.ReactElement} The profile page of the user
+ */
 const Profile = (props) => {
 	const token = localStorage.getItem(process.env.REACT_APP_JWT)
 	const history = useHistory()
-
-	const initialUserState = {
-		user: {},
-	}
 
 	const {
 		match: { params },
@@ -19,41 +28,257 @@ const Profile = (props) => {
 
 	profileCheck(token, history, params)
 
-	const [user, setUser] = useState(initialUserState)
-	const [loading, setLoading] = useState(false)
+	const instructor = useInstructorContext()
 
-	const profile = user.user
+	const [user, setUser] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [isInstructor, setIsInstructor] = useState(false)
+	const [showInstructor, setShowInstructor] = useState(false)
 
-	useEffect(() => {
-		const getUser = async () => {
-			setLoading(true)
-			const data = await axios
-				.get(`${process.env.REACT_APP_API}/api/users/${params.id}`, {
-					headers: {
-						"Content-Type": "application/json",
-					},
+	/**
+	 * @summary Asynchronous function for fetching the user's profile based on the URL parameter containing the user's ID
+	 * @function
+	 * @returns {Object} The user's object
+	 */
+	const getUser = async () => {
+		let payload = {
+			// language=GraphQL
+			query: `{
+				user(id: "${params.id}" ){
+					firstName,
+					lastName,
+                    middleName
+					email,
+                    isAdmin,
+                    dob,
+                    plan{
+                        id,
+                        modules{
+                            role
+                        }
+                    }
+				}
+			}`,
+		}
+
+		const data = await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((document) => {
+				return document.data.data.user
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
 				})
-				.then((document) => {
+			})
+		setUser(data)
+		return data
+	}
+
+	/**
+	 * @summary Asynchronous function for updating the user's profile. This function is called when the user submits the update profile form.
+	 * @function
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
+	const updateUser = async (e) => {
+		setLoading(true)
+		e.preventDefault()
+		if (user.dob) {
+			const dob = user.dob.split('/')
+			const prismaString = dob[0] + dob[1] + dob[2] + 'T00:00:00Z'
+			await setUser({ ...user, dob: prismaString })
+		}
+		const payload = {
+			query: `mutation{
+                        updateUser(input: {
+                            id: "${params.id}",
+                            middleName: "${user.middleName}",
+                            firstName: "${user.firstName}",
+                            lastName: "${user.lastName}",
+                            email: "${user.email}",
+                            password: "${user.password}",
+                            passwordConf: "${user.passwordConf}",
+                            dob: "${user.dob}",
+                            ${
+								isInstructor
+									? `instructorProfile: {
+										title: "${instructor.state.instructorProfile.title || ''}",
+									    officeLocation: "${
+											instructor.state.instructorProfile
+												.officeLocation || ''
+										}",
+									    officeHours: "${instructor.state.instructorProfile.officeHours || ''}",
+									    contactPolicy: "${instructor.state.instructorProfile.contactPolicy || ''}",
+									    phone: "${instructor.state.instructorProfile.phone || ''}",
+									    background: "${instructor.state.instructorProfile.background || ''}",
+									    researchInterest: "${
+											instructor.state.instructorProfile
+												.researchInterest || ''
+										}",
+									    selectedPapersAndPublications: "${
+											instructor.state.instructorProfile
+												.selectedPapersAndPublications ||
+											''
+										}",
+									    personalWebsite: "${
+											instructor.state.instructorProfile
+												.personalWebsite || ''
+										}",
+									    philosophy: "${instructor.state.instructorProfile.philosophy || ''}"
+									}`
+									: ''
+							}
+                            }){
+                            firstName,
+                            lastName,
+                            middleName,
+                            email,
+                            dob,
+                            instructorProfile{
+                                title,
+                                phone,
+                                officeHours,
+                                officeLocation,
+                            }
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => {
+				if (res.data) {
 					setLoading(false)
-					return document.data
-				})
-				.catch((err) => {
-					toast.error(err.response.data.error, {
+					setUser(res.data.data.updateUser)
+					toast.success('Your profile was updated!', {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				} else {
+					setLoading(false)
+					toast.error('There was an error updating your profile', {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				}
+			})
+			.catch((err) => {
+				setLoading(false)
+				err.response.data.errors.map((error) => {
+					toast.error(error.message, {
 						position: toast.POSITION.TOP_RIGHT,
 					})
 				})
-			setUser(data)
-		}
-		getUser()
-	}, [])
+			})
+	}
 
-	return loading === true ? (
+	/**
+	 * @summary Asynchronous function for deleting the user's profile. This function is called when the user clicks on the delete account button.
+	 * @function
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
+	const deleteUser = async (e) => {
+		e.preventDefault()
+		const payload = {
+			query: `mutation{
+                        deleteUser(id: "${params.id}"){
+                            id
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then(() => {
+				setLoading(false)
+				props.history.push('/users/register')
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+	}
+
+	/**
+	 * @summary Helper function for checking if the user has any enrollments as an instructor.
+	 * @function
+	 * @param {Object} usr - The user's profile object
+	 */
+	const toggleInstructor = (usr) => {
+		console.log(
+			'User: ',
+			usr.plan.modules.find((m) => m.role === 'GRADER')
+		)
+		user?.plan?.modules.map((module) => {
+			console.log(module)
+			if (module.role === 'TEACHER' || module.role === 'GRADER') {
+				setIsInstructor(true)
+			}
+		})
+	}
+
+	/**
+	 * @summary Function that handles the change between user's profile and instructor's profile. This function dispatches a reducer action with a 'SET_INSTRUCTOR_PROFILE' `type` and a `payload` of the field name and value that was changed.
+	 * @function
+	 * @param {React.ChangeEvent<HTMLInputElement>} event - The event object of the click event
+	 * @example
+	 *
+	 * const handleInstructorProfileChange = (event) => {
+	 *	instructor.dispatch({
+	 *		type: 'SET_INSTRUCTOR_PROFILE',
+	 *		payload: { [event.target.name]: event.target.value },
+	 *	})
+	 * }
+	 * //returns [...{title: "Chair of the Department of Computer Science"}]
+	 *
+	 * return (
+	 * <input
+	 * 	type="text"
+	 * 	name="title"
+	 * 	value="Chair of the Department of Computer Science"
+	 * 	onChange={(event) => handleInstructorProfileChange(event)}
+	 * />
+	 * )
+	 */
+	const handleInstructorProfileChange = (event) => {
+		instructor.dispatch({
+			type: 'SET_INSTRUCTOR_PROFILE',
+			payload: { [event.target.name]: event.target.value },
+		})
+	}
+
+	useEffect(() => {
+		getUser().then((res) => {
+			toggleInstructor(res)
+			setLoading(false)
+		})
+	}, [showInstructor])
+
+	return loading ? (
 		loader()
 	) : (
 		<>
-			<div className="w-full max-w-6xl mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
+			<div className="w-11/12 lg:w-3/4 mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
 				<ToastContainer />
 				<nav className="w-full md:w-1/4 mr-8 flex flex-col border border-gray-200 shadow-sm rounded-md h-full">
+					{isInstructor ? (
+						<button
+							onClick={() => setShowInstructor(!showInstructor)}
+						>
+							<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+								Switch to Professor
+							</li>
+						</button>
+					) : null}
 					<a className="text-base" href="#user">
 						<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
 							User information
@@ -99,7 +324,13 @@ const Profile = (props) => {
 									type="text"
 									placeholder="First name"
 									name="firstName"
-									value={profile.firstName}
+									value={user.firstName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											firstName: e.target.value,
+										})
+									}
 								/>
 							</label>
 							<label
@@ -112,7 +343,13 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Middle name"
 									name="middleName"
-									value={profile.middleName}
+									value={user.middleName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											middleName: e.target.value,
+										})
+									}
 								/>
 							</label>
 							<label
@@ -125,7 +362,13 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Last name"
 									name="lastName"
-									value={profile.lastName}
+									value={user.lastName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											lastName: e.target.value,
+										})
+									}
 								/>
 							</label>
 						</div>
@@ -140,23 +383,13 @@ const Profile = (props) => {
 									type="email"
 									placeholder="Email"
 									name="email"
-									value={profile.email}
-								/>
-							</label>
-						</div>
-						<div className="w-full mb-3">
-							<label
-								htmlFor=""
-								className="block flex-1 font-bold"
-							>
-								Group
-								<input
-									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize cursor-not-allowed"
-									type="text"
-									placeholder="Group"
-									name="adviser"
-									disabled
-									value={profile.group}
+									value={user.email}
+									onChange={(e) =>
+										setUser({
+											...user,
+											email: e.target.value,
+										})
+									}
 								/>
 							</label>
 						</div>
@@ -171,11 +404,17 @@ const Profile = (props) => {
 									type="text"
 									placeholder="YYYY/MM/DD"
 									name="dob"
-									// value={profile.dob}
+									defaultValue={user.dob}
+									onChange={(e) =>
+										setUser({
+											...user,
+											dob: e.target.value,
+										})
+									}
 								/>
 							</label>
 						</div>
-						{profile.group === "instructor" && (
+						{showInstructor && (
 							<>
 								<div className="w-full mb-3">
 									<label
@@ -183,11 +422,20 @@ const Profile = (props) => {
 										className="block flex-1 font-bold"
 									>
 										Title
-										<textarea
+										<input
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
 											type="text"
 											placeholder="Title"
-											name="adviser"
+											name="title"
+											defaultValue={
+												instructor.state
+													.instructorProfile.title
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
@@ -201,7 +449,17 @@ const Profile = (props) => {
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
 											type="text"
 											placeholder="Office location"
-											name="adviser"
+											name="officeLocation"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.officeLocation
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
@@ -215,7 +473,17 @@ const Profile = (props) => {
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
 											type="text"
 											placeholder="Office hours"
-											name="adviser"
+											name="officeHours"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.officeHours
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
@@ -227,9 +495,18 @@ const Profile = (props) => {
 										Contact policy
 										<textarea
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
-											type="text"
 											placeholder="Contact policy"
-											name="adviser"
+											name="contactPolicy"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.contactPolicy
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
@@ -243,7 +520,16 @@ const Profile = (props) => {
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
 											type="text"
 											placeholder="Phone number"
-											name="adviser"
+											name="phone"
+											defaultValue={
+												instructor.state
+													.instructorProfile.phone
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
@@ -255,9 +541,18 @@ const Profile = (props) => {
 										Research interest
 										<textarea
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
-											type="text"
 											placeholder="Research interest"
-											name="adviser"
+											name="researchInterest"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.researchInterest
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
@@ -269,23 +564,79 @@ const Profile = (props) => {
 										Teaching philosophy
 										<textarea
 											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
-											type="text"
 											placeholder="Teaching philosophy"
-											name="adviser"
+											name="philosophy"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.philosophy
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
 										/>
 									</label>
 								</div>
 							</>
 						)}
+						<div className="w-full mb-3 flex gap-4">
+							<label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Password
+								<input
+									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
+									type="password"
+									placeholder="Password"
+									name="password"
+									defaultValue={user.password}
+									onChange={(e) =>
+										setUser({
+											...user,
+											password: e.target.value,
+										})
+									}
+								/>
+							</label>
+							<label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Password Confirmation
+								<input
+									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
+									type="password"
+									placeholder="Password Confirmation"
+									name="passwordConf"
+									defaultValue={user.passwordConf}
+									onChange={(e) =>
+										setUser({
+											...user,
+											passwordConf: e.target.value,
+										})
+									}
+								/>
+							</label>
+						</div>
+						<button
+							className="bg-blue-300 border-blue-200 rounded w-auto text-black px-4 py-2"
+							onClick={(e) => updateUser(e)}
+							type="submit"
+						>
+							Update profile
+						</button>
 					</form>
 					<h3
 						id="modules"
 						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
 					>
-						Plan of Study
+						My Plan of Study
 					</h3>
 					<div className="">
-						<PlanOfStudy param={params.id} />
+						<PlanOfStudy ID={params.id} />
 					</div>
 					<h3
 						id="security"
@@ -313,16 +664,17 @@ const Profile = (props) => {
 					</div>
 					<h3
 						id="kill"
-						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+						className="text-2xl bold border-b border-gray-100 text-red-500 mb-3 mt-3"
+					>
+						Danger zone
+					</h3>
+
+					<button
+						className="text-white border-red-400 bg-red-500 rounded w-auto px-4 py-2"
+						onClick={() => deleteUser()}
 					>
 						Kill account
-					</h3>
-					<div className="">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Suscipit beatae quam sint quis sapiente nobis esse! Et
-						reprehenderit a eum laudantium earum? Voluptas aliquam,
-						sit eaque in sed distinctio vitae!
-					</div>
+					</button>
 				</div>
 			</div>
 		</>

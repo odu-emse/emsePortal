@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+    ui:
+        container_name: emse_ui
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: base
+        tty: true
+        expose:
+            - '3000'
+        ports:
+            - '3000:3000'
+        volumes:
+            - ./src:/usr/src/app/src
+        networks:
+            - ui_net
+        command: yarn local
+networks:
+    ui_net:

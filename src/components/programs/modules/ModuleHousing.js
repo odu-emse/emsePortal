@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { decoder, round_to_precision, rating, loader } from "../../helpers"
-import StarRatingComponent from "react-star-rating-component"
-import pluralize from "pluralize"
-import { ToastContainer, toast } from "react-toastify"
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import {
-	Download,
-	Smartphone,
+	calculateRating,
+	decoder,
+	loader,
+	rating,
+	round_to_precision,
+} from '../../helpers'
+import StarRatingComponent from 'react-star-rating-component'
+import pluralize from 'pluralize'
+import { ToastContainer, toast } from 'react-toastify'
+import {
 	Award,
-	Youtube,
 	Book,
+	Check,
+	Download,
 	LifeBuoy,
 	Repeat,
-	Check,
-} from "react-feather"
-import IframeResizer from "iframe-resizer-react"
+	Smartphone,
+	Youtube,
+} from 'react-feather'
+import PropTypes from 'prop-types'
 
+/**
+ * @component
+ * @name ModuleHousing
+ * @category Program
+ * @description This component renders the page that students see when they access a module. Including a video player, module listing, reviews of the module etc. This component also determines weather the user is enrolled in the module or not and displays the appropriate interface.
+ * @returns {JSX.Element} The individual module's page
+ */
 export default function ModuleHousing(props) {
 	const {
 		match: { params },
@@ -37,7 +50,7 @@ export default function ModuleHousing(props) {
 			)
 			.then(() => {
 				window.location.reload()
-				toast.success("You have successfully enrolled", {
+				toast.success('You have successfully enrolled', {
 					position: toast.POSITION.TOP_RIGHT,
 				})
 			})
@@ -49,23 +62,50 @@ export default function ModuleHousing(props) {
 	useEffect(() => {
 		let config = {
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
 		}
 		axios
-			.get(
-				`${process.env.REACT_APP_API}/api/modules/${params.moduleId}`,
+			.post(
+				`${process.env.REACT_APP_API}/graphql`,
+				{
+					query: `{
+                            module(id: "${params.moduleId}"){
+                                id,
+                                moduleNumber,
+                                moduleName,
+                                description,
+                                duration,
+                                intro,
+                                numSlides,
+                                keywords,
+                                createdAt,
+                                updatedAt,
+                                feedback{
+                                    feedback,
+                                    rating
+                                },
+                                parentCourses{
+                                    course{
+                                        name
+                                    }
+                                }
+                            }
+                        }`,
+				},
 				config
 			)
 			.then((response) => {
-				const module = response.data.data
+				const module = response.data.data.module
 				setModule(module)
 				setContent(response.data.cd)
-				if (module.enrolled.includes(decoder())) {
-					setEnrolled(true)
-				} else {
-					setEnrolled(false)
-				}
+				//TODO: identify weather the user is enrolled or not
+				// if (module.enrolled.includes(decoder())) {
+				// 	setEnrolled(true)
+				// } else {
+				// 	setEnrolled(false)
+				// }
+				setEnrolled(false)
 				setLoading(false)
 			})
 			.catch((err) => {
@@ -78,15 +118,16 @@ export default function ModuleHousing(props) {
 		<>
 			<ToastContainer />
 			<div className="mx-auto max-w-7xl px-4 py-4">
-				<IframeResizer
+				{/*TODO: we need to get content delivery working to get this fixed */}
+				{/* <IframeResizer
 					log
 					src={`${content.href}/story.html`}
 					style={{
-						width: "1px",
-						minWidth: "100%",
-						minHeight: "75vh",
+						width: '1px',
+						minWidth: '100%',
+						minHeight: '75vh',
 					}}
-				/>
+				/> */}
 				<h1 className="text-3xl font-bold mt-4 mb-2">
 					{module.moduleName}
 				</h1>
@@ -95,41 +136,39 @@ export default function ModuleHousing(props) {
 		</>
 	) : (
 		<>
-			<div className="mx-auto max-w-7xl py-4 px-4">
-				<div className="flex md:flex-row flex-col-reverse">
-					<div className="md:w-2/3 w-full sm:mb-4 sm:mr-0 lg:mb-0 lg:mr-5">
+			<div className="mx-auto max-w-7xl py-4 px-4 w-3/4 sm:w-full xl:w-2/3">
+				<div className="flex xl:flex-row flex-col-reverse">
+					<div className="xl:w-2/3 w-full sm:mb-4 sm:mr-0 lg:mb-0 lg:mr-5">
 						<h1 className="text-3xl font-bold mb-2">
 							Module {module.moduleNumber} | {module.moduleName}
 						</h1>
 						<p className="mb-2">{module.intro}</p>
-						<div className="w-1/2">
+						<div className="w-full xl:w-1/2">
 							<p className="font-light text-yellow-500 flex items-center">
-								<span className="pr-2">{`${round_to_precision(
-									rating(module.rating),
-									0.5
-								)}`}</span>
+								<span className="pr-2">
+									{calculateRating(module.feedback)}
+								</span>
 								<StarRatingComponent
+									name="module-rating"
 									starCount={5}
 									editing={false}
-									value={round_to_precision(
-										rating(module.rating),
-										0.5
-									)}
+									value={calculateRating(module.feedback)}
 								/>
 								<span className="pl-2 text-gray-400">
-									({module.rating.length} ratings)
+									({module.feedback.length} ratings)
 								</span>
-								<span className="pl-2 text-gray-400">
+								{/*TODO: we need to get member list to calculate this*/}
+								{/* <span className="pl-2 text-gray-400">
 									{pluralize(
-										"student",
+										'student',
 										module.enrolled.length,
 										true
 									)}
-								</span>
+								</span> */}
 							</p>
 						</div>
 						<p className="mb-4">
-							Instructed by{" "}
+							Instructed by{' '}
 							<a className="underline" href="./">
 								{module.instructor}
 							</a>
@@ -160,21 +199,22 @@ export default function ModuleHousing(props) {
 							<p>{module.description}</p>
 						</div>
 					</div>
-					<div className="md:w-1/3 w-full md:border border-gray-50 px-3 py-4 rounded-sm md:shadow-md">
-						<img
+					<div className="xl:w-1/3 w-full xl:border border-gray-50 px-3 py-4 rounded-sm xl:shadow-md">
+						{/*TODO: we need to get content delivery working to get this fixed */}
+						{/* <img
 							src={`${content.href}/story_content/thumbnail.jpg`}
 							alt={`${module.moduleName} module thumbnail`}
 							className="w-full"
-						/>
+						/> */}
 						<div className="module--housing--inclusion">
 							<h5 className="mt-3 text-lg font-bold">
-								This module includes:{" "}
+								This module includes:{' '}
 							</h5>
 							<span className="flex mt-3 font-light items-center">
 								<div className="text-gray-400 mr-3">
 									<Youtube />
 								</div>
-								{module.duration} minutes on demand video
+								{module.duration} hours on demand video
 							</span>
 							<span className="flex mt-3 font-light items-center">
 								<div className="text-gray-400 mr-3">
@@ -231,4 +271,11 @@ export default function ModuleHousing(props) {
 			</div>
 		</>
 	)
+}
+
+ModuleHousing.propTypes = {
+	/**
+	 * The prop object that comes from `react-router-dom` that allows us to redirect users and check their url location
+	 */
+	props: PropTypes.object.isRequired,
 }

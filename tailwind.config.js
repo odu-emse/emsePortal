@@ -1,10 +1,17 @@
 module.exports = {
-	purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-	darkMode: false, // or 'media' or 'class'
+	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
-		extend: {},
-	},
-	variants: {
+		fontFamily: {
+			sans: ['Didact Gothic', 'Helvetica', 'Arial', 'sans-serif'],
+			serif: [
+				'Roboto Slab',
+				'Georgia',
+				'Cambria',
+				'Times New Roman',
+				'serif',
+			],
+			monospace: ['Menlo', 'Monaco', 'Consolas', 'monospace'],
+		},
 		extend: {},
 	},
 	plugins: [],

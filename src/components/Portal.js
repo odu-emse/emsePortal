@@ -1,8 +1,12 @@
-import React from "react"
-import { Typography } from "@material-ui/core"
+import Container from './Container'
 
 const Portal = (props) => {
-	return <Typography variant="h3">Portal</Typography>
+	console.log(props)
+	return (
+		<Container>
+			<h3 className="text-3xl">Portal</h3>
+		</Container>
+	)
 }
 
 export default Portal

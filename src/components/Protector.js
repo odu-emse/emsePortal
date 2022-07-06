@@ -1,76 +1,68 @@
-import React, { useEffect, useState } from "react"
-import { Route, Redirect } from "react-router-dom"
-import { getToken, loader } from "./helpers"
-import axios from "axios"
+import PropTypes from 'prop-types'
+import { checkForToken, getToken, loader } from './helpers'
+import React, { useEffect, useState } from 'react'
+import { Redirect, Route } from 'react-router-dom'
 
+/**
+ * @component
+ * @name Protector
+ * @category Authentication
+ * @description A wrapper component that handles the verification of users using built in authentication methods.
+ * @returns {JSX.Element} The child element that is passed in via props, wrapped in the HOC.
+ */
 const Protector = ({ component: Component, ...rest }) => {
 	const [authentication, setAuth] = useState(false)
 	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(null)
+
+	async function redirect() {
+		try {
+			const res = await checkForToken()
+
+			res ? setAuth(true) : setAuth(false)
+
+			setLoading(false)
+		} catch (error) {
+			setError(error)
+		}
+	}
 
 	useEffect(() => {
-		const jsonwebtoken = getToken()
-		if (!jsonwebtoken) {
-			setAuth(false)
-			setLoading(false)
-			return false
-		} else {
-			axios
-				.get(`${process.env.REACT_APP_API}/api/users/verify`, {
-					headers: {
-						Authorization: getToken(),
-						"Content-Type": "application/json",
-					},
-				})
-				.then((response) => {
-					if (response.status === 200) {
-						setAuth(true)
-						setLoading(false)
-						return true
-					} else if (
-						response.status === 401 ||
-						response.status === 400
-					) {
-						setLoading(false)
-						setAuth(false)
-						return false
-					} else {
-						setAuth(false)
-						setLoading(false)
-						return false
-					}
-				})
-				.catch((err) => {
-					console.error(err)
-					setAuth(false)
-					setLoading(false)
-					return false
-				})
-		}
-	}, [authentication, loading])
+		redirect()
+	}, [authentication])
 
-	return loading === true ? (
+	return loading ? (
 		loader()
 	) : (
 		<Route
 			{...rest}
 			render={(props) =>
-				authentication === false ? (
-					<Redirect
-						to={{
-							pathname: "/users/login",
-							state: {
-								from: props.location,
-								error: "Not authorized to access...",
-							},
-						}}
-					/>
+				!authentication ? (
+					//TODO: Pass error state through the router
+					props.history.push('/users/login')
 				) : (
+					// <Redirect
+					// 	to={{
+					// 		pathname: '/users/login',
+					// 		state: {
+					// 			from: props.location,
+					// 			error: 'Not authorized to access...',
+					// 		},
+					// 	}}
+					// />
 					//if they are authenticated -> send protected component
-					<Component {...props} />
+					<Component {...props} authentication={authentication} />
 				)
 			}
 		/>
 	)
+}
+
+Protector.propTypes = {
+	/**
+	 * The child component coming from the React Router switch statement that we are authenticating and passing down the tree.
+	 */
+	component: PropTypes.elementType.isRequired,
 }
 
 export default Protector
