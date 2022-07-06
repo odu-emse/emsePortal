@@ -89,7 +89,7 @@ const Profile = (props) => {
 		e.preventDefault()
 		if (user.dob) {
 			const dob = user.dob.split('/')
-			const prismaString = dob[0] + dob[1] + dob[2] + "T00:00:00Z";
+			const prismaString = dob[0] + dob[1] + dob[2] + 'T00:00:00Z'
 			await setUser({ ...user, dob: prismaString })
 		}
 		const payload = {
@@ -636,7 +636,7 @@ const Profile = (props) => {
 						My Plan of Study
 					</h3>
 					<div className="">
-						<PlanOfStudy param={params.id} />
+						<PlanOfStudy ID={params.id} />
 					</div>
 					<h3
 						id="security"

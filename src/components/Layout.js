@@ -1,3 +1,3 @@
 export default function Layout({ children }) {
-	return <main className="flex max-w-screen">{children}</main>
+	return <main className="flex w-full max-w-screen">{children}</main>
 }

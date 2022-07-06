@@ -70,6 +70,39 @@ export const getToken = () => {
 	return 'Bearer ' + localStorage.getItem('JWT')
 }
 
+export const checkForToken = () => {
+	const ID = decoder()
+	if (!ID) {
+		return false
+	} else {
+		const payload = {
+			// language=GraphQL
+			query: `
+			{
+				user(id: "${ID}"){
+					email,
+					firstName,
+					lastName
+				}
+			}
+			`,
+		}
+		const res = axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload)
+			.then((doc) => {
+				if (doc.status === 200 && doc.data.data.user) {
+					return true
+				}
+			})
+			.catch((err) => {
+				// throw new Error(err)
+				console.log(err)
+				return false
+			})
+		return res
+	}
+}
+
 /**
  * @summary Helper function to log out the user by removing their local storage JWT
  * @function
@@ -189,7 +222,7 @@ export const isAuthenticated = async () => {
 export const loader = () => {
 	return (
 		<div className="mx-auto w-full flex justify-center items-center">
-			<Loader className="spin" size="42pt" />
+			<Loader className="animate-spin" size="42pt" />
 		</div>
 	)
 }

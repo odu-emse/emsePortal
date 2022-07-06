@@ -1,78 +1,90 @@
-import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { decoder, getToken } from './helpers'
-import { GoPerson, GoSignIn } from 'react-icons/go'
-import { RiShutDownLine, RiUserSettingsLine } from 'react-icons/ri'
 import { AiOutlinePartition } from 'react-icons/ai'
+import { BiTask } from 'react-icons/bi'
+import { BsStack } from 'react-icons/bs'
+import { NavLink } from 'react-router-dom'
+import { RiShutDownLine } from 'react-icons/ri'
+import { checkForToken, decoder, loader } from './helpers'
+import { GoPerson, GoSignIn } from 'react-icons/go'
 import {
 	MdLiveHelp,
 	MdOutlineExplore,
 	MdSpaceDashboard,
 	MdWidgets,
 } from 'react-icons/md'
-import { BsStack } from 'react-icons/bs'
-import { BiTask } from 'react-icons/bi'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function Sidebar() {
 	const [open, setOpen] = useState(false)
+	// const [userPopout, setUserPopout] = useState(false)
+	const [loading, setLoading] = useState(false)
 	const [dropdown, setDropdown] = useState(false)
 	const [authenticated, setAuthenticated] = useState(false)
 
-	const toggle = () => {
-		setOpen(!open)
-	}
-	const openUser = () => {
-		setDropdown(!dropdown)
-	}
-	const auth = () => {
-		if (getToken() !== `Bearer ${null}`) {
-			return setAuthenticated(true)
-		} else {
-			return setAuthenticated(false)
+	async function auth() {
+		try {
+			const res = await checkForToken()
+			res ? setAuthenticated(true) : setAuthenticated(false)
+			setLoading(false)
+		} catch (err) {
+			throw new Error(err)
 		}
 	}
+
 	useEffect(() => {
 		auth()
-	}, [authenticated])
+	}, [])
+
+	if (loading) {
+		return loader()
+	}
 
 	return (
-		<aside className={`relative bg-gray-300 transition-all ${ open ? 'w-3/12' : 'w-1/12' }`}>
-			<div className={`sticky z-50 flex flex-col bg-gray-800 top-0 left-0 right-0 h-screen`}>
-
+		<aside
+			className={`relative bg-gray-300 transition-all ${
+				open ? 'w-3/12' : 'w-1/12'
+			}`}
+		>
+			<div
+				className={`sticky z-50 flex flex-col bg-gray-800 top-0 left-0 right-0 h-screen`}
+			>
 				<button
-						className="inline-flex items-center justify-center py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white w-full"
-						aria-expanded="false"
-						onClick={toggle}>
-						<span className="sr-only">Open side menu</span>
-						<svg
-							className="block h-6 w-6"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							aria-hidden="true">
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M4 6h16M4 12h16M4 18h16"
-							/>
-						</svg>
-						<svg
-							className="hidden h-6 w-6"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							aria-hidden="true">
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						</svg>
-					</button>
+					className="inline-flex items-center justify-center py-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white w-full"
+					aria-expanded="false"
+					onClick={() => setOpen(!open)}
+				>
+					<span className="sr-only">Open side menu</span>
+					<svg
+						className="block h-6 w-6"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M4 6h16M4 12h16M4 18h16"
+						/>
+					</svg>
+					<svg
+						className="hidden h-6 w-6"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
+				</button>
 
 				<div className="logo w-full flex items-center justify-center py-5">
 					<img
@@ -226,9 +238,11 @@ export default function Sidebar() {
 									}`}
 									id="user-menu"
 									aria-haspopup="true"
-									onClick={openUser}
+									onClick={() => setDropdown(!dropdown)}
 								>
-									<span className="sr-only">Open user menu</span>
+									<span className="sr-only">
+										Open user menu
+									</span>
 									{open ? (
 										'Account'
 									) : (
@@ -263,7 +277,6 @@ export default function Sidebar() {
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										activeClassName="bg-gray-900 text-white px-3 py-4 text-sm font-medium border-l-4"
 										role="menuitem"
-										onClick={openUser}
 									>
 										Sign out
 									</NavLink>
@@ -287,7 +300,7 @@ export default function Sidebar() {
 									)}
 								</NavLink>
 								<NavLink
-									to="users/logout"
+									to="/users/logout"
 									className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-4 text-sm font-medium uppercase tracking-widest ${
 										!open
 											? 'flex items-center justify-center'
@@ -298,7 +311,10 @@ export default function Sidebar() {
 									{open ? (
 										'Logout'
 									) : (
-										<RiShutDownLine size={30} title="Logout" />
+										<RiShutDownLine
+											size={30}
+											title="Logout"
+										/>
 									)}
 								</NavLink>
 							</div>

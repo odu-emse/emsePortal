@@ -1,6 +1,7 @@
 import Container from './Container'
 
 const Portal = (props) => {
+	console.log(props)
 	return (
 		<Container>
 			<h3 className="text-3xl">Portal</h3>

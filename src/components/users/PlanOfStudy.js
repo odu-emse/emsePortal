@@ -13,7 +13,7 @@ import moment from 'moment'
  * @returns {React.ReactElement} The plan of study in a table format
  * @requires moment
  */
-export default function PlanOfStudy({ param }) {
+export default function PlanOfStudy({ ID }) {
 	const [enrollment, setEnrollment] = useState(null)
 	const [courses, setCourses] = useState(null)
 	const [assignments, setAssignments] = useState(null)
@@ -29,7 +29,7 @@ export default function PlanOfStudy({ param }) {
 	 * @borrows React.useState as React.useState
 	 */
 	useEffect(() => {
-		getPlan(param)
+		getPlan(ID)
 			.then((response) => {
 				try {
 					console.log(response)
@@ -307,5 +307,5 @@ PlanOfStudy.propTypes = {
 	/*
 	 * An object that contains the user's ID to execute the getPlanByStudentID query
 	 */
-	param: PropTypes.object.isRequired,
+	ID: PropTypes.string.isRequired,
 }
