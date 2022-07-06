@@ -6,7 +6,8 @@
 
 describe('Load Program screen', () => {
 	beforeEach(() => {
-		cy.visit('/programs')
+		cy.visit('/program')
+		cy.login('dpapp@odu.edu', 'testing@12345')
 	})
 
 	it('should display the program card', () => {})

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowRight, ArrowLeft } from 'react-feather'
+import { ArrowLeft, ArrowRight } from 'react-feather'
 
 const PersonalInfo = ({ previousStep, nextStep, values, change }) => {
 	const previous = (e) => {

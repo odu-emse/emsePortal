@@ -1,4 +1,5 @@
 import Container from './Container'
+import PropTypes from 'prop-types'
 import {
 	CartesianGrid,
 	Legend,
@@ -15,6 +16,21 @@ import {
 	YAxis,
 } from 'recharts'
 
+/**
+ * @var {object[]} data
+ * @memberof Dashboard
+ * @description Mock data that represents progresses of individual courses containing progress from 3 different students.
+ * @example
+ * [
+ * {
+ *  subject: 'ENMA 601',
+ *  A: 50,
+ *  B: 76,
+ *  C: 90,
+ *  fullMark: 150
+ * }
+ * ]
+ */
 const data = [
 	{
 		subject: 'ENMA 600',
@@ -60,6 +76,18 @@ const data = [
 	},
 ]
 
+/**
+ * @var {object[]} timeOfCompletion
+ * @memberof Dashboard
+ * @description Mock data that represents that time of completion of modules/assignments aggregated over time binned by months.
+ * @example
+ * [
+ * {
+ * name: "January",
+ * you: "385",
+ * },
+ * ]
+ */
 const timeOfCompletion = [
 	{
 		name: 'January',
@@ -110,8 +138,14 @@ const timeOfCompletion = [
 		you: 65,
 	},
 ]
-
-const Dashboard = () => {
+/**
+ * @name Dashboard
+ * @component
+ * @category Program
+ * @returns {React.ReactHTMLElement} - The Dashboard page
+ * @description A React component that renders the Dashboard page completely
+ */
+export default function Dashboard() {
 	return (
 		<section className="w-full overflow-x-hidden">
 			<div className="w-full h-auto xl:h-72 bg-gray-50 flex flex-col xl:flex-row justify-between items-center xl:content-around shadow-md border-b-2 border-gray-50 ">
@@ -232,6 +266,15 @@ const Dashboard = () => {
 	)
 }
 
+/**
+ * @name Panel
+ * @function
+ * @memberof Dashboard
+ * @description A wrapper component that adds styles and different size variations to the child component that is being passed in via props.
+ * @param {React.ReactChild} children - A React Component that we want to render inside the panel wrapper
+ * @param {string} className - A string of values that will be inserted into the HTML class attribute that is present in the returned wrapper
+ * @returns {React.ReactHTMLElement} - The complete child argument wrapped in a div with the appropriate styles applied
+ */
 const Panel = ({ children, className }) => {
 	return (
 		<div
@@ -242,6 +285,14 @@ const Panel = ({ children, className }) => {
 	)
 }
 
+/**
+ * @name RenderLineChart
+ * @function
+ * @memberof Dashboard
+ * @description A simple wrapper component that contains mock data for the line chart. This is a temporary solution until we can get the data from the API.
+ * @returns {React.Component} - The line chart component that handles the way the data is visualized
+ * @todo Replace the mock data with the data from the API
+ */
 const RenderLineChart = () => {
 	const data = [
 		{
@@ -320,5 +371,3 @@ const RenderLineChart = () => {
 		</ResponsiveContainer>
 	)
 }
-
-export default Dashboard

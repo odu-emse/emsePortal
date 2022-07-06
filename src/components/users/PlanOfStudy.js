@@ -1,107 +1,50 @@
 import React, { useEffect, useState } from 'react'
-import { getModule, loader } from '../helpers'
-import axios from 'axios'
+import PropTypes from 'prop-types'
+import getPlan from '../../scripts/getPlanByStudentID'
+import { loader } from '../helpers'
 import moment from 'moment'
 
-const PlanOfStudy = ({ param }) => {
-	const [lessons, setLessons] = useState([])
+/**
+ * @name PlanOfStudy
+ * @summary Functional React component for displaying the plan of a student in a table format.
+ * @category Plan Of Study
+ * @component
+ * @borrows loader as loader
+ * @returns {React.ReactElement} The plan of study in a table format
+ * @requires moment
+ */
+export default function PlanOfStudy({ param }) {
 	const [enrollment, setEnrollment] = useState(null)
 	const [courses, setCourses] = useState(null)
 	const [assignments, setAssignments] = useState(null)
 	const [loading, setLoading] = useState(true)
 
-	const getPlan = async () => {
-		const payload = {
-			query: `{
-                        planByID(id: "${param}"){
-                            id,
-							student{
-								id,
-								email,
-								firstName,
-								lastName,
-								dob
-							},
-							modules{
-								id,
-								enrolledAt,
-								role,
-								module{
-									id,
-									moduleName,
-									moduleNumber
-								},
-							},
-							courses{
-								id,
-								enrolledAt,
-								course{
-									name,
-								}
-							},
-							assignmentResults{
-								id,
-								assignment{
-									id,
-									name,
-									dueAt,
-								},
-								gradedBy{
-									id,
-									email,
-									firstName,
-									lastName
-								},
-								result,
-								submittedAt
-							}
-                        }
-                    }`,
-		}
-		const plan = await axios
-			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-			.then(document => {
-				setLoading(false)
-				return document.data.data.planByID
-			})
-			.catch(err => {
-				console.error(err)
-			})
-		return plan
-	}
-
+	/**
+	 * @name getPlan
+	 * @summary Asynchronous function for updating the component state with the user's plan of study
+	 * @async
+	 * @function
+	 * @memberof PlanOfStudy
+	 * @see {@link scripts/getPlanByStudentID}
+	 * @borrows React.useState as React.useState
+	 */
 	useEffect(() => {
-		getPlan()
-			.then(response => {
+		getPlan(param)
+			.then((response) => {
 				try {
+					console.log(response)
 					setEnrollment(response.modules)
 					setCourses(response.courses)
 					setAssignments(response.assignmentResults)
-					// TODO: ALMP-222
-					// response?.modules.forEach((id) => {
-					// 	getModule(id)
-					// 		.then((resp) => {
-					// 			setLessons((lessons) => [
-					// 				...lessons,
-					// 				resp.data.data,
-					// 			])
-					// 			setLoading(false)
-					// 		})
-					// 		.catch((err) => {
-					// 			console.error(err)
-					// 		})
-					// })
+					setLoading(false)
 				} catch (error) {
 					console.error(error)
-					setLoading(false)
+					throw new Error(error)
 				}
 			})
-			.catch(err => {
-				console.log(err)
+			.catch((err) => {
+				console.error(err)
+				throw new Error(err)
 			})
 	}, [])
 
@@ -269,7 +212,6 @@ const PlanOfStudy = ({ param }) => {
 					</thead>
 					<tbody>
 						{assignments.map((assignment, index) => {
-							console.log(assignment)
 							let at = moment.unix(
 								~~(assignment.submittedAt / 1000)
 							)
@@ -361,4 +303,9 @@ const PlanOfStudy = ({ param }) => {
 	)
 }
 
-export default PlanOfStudy
+PlanOfStudy.propTypes = {
+	/*
+	 * An object that contains the user's ID to execute the getPlanByStudentID query
+	 */
+	param: PropTypes.object.isRequired,
+}

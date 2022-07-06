@@ -1,11 +1,16 @@
+/**
+ * @name App
+ * @class
+ * @summary The main application component that renders the entire application.
+ */
 //Helpers
 import { createContext } from 'react'
 import Protector from './components/Protector'
 import {
+	Redirect,
+	Route,
 	BrowserRouter as Router,
 	Switch,
-	Route,
-	Redirect
 } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 //Modules
@@ -24,8 +29,14 @@ import Assignments from './components/Assignments'
 import Layout from './components/Layout'
 import Sidebar from './components/Sidebar'
 import NotFound from './components/404'
+//Context
+import {
+	InstructorContext,
+	InstructorContextDefaultValue,
+} from './components/users/Profile'
+import { InstructorProvider } from './scripts/instructorProfileContex'
 
-export const AuthContext = createContext()
+export const AuthContext = createContext({})
 
 function App() {
 	return (
@@ -80,11 +91,16 @@ function App() {
 							/>
 
 							<Route
-								path="/users/userVerify"
+								path="/users/verify/:id"
 								component={UserVerify}
 							/>
 
-							<Protector path="/users/:id" component={Profile} />
+							<InstructorProvider>
+								<Protector
+									path="/users/:id"
+									component={Profile}
+								/>
+							</InstructorProvider>
 
 							<Route component={NotFound} />
 						</Switch>

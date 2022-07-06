@@ -4,7 +4,8 @@ import Search from '../search/Search'
 import Courses from './courses/Courses'
 import { createApi } from 'unsplash-js'
 import axios from 'axios'
-import { loader } from '../helpers'
+import { decoder, loader } from '../helpers'
+import getPlanByStudentID from '../../scripts/getPlanByStudentID'
 
 const unsplash = createApi({
 	accessKey: process.env.REACT_APP_IMAGE_ACCESS,
@@ -12,10 +13,8 @@ const unsplash = createApi({
 
 const Modules = () => {
 	const [image, setImage] = useState([])
-	const [modules, setModules] = useState(null)
-	const [courses, setCourses] = useState(null)
-	const [loadingModules, setModulesLoading] = useState(true)
-	const [loadingImages, setImagesLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
+	const [pos, setPoS] = useState(null)
 
 	// TODO: find a better way to fetch images
 	const getImages = async () => {
@@ -28,7 +27,7 @@ const Modules = () => {
 				alt_description: 'lorem',
 			},
 		])
-		setImagesLoading(false)
+		setLoading(false)
 		// try {
 		// 	const { response } = await unsplash.photos.getRandom({
 		// 		featured: true,
@@ -53,77 +52,23 @@ const Modules = () => {
 		// }
 	}
 
-	useEffect(() => {
-		let data = {
-			query: `{
-				modules{
-					id,
-                    moduleNumber,
-                    moduleName,
-                    description,
-                    duration,
-                    intro,
-                    numSlides,
-                    keywords,
-                    createdAt,
-                    updatedAt,
-                    feedback{
-                        feedback,
-                        rating
-                    },
-                    parentCourses{
-                        course{
-                            id,
-                            name
-                        }
-                    }
-				}
-			}`,
+	const getPlan = async () => {
+		try {
+			getPlanByStudentID(decoder())
+				.then((res) => {
+					setPoS(res)
+					setLoading(false)
+				})
+				.catch((err) => {
+					throw new Error(err)
+				})
+		} catch (error) {
+			throw new Error(error)
 		}
+	}
 
-		axios
-			.post(`${process.env.REACT_APP_API}/graphql`, data, {
-				headers: {
-					'Content-Type': 'application/json',
-					'Cache-Control': 'no-cache',
-				},
-			})
-			.then(async (res) => {
-				let results = await res.data.data.modules
-				setModules(results)
-				setModulesLoading(false)
-			})
-			.catch((err) => {
-				console.error(err)
-				setModulesLoading(false)
-			})
-
-		// TODO: course fetching
-		axios
-			.post(
-				`${process.env.REACT_APP_API}/graphql`,
-				{
-					query: `{
-                    courses{
-                        id,
-                        name,
-                    }
-                }`,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'Cache-Control': 'no-cache',
-					},
-				}
-			)
-			.then(async (res) => {
-				let results = await res.data.data.courses
-				setCourses(results)
-			})
-			.catch((err) => console.error(err))
-
-		getImages()
+	useEffect(() => {
+		getPlan()
 	}, [])
 
 	// TODO: figure out how to filter modules by course
@@ -131,30 +76,31 @@ const Modules = () => {
 		event.preventDefault()
 		console.log(event.target.value)
 		try {
-			modules.filter((module) =>
-				module.parentCourses.map(
+			const filteredModules = pos.modules.filter((moduleEnrollment) => {
+				moduleEnrollment.module.parentCourses.map(
 					(item) => item.course.id === event.target.value
 				)
-			)
+			})
+			console.log(filteredModules)
 		} catch (error) {
 			console.error(error)
 			return null
 		}
 	}
 
-	return loadingImages || loadingModules ? (
+	return loading ? (
 		loader()
 	) : (
-		<section className="px-10 w-full overflow-x-hidden flex">
+		<section className="gap-1 md:px-10 w-full flex flex-col md:flex-row">
 			<ModuleItem
 				title="My Modules"
-				modules={modules}
+				modules={pos.modules}
 				images={image}
-				loading={loadingModules}
-				imageLoading={loadingImages}
+				loading={loading}
+				imageLoading={loading}
 			/>
-			<aside className="w-2/12 pl-4">
-				<ul>
+			<aside className="w-full md:w-2/12 pl-4 overflow-x-scroll">
+				<ul className="flex md:flex-col">
 					<p className="border-b border-gray-200 mt-1 font-semibold">
 						Status
 					</p>
@@ -168,15 +114,15 @@ const Modules = () => {
 					<p className="border-b border-gray-200 mt-1 font-semibold">
 						Parent Courses
 					</p>
-					{courses &&
-						courses.map((course) => (
+					{pos &&
+						pos.courses.map((courseEnrollment) => (
 							<button
 								className="bg-gray-200 rounded-full my-2 px-2 cursor-pointer block text-left w-full"
-								value={course.id.toString()}
+								value={courseEnrollment.course.id.toString()}
 								onClick={(e) => filterModules(e)}
-								key={course.id}
+								key={courseEnrollment.course.id}
 							>
-								{course.name}
+								{courseEnrollment.course.name}
 							</button>
 						))}
 					<p className="border-b border-gray-200 mt-1 font-semibold">

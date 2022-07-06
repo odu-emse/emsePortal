@@ -1,20 +1,20 @@
 import React from 'react'
 import StarRatingComponent from 'react-star-rating-component'
-import { rating, round_to_precision, loader } from '../../helpers'
+import { loader, rating, round_to_precision } from '../../helpers'
 import { Link } from 'react-router-dom'
-import { getRandomNum, calculateRating } from '../../helpers'
+import { calculateRating, getRandomNum } from '../../helpers'
 import Search from '../../search/Search'
 
 let ModuleItem = (props) => {
 	const { modules, images, loading, imageLoading } = props
 
-	const filterModules = (mod, text, variant) => {
+	const filterModules = (mod) => {
 		return mod ? (
 			<section className="flex flex-col w-full mt-5">
-				<div className="module--list flex flex-col">
-					{mod.map((module, index) => (
+				<div className="module--list flex flex-col items-center">
+					{mod.map((moduleEnrollment, index) => (
 						<div
-							className={`p-2 flex justify-between shadow-md mb-3 rounded bg-gray-100 w-full border-l-8 border-red-500`}
+							className={`p-2 flex flex-col md:flex-row justify-between shadow-md mb-3 rounded bg-gray-100 w-2/3 md:w-full border-l-8 border-red-500`}
 							key={index}
 						>
 							{/* TODO: add view switching feature to make use of the images */}
@@ -26,38 +26,51 @@ let ModuleItem = (props) => {
 										className="min-w-full min-h-full flex-shrink-0"
 									/>
 								</div> */}
-							<div className="p-2 flex flex-col justify-between w-1/2">
+							<div className="p-2 flex flex-col justify-between md:w-1/2 w-full">
 								<div className="flex items-center">
 									<h3 className="font-light text-lg">
-										{module.parentCourses.map((course) => {
-											return course.course.name
-										})}{' '}
-										| M-{module.moduleNumber}V
+										{/* TODO: see ALMP-238 and ALMP-229 */}
+										{/* {moduleEnrollment.module.parentCourses.map(
+											(course) => {
+												return (
+													course.course.name ||
+													'Unknown'
+												)
+											}
+										)} */}
+										{`${moduleEnrollment.module.parentCourses[0].course.name} | M-${moduleEnrollment.module.moduleNumber}`}
 									</h3>
 								</div>
 								<div className="flex flex-col py-5">
 									<h4 className="font-bold text-xl">
-										{module.moduleName}
+										{moduleEnrollment.module.moduleName}
 									</h4>
 									<h6 className="font-light text-gray-500">
-										{module.intro}
+										{moduleEnrollment.module.intro}
 									</h6>
 								</div>
 								<div className="w-full">
 									<div className="flex flex-row">
 										<p className="text-yellow-400 mr-2 font-weight-light">
-											{calculateRating(module.feedback)}
+											{calculateRating(
+												moduleEnrollment.module.feedback
+											)}
 										</p>
 										<StarRatingComponent
 											name="module-rating"
 											starCount={5}
 											editing={false}
 											value={calculateRating(
-												module.feedback
+												moduleEnrollment.module.feedback
 											)}
 										/>
 										<p className="text-gray-300 ml-2 font-weight-light">
-											({module.feedback.length})
+											(
+											{
+												moduleEnrollment.module.feedback
+													.length
+											}
+											)
 										</p>
 									</div>
 									{/* TODO: find a way to work keywords into the design */}
@@ -84,7 +97,7 @@ let ModuleItem = (props) => {
 									</ul>
 								</div>
 							</div>
-							<div className="flex flex-col w-1/4 items-center justify-center text-center">
+							<div className="flex flex-col md:w-1/4 w-full items-center justify-center text-center">
 								<span className="font-light text-gray-400">
 									75% <br /> Viewed
 								</span>
@@ -112,10 +125,12 @@ let ModuleItem = (props) => {
 									/>
 								</svg>
 								<h2 className="text-base font-semibold">
-									Approximately {module.duration} hours left
+									Approximately{' '}
+									{moduleEnrollment.module.duration} hours
+									left
 								</h2>
 							</div>
-							<div className="flex flex-col w-1/4 items-center justify-center text-center">
+							<div className="flex flex-col md:w-1/4 w-full items-center justify-center text-center">
 								<span className="font-light text-gray-400 text-sm">
 									Current Topic
 								</span>
@@ -123,16 +138,16 @@ let ModuleItem = (props) => {
 									Ethical Behavior and Leadership
 								</h2>
 								<Link
-									to={`/program/${module.id}`}
+									to={`/program/${moduleEnrollment.module.id}`}
 									className="text-white bg-blue-300 px-3 py-1 w-full my-1"
-									key={module.id}
+									key={moduleEnrollment.module.id}
 								>
 									Continue
 								</Link>
 								<Link
 									to={`/program`}
 									className="text-white bg-yellow-500 px-3 py-1 w-full my-1"
-									key={module.moduleName}
+									key={moduleEnrollment.module.moduleName}
 								>
 									Tree View
 								</Link>
@@ -149,10 +164,10 @@ let ModuleItem = (props) => {
 	return loading || imageLoading ? (
 		loader()
 	) : (
-		<div className="flex flex-col w-full">
-			<h4 className="my-3 text-7xl opacity-20">{props.title}</h4>
+		<div className="flex flex-col md:w-full w-3/4">
+			<h4 className="my-3 text-7xl opacity-20">My Modules</h4>
 			<Search />
-			{filterModules(modules, props.title)}
+			{filterModules(modules)}
 		</div>
 	)
 }

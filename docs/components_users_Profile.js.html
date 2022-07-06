@@ -1,0 +1,822 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ODU ALMP Docs components/users/Profile.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Asynchronous Learning Management System @ ODU-EMSE</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emsePortal"
+                        >
+                            Github - UI
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/odu-emse/emseAPI"
+                        >
+                            Github - API
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="App.html">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Classes</h3><ul><li><a href="Register.html">Register</a></li></ul><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="Protector.html">Protector</a></li><li><a href="UserVerify.html">UserVerify</a></li></ul></div><div class="category"><h2>Context</h2><h3>Modules</h3><ul><li><a href="module-InstructorProfileContext.html">InstructorProfileContext</a></li></ul></div><div class="category"><h2>Hooks</h2><h3>Modules</h3><ul><li><a href="module-GetPlanByStudentID.html">GetPlanByStudentID</a></li></ul></div><div class="category"><h2>Plan Of Study</h2><h3>Components</h3><ul><li><a href="PlanOfStudy.html">PlanOfStudy</a></li><li><a href="Profile.html">Profile</a></li></ul></div><div class="category"><h2>Program</h2><h3>Components</h3><ul><li><a href="Course.html">Course</a></li><li><a href="Dashboard.html">Dashboard</a></li><li><a href="ModuleHousing.html">ModuleHousing</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="UserInfo.html">UserInfo</a></li></ul></div><div class="category"><h2>helper</h2><h3>Global</h3><ul><li><a href="global.html#abandonModule">abandonModule</a></li><li><a href="global.html#calculateRating">calculateRating</a></li><li><a href="global.html#checkTaken">checkTaken</a></li><li><a href="global.html#convert">convert</a></li><li><a href="global.html#decoder">decoder</a></li><li><a href="global.html#getModule">getModule</a></li><li><a href="global.html#getRandomNum">getRandomNum</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#isAuthenticated">isAuthenticated</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#profileCheck">profileCheck</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#rating">rating</a></li><li><a href="global.html#refreshPage">refreshPage</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/users/Profile.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, createContext } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import { profileCheck, loader } from '../helpers'
+import { useHistory } from 'react-router-dom'
+import PlanOfStudy from './PlanOfStudy'
+import {
+	InstructorProvider,
+	useInstructorContext,
+} from '../../scripts/instructorProfileContex'
+import moment from 'moment'
+
+/**
+ * Functional component for displaying the student's profile page
+ * @category Plan Of Study
+ * @function
+ * @component
+ * @param {React.FC&lt;Props>} props - React props object
+ * @returns {React.ReactElement} The profile page of the user
+ */
+const Profile = (props) => {
+	const token = localStorage.getItem(process.env.REACT_APP_JWT)
+	const history = useHistory()
+
+	const {
+		match: { params },
+	} = props
+
+	profileCheck(token, history, params)
+
+	const instructor = useInstructorContext()
+
+	const [user, setUser] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [isInstructor, setIsInstructor] = useState(false)
+	const [showInstructor, setShowInstructor] = useState(false)
+
+	/**
+	 * @summary Asynchronous function for fetching the user's profile based on the URL parameter containing the user's ID
+	 * @function
+	 * @returns {Object} The user's object
+	 */
+	const getUser = async () => {
+		let payload = {
+			// language=GraphQL
+			query: `{
+				user(id: "${params.id}" ){
+					firstName,
+					lastName,
+                    middleName
+					email,
+                    isAdmin,
+                    dob,
+                    plan{
+                        id,
+                        modules{
+                            role
+                        }
+                    }
+				}
+			}`,
+		}
+
+		const data = await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((document) => {
+				return document.data.data.user
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+		setUser(data)
+		return data
+	}
+
+	/**
+	 * @summary Asynchronous function for updating the user's profile. This function is called when the user submits the update profile form.
+	 * @function
+	 * @param {React.MouseEvent&lt;HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
+	const updateUser = async (e) => {
+		setLoading(true)
+		e.preventDefault()
+		if (user.dob) {
+			const dob = user.dob.split('/')
+			const mom = moment()
+			await mom.set({
+				year: dob[0],
+				month: dob[1],
+				date: dob[2],
+			})
+			await setUser({ ...user, dob: mom.unix() })
+		}
+		const payload = {
+			query: `mutation{
+                        updateUser(input: {
+                            id: "${params.id}",
+                            middleName: "${user.middleName}",
+                            firstName: "${user.firstName}",
+                            lastName: "${user.lastName}",
+                            email: "${user.email}",
+                            password: "${user.password}",
+                            passwordConf: "${user.passwordConf}",
+                            dob: "${user.dob}",
+                            ${
+								isInstructor
+									? `instructorProfile: {
+										title: "${instructor.state.instructorProfile.title || ''}",
+									    officeLocation: "${
+											instructor.state.instructorProfile
+												.officeLocation || ''
+										}",
+									    officeHours: "${instructor.state.instructorProfile.officeHours || ''}",
+									    contactPolicy: "${instructor.state.instructorProfile.contactPolicy || ''}",
+									    phone: "${instructor.state.instructorProfile.phone || ''}",
+									    background: "${instructor.state.instructorProfile.background || ''}",
+									    researchInterest: "${
+											instructor.state.instructorProfile
+												.researchInterest || ''
+										}",
+									    selectedPapersAndPublications: "${
+											instructor.state.instructorProfile
+												.selectedPapersAndPublications ||
+											''
+										}",
+									    personalWebsite: "${
+											instructor.state.instructorProfile
+												.personalWebsite || ''
+										}",
+									    philosophy: "${instructor.state.instructorProfile.philosophy || ''}"
+									}`
+									: ''
+							}
+                            }){
+                            firstName,
+                            lastName,
+                            middleName,
+                            email,
+                            dob,
+                            instructorProfile{
+                                title,
+                                phone,
+                                officeHours,
+                                officeLocation,
+                            }
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then((res) => {
+				if (res.data) {
+					setLoading(false)
+					setUser(res.data.data.updateUser)
+					toast.success('Your profile was updated!', {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				} else {
+					setLoading(false)
+					toast.error('There was an error updating your profile', {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				}
+			})
+			.catch((err) => {
+				setLoading(false)
+				err.response.data.errors.map((error) => {
+					toast.error(error.message, {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				})
+			})
+	}
+
+	/**
+	 * @summary Asynchronous function for deleting the user's profile. This function is called when the user clicks on the delete account button.
+	 * @function
+	 * @param {React.MouseEvent&lt;HTMLButtonElement, MouseEvent>} e - The event object of the form
+	 */
+	const deleteUser = async (e) => {
+		e.preventDefault()
+		const payload = {
+			query: `mutation{
+                        deleteUser(id: "${params.id}"){
+                            id
+                        }
+                    }`,
+		}
+		await axios
+			.post(`${process.env.REACT_APP_API}/graphql`, payload, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			.then(() => {
+				setLoading(false)
+				props.history.push('/users/register')
+			})
+			.catch((err) => {
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
+	}
+
+	/**
+	 * @summary Helper function for checking if the user has any enrollments as an instructor.
+	 * @function
+	 * @param {Object} usr - The user's profile object
+	 */
+	const toggleInstructor = (usr) => {
+		console.log(
+			'User: ',
+			usr.plan.modules.find((m) => m.role === 'GRADER')
+		)
+		user?.plan?.modules.map((module) => {
+			console.log(module)
+			if (module.role === 'TEACHER' || module.role === 'GRADER') {
+				setIsInstructor(true)
+			}
+		})
+	}
+
+	/**
+	 * @summary Function that handles the change between user's profile and instructor's profile. This function dispatches a reducer action with a 'SET_INSTRUCTOR_PROFILE' `type` and a `payload` of the field name and value that was changed.
+	 * @function
+	 * @param {React.ChangeEvent&lt;HTMLInputElement>} event - The event object of the click event
+	 * @example
+	 *
+	 * const handleInstructorProfileChange = (event) => {
+	 *	instructor.dispatch({
+	 *		type: 'SET_INSTRUCTOR_PROFILE',
+	 *		payload: { [event.target.name]: event.target.value },
+	 *	})
+	 * }
+	 * //returns [...{title: "Chair of the Department of Computer Science"}]
+	 *
+	 * return (
+	 * &lt;input
+	 * 	type="text"
+	 * 	name="title"
+	 * 	value="Chair of the Department of Computer Science"
+	 * 	onChange={(event) => handleInstructorProfileChange(event)}
+	 * />
+	 * )
+	 */
+	const handleInstructorProfileChange = (event) => {
+		instructor.dispatch({
+			type: 'SET_INSTRUCTOR_PROFILE',
+			payload: { [event.target.name]: event.target.value },
+		})
+	}
+
+	useEffect(() => {
+		getUser().then((res) => {
+			toggleInstructor(res)
+			setLoading(false)
+		})
+	}, [showInstructor])
+
+	return loading ? (
+		loader()
+	) : (
+		&lt;>
+			&lt;div className="w-11/12 lg:w-3/4 mx-4 lg:mx-auto flex flex-col md:flex-row mt-3">
+				&lt;ToastContainer />
+				&lt;nav className="w-full md:w-1/4 mr-8 flex flex-col border border-gray-200 shadow-sm rounded-md h-full">
+					{isInstructor ? (
+						&lt;button
+							onClick={() => setShowInstructor(!showInstructor)}
+						>
+							&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+								Switch to Professor
+							&lt;/li>
+						&lt;/button>
+					) : null}
+					&lt;a className="text-base" href="#user">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							User information
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#modules">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Plan of Study
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#security">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Security
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#notifications">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
+							Notifications
+						&lt;/li>
+					&lt;/a>
+					&lt;a className="text-base" href="#kill">
+						&lt;li className="py-1 px-3 hover:bg-gray-100 border-gray-300 list-none">
+							Close account
+						&lt;/li>
+					&lt;/a>
+				&lt;/nav>
+				&lt;div className="w-full md:w-3/4">
+					&lt;h3
+						id="user"
+						className="text-2xl bold border-b border-gray-100 mb-3"
+					>
+						Profile
+					&lt;/h3>
+					&lt;form>
+						&lt;div className="flex md:flex-row md:justify-between flex-col mb-3">
+							&lt;label
+								htmlFor="name"
+								className="block flex-1 mr-2 font-bold"
+							>
+								First name
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="First name"
+									name="firstName"
+									value={user.firstName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											firstName: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+							&lt;label
+								htmlFor="name"
+								className="block flex-1 mx-2 font-bold"
+							>
+								Middle name
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="Middle name"
+									name="middleName"
+									value={user.middleName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											middleName: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+							&lt;label
+								htmlFor="name"
+								className="block flex-1 ml-2 font-bold"
+							>
+								Last name
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="Last name"
+									name="lastName"
+									value={user.lastName}
+									onChange={(e) =>
+										setUser({
+											...user,
+											lastName: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						&lt;div className="w-full mb-3">
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Email
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="email"
+									placeholder="Email"
+									name="email"
+									value={user.email}
+									onChange={(e) =>
+										setUser({
+											...user,
+											email: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						&lt;div className="w-full mb-3">
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Date of birth
+								&lt;input
+									className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1"
+									type="text"
+									placeholder="YYYY/MM/DD"
+									name="dob"
+									defaultValue={user.dob}
+									onChange={(e) =>
+										setUser({
+											...user,
+											dob: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						{showInstructor &amp;&amp; (
+							&lt;>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Title
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Title"
+											name="title"
+											defaultValue={
+												instructor.state
+													.instructorProfile.title
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Office location
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Office location"
+											name="officeLocation"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.officeLocation
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Office hours
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Office hours"
+											name="officeHours"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.officeHours
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Contact policy
+										&lt;textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											placeholder="Contact policy"
+											name="contactPolicy"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.contactPolicy
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Phone number
+										&lt;input
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											type="text"
+											placeholder="Phone number"
+											name="phone"
+											defaultValue={
+												instructor.state
+													.instructorProfile.phone
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Research interest
+										&lt;textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											placeholder="Research interest"
+											name="researchInterest"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.researchInterest
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+								&lt;div className="w-full mb-3">
+									&lt;label
+										htmlFor=""
+										className="block flex-1 font-bold"
+									>
+										Teaching philosophy
+										&lt;textarea
+											className="bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block w-full mt-1 capitalize"
+											placeholder="Teaching philosophy"
+											name="philosophy"
+											defaultValue={
+												instructor.state
+													.instructorProfile
+													.philosophy
+											}
+											onChange={(event) =>
+												handleInstructorProfileChange(
+													event
+												)
+											}
+										/>
+									&lt;/label>
+								&lt;/div>
+							&lt;/>
+						)}
+						&lt;div className="w-full mb-3 flex gap-4">
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Password
+								&lt;input
+									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
+									type="password"
+									placeholder="Password"
+									name="password"
+									defaultValue={user.password}
+									onChange={(e) =>
+										setUser({
+											...user,
+											password: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+							&lt;label
+								htmlFor=""
+								className="block flex-1 font-bold"
+							>
+								Password Confirmation
+								&lt;input
+									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
+									type="password"
+									placeholder="Password Confirmation"
+									name="passwordConf"
+									defaultValue={user.passwordConf}
+									onChange={(e) =>
+										setUser({
+											...user,
+											passwordConf: e.target.value,
+										})
+									}
+								/>
+							&lt;/label>
+						&lt;/div>
+						&lt;button
+							className="bg-blue-300 border-blue-200 rounded w-auto text-black px-4 py-2"
+							onClick={(e) => updateUser(e)}
+							type="submit"
+						>
+							Update profile
+						&lt;/button>
+					&lt;/form>
+					&lt;h3
+						id="modules"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						My Plan of Study
+					&lt;/h3>
+					&lt;div className="">
+						&lt;PlanOfStudy param={params.id} />
+					&lt;/div>
+					&lt;h3
+						id="security"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Security
+					&lt;/h3>
+					&lt;div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					&lt;/div>
+					&lt;h3
+						id="notifications"
+						className="text-2xl bold border-b border-gray-100 mb-3 mt-3"
+					>
+						Notifications
+					&lt;/h3>
+					&lt;div className="">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Suscipit beatae quam sint quis sapiente nobis esse! Et
+						reprehenderit a eum laudantium earum? Voluptas aliquam,
+						sit eaque in sed distinctio vitae!
+					&lt;/div>
+					&lt;h3
+						id="kill"
+						className="text-2xl bold border-b border-gray-100 text-red-500 mb-3 mt-3"
+					>
+						Danger zone
+					&lt;/h3>
+
+					&lt;button
+						className="text-white border-red-400 bg-red-500 rounded w-auto px-4 py-2"
+						onClick={() => deleteUser()}
+					>
+						Kill account
+					&lt;/button>
+				&lt;/div>
+			&lt;/div>
+		&lt;/>
+	)
+}
+
+export default Profile
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>
