@@ -1,11 +1,19 @@
+/**
+ * @name checkTaken
+ * @function
+ * @category helper
+ */
 import axios from 'axios'
 
-export const checkTaken = async (entered_email, data) => {
+export const checkTaken = async (entered_email) => {
 	try {
-		const res = await axios.post(
-			`${process.env.REACT_APP_API}/graphql`,
-			data
-		)
+		const res = await axios.post(`${process.env.REACT_APP_API}/graphql`, {
+			query: `query{
+                    users{
+                        email
+                    }
+			    }`,
+		})
 
 		const { users } = res.data.data
 
@@ -20,6 +28,7 @@ export const checkTaken = async (entered_email, data) => {
 				response.error = true
 				response.message =
 					'Account with this email already exists. Please log in'
+				response.email = entered_email
 			} else {
 				response.error = false
 				response.email = entered_email

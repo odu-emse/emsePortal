@@ -4,7 +4,8 @@ import Search from '../search/Search'
 import Courses from './courses/Courses'
 import { createApi } from 'unsplash-js'
 import axios from 'axios'
-import { loader } from '../helpers'
+import { decoder, loader } from '../helpers'
+import getPlanByStudentID from '../../scripts/getPlanByStudentID'
 
 const unsplash = createApi({
 	accessKey: process.env.REACT_APP_IMAGE_ACCESS,
@@ -12,11 +13,8 @@ const unsplash = createApi({
 
 const Modules = () => {
 	const [image, setImage] = useState([])
-	const [modules, setModules] = useState(null)
-	const [courses, setCourses] = useState(null)
-	const [loadingModules, setModulesLoading] = useState(true)
-	const [loadingCourses, setCoursesLoading] = useState(true)
-	const [loadingImages, setImagesLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
+	const [pos, setPoS] = useState(null)
 
 	// TODO: find a better way to fetch images
 	const getImages = async () => {
@@ -29,7 +27,7 @@ const Modules = () => {
 				alt_description: 'lorem',
 			},
 		])
-		setImagesLoading(false)
+		setLoading(false)
 		// try {
 		// 	const { response } = await unsplash.photos.getRandom({
 		// 		featured: true,
@@ -54,77 +52,109 @@ const Modules = () => {
 		// }
 	}
 
-	useEffect(() => {
-		let data = {
-			query: `{
-				modules{
-					id,
-                    moduleNumber,
-                    moduleName,
-                    description,
-                    duration,
-                    intro,
-                    numSlides,
-                    keywords,
-                    createdAt,
-                    updatedAt,
-				}
-			}`,
+	const getPlan = async () => {
+		try {
+			getPlanByStudentID(decoder())
+				.then((res) => {
+					setPoS(res)
+					setLoading(false)
+				})
+				.catch((err) => {
+					throw new Error(err)
+				})
+		} catch (error) {
+			throw new Error(error)
 		}
+	}
 
-		axios
-			.post(`${process.env.REACT_APP_API}/graphql`, data, {
-				headers: {
-					'Content-Type': 'application/json',
-					'Cache-Control': 'no-cache',
-				},
-			})
-			.then(async (res) => {
-				let results = await res.data.data.modules
-				setModules(results)
-				setModulesLoading(false)
-			})
-			.catch((err) => console.error(err))
-
-		// TODO: course fetching
-		// axios
-		// 	.post(`${process.env.REACT_APP_API}/graphql`, data, {
-		// 		headers: {
-		// 			'Content-Type': 'application/json',
-		// 			'Cache-Control': 'no-cache',
-		// 		},
-		// 	})
-		// 	.then(async (res) => {
-		// 		let results = await res.data
-		// 		setCourses(results)
-		// 		setCoursesLoading(false)
-		// 	})
-		// 	.catch((err) => console.error(err))
-
-		getImages()
-
-		console.log(image)
+	useEffect(() => {
+		getPlan()
 	}, [])
 
-	return loadingImages || loadingModules ? (
+	// TODO: figure out how to filter modules by course
+	const filterModules = (event) => {
+		event.preventDefault()
+		console.log(event.target.value)
+		try {
+			const filteredModules = pos.modules.filter((moduleEnrollment) => {
+				moduleEnrollment.module.parentCourses.map(
+					(item) => item.course.id === event.target.value
+				)
+			})
+			console.log(filteredModules)
+		} catch (error) {
+			console.error(error)
+			return null
+		}
+	}
+
+	return loading ? (
 		loader()
 	) : (
-		<div className="mx-20 px-10 max-w-full">
-			{/* <Search /> */}
+		<section className="gap-1 md:px-10 w-full flex flex-col md:flex-row">
 			<ModuleItem
-				title="All modules"
-				modules={modules}
+				title="My Modules"
+				modules={pos.modules}
 				images={image}
-				loading={loadingModules}
-				imageLoading={loadingImages}
+				loading={loading}
+				imageLoading={loading}
 			/>
-			{/* <Courses
-				title="Courses you might be interested in"
-				courses={courses}
-				images={image[0]}
-				loading={loadingCourses}
-			/> */}
-		</div>
+			<aside className="w-full md:w-2/12 pl-4 overflow-x-scroll">
+				<ul className="flex md:flex-col">
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Status
+					</p>
+					<li className="bg-gray-200 rounded-full my-2 px-2">All</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Overdue
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Completed
+					</li>
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Parent Courses
+					</p>
+					{pos &&
+						pos.courses.map((courseEnrollment) => (
+							<button
+								className="bg-gray-200 rounded-full my-2 px-2 cursor-pointer block text-left w-full"
+								value={courseEnrollment.course.id.toString()}
+								onClick={(e) => filterModules(e)}
+								key={courseEnrollment.course.id}
+							>
+								{courseEnrollment.course.name}
+							</button>
+						))}
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Delivery Type
+					</p>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Asynchronous Media
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Hands On
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Writing Intensive
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Presentation
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Activity
+					</li>
+					<li className="bg-gray-200 rounded-full my-2 px-2">
+						Multiple Choice
+					</li>
+					<p className="border-b border-gray-200 mt-1 font-semibold">
+						Legend
+					</p>
+					<li>Completed</li>
+					<li>Overdue</li>
+					<li>Available</li>
+				</ul>
+			</aside>
+		</section>
 	)
 }
 

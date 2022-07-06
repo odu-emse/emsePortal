@@ -1,9 +1,17 @@
+/**
+ * @name App
+ * @class
+ * @summary The main application component that renders the entire application.
+ */
 //Helpers
-import React from 'react'
-import './App.sass'
-import AppNavbar from './components/AppNavbar'
+import { createContext } from 'react'
 import Protector from './components/Protector'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+	Redirect,
+	Route,
+	BrowserRouter as Router,
+	Switch,
+} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 //Modules
 import Programs from './components/programs'
@@ -18,36 +26,86 @@ import UserVerify from './components/users/UserVerify'
 import Dashboard from './components/Dashboard'
 import Portal from './components/Portal'
 import Assignments from './components/Assignments'
+import Layout from './components/Layout'
+import Sidebar from './components/Sidebar'
+import NotFound from './components/404'
+//Context
+import {
+	InstructorContext,
+	InstructorContextDefaultValue,
+} from './components/users/Profile'
+import { InstructorProvider } from './scripts/instructorProfileContex'
+
+export const AuthContext = createContext({})
 
 function App() {
 	return (
 		<Router>
-			<div className="App">
-				<AppNavbar />
-				<Switch>
-					<Protector exact path="/portal" component={Portal} />
+			<div className="App font-sans">
+				<AuthContext.Provider value={{}}>
+					<Layout>
+						<Sidebar />
 
-					<Protector path="/dashboard" exact component={Dashboard} />
+						<Switch>
+							<Redirect exact from="/" to="/portal" />
+							<Protector
+								exact
+								path="/portal"
+								component={Portal}
+							/>
+							<Protector
+								path="/dashboard"
+								exact
+								component={Dashboard}
+							/>
+							<Protector
+								path="/program"
+								exact
+								component={Programs}
+							/>
+							<Protector
+								path="/program/:moduleId"
+								component={ModuleHousing}
+							/>
+							<Protector
+								path="/assignments"
+								component={Assignments}
+							/>
 
-					<Protector path="/programs" exact component={Programs} />
+							<Route
+								path="/users/login"
+								exact
+								component={Login}
+							/>
 
-					<Protector
-						path="/modules/:moduleId"
-						component={ModuleHousing}
-					/>
+							<Route
+								path="/users/register"
+								exact
+								component={Register}
+							/>
 
-					<Protector path="/assignments" component={Assignments} />
+							<Route
+								path="/users/logout"
+								exact
+								component={Logout}
+							/>
 
-					<Route path="/users/login" exact component={Login} />
+							<Route
+								path="/users/verify/:id"
+								component={UserVerify}
+							/>
 
-					<Route path="/users/register" exact component={Register} />
+							<InstructorProvider>
+								<Protector
+									path="/users/:id"
+									component={Profile}
+								/>
+							</InstructorProvider>
 
-					<Route path="/users/logout" exact component={Logout} />
-
-					<Route path="/users/userVerify" component={UserVerify} />
-
-					<Protector path="/users/:id" component={Profile} />
-				</Switch>
+							<Route component={NotFound} />
+						</Switch>
+					</Layout>
+				</AuthContext.Provider>
 			</div>
 		</Router>
 	)

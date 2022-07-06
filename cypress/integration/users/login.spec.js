@@ -26,8 +26,8 @@ describe('Load Login screen', () => {
 
 describe('Tests Login form', () => {
 	const credentials = {
-		correctEmail: 'example@exmaple.co',
-		correctPassword: 'testing12345',
+		correctEmail: 'dpapp@odu.edu',
+		correctPassword: 'testing@12345',
 		incorrectEmail: 'example@example.com',
 		incorrectPassword: 'testing1234',
 	}

@@ -1,5 +1,4 @@
 import React from "react"
-import styled from "styled-components"
 
 const Button = (props) => {
 	const { children, variant, ...rest } = props

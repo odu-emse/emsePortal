@@ -1,43 +1,14 @@
 version: 2.1
-jobs:
-    build:
-        docker:
-            - image: cimg/node:17.3.0
-        steps:
-            - checkout
-            - run:
-                  name: Install
-                  command: yarn
-            - run:
-                  name: Build
-                  command: yarn build
 orbs:
-    cypress: cypress-io/cypress@1.29.0
+  cypress: cypress-io/cypress@1
 workflows:
-    test:
-        jobs:
-            - cypress/install:
-                  name: 'Setup Linux'
-                  yarn: true
-                  executor: with-chrome-and-firefox
-                  build: 'yarn build:ci'
-                  post-steps:
-                      - run:
-                            name: Run Unit Tests
-                            command: yarn test
-            - cypress/run:
-                  name: 'UI Tests - Chrome'
-                  browser: chrome
-                  spec: cypress/integration/**/*.spec.js
-                  executor: with-chrome-and-firefox
-                  wait-on: 'http://localhost:3000'
-                  command-prefix: npx percy exec --
-                  yarn: true
-                  start: yarn start:ci
-                  record: true
-                  parallel: true
-                  parallelism: 5
-                  ci-build-id: ${CIRCLE_SHA1:0:8}
-                  group: 'UI - Chrome'
-                  requires:
-                      - Setup Linux
+  build:
+    jobs:
+      - cypress/run:
+          yarn: true
+          executor: cypress/base-14
+          start: yarn dev
+          parallel: true
+          parallelism: 2
+          group: 2 machines
+          record: true
