@@ -31,8 +31,8 @@
 		"uuid": "^8.3.2"
 	},
 	"scripts": {
-		"start": "REACT_APP_API=https://emse-api.herokuapp.com/graphql react-app-rewired start",
-		"dev": "REACT_APP_API=https://emse-staging-api.herokuapp.com/graphql react-app-rewired start",
+		"start": "REACT_APP_API=https://emse-api.herokuapp.com react-app-rewired start",
+		"dev": "REACT_APP_API=https://emse-staging-api.herokuapp.com react-app-rewired start",
 		"local": "REACT_APP_API=http://localhost:4000 react-app-rewired start",
 		"build": "react-app-rewired build",
 		"eject": "react-app-rewired eject",

@@ -1,68 +1,108 @@
+# EMSE - Asynchronous Learning Management Platform | UI
+
+This repository contains all the files that are required for the operation of the AMLP user interface. The UI is a web application that facilitates interactions with the API. The UI is built using ReactJS and is ran in a Docker container.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Pre-requisites
 
-In the project directory, you can run:
+-   Docker
+    > Docker is an open platform for developing, shipping, and running applications. Docker enables you to separate your applications from your infrastructure so you can deliver software quickly. With Docker, you can manage your infrastructure in the same ways you manage your applications. By taking advantage of Docker’s methodologies for shipping, testing, and deploying code quickly, you can significantly reduce the delay between writing code and running it in production.
+    -   [Install Docker for your OS](https://docs.docker.com/desktop/)
+-   make
+    > Make is a tool which controls the generation of executables and other non-source files of a program from the program's source files. Make gets its knowledge of how to build your program from a file called the makefile, which lists each of the non-source files and how to compute it from other files. When you write a program, you should write a makefile for it, so that it is possible to use Make to build and install the program.
+    -   [Install GNU win32 on Windows](http://gnuwin32.sourceforge.net
 
-### `yarn start`
+## Environmental Variables
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+After cloning the repository, create a .env file with the appropriate variables that you received from your supervisor or through documentation. This file will contain the necessary variables like, our JWT configuration and our edge functions' URL.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```shell
+$ cd emsePortal && touch .env
+```
 
-### `yarn test`
+## Caveats when working on UI
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run the UI, first please make sure you have all the necessary Pre-Requisite are installed. Without these, the application will not be able to run or compile.
 
-### `yarn build`
+Second, you should verify if you are working across the entire stack (need to modify both the UI and the API to complete your issue), or is it specific for only the UI. If the later, you should only run commands that have `dev` in the name. If you require to work across the entire stack, please follow the set-up steps in the API's README.md file, and use all the `local` commands.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+As a short hand explanation, `local` commands expect you to have the API running on your machine, while `dev` commands reach out to our staging server API.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Common Commands
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Start container
 
-### `yarn eject`
+To start up the application using our staging API, use the following command:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```shell
+$ make up-dev
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you want to run the application using your local instance of the API, use the following command:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```shell
+$ make up-local
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Build image
 
-## Learn More
+While currently there isn't a huge difference in what these two commands do, they are here for future scaling support and to make it easier to switch between the two. In short, if you are using the staging API, you should use the `make build-dev` command, otherwise, use the `make build-local` command. Stick to either one throughout your entire development process, to avoid duplicate images and containers being built.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```shell
+$ make build-dev
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```shell
+$ make build-local
+```
 
-### Code Splitting
+### Remove image
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```shell
+$ make rm-dev
+```
 
-### Analyzing the Bundle Size
+```shell
+$ make rm-local
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Enter container
 
-### Making a Progressive Web App
+This command is useful when you want to look into the Docker container and it's current files that are shared across your own OS.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```shell
+$ make enter-dev
+```
 
-### Advanced Configuration
+```shell
+$ make enter-local
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Helper Commands
 
-### Deployment
+### Clean system
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+This command should only be used if you know what you are doing. It will remove all images, containers, cached files, and other files that are not needed for Docker's basic operation.
 
-### `yarn build` fails to minify
+```shell
+$ make prune
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### List containers
+
+```shell
+$ make rncn
+```
+
+### List images
+
+```shell
+$ make img
+```
+
+### Stop all containers
+
+```shell
+$ make down
+```
