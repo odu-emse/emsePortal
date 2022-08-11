@@ -87,11 +87,15 @@ const Profile = (props) => {
 	const updateUser = async (e) => {
 		setLoading(true)
 		e.preventDefault()
-		if (user.dob) {
-			const dob = user.dob.split('/')
-			const prismaString = dob[0] + dob[1] + dob[2] + 'T00:00:00Z'
-			await setUser({ ...user, dob: prismaString })
+
+		if (user.password?.length === 0 || user.passwordConf?.length === 0) {
+			setLoading(false)
+			toast.error('Please enter your password to update your profile.', {
+				position: toast.POSITION.TOP_RIGHT,
+			})
+			return
 		}
+
 		const payload = {
 			query: `mutation{
                         updateUser(input: {
@@ -156,7 +160,8 @@ const Profile = (props) => {
 			.then((res) => {
 				if (res.data) {
 					setLoading(false)
-					setUser(res.data.data.updateUser)
+					console.log(res.data.data.updateUser)
+					// setUser(res.data.data.updateUser)
 					toast.success('Your profile was updated!', {
 						position: toast.POSITION.TOP_RIGHT,
 					})
@@ -259,6 +264,13 @@ const Profile = (props) => {
 	useEffect(() => {
 		getUser().then((res) => {
 			toggleInstructor(res)
+			//TODO: investigate why DOB formats are invalid
+			setUser((prevState) => {
+				return {
+					...prevState,
+					dob: moment(prevState?.dob),
+				}
+			})
 			setLoading(false)
 		})
 	}, [showInstructor])
@@ -324,7 +336,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="First name"
 									name="firstName"
-									value={user.firstName}
+									value={user?.firstName}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -343,7 +355,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Middle name"
 									name="middleName"
-									value={user.middleName}
+									value={user?.middleName}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -362,7 +374,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="Last name"
 									name="lastName"
-									value={user.lastName}
+									value={user?.lastName}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -383,7 +395,7 @@ const Profile = (props) => {
 									type="email"
 									placeholder="Email"
 									name="email"
-									value={user.email}
+									value={user?.email}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -404,7 +416,7 @@ const Profile = (props) => {
 									type="text"
 									placeholder="YYYY/MM/DD"
 									name="dob"
-									defaultValue={user.dob}
+									defaultValue={user.dob || 'YYYY/MM/DD'}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -592,7 +604,8 @@ const Profile = (props) => {
 									type="password"
 									placeholder="Password"
 									name="password"
-									defaultValue={user.password}
+									defaultValue={user?.password}
+									required={true}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -611,7 +624,8 @@ const Profile = (props) => {
 									type="password"
 									placeholder="Password Confirmation"
 									name="passwordConf"
-									defaultValue={user.passwordConf}
+									defaultValue={user?.passwordConf}
+									required={true}
 									onChange={(e) =>
 										setUser({
 											...user,

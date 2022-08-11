@@ -11,12 +11,10 @@ import {
 	MdSpaceDashboard,
 	MdWidgets,
 } from 'react-icons/md'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Sidebar() {
 	const [open, setOpen] = useState(false)
-	// const [userPopout, setUserPopout] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [dropdown, setDropdown] = useState(false)
 	const [authenticated, setAuthenticated] = useState(false)
