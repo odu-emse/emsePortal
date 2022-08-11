@@ -30,7 +30,7 @@ const Profile = (props) => {
 
 	const instructor = useInstructorContext()
 
-	const [user, setUser] = useState(null)
+	const [user, setUser] = useState({ ...instructor.state.instructorProfile })
 	const [loading, setLoading] = useState(true)
 	const [isInstructor, setIsInstructor] = useState(false)
 	const [showInstructor, setShowInstructor] = useState(false)
@@ -47,16 +47,16 @@ const Profile = (props) => {
 				user(id: "${params.id}" ){
 					firstName,
 					lastName,
-                    middleName
+					middleName
 					email,
-                    isAdmin,
-                    dob,
-                    plan{
-                        id,
-                        modules{
-                            role
-                        }
-                    }
+					isAdmin,
+					dob,
+					plan{
+							id,
+							modules{
+									role
+							}
+					}
 				}
 			}`,
 		}
@@ -75,7 +75,7 @@ const Profile = (props) => {
 					position: toast.POSITION.TOP_RIGHT,
 				})
 			})
-		setUser(data)
+		setUser({ ...user, ...data })
 		return data
 	}
 
@@ -90,52 +90,44 @@ const Profile = (props) => {
 
 		if (user.password?.length === 0 || user.passwordConf?.length === 0) {
 			setLoading(false)
-			toast.error('Please enter your password to update your profile.', {
-				position: toast.POSITION.TOP_RIGHT,
-			})
-			return
+			return toast.error(
+				'Please enter your password to update your profile.',
+				{
+					position: toast.POSITION.TOP_RIGHT,
+				}
+			)
 		}
 
 		const payload = {
 			query: `mutation{
-                        updateUser(input: {
-                            id: "${params.id}",
-                            middleName: "${user.middleName}",
-                            firstName: "${user.firstName}",
-                            lastName: "${user.lastName}",
-                            email: "${user.email}",
-                            password: "${user.password}",
-                            passwordConf: "${user.passwordConf}",
-                            dob: "${user.dob}",
-                            ${
-								isInstructor
-									? `instructorProfile: {
-										title: "${instructor.state.instructorProfile.title || ''}",
-									    officeLocation: "${
-											instructor.state.instructorProfile
-												.officeLocation || ''
-										}",
-									    officeHours: "${instructor.state.instructorProfile.officeHours || ''}",
-									    contactPolicy: "${instructor.state.instructorProfile.contactPolicy || ''}",
-									    phone: "${instructor.state.instructorProfile.phone || ''}",
-									    background: "${instructor.state.instructorProfile.background || ''}",
-									    researchInterest: "${
-											instructor.state.instructorProfile
-												.researchInterest || ''
-										}",
+						updateUser(input: {
+								id: "${params.id}",
+								middleName: "${user.middleName}",
+								firstName: "${user.firstName}",
+								lastName: "${user.lastName}",
+								email: "${user.email}",
+								password: "${user.password}",
+								passwordConf: "${user.passwordConf}",
+								dob: "${user.dob}",
+								${
+									isInstructor
+										? `instructorProfile: {
+										title: "${user.title || ''}",
+									    officeLocation: "${user.officeLocation || ''}",
+									    officeHours: "${user.officeHours || ''}",
+									    contactPolicy: "${user.contactPolicy || ''}",
+									    phone: "${user.phone || ''}",
+									    background: "${user.background || ''}",
+									    researchInterest: "${user.researchInterest || ''}",
 									    selectedPapersAndPublications: "${
-											instructor.state.instructorProfile
-												.selectedPapersAndPublications ||
+											user.selectedPapersAndPublications ||
 											''
 										}",
-									    personalWebsite: "${
-											instructor.state.instructorProfile
-												.personalWebsite || ''
-										}",
-									    philosophy: "${instructor.state.instructorProfile.philosophy || ''}"
+									    personalWebsite: "${user.personalWebsite || ''}",
+									    philosophy: "${user.philosophy || ''}"
 									}`
-									: ''
-							}
+										: ''
+								}
                             }){
                             firstName,
                             lastName,
@@ -219,12 +211,7 @@ const Profile = (props) => {
 	 * @param {Object} usr - The user's profile object
 	 */
 	const toggleInstructor = (usr) => {
-		console.log(
-			'User: ',
-			usr.plan.modules.find((m) => m.role === 'GRADER')
-		)
-		user?.plan?.modules.map((module) => {
-			console.log(module)
+		usr?.plan?.modules.map((module) => {
 			if (module.role === 'TEACHER' || module.role === 'GRADER') {
 				setIsInstructor(true)
 			}
@@ -416,7 +403,10 @@ const Profile = (props) => {
 									type="text"
 									placeholder="YYYY/MM/DD"
 									name="dob"
-									defaultValue={user.dob || 'YYYY/MM/DD'}
+									defaultValue={
+										moment(user.dob).format('MM/DD/YYYY') ||
+										'YYYY/MM/DD'
+									}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -444,9 +434,11 @@ const Profile = (props) => {
 													.instructorProfile.title
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
@@ -468,9 +460,11 @@ const Profile = (props) => {
 													.officeLocation
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
@@ -492,9 +486,11 @@ const Profile = (props) => {
 													.officeHours
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
@@ -515,9 +511,11 @@ const Profile = (props) => {
 													.contactPolicy
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
@@ -538,9 +536,11 @@ const Profile = (props) => {
 													.instructorProfile.phone
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
@@ -561,9 +561,11 @@ const Profile = (props) => {
 													.researchInterest
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
@@ -584,9 +586,11 @@ const Profile = (props) => {
 													.philosophy
 											}
 											onChange={(event) =>
-												handleInstructorProfileChange(
-													event
-												)
+												setUser({
+													...user,
+													[event.target.name]:
+														event.target.value,
+												})
 											}
 										/>
 									</label>
