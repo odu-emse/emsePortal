@@ -95,24 +95,8 @@ const Register = (props) => {
 	 * @type {State}
 	 */
 	const [step, setStep] = useState(1)
-	const [firstName, setFirstName] = useState('')
-	const [lastName, setLastName] = useState('')
-	const [middleName, setMiddleName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [passwordConf, setPasswordConf] = useState('')
+	const [user, setUser] = useState({})
 	const [group, setGroup] = useState(null)
-	const [title, setTitle] = useState('')
-	const [officeLocation, setOfficeLocation] = useState('')
-	const [officeHours, setOfficeHours] = useState('')
-	const [phone, setPhone] = useState('')
-	const [contactPolicy, setContactPolicy] = useState('')
-	const [background, setBackground] = useState('')
-	const [researchInterest, setResearchInterest] = useState('')
-	const [selectedPapersAndPublications, setSelectedPapersAndPublications] =
-		useState('')
-	const [website, setWebsite] = useState('')
-	const [philosophy, setPhilosophy] = useState('')
 	const [error, setError] = useState(false)
 
 	/**
@@ -124,10 +108,10 @@ const Register = (props) => {
 	 */
 	const nextStep = () => {
 		if (
-			firstName.length === 0 ||
-			lastName.length === 0 ||
-			email.length === 0 ||
-			group == null
+			user.firstName.length === 0 ||
+			user.lastName.length === 0 ||
+			user.email.length === 0 ||
+			user.group == null
 		) {
 			setStep(1)
 			toast.error(
@@ -137,7 +121,7 @@ const Register = (props) => {
 				}
 			)
 			setError(true)
-		} else if (password.length <= 6 || passwordConf.length <= 6) {
+		} else if (user.password.length <= 6 || user.passwordConf.length <= 6) {
 			setStep(1)
 			toast.error(
 				'Please make sure that your password is at least 6 characters long',
@@ -146,14 +130,14 @@ const Register = (props) => {
 				}
 			)
 			setError(true)
-		} else if (password !== passwordConf) {
+		} else if (user.password !== user.passwordConf) {
 			setStep(1)
 			toast.error('Please make sure that your password match', {
 				position: toast.POSITION.TOP_RIGHT,
 			})
 			setError(true)
 		} else {
-			checkTaken(email)
+			checkTaken(user.email)
 				.then((res) => {
 					if (res.message.length > 0) {
 						setError(true)
@@ -162,7 +146,7 @@ const Register = (props) => {
 						})
 					} else {
 						setError(false)
-						setEmail(res.email)
+						setUser({ ...user, email: res.email })
 						setStep(step + 1)
 					}
 				})
@@ -184,7 +168,7 @@ const Register = (props) => {
 	 * @memberof Register
 	 */
 	const previousStep = () => {
-		if (group === 'student' && step === 3) {
+		if (user.group === 'student' && step === 3) {
 			setStep(step - 2)
 		} else {
 			setStep(step - 1)
@@ -199,80 +183,14 @@ const Register = (props) => {
 	 * @memberof Register
 	 */
 	const change = (input) => (e) => {
-		if (error && input) {
+		if (error) {
 			setError(false)
 		}
-		if (input === 'firstName') {
-			setFirstName(e.target.value)
-		}
-		if (input === 'lastName') {
-			setLastName(e.target.value)
-		}
-		if (input === 'middleName') {
-			setMiddleName(e.target.value)
-		}
-		if (input === 'email') {
-			setEmail(e.target.value)
-		}
-		if (input === 'password') {
-			setPassword(e.target.value)
-		}
-		if (input === 'passwordConf') {
-			setPasswordConf(e.target.value)
-		}
-		if (input === 'group') {
-			setGroup(e.target.value)
-		}
-		if (input === 'title') {
-			setTitle(e.target.value)
-		}
-		if (input === 'officeLocation') {
-			setOfficeLocation(e.target.value)
-		}
-		if (input === 'officeHours') {
-			setOfficeHours(e.target.value)
-		}
-		if (input === 'phone') {
-			setPhone(e.target.value)
-		}
-		if (input === 'contactPolicy') {
-			setContactPolicy(e.target.value)
-		}
-		if (input === 'background') {
-			setBackground(e.target.value)
-		}
-		if (input === 'researchInterest') {
-			setResearchInterest(e.target.value)
-		}
-		if (input === 'selectedPapersAndPublications') {
-			setSelectedPapersAndPublications(e.target.value)
-		}
-		if (input === 'personalWebsite') {
-			setWebsite(e.target.value)
-		}
-		if (input === 'philosophy') {
-			setPhilosophy(e.target.value)
-		}
+		setUser({ ...user, [input]: e.target.value })
 	}
 	//combining all form values into a single object
 	const values = {
-		firstName,
-		lastName,
-		middleName,
-		email,
-		password,
-		passwordConf,
-		group,
-		title,
-		officeLocation,
-		officeHours,
-		phone,
-		contactPolicy,
-		background,
-		researchInterest,
-		selectedPapersAndPublications,
-		website,
-		philosophy,
+		...user,
 	}
 	if (getToken() !== `Bearer ${null}`) {
 		//if there is a token -> send them home
