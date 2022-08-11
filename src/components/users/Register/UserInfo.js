@@ -1,6 +1,6 @@
-import { ArrowLeft, ArrowRight } from 'react-feather'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { ArrowLeft, ArrowRight } from 'react-feather'
 
 /**
  * @summary The User Info component displays the basic form fields that all users need to fill out to register.
@@ -80,12 +80,13 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 					<label htmlFor="email" className="text-gray-400 font-xs">
 						ODU affiliated email
 					</label>
-					{/*
-					TODO: specify error class addition to email errors only. This would require me to refactor the error state in the Register component
-					*/}
 					<input
 						type="email"
-						className={` py-2 px-3 w-full border border-gray rounded`}
+						className={`py-2 px-3 w-full border border-gray rounded ${
+							error?.field &&
+							error.field === 'email' &&
+							'border-red-500'
+						}`}
 						placeholder="example@odu.edu"
 						name="email"
 						onChange={change('email')}
@@ -104,7 +105,11 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						</label>
 						<input
 							type="password"
-							className="py-2 px-3 w-full border border-gray rounded"
+							className={`py-2 px-3 w-full border border-gray rounded ${
+								error?.field &&
+								error.field === 'password' &&
+								'border-red-500'
+							}`}
 							placeholder="Password"
 							name="password"
 							onChange={change('password')}
@@ -121,7 +126,11 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						</label>
 						<input
 							type="password"
-							className="py-2 px-3 w-full border border-gray rounded"
+							className={`py-2 px-3 w-full border border-gray rounded ${
+								error?.field &&
+								error.field === 'password' &&
+								'border-red-500'
+							}`}
 							placeholder="Password confirmation"
 							name="passwordConf"
 							onChange={change('passwordConf')}
@@ -140,7 +149,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						value="student"
 						onChange={change('group')}
 					/>
-					<label className="my-0" htmlFor="">
+					<label className="my-0" htmlFor="input">
 						Student
 					</label>
 					<input
@@ -152,7 +161,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						value="assistant"
 						onChange={change('group')}
 					/>
-					<label className="my-0" htmlFor="">
+					<label className="my-0" htmlFor="input">
 						Adjunct
 					</label>
 					<input
@@ -164,7 +173,7 @@ const UserInfo = ({ values, change, nextStep, error }) => {
 						value="instructor"
 						onChange={change('group')}
 					/>
-					<label className="my-0" htmlFor="">
+					<label className="my-0" htmlFor="input">
 						Professor
 					</label>
 				</div>
@@ -225,5 +234,5 @@ UserInfo.propTypes = {
 	/**
 	 * The error state of the form to be shared across sibling components and interpreted by the parent component
 	 * */
-	error: PropTypes.bool.isRequired,
+	error: PropTypes.object.isRequired,
 }

@@ -96,8 +96,7 @@ const Register = (props) => {
 	 */
 	const [step, setStep] = useState(1)
 	const [user, setUser] = useState({})
-	const [group, setGroup] = useState(null)
-	const [error, setError] = useState(false)
+	const [error, setError] = useState(null)
 
 	/**
 	 * @function
@@ -107,52 +106,28 @@ const Register = (props) => {
 	 * @see {@link checkTaken}
 	 */
 	const nextStep = () => {
-		if (
-			user.firstName.length === 0 ||
-			user.lastName.length === 0 ||
-			user.email.length === 0 ||
-			user.group == null
-		) {
-			setStep(1)
-			toast.error(
-				'Please make sure that the required fields are filled out',
-				{
-					position: toast.POSITION.TOP_RIGHT,
-				}
-			)
-			setError(true)
-		} else if (user.password.length <= 6 || user.passwordConf.length <= 6) {
-			setStep(1)
-			toast.error(
-				'Please make sure that your password is at least 6 characters long',
-				{
-					position: toast.POSITION.TOP_RIGHT,
-				}
-			)
-			setError(true)
-		} else if (user.password !== user.passwordConf) {
-			setStep(1)
-			toast.error('Please make sure that your password match', {
-				position: toast.POSITION.TOP_RIGHT,
-			})
-			setError(true)
-		} else {
+		if (validateForm()) {
 			checkTaken(user.email)
 				.then((res) => {
 					if (res.message.length > 0) {
-						setError(true)
+						setError({
+							cause: 'Error while checking email address',
+							field: 'email',
+						})
 						return toast.error(res.message, {
 							position: toast.POSITION.TOP_RIGHT,
 						})
 					} else {
-						setError(false)
+						setError(null)
 						setUser({ ...user, email: res.email })
 						setStep(step + 1)
 					}
 				})
 				.catch((err) => {
-					setError(true)
-					console.error(err)
+					setError({
+						cause: 'Email address is already in use.',
+						field: 'email',
+					})
 					return toast.error(err, {
 						position: toast.POSITION.TOP_RIGHT,
 					})
@@ -175,6 +150,25 @@ const Register = (props) => {
 		}
 	}
 
+	const validateForm = () => {
+		if (user.password !== user.passwordConf) {
+			setError({
+				field: 'password',
+				message: 'Passwords do not match.',
+			})
+			return false
+		}
+		if (user.password.length <= 6 || user.passwordConf.length <= 6) {
+			setError({
+				field: 'password',
+				message: 'Passwords are not long enough.',
+			})
+			return false
+		} else {
+			return true
+		}
+	}
+
 	/**
 	 * @name change
 	 * @function
@@ -184,13 +178,9 @@ const Register = (props) => {
 	 */
 	const change = (input) => (e) => {
 		if (error) {
-			setError(false)
+			setError(null)
 		}
 		setUser({ ...user, [input]: e.target.value })
-	}
-	//combining all form values into a single object
-	const values = {
-		...user,
 	}
 	if (getToken() !== `Bearer ${null}`) {
 		//if there is a token -> send them home
@@ -204,7 +194,7 @@ const Register = (props) => {
 						<UserInfo
 							nextStep={nextStep}
 							change={change}
-							values={values}
+							values={user}
 							error={error}
 						/>
 					</>
@@ -217,7 +207,7 @@ const Register = (props) => {
 							nextStep={nextStep}
 							previousStep={previousStep}
 							change={change}
-							values={values}
+							values={user}
 							error={error}
 						/>
 					</>
@@ -227,7 +217,7 @@ const Register = (props) => {
 					<Confirm
 						nextStep={nextStep}
 						previousStep={previousStep}
-						values={values}
+						values={user}
 						error={error}
 					/>
 				)
