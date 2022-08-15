@@ -30,11 +30,11 @@ import Layout from './components/Layout'
 import Sidebar from './components/Sidebar'
 import NotFound from './components/404'
 //Context
+import { InstructorProvider } from './scripts/instructorProfileContext'
 import {
 	InstructorContext,
 	InstructorContextDefaultValue,
 } from './components/users/Profile'
-import { InstructorProvider } from './scripts/instructorProfileContex'
 
 export const AuthContext = createContext({})
 

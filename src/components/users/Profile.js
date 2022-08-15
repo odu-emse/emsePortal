@@ -7,7 +7,7 @@ import PlanOfStudy from './PlanOfStudy'
 import {
 	InstructorProvider,
 	useInstructorContext,
-} from '../../scripts/instructorProfileContex'
+} from '../../scripts/instructorProfileContext'
 import moment from 'moment'
 
 /**
@@ -47,16 +47,28 @@ const Profile = (props) => {
 				user(id: "${params.id}" ){
 					firstName,
 					lastName,
-                    middleName
+					middleName
 					email,
-                    isAdmin,
-                    dob,
-                    plan{
-                        id,
-                        modules{
-                            role
-                        }
-                    }
+					isAdmin,
+					dob,
+					plan{
+							id,
+							modules{
+									role
+							}
+					}
+					instructorProfile{
+						id
+						title
+						officeLocation
+						officeHours
+						contactPolicy
+						phone
+						background
+						researchInterest
+						personalWebsite
+						philosophy
+					}
 				}
 			}`,
 		}
@@ -75,7 +87,7 @@ const Profile = (props) => {
 					position: toast.POSITION.TOP_RIGHT,
 				})
 			})
-		setUser(data)
+		setUser({ ...user, ...data })
 		return data
 	}
 
@@ -90,52 +102,44 @@ const Profile = (props) => {
 
 		if (user.password?.length === 0 || user.passwordConf?.length === 0) {
 			setLoading(false)
-			toast.error('Please enter your password to update your profile.', {
-				position: toast.POSITION.TOP_RIGHT,
-			})
-			return
+			return toast.error(
+				'Please enter your password to update your profile.',
+				{
+					position: toast.POSITION.TOP_RIGHT,
+				}
+			)
 		}
 
 		const payload = {
 			query: `mutation{
-                        updateUser(input: {
-                            id: "${params.id}",
-                            middleName: "${user.middleName}",
-                            firstName: "${user.firstName}",
-                            lastName: "${user.lastName}",
-                            email: "${user.email}",
-                            password: "${user.password}",
-                            passwordConf: "${user.passwordConf}",
-                            dob: "${user.dob}",
-                            ${
-								isInstructor
-									? `instructorProfile: {
-										title: "${instructor.state.instructorProfile.title || ''}",
-									    officeLocation: "${
-											instructor.state.instructorProfile
-												.officeLocation || ''
-										}",
-									    officeHours: "${instructor.state.instructorProfile.officeHours || ''}",
-									    contactPolicy: "${instructor.state.instructorProfile.contactPolicy || ''}",
-									    phone: "${instructor.state.instructorProfile.phone || ''}",
-									    background: "${instructor.state.instructorProfile.background || ''}",
-									    researchInterest: "${
-											instructor.state.instructorProfile
-												.researchInterest || ''
-										}",
+						updateUser(input: {
+								id: "${params.id}",
+								middleName: "${user.middleName}",
+								firstName: "${user.firstName}",
+								lastName: "${user.lastName}",
+								email: "${user.email}",
+								password: "${user.password}",
+								passwordConf: "${user.passwordConf}",
+								dob: "${user.dob}",
+								${
+									isInstructor &&
+									`instructorProfile: {
+											title: "${instructor.state.title || ''}",
+									    officeLocation: "${instructor.state.officeLocation || ''}",
+									    officeHours: "${instructor.state.officeHours || ''}",
+									    contactPolicy: "${instructor.state.contactPolicy || ''}",
+									    phone: "${instructor.state.phone || ''}",
+									    background: "${instructor.state.background || ''}",
+									    researchInterest: "${instructor.state.researchInterest || ''}",
 									    selectedPapersAndPublications: "${
-											instructor.state.instructorProfile
+											instructor.state
 												.selectedPapersAndPublications ||
 											''
 										}",
-									    personalWebsite: "${
-											instructor.state.instructorProfile
-												.personalWebsite || ''
-										}",
-									    philosophy: "${instructor.state.instructorProfile.philosophy || ''}"
+									    personalWebsite: "${instructor.state.personalWebsite || ''}",
+									    philosophy: "${instructor.state.philosophy || ''}"
 									}`
-									: ''
-							}
+								}
                             }){
                             firstName,
                             lastName,
@@ -219,12 +223,7 @@ const Profile = (props) => {
 	 * @param {Object} usr - The user's profile object
 	 */
 	const toggleInstructor = (usr) => {
-		console.log(
-			'User: ',
-			usr.plan.modules.find((m) => m.role === 'GRADER')
-		)
-		user?.plan?.modules.map((module) => {
-			console.log(module)
+		usr?.plan?.modules.map((module) => {
 			if (module.role === 'TEACHER' || module.role === 'GRADER') {
 				setIsInstructor(true)
 			}
@@ -262,17 +261,33 @@ const Profile = (props) => {
 	}
 
 	useEffect(() => {
-		getUser().then((res) => {
-			toggleInstructor(res)
-			//TODO: investigate why DOB formats are invalid
-			setUser((prevState) => {
-				return {
-					...prevState,
-					dob: moment(prevState?.dob),
+		getUser()
+			.then((res) => {
+				console.log(res)
+				if (res.instructorProfile) {
+					setIsInstructor(true)
+					instructor.dispatch({
+						type: 'SET_INSTRUCTOR_PROFILE',
+						payload: {
+							...res.instructorProfile,
+						},
+					})
 				}
+				//TODO: change the dob moment object being passed into the state rather then just the string Date value
+				setUser((prevState) => {
+					return {
+						...prevState,
+						dob: moment(prevState?.dob),
+					}
+				})
+				setLoading(false)
 			})
-			setLoading(false)
-		})
+			.catch((err) => {
+				setLoading(false)
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
 	}, [showInstructor])
 
 	return loading ? (
@@ -416,7 +431,10 @@ const Profile = (props) => {
 									type="text"
 									placeholder="YYYY/MM/DD"
 									name="dob"
-									defaultValue={user.dob || 'YYYY/MM/DD'}
+									defaultValue={
+										moment(user.dob).format('MM/DD/YYYY') ||
+										'YYYY/MM/DD'
+									}
 									onChange={(e) =>
 										setUser({
 											...user,
@@ -440,8 +458,7 @@ const Profile = (props) => {
 											placeholder="Title"
 											name="title"
 											defaultValue={
-												instructor.state
-													.instructorProfile.title
+												instructor.state.title
 											}
 											onChange={(event) =>
 												handleInstructorProfileChange(
@@ -463,9 +480,7 @@ const Profile = (props) => {
 											placeholder="Office location"
 											name="officeLocation"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.officeLocation
+												instructor.state.officeLocation
 											}
 											onChange={(event) =>
 												handleInstructorProfileChange(
@@ -487,9 +502,7 @@ const Profile = (props) => {
 											placeholder="Office hours"
 											name="officeHours"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.officeHours
+												instructor.state.officeHours
 											}
 											onChange={(event) =>
 												handleInstructorProfileChange(
@@ -510,9 +523,7 @@ const Profile = (props) => {
 											placeholder="Contact policy"
 											name="contactPolicy"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.contactPolicy
+												instructor.state.contactPolicy
 											}
 											onChange={(event) =>
 												handleInstructorProfileChange(
@@ -534,8 +545,7 @@ const Profile = (props) => {
 											placeholder="Phone number"
 											name="phone"
 											defaultValue={
-												instructor.state
-													.instructorProfile.phone
+												instructor.state.phone
 											}
 											onChange={(event) =>
 												handleInstructorProfileChange(
@@ -557,7 +567,6 @@ const Profile = (props) => {
 											name="researchInterest"
 											defaultValue={
 												instructor.state
-													.instructorProfile
 													.researchInterest
 											}
 											onChange={(event) =>
@@ -579,9 +588,7 @@ const Profile = (props) => {
 											placeholder="Teaching philosophy"
 											name="philosophy"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.philosophy
+												instructor.state.philosophy
 											}
 											onChange={(event) =>
 												handleInstructorProfileChange(
