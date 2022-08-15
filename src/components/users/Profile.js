@@ -7,7 +7,7 @@ import PlanOfStudy from './PlanOfStudy'
 import {
 	InstructorProvider,
 	useInstructorContext,
-} from '../../scripts/instructorProfileContex'
+} from '../../scripts/instructorProfileContext'
 import moment from 'moment'
 
 /**
@@ -30,7 +30,7 @@ const Profile = (props) => {
 
 	const instructor = useInstructorContext()
 
-	const [user, setUser] = useState({ ...instructor.state.instructorProfile })
+	const [user, setUser] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [isInstructor, setIsInstructor] = useState(false)
 	const [showInstructor, setShowInstructor] = useState(false)
@@ -56,6 +56,18 @@ const Profile = (props) => {
 							modules{
 									role
 							}
+					}
+					instructorProfile{
+						id
+						title
+						officeLocation
+						officeHours
+						contactPolicy
+						phone
+						background
+						researchInterest
+						personalWebsite
+						philosophy
 					}
 				}
 			}`,
@@ -110,23 +122,23 @@ const Profile = (props) => {
 								passwordConf: "${user.passwordConf}",
 								dob: "${user.dob}",
 								${
-									isInstructor
-										? `instructorProfile: {
-										title: "${user.title || ''}",
-									    officeLocation: "${user.officeLocation || ''}",
-									    officeHours: "${user.officeHours || ''}",
-									    contactPolicy: "${user.contactPolicy || ''}",
-									    phone: "${user.phone || ''}",
-									    background: "${user.background || ''}",
-									    researchInterest: "${user.researchInterest || ''}",
+									isInstructor &&
+									`instructorProfile: {
+											title: "${instructor.state.title || ''}",
+									    officeLocation: "${instructor.state.officeLocation || ''}",
+									    officeHours: "${instructor.state.officeHours || ''}",
+									    contactPolicy: "${instructor.state.contactPolicy || ''}",
+									    phone: "${instructor.state.phone || ''}",
+									    background: "${instructor.state.background || ''}",
+									    researchInterest: "${instructor.state.researchInterest || ''}",
 									    selectedPapersAndPublications: "${
-											user.selectedPapersAndPublications ||
+											instructor.state
+												.selectedPapersAndPublications ||
 											''
 										}",
-									    personalWebsite: "${user.personalWebsite || ''}",
-									    philosophy: "${user.philosophy || ''}"
+									    personalWebsite: "${instructor.state.personalWebsite || ''}",
+									    philosophy: "${instructor.state.philosophy || ''}"
 									}`
-										: ''
 								}
                             }){
                             firstName,
@@ -249,17 +261,33 @@ const Profile = (props) => {
 	}
 
 	useEffect(() => {
-		getUser().then((res) => {
-			toggleInstructor(res)
-			//TODO: investigate why DOB formats are invalid
-			setUser((prevState) => {
-				return {
-					...prevState,
-					dob: moment(prevState?.dob),
+		getUser()
+			.then((res) => {
+				console.log(res)
+				if (res.instructorProfile) {
+					setIsInstructor(true)
+					instructor.dispatch({
+						type: 'SET_INSTRUCTOR_PROFILE',
+						payload: {
+							...res.instructorProfile,
+						},
+					})
 				}
+				//TODO: change the dob moment object being passed into the state rather then just the string Date value
+				setUser((prevState) => {
+					return {
+						...prevState,
+						dob: moment(prevState?.dob),
+					}
+				})
+				setLoading(false)
 			})
-			setLoading(false)
-		})
+			.catch((err) => {
+				setLoading(false)
+				toast.error(err.response.data.error, {
+					position: toast.POSITION.TOP_RIGHT,
+				})
+			})
 	}, [showInstructor])
 
 	return loading ? (
@@ -430,15 +458,12 @@ const Profile = (props) => {
 											placeholder="Title"
 											name="title"
 											defaultValue={
-												instructor.state
-													.instructorProfile.title
+												instructor.state.title
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
@@ -455,16 +480,12 @@ const Profile = (props) => {
 											placeholder="Office location"
 											name="officeLocation"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.officeLocation
+												instructor.state.officeLocation
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
@@ -481,16 +502,12 @@ const Profile = (props) => {
 											placeholder="Office hours"
 											name="officeHours"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.officeHours
+												instructor.state.officeHours
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
@@ -506,16 +523,12 @@ const Profile = (props) => {
 											placeholder="Contact policy"
 											name="contactPolicy"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.contactPolicy
+												instructor.state.contactPolicy
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
@@ -532,15 +545,12 @@ const Profile = (props) => {
 											placeholder="Phone number"
 											name="phone"
 											defaultValue={
-												instructor.state
-													.instructorProfile.phone
+												instructor.state.phone
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
@@ -557,15 +567,12 @@ const Profile = (props) => {
 											name="researchInterest"
 											defaultValue={
 												instructor.state
-													.instructorProfile
 													.researchInterest
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
@@ -581,16 +588,12 @@ const Profile = (props) => {
 											placeholder="Teaching philosophy"
 											name="philosophy"
 											defaultValue={
-												instructor.state
-													.instructorProfile
-													.philosophy
+												instructor.state.philosophy
 											}
 											onChange={(event) =>
-												setUser({
-													...user,
-													[event.target.name]:
-														event.target.value,
-												})
+												handleInstructorProfileChange(
+													event
+												)
 											}
 										/>
 									</label>
