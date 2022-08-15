@@ -24,11 +24,16 @@ export let round_to_precision = (x, precision) => {
  * @returns { number } Returns either the average of the array elements or 0 if the array is empty
  */
 export let rating = (arr) => {
-	if (arr.length > 0) {
-		let sum = arr.reduce((previous, current) => (current += previous))
-		let avg = sum / arr.length
-		return avg
-	} else {
+	try {
+		if (arr.length > 0) {
+			let sum = arr.reduce((previous, current) => (current += previous))
+			let avg = sum / arr.length
+			return avg
+		} else {
+			return 0
+		}
+	} catch (error) {
+		console.error(error)
 		return 0
 	}
 }
