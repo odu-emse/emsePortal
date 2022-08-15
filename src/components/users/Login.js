@@ -77,8 +77,11 @@ const Login = (props) => {
 						const { token } = res.data.data.login
 						setLoading(false)
 						localStorage.setItem('JWT', token)
-						// refreshPage()
-						return props.history.push('/dashboard')
+						return props.history.push(
+							props.location.state !== undefined
+								? props.location.state.from.pathname
+								: '/dashboard'
+						)
 					}
 				})
 				.catch((err) => {
@@ -113,6 +116,11 @@ const Login = (props) => {
 
 	useEffect(() => {
 		authenticated()
+		if (props.location.state?.error) {
+			toast.error(props.location.state.error, {
+				position: toast.POSITION.TOP_RIGHT,
+			})
+		}
 	}, [])
 
 	if (loading) {
