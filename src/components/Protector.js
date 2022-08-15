@@ -42,6 +42,7 @@ const Protector = ({ component: Component, ...rest }) => {
 					// props.history.push('/users/login')
 					<Redirect
 						to={{
+							from: props.location,
 							pathname: '/users/login',
 							state: {
 								from: props.location,
