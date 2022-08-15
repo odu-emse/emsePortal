@@ -95,25 +95,8 @@ const Register = (props) => {
 	 * @type {State}
 	 */
 	const [step, setStep] = useState(1)
-	const [firstName, setFirstName] = useState('')
-	const [lastName, setLastName] = useState('')
-	const [middleName, setMiddleName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [passwordConf, setPasswordConf] = useState('')
-	const [group, setGroup] = useState(null)
-	const [title, setTitle] = useState('')
-	const [officeLocation, setOfficeLocation] = useState('')
-	const [officeHours, setOfficeHours] = useState('')
-	const [phone, setPhone] = useState('')
-	const [contactPolicy, setContactPolicy] = useState('')
-	const [background, setBackground] = useState('')
-	const [researchInterest, setResearchInterest] = useState('')
-	const [selectedPapersAndPublications, setSelectedPapersAndPublications] =
-		useState('')
-	const [website, setWebsite] = useState('')
-	const [philosophy, setPhilosophy] = useState('')
-	const [error, setError] = useState(false)
+	const [user, setUser] = useState({})
+	const [error, setError] = useState(null)
 
 	/**
 	 * @function
@@ -123,52 +106,28 @@ const Register = (props) => {
 	 * @see {@link checkTaken}
 	 */
 	const nextStep = () => {
-		if (
-			firstName.length === 0 ||
-			lastName.length === 0 ||
-			email.length === 0 ||
-			group == null
-		) {
-			setStep(1)
-			toast.error(
-				'Please make sure that the required fields are filled out',
-				{
-					position: toast.POSITION.TOP_RIGHT,
-				}
-			)
-			setError(true)
-		} else if (password.length <= 6 || passwordConf.length <= 6) {
-			setStep(1)
-			toast.error(
-				'Please make sure that your password is at least 6 characters long',
-				{
-					position: toast.POSITION.TOP_RIGHT,
-				}
-			)
-			setError(true)
-		} else if (password !== passwordConf) {
-			setStep(1)
-			toast.error('Please make sure that your password match', {
-				position: toast.POSITION.TOP_RIGHT,
-			})
-			setError(true)
-		} else {
-			checkTaken(email)
+		if (validateForm()) {
+			checkTaken(user.email)
 				.then((res) => {
 					if (res.message.length > 0) {
-						setError(true)
+						setError({
+							cause: 'Error while checking email address',
+							field: 'email',
+						})
 						return toast.error(res.message, {
 							position: toast.POSITION.TOP_RIGHT,
 						})
 					} else {
-						setError(false)
-						setEmail(res.email)
+						setError(null)
+						setUser({ ...user, email: res.email })
 						setStep(step + 1)
 					}
 				})
 				.catch((err) => {
-					setError(true)
-					console.error(err)
+					setError({
+						cause: 'Email address is already in use.',
+						field: 'email',
+					})
 					return toast.error(err, {
 						position: toast.POSITION.TOP_RIGHT,
 					})
@@ -184,10 +143,29 @@ const Register = (props) => {
 	 * @memberof Register
 	 */
 	const previousStep = () => {
-		if (group === 'student' && step === 3) {
+		if (user.group === 'student' && step === 3) {
 			setStep(step - 2)
 		} else {
 			setStep(step - 1)
+		}
+	}
+
+	const validateForm = () => {
+		if (user.password !== user.passwordConf) {
+			setError({
+				field: 'password',
+				message: 'Passwords do not match.',
+			})
+			return false
+		}
+		if (user.password.length <= 6 || user.passwordConf.length <= 6) {
+			setError({
+				field: 'password',
+				message: 'Passwords are not long enough.',
+			})
+			return false
+		} else {
+			return true
 		}
 	}
 
@@ -199,80 +177,10 @@ const Register = (props) => {
 	 * @memberof Register
 	 */
 	const change = (input) => (e) => {
-		if (error && input) {
-			setError(false)
+		if (error) {
+			setError(null)
 		}
-		if (input === 'firstName') {
-			setFirstName(e.target.value)
-		}
-		if (input === 'lastName') {
-			setLastName(e.target.value)
-		}
-		if (input === 'middleName') {
-			setMiddleName(e.target.value)
-		}
-		if (input === 'email') {
-			setEmail(e.target.value)
-		}
-		if (input === 'password') {
-			setPassword(e.target.value)
-		}
-		if (input === 'passwordConf') {
-			setPasswordConf(e.target.value)
-		}
-		if (input === 'group') {
-			setGroup(e.target.value)
-		}
-		if (input === 'title') {
-			setTitle(e.target.value)
-		}
-		if (input === 'officeLocation') {
-			setOfficeLocation(e.target.value)
-		}
-		if (input === 'officeHours') {
-			setOfficeHours(e.target.value)
-		}
-		if (input === 'phone') {
-			setPhone(e.target.value)
-		}
-		if (input === 'contactPolicy') {
-			setContactPolicy(e.target.value)
-		}
-		if (input === 'background') {
-			setBackground(e.target.value)
-		}
-		if (input === 'researchInterest') {
-			setResearchInterest(e.target.value)
-		}
-		if (input === 'selectedPapersAndPublications') {
-			setSelectedPapersAndPublications(e.target.value)
-		}
-		if (input === 'personalWebsite') {
-			setWebsite(e.target.value)
-		}
-		if (input === 'philosophy') {
-			setPhilosophy(e.target.value)
-		}
-	}
-	//combining all form values into a single object
-	const values = {
-		firstName,
-		lastName,
-		middleName,
-		email,
-		password,
-		passwordConf,
-		group,
-		title,
-		officeLocation,
-		officeHours,
-		phone,
-		contactPolicy,
-		background,
-		researchInterest,
-		selectedPapersAndPublications,
-		website,
-		philosophy,
+		setUser({ ...user, [input]: e.target.value })
 	}
 	if (getToken() !== `Bearer ${null}`) {
 		//if there is a token -> send them home
@@ -286,7 +194,7 @@ const Register = (props) => {
 						<UserInfo
 							nextStep={nextStep}
 							change={change}
-							values={values}
+							values={user}
 							error={error}
 						/>
 					</>
@@ -299,7 +207,7 @@ const Register = (props) => {
 							nextStep={nextStep}
 							previousStep={previousStep}
 							change={change}
-							values={values}
+							values={user}
 							error={error}
 						/>
 					</>
@@ -309,7 +217,7 @@ const Register = (props) => {
 					<Confirm
 						nextStep={nextStep}
 						previousStep={previousStep}
-						values={values}
+						values={user}
 						error={error}
 					/>
 				)
