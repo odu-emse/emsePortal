@@ -7,7 +7,6 @@ jobs:
             matrix:
                 node: [16, 18]
                 browser: [chrome, firefox]
-                containers: [1, 2]
         name: E2E on ${{ matrix.browser }} on Node ${{ matrix.node }}
         continue-on-error: true
         steps:
@@ -18,8 +17,9 @@ jobs:
             - name: Install dependencies
               run: yarn
             - name: Running tests
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v4
               with:
+                  config-file: cypress.config.js
                   start: yarn dev
                   wait-on: 'http://localhost:3000'
                   browser: ${{ matrix.browser }}
