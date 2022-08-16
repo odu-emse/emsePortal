@@ -47,7 +47,11 @@ function App() {
 						<Sidebar />
 
 						<Switch>
-							<Redirect exact from="/" to="/portal" />
+							{/* <Protector
+								exact
+								path="/"
+								component={<Redirect to="/portal" />}
+							/> */}
 							<Protector
 								exact
 								path="/portal"
@@ -69,6 +73,10 @@ function App() {
 							/>
 							<Protector
 								path="/assignments"
+								component={Assignments}
+							/>
+							<Protector
+								path="/assignments:assignmentId"
 								component={Assignments}
 							/>
 
