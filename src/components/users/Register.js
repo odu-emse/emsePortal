@@ -182,10 +182,9 @@ const Register = (props) => {
 		}
 		setUser({ ...user, [input]: e.target.value })
 	}
-	if (getToken() !== `Bearer ${null}` || getToken() !== undefined) {
+	if (getToken() !== `Bearer ${null}`) {
 		//if there is a token -> send them home
 		props.history.push('/portal')
-		return null
 	} else {
 		switch (step) {
 			case 1:

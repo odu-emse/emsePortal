@@ -99,7 +99,6 @@ const Login = (props) => {
 	async function authenticated() {
 		try {
 			const res = await checkForToken()
-			console.log(res)
 			setLoading(false)
 			return res ? true : false
 		} catch (error) {
@@ -116,11 +115,16 @@ const Login = (props) => {
 
 	useEffect(() => {
 		authenticated()
-		if (props.location.state?.error) {
-			toast.error(props.location.state.error, {
-				position: toast.POSITION.TOP_RIGHT,
+			.finally(() => {
+				if (props.location.state?.error) {
+					toast.error(props.location.state.error, {
+						position: toast.POSITION.TOP_RIGHT,
+					})
+				}
 			})
-		}
+			.catch((err) => {
+				throw new Error(err.message)
+			})
 	}, [])
 
 	if (loading) {
