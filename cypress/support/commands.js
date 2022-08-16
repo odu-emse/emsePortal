@@ -10,15 +10,21 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-	cy.get('input[name=email]').type(email)
-	cy.get('input[name=password]').type(password)
-	cy.get('button[type=submit]').click()
-})
+// Cypress.Commands.add('login')
 
-Cypress.Commands.add(
-	'register',
-	({ email = 'admin@odu.edu', password = 'password', group = 'student' }) => {
+// Cypress.Commands.add('register')
+
+Cypress.Commands.addAll({
+	login: (email = 'dpapp@odu.edu', password = 'testing@12345') => {
+		cy.get('input[name=email]').type(email)
+		cy.get('input[name=password]').type(password)
+		cy.get('button[type=submit]').click()
+	},
+	register: ({
+		email = 'dpapp@odu.edu',
+		password = 'testing@12345',
+		group = 'student',
+	}) => {
 		cy.get('input[name=firstName]').type('John')
 		cy.get('input[name=lastName]').type('Doe')
 		cy.get('input[name=email]').type(email)
@@ -31,8 +37,8 @@ Cypress.Commands.add(
 			cy.get('form input[name=group]').last().check()
 		}
 		cy.get('button[type=submit]').click()
-	}
-)
+	},
+})
 
 // TODO: Add program card getter command
 //
