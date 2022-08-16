@@ -34,8 +34,7 @@ describe('Tests Login form', () => {
 	beforeEach(() => {
 		cy.visit('/users/login')
 	})
-	// we expect this case to fail since we haven't fixed ALMP-199
-	// TODO: Fix ALMP-199 and re-test this case
+
 	it('should not display an error with email address in it', () => {
 		cy.login(credentials.incorrectEmail, credentials.incorrectPassword)
 		cy.get('div.Toastify__toast-body').should(

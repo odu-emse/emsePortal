@@ -18,7 +18,12 @@ describe('Load Register screen', () => {
 	it('should display the register form fields labels', () => {
 		cy.get('form label').should('exist')
 	})
+})
 
+describe('Registration form interaction', () => {
+	beforeEach(() => {
+		cy.visit('/users/register')
+	})
 	it('should display an error if you try to submit but fields are empty', () => {
 		cy.get('button[type=submit]').click()
 		cy.get('input:invalid').should('have.length.gt', 1)
@@ -67,14 +72,22 @@ describe('Load Register screen', () => {
 	})
 
 	it('should lead to next form if not student', () => {
-		cy.register({ group: 'admin' })
+		cy.register({
+			email: 'admin@admin.com',
+			password: 'testing@12345',
+			group: 'admin',
+		})
 		cy.then(() => {
 			cy.get('h1').should('contain', 'Personal information')
 		})
 	})
 
 	it('should let students go backward from confirmation page', () => {
-		cy.register({ group: 'student' }).then(() => {
+		cy.register({
+			email: 'admin@admin.com',
+			password: 'testing@12345',
+			group: 'student',
+		}).then(() => {
 			cy.get('h1')
 				.should('contain', 'Confirm account details')
 				.then(() => {
@@ -90,7 +103,6 @@ describe('Load Register screen', () => {
 		})
 	})
 
-	//TODO: We expect this to fail since this is an active bug ALMP-205
 	it('should display an error if email you are trying to register with not a valid email', () => {
 		cy.register({
 			email: 'dpapp001',
@@ -100,10 +112,3 @@ describe('Load Register screen', () => {
 		cy.get('input:invalid').should('have.length', 1)
 	})
 })
-
-//TODO: Break these cases up into separate test clusters
-// describe('Test Register form', () => {
-// 	beforeEach(() => {
-// 		cy.visit('/users/register')
-// 	})
-// })
