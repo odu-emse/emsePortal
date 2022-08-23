@@ -49,7 +49,7 @@ describe('Registration form interaction', () => {
 		cy.get('div.Toastify__toast-body').should('exist')
 	})
 
-	it('should not display an error if middle name is not entered', () => {
+	it('should allow empty middle name field', () => {
 		cy.register({
 			email: 'admin@admin.com',
 			password: 'testing12345',
@@ -58,7 +58,7 @@ describe('Registration form interaction', () => {
 		cy.get('div.Toastify__toast-body').should('not.exist')
 	})
 
-	it('login link should lead to login page', () => {
+	it('should lead users to login page on hyperlink click', () => {
 		cy.get('span')
 			.contains('Log in')
 			.parent()
@@ -71,7 +71,7 @@ describe('Registration form interaction', () => {
 		cy.get('button[type=reset]').should('have.attr', 'disabled')
 	})
 
-	it('should lead to next form if not student', () => {
+	it('should lead to personal information page if next button is clicked and user is not a student', () => {
 		cy.register({
 			email: 'admin@admin.com',
 			password: 'testing@12345',
@@ -79,6 +79,40 @@ describe('Registration form interaction', () => {
 		})
 		cy.then(() => {
 			cy.get('h1').should('contain', 'Personal information')
+		})
+	})
+
+	it('should match confirmation page information with the credentials entered', () => {
+		const credentials = {
+			firstName: 'John',
+			lastName: 'Doe',
+			email: 'admin@admin.com',
+			password: 'testing@12345',
+			group: 'student',
+		}
+		cy.register(credentials)
+		cy.get('div.my-1 > span.font-bold').each(($el, index) => {
+			switch (index) {
+				case 0:
+					cy.wrap($el).should('contain', credentials.firstName)
+					break
+				case 1:
+					credentials.middleName
+						? cy.wrap($el).should('contain', credentials.middleName)
+						: cy.wrap($el).should('be.empty')
+					break
+				case 2:
+					cy.wrap($el).should('contain', credentials.lastName)
+					break
+				case 3:
+					cy.wrap($el).should('contain', credentials.email)
+					break
+				case 4:
+					cy.wrap($el).should('contain', credentials.group)
+					break
+				default:
+					break
+			}
 		})
 	})
 
