@@ -103,23 +103,24 @@ const Login = (props) => {
 			return res ? true : false
 		} catch (error) {
 			setLoading(false)
-			toast.error(
-				'You are still logged in. Please log out before continuing.',
-				{
-					position: toast.POSITION.TOP_RIGHT,
-				}
-			)
+			console.error(error)
 			return false
 		}
 	}
 
 	useEffect(() => {
 		authenticated()
-			.finally(() => {
-				if (props.location.state?.error) {
-					toast.error(props.location.state.error, {
-						position: toast.POSITION.TOP_RIGHT,
-					})
+			.then((loggedIn) => {
+				if (loggedIn) {
+					if (props.location.state?.error) {
+						// if logged in and tried to access protected page before, redirect to protected page
+						toast.error(props.location.state.error, {
+							position: toast.POSITION.TOP_RIGHT,
+						})
+					} else {
+						// if logged in and did not try to access protected page, redirect to dashboard page
+						props.history.push('/dashboard')
+					}
 				}
 			})
 			.catch((err) => {
