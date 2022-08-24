@@ -15,6 +15,30 @@
 // Cypress.Commands.add('register')
 
 Cypress.Commands.addAll({
+	loginViaAPI(email = 'dpapp@odu.edu', password = 'testing@12345') {
+		const payload = {
+			// language=GraphQL
+			query: `
+			{
+				login(input: {
+					email: "${email}"
+					password: "${password}"
+				}){
+					token
+				}
+			}
+			`,
+		}
+		cy.request({
+			method: 'POST',
+			url: 'http://localhost:4000/graphql',
+			body: payload,
+		}).should((res) => {
+			expect(res.status).to.eq(200)
+			expect(res.body.data.login.token).to.be.a('string')
+			cy.setCookie('JWT', res.body.data.login.token)
+		})
+	},
 	login: (email = 'dpapp@odu.edu', password = 'testing@12345') => {
 		cy.get('input[name=email]').type(email)
 		cy.get('input[name=password]').type(password)
@@ -24,9 +48,13 @@ Cypress.Commands.addAll({
 		email = 'dpapp@odu.edu',
 		password = 'testing@12345',
 		group = 'student',
+		firstName = 'John',
+		middleName = null,
+		lastName = 'Doe',
 	}) => {
-		cy.get('input[name=firstName]').type('John')
-		cy.get('input[name=lastName]').type('Doe')
+		cy.get('input[name=firstName]').type(firstName)
+		cy.get('input[name=lastName]').type(lastName)
+		middleName ? cy.get('input[name=middleName]').type(middleName) : null
 		cy.get('input[name=email]').type(email)
 		cy.get('input[name=password]').type(password)
 		cy.get('input[name=passwordConf]').type(password)

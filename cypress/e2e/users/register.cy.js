@@ -18,7 +18,12 @@ describe('Load Register screen', () => {
 	it('should display the register form fields labels', () => {
 		cy.get('form label').should('exist')
 	})
+})
 
+describe('Registration form interaction', () => {
+	beforeEach(() => {
+		cy.visit('/users/register')
+	})
 	it('should display an error if you try to submit but fields are empty', () => {
 		cy.get('button[type=submit]').click()
 		cy.get('input:invalid').should('have.length.gt', 1)
@@ -44,7 +49,7 @@ describe('Load Register screen', () => {
 		cy.get('div.Toastify__toast-body').should('exist')
 	})
 
-	it('should not display an error if middle name is not entered', () => {
+	it('should allow empty middle name field', () => {
 		cy.register({
 			email: 'admin@admin.com',
 			password: 'testing12345',
@@ -53,7 +58,7 @@ describe('Load Register screen', () => {
 		cy.get('div.Toastify__toast-body').should('not.exist')
 	})
 
-	it('login link should lead to login page', () => {
+	it('should lead users to login page on hyperlink click', () => {
 		cy.get('span')
 			.contains('Log in')
 			.parent()
@@ -66,15 +71,57 @@ describe('Load Register screen', () => {
 		cy.get('button[type=reset]').should('have.attr', 'disabled')
 	})
 
-	it('should lead to next form if not student', () => {
-		cy.register({ group: 'admin' })
+	it('should lead to personal information page if next button is clicked and user is not a student', () => {
+		cy.register({
+			email: 'admin@admin.com',
+			password: 'testing@12345',
+			group: 'admin',
+		})
 		cy.then(() => {
 			cy.get('h1').should('contain', 'Personal information')
 		})
 	})
 
+	it('should match confirmation page information with the credentials entered', () => {
+		const credentials = {
+			firstName: 'John',
+			lastName: 'Doe',
+			email: 'admin@admin.com',
+			password: 'testing@12345',
+			group: 'student',
+		}
+		cy.register(credentials)
+		cy.get('div.my-1 > span.font-bold').each(($el, index) => {
+			switch (index) {
+				case 0:
+					cy.wrap($el).should('contain', credentials.firstName)
+					break
+				case 1:
+					credentials.middleName
+						? cy.wrap($el).should('contain', credentials.middleName)
+						: cy.wrap($el).should('be.empty')
+					break
+				case 2:
+					cy.wrap($el).should('contain', credentials.lastName)
+					break
+				case 3:
+					cy.wrap($el).should('contain', credentials.email)
+					break
+				case 4:
+					cy.wrap($el).should('contain', credentials.group)
+					break
+				default:
+					break
+			}
+		})
+	})
+
 	it('should let students go backward from confirmation page', () => {
-		cy.register({ group: 'student' }).then(() => {
+		cy.register({
+			email: 'admin@admin.com',
+			password: 'testing@12345',
+			group: 'student',
+		}).then(() => {
 			cy.get('h1')
 				.should('contain', 'Confirm account details')
 				.then(() => {
@@ -90,7 +137,6 @@ describe('Load Register screen', () => {
 		})
 	})
 
-	//TODO: We expect this to fail since this is an active bug ALMP-205
 	it('should display an error if email you are trying to register with not a valid email', () => {
 		cy.register({
 			email: 'dpapp001',
@@ -100,10 +146,3 @@ describe('Load Register screen', () => {
 		cy.get('input:invalid').should('have.length', 1)
 	})
 })
-
-//TODO: Break these cases up into separate test clusters
-// describe('Test Register form', () => {
-// 	beforeEach(() => {
-// 		cy.visit('/users/register')
-// 	})
-// })

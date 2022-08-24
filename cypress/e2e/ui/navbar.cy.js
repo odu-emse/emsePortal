@@ -1,7 +1,7 @@
 describe('navbar renders differently if user is logged in', () => {
 	it('navbar when logging in', () => {
 		cy.visit('/users/login')
-		cy.login('dpapp@odu.edu', 'testing@12345')
+		cy.login()
 		cy.wait(2000)
 		cy.visit('/dashboard')
 		cy.get('aside').should('be.visible')
@@ -10,7 +10,7 @@ describe('navbar renders differently if user is logged in', () => {
 
 	it('navbar when logging out', () => {
 		cy.visit('/users/login')
-		cy.login('dpapp@odu.edu', 'testing@12345')
+		cy.login()
 		cy.wait(2000)
 		cy.visit('/dashboard')
 		cy.get('aside').should('be.visible')
