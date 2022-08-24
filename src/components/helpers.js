@@ -1,6 +1,7 @@
 import { Loader } from 'react-feather'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import moment from 'moment'
 
 /**
  * @category helper
@@ -126,8 +127,13 @@ export const removeToken = () => {
 export const decoder = () => {
 	const token = localStorage.getItem('JWT')
 	const decoded = jwt.decode(token)
-	if (decoded !== null) {
-		return decoded.id
+	if (decoded) {
+		if (moment.unix(decoded.exp).isBefore(moment.now())) {
+			// removeToken()
+			return null
+		} else {
+			return decoded.id
+		}
 	} else {
 		return null
 	}
