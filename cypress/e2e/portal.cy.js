@@ -1,7 +1,7 @@
 describe('Load Program screen', () => {
 	beforeEach(() => {
-		cy.visit('/portal')
-		cy.login('dpapp@odu.edu', 'testing@12345')
+		cy.visit('/users/login')
+		cy.login()
 	})
 
 	it('should load the page after login', () => {

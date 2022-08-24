@@ -1,7 +1,7 @@
 describe('Load Dashboard screen', () => {
 	beforeEach(() => {
-		cy.visit('/dashboard')
-		cy.login('dpapp@odu.edu', 'testing@12345')
+		cy.visit('/users/login')
+		cy.login()
 	})
 
 	it('should display the dashboard screen and the tiles', () => {

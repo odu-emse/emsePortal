@@ -52,7 +52,7 @@ const Confirm = ({ previousStep, values }) => {
 		axios
 			.post(`${process.env.REACT_APP_API}/graphql`, data)
 			.then((res) => {
-				if (res.status === 200) {
+				if (!res.data.errors) {
 					history.push('/users/login')
 				}
 			})

@@ -178,13 +178,14 @@ export default function ModuleHousing(props) {
 								Module objectives
 							</h3>
 							{module.keywords.map((key, index) => (
-								<div className="flex flex-row items-center mb-2">
+								<div
+									className="flex flex-row items-center mb-2"
+									key={index}
+								>
 									<span className="mr-3 text-gray-400">
 										<Check />
 									</span>
-									<p className="mb-0 capitalize" key={index}>
-										{key}
-									</p>
+									<p className="mb-0 capitalize">{key}</p>
 								</div>
 							))}
 						</div>

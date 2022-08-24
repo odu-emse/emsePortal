@@ -25,7 +25,7 @@ function contextReducer(state, action) {
 		case 'SET_INSTRUCTOR_PROFILE':
 			return {
 				...state,
-				instructorProfile: action.payload,
+				...action.payload,
 			}
 		default:
 			throw new Error(`Unhandled action type: ${action.type}`)
@@ -40,19 +40,17 @@ function contextReducer(state, action) {
  */
 function InstructorProvider({ children }) {
 	const [state, dispatch] = useReducer(contextReducer, {
-		instructorProfile: {
-			id: '',
-			title: '',
-			officeLocation: '',
-			officeHours: '',
-			contactPolicy: '',
-			phone: '',
-			background: '',
-			researchInterest: '',
-			selectedPapersAndPublications: '',
-			personalWebsite: '',
-			philosophy: '',
-		},
+		id: '',
+		title: '',
+		officeLocation: '',
+		officeHours: '',
+		contactPolicy: '',
+		phone: '',
+		background: '',
+		researchInterest: '',
+		selectedPapersAndPublications: '',
+		personalWebsite: '',
+		philosophy: '',
 	})
 
 	return (

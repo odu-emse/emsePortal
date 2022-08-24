@@ -34,4 +34,5 @@ rules:
         react/jsx-key: warn,
         no-duplicate-imports: warn,
         no-mixed-spaces-and-tabs: warn,
+        cypress/no-unnecessary-waiting: off,
     }

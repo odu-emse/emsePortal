@@ -10,17 +10,51 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-	cy.get('input[name=email]').type(email)
-	cy.get('input[name=password]').type(password)
-	cy.get('button[type=submit]').click()
-})
+// Cypress.Commands.add('login')
 
-Cypress.Commands.add(
-	'register',
-	({ email = 'admin@odu.edu', password = 'password', group = 'student' }) => {
-		cy.get('input[name=firstName]').type('John')
-		cy.get('input[name=lastName]').type('Doe')
+// Cypress.Commands.add('register')
+
+Cypress.Commands.addAll({
+	loginViaAPI(email = 'dpapp@odu.edu', password = 'testing@12345') {
+		const payload = {
+			// language=GraphQL
+			query: `
+			{
+				login(input: {
+					email: "${email}"
+					password: "${password}"
+				}){
+					token
+				}
+			}
+			`,
+		}
+		cy.request({
+			method: 'POST',
+			url: 'http://localhost:4000/graphql',
+			body: payload,
+		}).should((res) => {
+			expect(res.status).to.eq(200)
+			expect(res.body.data.login.token).to.be.a('string')
+			cy.setCookie('JWT', res.body.data.login.token)
+		})
+	},
+	login: (email = 'dpapp@odu.edu', password = 'testing@12345') => {
+		cy.get('input[name=email]').type(email)
+		cy.get('input[name=password]').type(password)
+		cy.get('button[type=submit]').click()
+	},
+	register: ({
+		email = 'dpapp@odu.edu',
+		password = 'testing@12345',
+		group = 'student',
+		firstName = 'John',
+		middleName = null,
+		lastName = 'Doe',
+	}) => {
+		cy.get('input[name=firstName]').type(firstName)
+		cy.get('input[name=lastName]').type(lastName)
+		middleName ? cy.get('input[name=middleName]').type(middleName) : null
 		cy.get('input[name=email]').type(email)
 		cy.get('input[name=password]').type(password)
 		cy.get('input[name=passwordConf]').type(password)
@@ -31,8 +65,8 @@ Cypress.Commands.add(
 			cy.get('form input[name=group]').last().check()
 		}
 		cy.get('button[type=submit]').click()
-	}
-)
+	},
+})
 
 // TODO: Add program card getter command
 //

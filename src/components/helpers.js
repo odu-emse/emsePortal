@@ -1,6 +1,7 @@
 import { Loader } from 'react-feather'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import moment from 'moment'
 
 /**
  * @category helper
@@ -24,11 +25,16 @@ export let round_to_precision = (x, precision) => {
  * @returns { number } Returns either the average of the array elements or 0 if the array is empty
  */
 export let rating = (arr) => {
-	if (arr.length > 0) {
-		let sum = arr.reduce((previous, current) => (current += previous))
-		let avg = sum / arr.length
-		return avg
-	} else {
+	try {
+		if (arr.length > 0) {
+			let sum = arr.reduce((previous, current) => (current += previous))
+			let avg = sum / arr.length
+			return avg
+		} else {
+			return 0
+		}
+	} catch (error) {
+		console.error(error)
 		return 0
 	}
 }
@@ -121,8 +127,13 @@ export const removeToken = () => {
 export const decoder = () => {
 	const token = localStorage.getItem('JWT')
 	const decoded = jwt.decode(token)
-	if (decoded !== null) {
-		return decoded.id
+	if (decoded) {
+		if (moment.unix(decoded.exp).isBefore(moment.now())) {
+			// removeToken()
+			return null
+		} else {
+			return decoded.id
+		}
 	} else {
 		return null
 	}

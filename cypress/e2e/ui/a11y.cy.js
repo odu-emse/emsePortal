@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken'
-
 const terminalLog = (violations) => {
 	cy.task(
 		'log',
@@ -20,37 +18,23 @@ const terminalLog = (violations) => {
 	cy.task('table', violationData)
 }
 
-let token = localStorage.getItem('JWT')
-
 const routes = [
 	'dashboard',
 	'portal',
 	'program',
+	'program/61560592009b2b64008696c5',
 	'assignments',
 	'users/621faf87751282e60aa06d11',
 ]
 
-jwt.verify(token, 'JWT', (err, decoded) => {
-	if (err) {
-		console.log(err)
-	} else {
-		console.warn(decoded)
-		routes.push(`user/${decoded.id}`)
-	}
-})
-
-describe('Component accessibility test', () => {
+describe('Accessibility testing pages', () => {
 	routes.forEach((route) => {
-		const componentName = route.replace('.html', '')
-		const testName = `${componentName} has no detectable accessibility violations on load`
+		const testName = `${route} has no detectable accessibility violations`
 
 		it(testName, () => {
-			cy.visit('/users/login')
-			cy.login('dpapp@odu.edu', 'testing@12345')
-			cy.log('Logged in')
-			cy.wait(5000)
+			cy.loginViaAPI()
 			cy.visit(route)
-			cy.wait(5000)
+			cy.wait(1500)
 			cy.injectAxe()
 
 			cy.get('body').each((element, index) => {

@@ -77,8 +77,11 @@ const Login = (props) => {
 						const { token } = res.data.data.login
 						setLoading(false)
 						localStorage.setItem('JWT', token)
-						// refreshPage()
-						return props.history.push('/dashboard')
+						return props.history.push(
+							props.location.state !== undefined
+								? props.location.state.from.pathname
+								: '/dashboard'
+						)
 					}
 				})
 				.catch((err) => {
@@ -96,23 +99,33 @@ const Login = (props) => {
 	async function authenticated() {
 		try {
 			const res = await checkForToken()
-			console.log(res)
 			setLoading(false)
 			return res ? true : false
 		} catch (error) {
 			setLoading(false)
-			toast.error(
-				'You are still logged in. Please log out before continuing.',
-				{
-					position: toast.POSITION.TOP_RIGHT,
-				}
-			)
+			console.error(error)
 			return false
 		}
 	}
 
 	useEffect(() => {
 		authenticated()
+			.then((loggedIn) => {
+				if (loggedIn) {
+					if (props.location.state?.error) {
+						// if logged in and tried to access protected page before, redirect to protected page
+						toast.error(props.location.state.error, {
+							position: toast.POSITION.TOP_RIGHT,
+						})
+					} else {
+						// if logged in and did not try to access protected page, redirect to dashboard page
+						props.history.push('/dashboard')
+					}
+				}
+			})
+			.catch((err) => {
+				throw new Error(err.message)
+			})
 	}, [])
 
 	if (loading) {

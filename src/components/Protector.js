@@ -29,7 +29,7 @@ const Protector = ({ component: Component, ...rest }) => {
 
 	useEffect(() => {
 		redirect()
-	}, [authentication])
+	}, [])
 
 	return loading ? (
 		loader()
@@ -39,19 +39,21 @@ const Protector = ({ component: Component, ...rest }) => {
 			render={(props) =>
 				!authentication ? (
 					//TODO: Pass error state through the router
-					props.history.push('/users/login')
+					<Redirect
+						to={{
+							from: props.location.pathname,
+							pathname: '/users/login',
+							state: {
+								from: props.location.pathname,
+								error:
+									'You are not authorized to access this resource. Please log in or contact your administrator.' ||
+									error,
+							},
+						}}
+					/>
 				) : (
-					// <Redirect
-					// 	to={{
-					// 		pathname: '/users/login',
-					// 		state: {
-					// 			from: props.location,
-					// 			error: 'Not authorized to access...',
-					// 		},
-					// 	}}
-					// />
 					//if they are authenticated -> send protected component
-					<Component {...props} authentication={authentication} />
+					<Component {...props} authenticated={authentication} />
 				)
 			}
 		/>

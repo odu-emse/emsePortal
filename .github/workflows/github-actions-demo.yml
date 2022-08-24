@@ -1,36 +1,35 @@
 name: E2E Test for EMSE Portal
 on: [push]
 jobs:
-  cypress-run:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        node: [ 16, 18 ]
-        browser: [ chrome, firefox ]
-        containers: [1, 2, 3]
-    name: E2E on ${{ matrix.browser }} on Node ${{ matrix.node }}
-    continue-on-error: true
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: yarn
-      - name: Running tests
-        uses: cypress-io/github-action@v2
-        with:
-          start: yarn local
-          wait-on: 'http://localhost:3000'
-          browser: ${{ matrix.browser }}
-          record: true
-          tag: node-${{ matrix.node }}
-          command-prefix: "--"
-          parallel: true
-          group: 'E2E'
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    cypress-run:
+        runs-on: ubuntu-20.04
+        strategy:
+            matrix:
+                node: [16, 18]
+                browser: [chrome, firefox]
+        name: E2E on ${{ matrix.browser }} on Node ${{ matrix.node }}
+        continue-on-error: true
+        steps:
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node }}
+            - uses: actions/checkout@v2
+            - name: Install dependencies
+              run: yarn
+            - name: Running tests
+              uses: cypress-io/github-action@v4
+              with:
+                  config-file: cypress.config.js
+                  start: yarn dev
+                  wait-on: 'http://localhost:3000'
+                  browser: ${{ matrix.browser }}
+                  record: true
+                  tag: node-${{ matrix.node }}
+                  command-prefix: '--'
+                  group: 'E2E'
+              env:
+                  # pass the Dashboard record key as an environment variable
+                  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+                  # Recommended: pass the GitHub token lets this action correctly
+                  # determine the unique run id necessary to re-run the checks
+                  GITHUB_TOKEN: ${{ secrets.TOKEN }}

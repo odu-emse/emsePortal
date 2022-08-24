@@ -62,13 +62,14 @@
 		]
 	},
 	"devDependencies": {
-		"@cypress/react": "^5.11.0",
-		"@cypress/webpack-dev-server": "^1.8.0",
+		"@cypress/react": "^6.1.1",
+		"@cypress/webpack-dev-server": "^2.2.0",
 		"assert": "^2.0.0",
 		"autoprefixer": "^10.4.4",
+		"axe-core": "^4.4.3",
 		"buffer": "^6.0.3",
-		"cypress": "9.5.0",
-		"cypress-axe": "^0.14.0",
+		"cypress": "^10.5.0",
+		"cypress-axe": "^1.0.0",
 		"eslint": "^7.11.0",
 		"eslint-plugin-cypress": "^2.12.1",
 		"eslint-plugin-react": "^7.29.4",
