@@ -35,6 +35,9 @@ const Profile = (props) => {
 	const [isInstructor, setIsInstructor] = useState(false)
 	const [showInstructor, setShowInstructor] = useState(false)
 
+	const [showModal, setShowModal] = useState(false)
+	
+
 	/**
 	 * @summary Asynchronous function for fetching the user's profile based on the URL parameter containing the user's ID
 	 * @function
@@ -299,7 +302,7 @@ const Profile = (props) => {
 				<nav className="w-full md:w-1/4 mr-8 flex flex-col border border-gray-200 shadow-sm rounded-md h-full">
 					{isInstructor ? (
 						<button
-							onClick={() => setShowInstructor(!showInstructor)}
+							onClick={ () => setShowInstructor(!showInstructor) }
 						>
 							<li className="py-1 px-3 hover:bg-gray-100 border-b border-gray-300 list-none">
 								Switch to Professor
@@ -600,55 +603,115 @@ const Profile = (props) => {
 								</div>
 							</>
 						)}
-						<div className="w-full mb-3 flex gap-4">
-							<label
-								htmlFor=""
-								className="block flex-1 font-bold"
-							>
-								Password
-								<input
-									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
-									type="password"
-									placeholder="Password"
-									name="password"
-									defaultValue={user?.password}
-									required={true}
-									onChange={(e) =>
-										setUser({
-											...user,
-											password: e.target.value,
-										})
-									}
-								/>
-							</label>
-							<label
-								htmlFor=""
-								className="block flex-1 font-bold"
-							>
-								Password Confirmation
-								<input
-									className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-1 px-2 block mt-1 w-full"
-									type="password"
-									placeholder="Password Confirmation"
-									name="passwordConf"
-									defaultValue={user?.passwordConf}
-									required={true}
-									onChange={(e) =>
-										setUser({
-											...user,
-											passwordConf: e.target.value,
-										})
-									}
-								/>
-							</label>
-						</div>
+
 						<button
-							className="bg-blue-300 border-blue-200 rounded w-auto text-black px-4 py-2"
-							onClick={(e) => updateUser(e)}
-							type="submit"
+							className="bg-blue-300 border-blue-200 rounded w-auto text black px-4 py-2 m-2"
+							onClick={(e) => {
+								e.preventDefault()
+								setShowModal(!showModal)
+							}}
 						>
-							Update profile
+							Update Profile
 						</button>
+
+						<div
+							className={`relative z-10 ${
+								showModal ? 'visible' : 'invisible'
+							}`}
+							aria-labelledby="modal-title"
+							role="dialog"
+							aria-modal="true"
+						>
+							<div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+							<div className="fixed z-10 inset-0 overflow-y-auto">
+								<div className="flex items-center justify-center min-h-full p-4 text-center sm:p-0">
+									<div className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full w-2/3 max-w-screen-lg">
+										<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+											<div className="mt-3 text-center sm:mt-0 sm:text-left">
+												<h3 className="text-lg leading-6 font-medium text-gray-900 my-2 border-b border-gray-200">
+													Confirm Password
+												</h3>
+												<form className="w-full mb-3 gap-4">
+													<label
+														htmlFor="password"
+														className="block flex-1 font-bold"
+													>
+														<input
+															className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-2 px-2 block my-4 w-full"
+															type="password"
+															placeholder="New Password"
+															name="password"
+															defaultValue={
+																user?.password
+															}
+															required={true}
+															onChange={(e) =>
+																setUser({
+																	...user,
+																	[e.target
+																		.name]:
+																		e.target
+																			.value,
+																})
+															}
+														/>
+													</label>
+													<label
+														htmlFor="passwordConfirmation"
+														className="block flex-1 font-bold"
+													>
+														<input
+															className="lg:basis-1/2 bg-gray-50 border border-gray-200 rounded shadow-sm py-2 px-2 block my-4 w-full"
+															type="password"
+															placeholder="Confirm Password"
+															name="passwordConf"
+															defaultValue={
+																user?.passwordConf
+															}
+															required={true}
+															onChange={(e) =>
+																setUser({
+																	...user,
+																	[e.target
+																		.name]:
+																		e.target
+																			.value,
+																})
+															}
+														/>
+													</label>
+													<div className="sm:flex items-center justify-end">
+														<button
+															type="submit"
+															className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+															onClick={(e) => {
+																updateUser(e)
+																setShowModal(
+																	false
+																)
+															}}
+														>
+															Confirm
+														</button>
+														<button
+															type="reset"
+															className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-red-600 text-white text-base font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+															onClick={() =>
+																setShowModal(
+																	false
+																)
+															}
+														>
+															Cancel
+														</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</form>
 					<h3
 						id="modules"
