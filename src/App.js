@@ -18,7 +18,8 @@ import Programs from './components/programs'
 import ModuleHousing from './components/programs/modules/ModuleHousing'
 //Users
 import Profile from './components/users/Profile'
-import Login from './components/users/Login'
+import Login from './components/auth/Login'
+import RedirectR from './components/auth/Redirect'
 import Logout from './components/users/Logout'
 import Register from './components/users/Register'
 import UserVerify from './components/users/UserVerify'
@@ -81,9 +82,15 @@ function App() {
 							/>
 
 							<Route
-								path="/users/login"
+								path="/login"
 								exact
 								component={Login}
+							/>
+
+							<Route
+								path="/redirect"
+								exact
+								component={RedirectR}
 							/>
 
 							<Route
