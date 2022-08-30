@@ -1,23 +1,30 @@
-import { useEffect } from "react"
-import { useLocation } from "react-router";
+import { useEffect, useState } from "react"
+import { useHistory, useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 import login from "../../scripts/auth/login";
 
 const Redirect = () => {
 
     let location = useLocation();
+    let history = useHistory()
+
     useEffect(() => {
-        const query = new URLSearchParams(location.search);
-        const code = query.get("code");
+        (async () => {
+            const query = new URLSearchParams(location.search);
+            const code = query.get("code");
 
-        if (code == null) {
-            return
-        }
+            if (code == null) {
+                return
+            }
 
-        login(code)
+            const response = await login(code);
+            window.sessionStorage.setItem("accessToken", response.data.data.login.accessToken);
+            history.push('/dashboard')
+        })();
     });
 
     return <div>
-        Recieved<br/>
+        Logging in...<br/>
     </div>
 }
 

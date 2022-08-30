@@ -42,7 +42,7 @@ const Protector = ({ component: Component, ...rest }) => {
 					<Redirect
 						to={{
 							from: props.location.pathname,
-							pathname: '/users/login',
+							pathname: '/login',
 							state: {
 								from: props.location.pathname,
 								error:

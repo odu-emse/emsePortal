@@ -8,9 +8,8 @@ import axios from 'axios'
 export default async function login(code) {
     const payload = {
         query: `{
-            login(code: ${code}) {
-                accessToken,
-                refreshToken
+            login(code: "${code}") {
+                accessToken
             }
         }`
     }
